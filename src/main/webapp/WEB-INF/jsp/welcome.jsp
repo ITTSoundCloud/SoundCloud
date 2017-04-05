@@ -56,21 +56,21 @@
                 <!-- Set the first background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
                 <div class="carousel-caption">
-                    <h2><c:out value="${captionOne}"></c:out></h2>
+                    <h2></h2>
                 </div>
             </div>
             <div class="item">
                 <!-- Set the second background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
                 <div class="carousel-caption">
-                    <h2><c:out value="${captionTwo}"></c:out></h2>
+                    <h2></h2>
                 </div>
             </div>
             <div class="item">
                 <!-- Set the third background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
                 <div class="carousel-caption">
-                    <h2><c:out value="${captionThree}"></c:out></h2>
+                    <h2></h2>
                 </div>
             </div>
         </div>
@@ -90,8 +90,14 @@
 
         <div class="row">
 	            <div class="col-lg-12">
-	                <h1>Half Slider by Start Bootstrap</h1>
-	                <p>The background images for the slider are set directly in the HTML using inline CSS. The rest of the styles for this template are contained within the <code>half-slider.css</code>file.</p>
+	            <br>
+	            <br>
+	            <br>
+	            <br>
+	            <br>
+	                <h1><c:out value="${captionOne}"></c:out></h1>
+	                <p><c:out value="${captionTwo}"></c:out></p>
+	                <p><c:out value="${captionThree}"></c:out></p>
 	            </div>
 	        </div>
         </div>
