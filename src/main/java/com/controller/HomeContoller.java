@@ -7,17 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeContoller {
 	
-	private static final String WELCOME_VIEW = "welcome";
+	private static final String WELCOME_VIEW = "index";
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("/index")
 	public String welcome(Model model){
-		
-		
-		
-		model.addAttribute("captionOne", "Welcome to the jungle!");
-		model.addAttribute("captionTwo", "This is where the lion lives.");
-		model.addAttribute("captionThree", "I dunno what to say.");
-		
+			
 		return WELCOME_VIEW;
 		
 	}
