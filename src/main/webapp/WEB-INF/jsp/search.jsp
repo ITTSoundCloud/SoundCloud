@@ -18,6 +18,7 @@
 			<a href="#">Home</a>
 		</li>
 		<li id="search">
+
 			<form action="index" method="get">
 				<input type="text" name="search_text" id="search_text" placeholder="Search for songs, users and more"/>
 				<input type="submit" name="search_button" id="search_button"></a>

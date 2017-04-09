@@ -16,4 +16,12 @@ public class HomeContoller {
 		
 	}
 	
+	
+	@RequestMapping("/search_text")
+	public String search(Model model){
+			
+		return WELCOME_VIEW;
+		
+	}
+	
 }
