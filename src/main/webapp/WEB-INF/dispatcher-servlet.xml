@@ -17,5 +17,6 @@
 		<mvc:resources mapping="/static/**" location="/static/"/>
 		
 		<mvc:annotation-driven />
+		<mvc:view-controller path="/" view-name="index"/>
 
 </beans>

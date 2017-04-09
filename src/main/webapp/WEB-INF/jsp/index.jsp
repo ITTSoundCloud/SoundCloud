@@ -63,13 +63,13 @@
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
    
-    <form action="#" class="register">
-      <label for="email-register">Email:</label>
+    <form action="/SoundCloud/home" class="register" method="post">
+      <label for="email-register" >Email: </label>
       <input type="text" id="email-register">
       <label for="username">Username:</label>
-      <input type="text" id="username-register">
+      <input type="text" id="username-register" name="username">
       <label for="password-register">Password:</label>
-      <input type="password" id="password">
+      <input type="password" id="password" name="password">
       <p class="check-mark">
         <input type="checkbox" id="accept-terms">
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
