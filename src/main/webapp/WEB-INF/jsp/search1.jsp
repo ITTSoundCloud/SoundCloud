@@ -9,6 +9,7 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>

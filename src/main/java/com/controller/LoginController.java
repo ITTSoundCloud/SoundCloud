@@ -15,7 +15,7 @@ public class LoginController {
 			public String welcome(@RequestParam(value = "username") String username,
 				@RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
 			 
-			return "search";
+			return "search1";
 			 
 		 }
 	 }
