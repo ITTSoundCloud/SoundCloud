@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 	
-		@RequestMapping(value = "/home", method = RequestMethod.POST)
+		@RequestMapping(value = "/home", method = RequestMethod.GET)
 			public String welcome(@RequestParam(value = "username") String username,
 				@RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
 			 
