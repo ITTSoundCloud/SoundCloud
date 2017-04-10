@@ -14,8 +14,7 @@ public class User {
 	private String profilePic;
 	private ArrayList<Integer> likedSongs;
 	
-	public User(int userId, String userName, String email, String password) {
-		this.userId = userId;
+	public User(String userName, String email, String password) {
 		this.userName = userName;
 		this.email = email;
 		this.password = password;

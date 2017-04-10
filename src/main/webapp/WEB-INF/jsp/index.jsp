@@ -62,10 +62,16 @@
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-   
-    <form action="/SoundCloud/home" class="register" method="post">
+    
+    <form action="/SoundCloud/register" class="register" method="post">
+
+						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
+						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
+							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
+						</c:if>
+		<br>
       <label for="email-register" >Email: </label>
-      <input type="text" id="email-register">
+      <input type="text" id="email-register" name="email">
       <label for="username">Username:</label>
       <input type="text" id="username-register" name="username">
       <label for="password-register">Password:</label>
