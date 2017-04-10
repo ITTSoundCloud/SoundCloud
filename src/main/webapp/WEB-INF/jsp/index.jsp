@@ -64,7 +64,6 @@
     </form>
     
     <form action="/SoundCloud/register" class="register" method="post">
-
 						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
 						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
 							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
