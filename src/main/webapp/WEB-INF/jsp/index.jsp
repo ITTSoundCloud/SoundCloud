@@ -49,11 +49,11 @@
     </ul>
   </div><!--.popup-header-->
   <div class="popup-content">
-    <form action="#" class="sign-in">
-      <label for="email">Email:</label>
-      <input type="text" id="email">
+    <form action="/SoundCloud/login" class="sign-in">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
       <label for="password">Password:</label>
-      <input type="password" id="password">
+      <input type="password" id="password" name="password" required>
       <p class="check-mark">
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
@@ -62,19 +62,18 @@
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-    
-    <form action="/SoundCloud/register" class="register" method="post">
+    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm">
 						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
 						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
 							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
 						</c:if>
 		<br>
       <label for="email-register" >Email: </label>
-      <input type="text" id="email-register" name="email">
+      <input type="text" id="email" name="email" required>
       <label for="username">Username:</label>
-      <input type="text" id="username-register" name="username">
+      <input type="text" id="username" name="username" required>
       <label for="password-register">Password:</label>
-      <input type="password" id="password" name="password">
+      <input type="password" id="password" name="password" required>
       <p class="check-mark">
         <input type="checkbox" id="accept-terms">
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
