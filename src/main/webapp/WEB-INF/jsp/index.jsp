@@ -70,11 +70,11 @@
 						</c:if>
 		<br>
       <label for="email-register" >Email: </label>
-      <input type="text" id="email-register" name="email">
+      <input type="text" id="email-register" name="email" required>
       <label for="username">Username:</label>
-      <input type="text" id="username-register" name="username">
+      <input type="text" id="username-register" name="username" required>
       <label for="password-register">Password:</label>
-      <input type="password" id="password" name="password">
+      <input type="password" id="password" name="password" required>
       <p class="check-mark">
         <input type="checkbox" id="accept-terms">
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>

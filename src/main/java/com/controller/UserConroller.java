@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.db.UserDAO;
+import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.User;
 import com.validators.EmailValidator;
 import com.validators.PasswordValidator;
@@ -30,7 +31,6 @@ public class UserConroller {
 
         if (validateRegister(model, username, password, email)) {
         	user = new User(username, email, password);
-        	System.out.println(user.getEmail());
             if (!UserDAO.getInstance().saveUser(user)) {
             	model.addAttribute("ErrorRegMessage", "Cannot register.");
 			}
@@ -42,6 +42,20 @@ public class UserConroller {
             return "index";
          
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String welcome(
+		@RequestParam(value = "username") String username,
+		@RequestParam(value = "password") String password,
+		HttpServletRequest request, Model model) {
+
+            if (!UserDAO.getInstance().isValidLogin(username, password)) {
+            	model.addAttribute("ErrorRegMessage", "Cannot login.");
+            	return "index";
+			}
+            	return "search";                                                   
+	}
+
 	
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
