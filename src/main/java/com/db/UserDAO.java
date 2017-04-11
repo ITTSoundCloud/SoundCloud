@@ -17,6 +17,7 @@ public class UserDAO {
 		return instance;
 	}
 	
+	//insert user
 	public synchronized boolean saveUser(User user) {
 
 		PreparedStatement statement = null;
@@ -52,12 +53,12 @@ public class UserDAO {
 	}
 	
 	
-	
+	//login validation
 	public boolean isValidLogin(String username, String password) {
 		PreparedStatement ps = null;
 		
 		try {
-			DBManager.getInstance().getConnection().prepareStatement("SELECT username, password "
+			ps = DBManager.getInstance().getConnection().prepareStatement("SELECT username, password "
 					+ "FROM soundcloud.users WHERE username = ? AND password = ?");
 			
 			ps.setString(1, username);
@@ -87,6 +88,132 @@ public class UserDAO {
 		}
 		return true;
 	}
+	
+	//update name of the user
+	public void editName(String username, String newName){
+
+        PreparedStatement ps = null;
+        try {
+        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.users SET name = ? WHERE username = ?");
+        	
+            ps.setString(1, newName);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println("User name cannot be update.");
+			e.printStackTrace();
+		} finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in editName() method ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+	
+	//update country
+	public void editCountry(String username, String newCountry){
+
+        PreparedStatement ps = null;
+        try {
+        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.users SET country = ? WHERE username = ?");
+        	
+            ps.setString(1, newCountry);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println("Country cannot be update.");
+			e.printStackTrace();
+		} finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in editCountry() method ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+	
+	//update description
+	public void editDescription(String username, String newDescription){
+
+        PreparedStatement ps = null;
+        try {
+        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.users SET description = ? WHERE username = ?");
+        	
+            ps.setString(1, newDescription);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println("Description cannot be update.");
+			e.printStackTrace();
+		} finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in editDescription() method ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+	
+	//update photo path
+	public void editPhoto(int userId, String newPhotoPath){
+
+        PreparedStatement ps = null;
+        try {
+        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.users SET profilephoto_path = ? WHERE user_id =?");
+        	
+            ps.setString(1, newPhotoPath);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println("Photo path cannot be update.");
+			e.printStackTrace();
+		} finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in editPhoto() method ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+	
+	//update password
+	public void editPassword(int userId, String newPassword){
+
+        PreparedStatement ps = null;
+        try {
+        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.users SET password=? WHERE user_id=?");
+        	
+            ps.setString(1, newPassword);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println("Photo path cannot be update.");
+			e.printStackTrace();
+		} finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in editPhoto() method ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+	
 	
 
 }
