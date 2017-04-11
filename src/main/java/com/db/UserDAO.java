@@ -18,11 +18,12 @@ public class UserDAO {
 	}
 	
 	public synchronized boolean saveUser(User user) {
+
 		PreparedStatement statement = null;
 		try {
 			String sql = "INSERT INTO users (email,username,password)"
 					+ "VALUES(?,?,?)";
-			DBManager.getInstance().getConnection().prepareStatement(sql);
+			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
 			
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getUserName());
