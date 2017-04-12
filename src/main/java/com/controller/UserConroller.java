@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.db.UserDAO;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
@@ -29,6 +30,7 @@ public class UserConroller {
 		@RequestParam(value = "email") String email,
 		HttpServletRequest request, Model model) {
 			
+		System.out.println("query made");
 		User user = null;
 
         if (validateRegister(model, username, password, email)) {
@@ -91,6 +93,32 @@ public class UserConroller {
         }      
         return true;
     }
+	
+	@ResponseBody
+	@RequestMapping(value="/validateUser", method = RequestMethod.POST)
+	public boolean validateUser(@RequestParam(value = "username") String username){
+	
+		System.out.println(username);
+//		System.out.println("validation for " + req.getParameter("username"));
+		return UsernameValidator.validate(username);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/validateEmail", method = RequestMethod.POST)
+	public boolean validateEmail(HttpServletRequest req){
+		System.out.println("validation for " + req.getParameter("email"));
+		
+		return EmailValidator.validate(req.getParameter("email"));
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/validatePassword", method = RequestMethod.POST)
+	public boolean validatePassword(HttpServletRequest req){
+		System.out.println("validation for " + req.getParameter("password"));
+	
+		return PasswordValidator.validate(req.getParameter("password"));
+	}
 	
 
 }

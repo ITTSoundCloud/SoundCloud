@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 
 public class PasswordValidator {
 
-	private Pattern pattern;
-	private Matcher matcher;
+	private static Pattern pattern;
+	private static Matcher matcher;
 
 	private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{5,}$";
 	
@@ -14,8 +14,8 @@ public class PasswordValidator {
 		this.pattern = Pattern.compile(PASSWORD_PATTERN);
 	}
 	
-	public boolean validate(final String password){	
-		this.matcher = this.pattern.matcher(password);
+	public static boolean validate(final String password){	
+		matcher = pattern.matcher(password);
 		return matcher.matches();	
 	}
 	
