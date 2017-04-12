@@ -118,6 +118,7 @@ public class UserConroller {
 		System.out.println("validation for " + req.getParameter("password"));
 	
 		return PasswordValidator.validate(req.getParameter("password"));
+
 	}
 	
 

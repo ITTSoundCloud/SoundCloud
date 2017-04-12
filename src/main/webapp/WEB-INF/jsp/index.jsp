@@ -27,10 +27,7 @@
        			if(result==true){
        				document.getElementById('myForm').submit();
        			}
-       			else{
-       				
-       				
-       			}
+
 	    });
 		
 		alert("why do u skip");
@@ -41,6 +38,7 @@
 		//if invalid - return false
 	}
 	</script>
+
 	
 	
 <script>
