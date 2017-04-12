@@ -49,6 +49,7 @@
     </ul>
   </div><!--.popup-header-->
   <div class="popup-content">
+
     <form action="/SoundCloud/login" class="sign-in" method="post">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>

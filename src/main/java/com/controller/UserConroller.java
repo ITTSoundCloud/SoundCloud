@@ -3,7 +3,9 @@ package com.controller;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,11 +50,14 @@ public class UserConroller {
 		@RequestParam(value = "username") String username,
 		@RequestParam(value = "password") String password,
 		HttpServletRequest request, Model model) {
-
+			System.out.println(username);
+			System.out.println(password);
+			User user = null;
             if (!UserDAO.getInstance().isValidLogin(username, password)) {
             	model.addAttribute("ErrorRegMessage", "Cannot login.");
             	return "index";
 			}
+            
             	return "search";                                                   
 	}
 

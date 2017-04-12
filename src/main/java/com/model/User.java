@@ -2,6 +2,9 @@ package com.model;
 
 import java.util.ArrayList;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 public class User {
 	
 	private int userId;
