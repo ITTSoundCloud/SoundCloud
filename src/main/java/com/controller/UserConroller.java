@@ -51,7 +51,7 @@ public class UserConroller {
 	public String welcome(
 		@RequestParam(value = "username") String username,
 		@RequestParam(value = "password") String password,
-		HttpServletRequest request, Model model) {
+		HttpServletRequest request, Model model, HttpSession session) {
 			System.out.println(username);
 			System.out.println(password);
 			User user = null;
@@ -59,8 +59,8 @@ public class UserConroller {
             	model.addAttribute("ErrorRegMessage", "Cannot login.");
             	return "index";
 			}
-            
-            	return "search";                                                   
+            session.setAttribute("username", username);
+            return "search1";                                                   
 	}
 
 	
