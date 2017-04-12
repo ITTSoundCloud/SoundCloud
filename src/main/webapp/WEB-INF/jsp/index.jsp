@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<link href="<c:url value="/static/css/indexCss.css" />" rel="stylesheet" type="text/css">
 	 <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
@@ -15,6 +15,28 @@
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 	
+	<script type="text/javascript">
+	function maikati(){
+		alert("now we make validation request");
+		$.post("validateUser", 
+				{ 
+					username: "userIvan"
+				}
+				, function(result){
+       				alert(result);
+       			if(result==true){
+       				document.getElementById('myForm').submit();
+       			}
+	    });
+		
+		alert("why do u skip");
+		return false;
+		//make request to server for valid reg data
+		//handle response
+		//if valid - return true;
+		//if invalid - return false
+	}
+	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	
@@ -62,7 +84,7 @@
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm">
+    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm" onSubmit="return maikati()">
 						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
 						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
 							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
@@ -78,7 +100,7 @@
         <input type="checkbox" id="accept-terms">
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
       </p>
-      <input type="submit" id="submit" value="Create Account">
+      <input type="submit" id="lll" value="Create Account">
     </form>
   </div><!--.popup-content-->
 </div><!--.main-popup-->
