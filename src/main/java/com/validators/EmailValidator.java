@@ -13,26 +13,32 @@ public class EmailValidator {
 	
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
+		//if exist in database returns false 
 		public static boolean validate(String emailStr) {
 		        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-		        String query = "select email from users ";
-		        ArrayList<String> usersEmails = new ArrayList<>();
+		        String query = "select email from soundcloud.users where email = ?;";
+		        PreparedStatement ps = null;
+
 				try {
-				    PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(query);
+				    ps = DBManager.getInstance().getConnection().prepareStatement(query);
+				    ps.setString(1, emailStr);
 					ResultSet rs;
 					rs = ps.executeQuery();
-					while(rs.next()){
-						usersEmails.add(rs.getString("email"));
+					if(rs.next()){
+						return false;
 					}
-					for (String child : usersEmails) {
-						if(child.equals(emailStr)){
-							return false;
+				}
+				catch(SQLException e){
+					System.out.println(e.getMessage());
+				}
+				finally{
+					if(ps !=null){
+						try {
+							ps.close();
+						} catch (SQLException e) {							
+							e.printStackTrace();
 						}
 					}
-				} catch (SQLException e) {
-					
-					e.printStackTrace();
 				}
 				
 		        return matcher.find();

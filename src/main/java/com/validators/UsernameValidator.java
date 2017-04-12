@@ -15,11 +15,11 @@ public class UsernameValidator {
 		 PreparedStatement ps = null;
 		 System.out.println("V bazata sme" + username);
 		try {
-		     ps = DBManager.getInstance().getConnection().prepareStatement(query);
+		    ps = DBManager.getInstance().getConnection().prepareStatement(query);
 		    ps.setString(1, username);
 			ResultSet rs;
 			rs = ps.executeQuery();
-			if(!(rs.next())){
+			if(!rs.next()){
 				return true;
 			}
 		}

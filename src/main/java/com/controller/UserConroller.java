@@ -99,16 +99,16 @@ public class UserConroller {
 	public boolean validateUser(@RequestParam(value = "username") String username){
 	
 		System.out.println(username);
-//		System.out.println("validation for " + req.getParameter("username"));
+		System.out.println("validation for " + username);
 		return UsernameValidator.validate(username);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/validateEmail", method = RequestMethod.POST)
-	public boolean validateEmail(HttpServletRequest req){
-		System.out.println("validation for " + req.getParameter("email"));
+	public boolean validateEmail(@RequestParam(value = "email") String email){
+		System.out.println("validation for " + email);
 		
-		return EmailValidator.validate(req.getParameter("email"));
+		return EmailValidator.validate(email);
 	}
 	
 	
@@ -117,7 +117,8 @@ public class UserConroller {
 	public boolean validatePassword(HttpServletRequest req){
 		System.out.println("validation for " + req.getParameter("password"));
 	
-		return PasswordValidator.validate(req.getParameter("password"));
+		//return PasswordValidator.validate(req.getParameter("password"));
+		return true;
 
 	}
 	

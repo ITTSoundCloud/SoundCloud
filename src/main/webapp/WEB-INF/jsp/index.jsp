@@ -15,7 +15,7 @@
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 	
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 	function maikati(){
 		alert("now we make validation request");
 		$.post("validateUser", 
@@ -37,7 +37,7 @@
 		//if valid - return true;
 		//if invalid - return false
 	}
-	</script>
+	</script> -->
 
 	
 	
@@ -82,7 +82,7 @@ function myFunction3() {
    		
     });
 }
-</script>
+</script> 
 
 <script>
 function myFunction2() {
