@@ -55,14 +55,14 @@ public class UserDAO {
 	
 	public boolean isValidLogin(String username, String password) {
 		PreparedStatement ps = null;
-		
+		String sql = "SELECT username, password "
+				+ "FROM soundcloud.users WHERE username = ? AND password = ?;";
 		try {
-			DBManager.getInstance().getConnection().prepareStatement("SELECT username, password "
-					+ "FROM soundcloud.users WHERE username = ? AND password = ?");
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			
 			ps.setString(1, username);
 			ps.setString(2, password);
-			
+			System.out.println("v igrata");
 			System.out.println(username);
 			System.out.println(password);
 			

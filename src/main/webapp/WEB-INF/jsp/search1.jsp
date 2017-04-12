@@ -40,7 +40,15 @@
 						</c:when>
 						<c:otherwise>
 						
-							<!-- TODO -->
+							<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile<i class="fa fa-angle-down"></i></a>
+									<ul class="dropdown-menu">
+										<li><a href="profile_page-${sessionScope.username}">Profile</a></li>
+										<li><a href="likes">Likes</a></li>
+										<li><a href="following">Following</a></li>
+										<li><a href="log_out">Log out</a></li>
+									</ul>
+								</li>
 						
 						</c:otherwise>
 					</c:choose>

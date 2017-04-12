@@ -49,7 +49,7 @@
     </ul>
   </div><!--.popup-header-->
   <div class="popup-content">
-    <form action="/SoundCloud/login" class="sign-in">
+    <form action="/SoundCloud/login" class="sign-in" method="post">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
       <label for="password">Password:</label>
@@ -138,6 +138,16 @@
     </div>
   </section>
 </div>
+
+<script>
+function myFunction() {
+    var x = document.getElementById('errorMsg');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+     }
+}
+</script>
+
 
 </body>
 </html>

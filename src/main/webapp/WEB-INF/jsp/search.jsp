@@ -38,7 +38,7 @@
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
-						
+							<button type="submit" class="btn btn-warning">Logged in</button>
 							<!-- TODO -->
 						
 						</c:otherwise>
@@ -68,7 +68,7 @@
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a href="#"><span class="glyphicon glyphicon-search"></span> Everything</a></li></br>  
+	            <li><a onclick="myFunction()" id = "demo" href="#"><span class="glyphicon glyphicon-search"></span> Everything</a></li></br>  
 	            <li><a href="#"><span class="glyphicon glyphicon-music"></span> Tracks</a></li></br>
 	            <li><a href="#"><span class="glyphicon glyphicon-user"></span> People</a></li>
 	        </ul>
@@ -91,6 +91,13 @@
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
+    
+    <script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Hello World
+    ";
+}
+</script>
 
 	
 </body>
