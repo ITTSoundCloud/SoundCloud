@@ -38,18 +38,16 @@
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
-						<c:otherwise>
-						
+						<c:otherwise>			
 							<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile<i class="fa fa-angle-down"></i></a>
-									<ul class="dropdown-menu">
-										<li><a href="profile_page-${sessionScope.username}">Profile</a></li>
-										<li><a href="likes">Likes</a></li>
-										<li><a href="following">Following</a></li>
-										<li><a href="log_out">Log out</a></li>
-									</ul>
-								</li>
-						
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						          <ul class="dropdown-menu">
+						            <li><a href="#">Profile</a></li>
+						            <li><a href="#">Followers</a></li>
+						            <li role="separator" class="divider"></li>
+						            <li><a href="#">Log out</a></li>
+						          </ul>
+		       				 </li>  
 						</c:otherwise>
 					</c:choose>
 			       </ul>
