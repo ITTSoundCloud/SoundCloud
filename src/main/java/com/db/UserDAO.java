@@ -3,6 +3,8 @@ package com.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.model.User;
 
@@ -212,6 +214,136 @@ public class UserDAO {
         }
     }
 	
+	
+	
+	   public boolean followUser(int follower_id, int followed_id) throws SQLException {
+		   
+	        String sql = "insert into soundcloud.who_follows_who (follower_id, followed_id) values (?,?);";
+	        PreparedStatement ps = null;
+	        try {
+	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+	            ps.setInt(1, follower_id);
+	            ps.setInt(2, followed_id);
+	            int rowsAff = ps.executeUpdate();
+	            if(rowsAff > 0){
+	            	return true;
+	            }
+	        } 
+	        finally {
+	            if (ps != null) {
+	                try {
+	                    ps.close();
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                }
+	            }
+	        }
+	        
+	     return false;
+
+	    }
+	   
+	   
+	   
+	   public boolean unfollow(int follower_id, int followed_id) throws SQLException {
+	        String sql = "delete from soundcloud.who_follows_who where follower_id = ? AND followed_id = ?;";
+	        PreparedStatement ps = null;
+	        
+	        try {
+	        	ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+	            ps.setInt(1, follower_id);
+	            ps.setInt(2, followed_id);
+	            
+	            int rowsAff = ps.executeUpdate();
+	            
+	            if(rowsAff > 0){
+	            	return true;
+	            }
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+				
+			}
+	         finally {
+	        	
+	            if (ps != null) {
+	                try {
+	                    ps.close();
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                }
+	            }
+	        }
+	       return false;
+	    }
+	   
+	   
+	   
+	   public List<Integer> getFollowing(int follower_id) {
+	        
+	        String sql = "select followed_id from soundcloud.who_follows_who where follower_id = ?;";
+	        		
+	        ArrayList<Integer> following = new ArrayList<>();
+	        PreparedStatement ps = null;
+	        
+	        try {
+	        	ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+	            ps.setInt(1, follower_id);
+	            
+	            ResultSet rs = ps.executeQuery();
+	            
+	            while (rs.next()) {
+	                following.add(rs.getInt("followed_id"));
+	            }
+	            
+	        } catch (SQLException e) {
+	            System.out.println("Error with getting following UserDAO");
+	            e.printStackTrace();
+	            
+	        } finally {
+	            if (ps != null) {
+	                try {
+	                    ps.close();
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	        return following;
+	    }
+	   
+	
+	   
+	   public List<Integer> getFollowers(int followed_id) {
+	        
+	        String sql = "select follower_id from soundcloud.who_follows_who where followed_id = ?;";
+	        
+	        ArrayList<Integer> followers = new ArrayList();
+	        PreparedStatement ps = null;
+	        try {
+	        	ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+	            ps.setInt(1, followed_id);
+	            ResultSet rs = ps.executeQuery();
+	            
+	            while (rs.next()) {
+	                followers.add(rs.getInt("follower_id"));
+	            }
+	        } 
+	        catch (SQLException e) {
+	            System.out.println("Error getting followers of user.");    
+	        }
+	        finally {
+	            if (ps != null) {
+	                try {
+	                    ps.close();
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                    
+	                }
+	            }
+	        }
+	        return followers;
+	    }
 	
 
 }
