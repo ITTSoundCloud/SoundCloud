@@ -25,7 +25,9 @@
 		alert("now we make validation request");
 		$.post("validateEverything", 
 				{ 
-					username: "userIvan"
+					username: x.value,
+					password: z.value,
+					email: y.value
 					
 					
 				}
@@ -101,11 +103,6 @@
     <font id="error" size="1" color="red">
 	
 </font>
-						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
-						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
-							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
-						</c:if>
-		<br>
       <label for="email-register" >Email: </label>
       <input type="text" id="email" name="email" required onblur="myFunction2()">
       <label for="username-register">Username:</label>
@@ -177,38 +174,6 @@
   </section>
 </div>
 
-
-
-<script>
-function myFunctionButton() {
-    var x = document.getElementById("username");
-    var y = document.getElementById("email");
-    var z = document.getElementById("password");
-    alert("zashto ne izkarva");
-    $.post("validateEverything", 
-			{ 
-				username: x.value
-				email : y.value
-				password: z.value
-				alert("zashto ne izkarva");
-			}
-			, function(result){
-				if(result==true){
-					alert(x);
-					alert(y);
-					alert(z);
-					alert(result);
-	       			document.getElementById('myForm').submit();
-	       	}
-			else{
-				return false;	
-			}
-			alert("why do u skip");
-			return false;
-    });
-   
-}
-</script>
 
 <script>
 function myFunction1() {
