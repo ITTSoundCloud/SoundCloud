@@ -42,7 +42,7 @@ public class UserConroller {
             	model.addAttribute("ErrorRegMessage", "Cannot register.");
 			}
             else{
-            	return "home";
+            	return "search1";
             }
                                                
         } 
@@ -134,7 +134,8 @@ public class UserConroller {
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "email") String email,
 			HttpServletRequest request, Model model){
-		return EmailValidator.validate(email) && UsernameValidator.validate(username) && true;
+		System.out.println(EmailValidator.validate(email) + " " + UsernameValidator.validate(username));
+		return (EmailValidator.validate(email) && UsernameValidator.validate(username) && true);
 	}
 	
 	

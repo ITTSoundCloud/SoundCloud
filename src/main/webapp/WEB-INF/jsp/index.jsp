@@ -25,9 +25,9 @@
 		alert("now we make validation request");
 		$.post("validateEverything", 
 				{ 
-					username: "userIvan"
-					
-					
+					username: x.value,
+					email: y.value,
+					password: z.value
 				}
 				, function(result){
        				alert(result);
@@ -100,11 +100,7 @@
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return maikati()">
     <font id="error" size="1" color="red">
 	
-</font>
-						<c:set var="ErrorRegMessage" scope="request" value="${ErrorRegMessage}"/>
-						<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
-							<font size="1" color="red"><c:out value="${ErrorRegMessage}"/></font>
-						</c:if>
+</font>				
 		<br>
       <label for="email-register" >Email: </label>
       <input type="text" id="email" name="email" required onblur="myFunction2()">
@@ -187,8 +183,8 @@ function myFunctionButton() {
     alert("zashto ne izkarva");
     $.post("validateEverything", 
 			{ 
-				username: x.value
-				email : y.value
+				username: x.value,
+				email : y.value,
 				password: z.value
 				alert("zashto ne izkarva");
 			}
@@ -212,11 +208,11 @@ function myFunctionButton() {
 
 <script>
 function myFunction1() {
-    var y = document.getElementById("username");
+    var x = document.getElementById("username");
     
     $.post("validateUser", 
 			{ 
-				username: y.value
+				username: x.value
 			}
 			, function(result){
 			if(!result){
