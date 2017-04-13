@@ -135,7 +135,7 @@ public class UserConroller {
 			@RequestParam(value = "email") String email,
 			HttpServletRequest request, Model model){
 		return EmailValidator.validate(email) && UsernameValidator.validate(username) && true;
-
 	}
+	
 	
 }

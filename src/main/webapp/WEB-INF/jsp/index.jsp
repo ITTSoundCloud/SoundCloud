@@ -15,12 +15,19 @@
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 	
-<!-- 	<script type="text/javascript">
+	<script type="text/javascript">
 	function maikati(){
+		
+			var x = document.getElementById("username");
+		    var y = document.getElementById("email");
+		    var z = document.getElementById("password");
+		    
 		alert("now we make validation request");
-		$.post("validateUser", 
+		$.post("validateEverything", 
 				{ 
 					username: "userIvan"
+					
+					
 				}
 				, function(result){
        				alert(result);
@@ -37,54 +44,8 @@
 		//if valid - return true;
 		//if invalid - return false
 	}
-	</script> -->
+	</script>
 
-	
-	
-
-
-
-
-
-<script>
-function myFunction3() {
-    var x = document.getElementById("password");
-  
-    $.post("validatePassword", 
-			{ 
-				password: x.value
-			}
-			, function(result){
-			if(!result){
-				document.getElementById('error').innerHTML = "<h4 class='error'>Invalid password.</h4>"
-			}
-			else{
-				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"	
-			}	
-   		
-    });
-}
-</script> 
-
-<script>
-function myFunction2() {
-    var x = document.getElementById("email");
-    $.post("validateEmail", 
-			{ 
-				email: x.value
-			}
-			, function(result){
-			if(!result){
-				document.getElementById('error').innerHTML = "<h4 class='error'>Invalid email.</h4>"
-			}
-			else{
-				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"
-				
-			}	
-   		
-    });
-}
-</script>
 
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -136,7 +97,7 @@ function myFunction2() {
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm">
+    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return maikati()">
     <font id="error" size="1" color="red">
 	
 </font>
@@ -215,6 +176,100 @@ function myFunction2() {
     </div>
   </section>
 </div>
+
+
+
+<script>
+function myFunctionButton() {
+    var x = document.getElementById("username");
+    var y = document.getElementById("email");
+    var z = document.getElementById("password");
+    alert("zashto ne izkarva");
+    $.post("validateEverything", 
+			{ 
+				username: x.value
+				email : y.value
+				password: z.value
+				alert("zashto ne izkarva");
+			}
+			, function(result){
+				if(result==true){
+					alert(x);
+					alert(y);
+					alert(z);
+					alert(result);
+	       			document.getElementById('myForm').submit();
+	       	}
+			else{
+				return false;	
+			}
+			alert("why do u skip");
+			return false;
+    });
+   
+}
+</script>
+
+<script>
+function myFunction1() {
+    var y = document.getElementById("username");
+    
+    $.post("validateUser", 
+			{ 
+				username: y.value
+			}
+			, function(result){
+			if(!result){
+				document.getElementById('error').innerHTML = "<h4 class='error'>Already taken username.</h4>"
+			}
+			else{
+				document.getElementById('error').innerHTML = "<h4 class='error'>Ok.</h4>"
+			
+			}
+    });
+}
+</script>
+
+<script>
+
+function myFunction3() {
+    var x = document.getElementById("password");
+  
+    $.post("validatePassword", 
+			{ 
+				password: x.value
+			}
+			, function(result){
+			if(!result){
+				document.getElementById('error').innerHTML = "<h4 class='error'>Invalid password.</h4>"
+			}
+			else{
+				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"	
+			}	
+   		
+    });
+}
+</script> 
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("email");
+    $.post("validateEmail", 
+			{ 
+				email: x.value
+			}
+			, function(result){
+			if(!result){
+				document.getElementById('error').innerHTML = "<h4 class='error'>Invalid email.</h4>"
+			}
+			else{
+				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"
+				
+			}	
+   		
+    });
+}
+</script>
 
 <script>
 function myFunction() {

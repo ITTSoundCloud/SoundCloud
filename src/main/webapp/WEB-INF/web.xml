@@ -18,10 +18,5 @@
 		<welcome-file>index</welcome-file>
 	</welcome-file-list>
 	
-	
-	 <welcome-file-list>
-    <welcome-file>UploadForm.jsp</welcome-file>
-  </welcome-file-list>
-</web-app>
 
 </web-app>
