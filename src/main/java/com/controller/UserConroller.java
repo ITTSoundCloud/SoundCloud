@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Validator;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,12 @@ import com.validators.EmailValidator;
 import com.validators.PasswordValidator;
 import com.validators.UsernameValidator;
 
+
 @Controller
 @MultipartConfig
 public class UserConroller {
+	
+	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String welcome(
@@ -122,8 +126,7 @@ public class UserConroller {
 	public boolean validatePassword(HttpServletRequest req){
 		System.out.println("validation for " + req.getParameter("password"));
 	
-		//return PasswordValidator.validate(req.getParameter("password"));
-		return true;
+		return this.passValidator.validate(req.getParameter("password"));
 
 	}
 	
@@ -135,7 +138,7 @@ public class UserConroller {
 			@RequestParam(value = "email") String email,
 			HttpServletRequest request, Model model){
 		System.out.println("vika li");
-		return EmailValidator.validate(email) && UsernameValidator.validate(username) && true;
+		return EmailValidator.validate(email) && UsernameValidator.validate(username) && passValidator.validate(password);
 	}
 	
 	

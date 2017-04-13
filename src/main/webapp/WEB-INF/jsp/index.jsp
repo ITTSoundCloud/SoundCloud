@@ -16,35 +16,27 @@
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 	
 	<script type="text/javascript">
-	function maikati(){
+	function validateRequest(){
 		
 			var x = document.getElementById("username");
 		    var y = document.getElementById("email");
 		    var z = document.getElementById("password");
 		    
-		alert("now we make validation request");
 		$.post("validateEverything", 
 				{ 
 					username: x.value,
 					password: z.value,
 					email: y.value
-					
-					
+									
 				}
 				, function(result){
-       				alert(result);
        			if(result==true){
        				document.getElementById('myForm').submit();
        			}
-
 	    });
 		
-		alert("why do u skip");
 		return false;
-		//make request to server for valid reg data
-		//handle response
-		//if valid - return true;
-		//if invalid - return false
+
 	}
 	</script>
 
@@ -99,7 +91,7 @@
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return maikati()">
+    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
     <font id="error" size="1" color="red">
 	
 </font>
