@@ -82,9 +82,9 @@
     <form action="/SoundCloud/login" class="sign-in" method="post">
     
       <label for="username">Username:</label>
-      <input type="text" id="username-login" name="username" required>
+      <input type="text" id="username-login" name="username-login" required>
       <label for="password">Password:</label>
-      <input type="password" id="password-login" name="password" required>
+      <input type="password" id="password-login" name="password-login" required>
       <p class="check-mark">
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
