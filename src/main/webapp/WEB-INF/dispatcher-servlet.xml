@@ -14,6 +14,25 @@
 		<property name="suffix" value=".jsp"></property>
 		</bean>
 		
+		<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes -->
+        <property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
+         
+        <!-- max size of file in memory (in bytes) -->
+        <property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+ 
+    	</bean>
+     
+    	<bean
+        class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">Error</prop>
+            </props>
+        </property>
+    	</bean>   
+		
 		<mvc:resources mapping="/static/**" location="/static/"/>
 		
 		<mvc:annotation-driven />
