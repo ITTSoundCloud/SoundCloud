@@ -41,25 +41,7 @@
 
 	
 	
-<script>
-function myFunction1() {
-    var y = document.getElementById("username");
-    
-    $.post("validateUser", 
-			{ 
-				username: y.value
-			}
-			, function(result){
-			if(!result){
-				document.getElementById('error').innerHTML = "<h4 class='error'>Already taken username.</h4>"
-			}
-			else{
-				document.getElementById('error').innerHTML = "<h4 class='error'>Ok.</h4>"
-			
-			}
-    });
-}
-</script>
+
 
 
 
@@ -143,9 +125,9 @@ function myFunction2() {
     <form action="/SoundCloud/login" class="sign-in" method="post">
     
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+      <input type="text" id="username-login" name="username-login" required>
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password-login" name="password-login" required>
       <p class="check-mark">
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
