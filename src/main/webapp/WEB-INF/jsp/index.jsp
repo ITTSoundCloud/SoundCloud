@@ -15,12 +15,19 @@
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 	
-<!-- 	<script type="text/javascript">
+	<script type="text/javascript">
 	function maikati(){
+		
+			var x = document.getElementById("username");
+		    var y = document.getElementById("email");
+		    var z = document.getElementById("password");
+		    
 		alert("now we make validation request");
-		$.post("validateUser", 
+		$.post("validateEverything", 
 				{ 
 					username: "userIvan"
+					
+					
 				}
 				, function(result){
        				alert(result);
@@ -37,10 +44,7 @@
 		//if valid - return true;
 		//if invalid - return false
 	}
-	</script> -->
-
-	
-	
+	</script>
 
 
 	
@@ -93,7 +97,7 @@
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
-    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm">
+    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return maikati()">
     <font id="error" size="1" color="red">
 	
 </font>
@@ -172,6 +176,39 @@
     </div>
   </section>
 </div>
+
+
+
+<script>
+function myFunctionButton() {
+    var x = document.getElementById("username");
+    var y = document.getElementById("email");
+    var z = document.getElementById("password");
+    alert("zashto ne izkarva");
+    $.post("validateEverything", 
+			{ 
+				username: x.value
+				email : y.value
+				password: z.value
+				alert("zashto ne izkarva");
+			}
+			, function(result){
+				if(result==true){
+					alert(x);
+					alert(y);
+					alert(z);
+					alert(result);
+	       			document.getElementById('myForm').submit();
+	       	}
+			else{
+				return false;	
+			}
+			alert("why do u skip");
+			return false;
+    });
+   
+}
+</script>
 
 <script>
 function myFunction1() {

@@ -2,6 +2,7 @@ package com.controller;
 
 import java.sql.SQLException;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.db.UserDAO;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
@@ -21,6 +23,7 @@ import com.validators.PasswordValidator;
 import com.validators.UsernameValidator;
 
 @Controller
+@MultipartConfig
 public class UserConroller {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -62,6 +65,8 @@ public class UserConroller {
             session.setAttribute("username", username);
             return "search1";                                                   
 	}
+	
+	
 
 	
 	
@@ -122,5 +127,15 @@ public class UserConroller {
 
 	}
 	
-
+	
+	@ResponseBody
+	@RequestMapping(value="/validateEverything", method = RequestMethod.POST)
+	public boolean validateEverything(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "email") String email,
+			HttpServletRequest request, Model model){
+		return EmailValidator.validate(email) && UsernameValidator.validate(username) && true;
+	}
+	
+	
 }
