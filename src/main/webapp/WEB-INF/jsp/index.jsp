@@ -28,6 +28,7 @@
 					username: x.value,
 					email: y.value,
 					password: z.value
+					
 				}
 				, function(result){
        				alert(result);
@@ -99,9 +100,7 @@
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return maikati()">
     <font id="error" size="1" color="red">
-	
-</font>				
-		<br>
+</font>
       <label for="email-register" >Email: </label>
       <input type="text" id="email" name="email" required onblur="myFunction2()">
       <label for="username-register">Username:</label>
@@ -173,38 +172,6 @@
   </section>
 </div>
 
-
-
-<script>
-function myFunctionButton() {
-    var x = document.getElementById("username");
-    var y = document.getElementById("email");
-    var z = document.getElementById("password");
-    alert("zashto ne izkarva");
-    $.post("validateEverything", 
-			{ 
-				username: x.value,
-				email : y.value,
-				password: z.value
-				alert("zashto ne izkarva");
-			}
-			, function(result){
-				if(result==true){
-					alert(x);
-					alert(y);
-					alert(z);
-					alert(result);
-	       			document.getElementById('myForm').submit();
-	       	}
-			else{
-				return false;	
-			}
-			alert("why do u skip");
-			return false;
-    });
-   
-}
-</script>
 
 <script>
 function myFunction1() {

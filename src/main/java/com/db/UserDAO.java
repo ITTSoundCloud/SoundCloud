@@ -345,5 +345,27 @@ public class UserDAO {
 	        return followers;
 	    }
 	   
+	   
+	   public void addProfilePicture(int user_id, String photo) throws SQLException {
+	        String sql = "update soundcloud.users set profilePhoto_path = ? where user_id = ?;";
+	        PreparedStatement ps = null;
+	        try {
+	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+	            ps.setString(1, photo);
+	            ps.setInt(2, user_id);
+	            ps.executeUpdate();
+	        } finally {
+	            if (ps != null) {
+	                try {
+	                    ps.close();
+	                } catch (SQLException e) {
+	                    System.out.println("Error in UserDAO");
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+
+	    }
+
 
 }
