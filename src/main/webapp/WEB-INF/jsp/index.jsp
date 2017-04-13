@@ -25,9 +25,15 @@
 		$.post("validateEverything", 
 				{ 
 					username: x.value,
+<<<<<<< HEAD
+					email: y.value,
+					password: z.value
+					
+=======
 					password: z.value,
 					email: y.value
 									
+>>>>>>> c95a48504ad44cab4d7d38afbd8000b053f2e6bd
 				}
 				, function(result){
        			if(result==true){
@@ -93,7 +99,6 @@
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
     <font id="error" size="1" color="red">
-	
 </font>
       <label for="email-register" >Email: </label>
       <input type="text" id="email" name="email" required onblur="myFunction2()">
@@ -169,11 +174,11 @@
 
 <script>
 function myFunction1() {
-    var y = document.getElementById("username");
+    var x = document.getElementById("username");
     
     $.post("validateUser", 
 			{ 
-				username: y.value
+				username: x.value
 			}
 			, function(result){
 			if(!result){
