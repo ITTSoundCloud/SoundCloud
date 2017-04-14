@@ -25,6 +25,37 @@ public class User {
 		
 	}
 	
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public void setLikedSongs(ArrayList<Integer> likedSongs) {
+		this.likedSongs = likedSongs;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
 	public void likeSong(Song song){
 		likedSongs.add(song.getSongId());
 	}
