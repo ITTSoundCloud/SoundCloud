@@ -46,7 +46,7 @@
 	</script>
 	
 		<script type="text/javascript">
-	function validateLoginRequest(){
+	function validateRequestLogin(){
 		
 			var x = document.getElementById("username-login");
 		    var y = document.getElementById("password-login");
@@ -136,7 +136,7 @@
   </div><!--.popup-header-->
   <div class="popup-content">
 
-    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm"  >
+    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()" >
     <div id="errorMsg" size="1" color="red">
     </div>
       <label for="username">Username:</label>

@@ -9,6 +9,7 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -75,9 +76,9 @@
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a href="#"><span class="glyphicon glyphicon-search"></span> Everything</a></li></br>  
-	            <li><a href="#"><span class="glyphicon glyphicon-music"></span> Tracks</a></li></br>
-	            <li><a href="#"><span class="glyphicon glyphicon-user"></span> People</a></li>
+	            <li><a href="#"><span class="fa fa-search"></span> Everything</a></li></br>  
+	            <li><a href="#"><span class="fa fa-music"></span> Tracks</a></li></br>
+	            <li><a href="#"><span class="fa fa-user"></span> People</a></li>
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
 	</nav> 
@@ -86,7 +87,32 @@
 	    <div class="container-fluid">
 	        <div class="side-body">
 	           <h1> Main Content here </h1>
-	           <pre> Songs? </pre>    
+	           <div class="col-md-9">
+				<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Username</i></th>
+							<th><i>Some info here</i></th>
+
+							<th><i>Open Profile</i></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr>
+						<td></td>
+							<td></td>
+
+							<td><button type="button"
+									href="http://localhost:8080/SoundCloud/login"
+									><i class="fa fa-soundcloud""></i></button></td>
+
+						</tr>
+						
+					</tbody>
+				</table>
+			</div> 
+			  
 	        </div>
 	    </div>
 	</div>
