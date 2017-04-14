@@ -26,7 +26,7 @@ public class UploadImageController {
 
 	private String vzemiToqImage;
 
-	private static final String FILE_LOCATION = "E:/scUpload";
+	private static final String FILE_LOCATION = "E:" + File.separator + "scUpload";
 
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String prepareForUpload() {

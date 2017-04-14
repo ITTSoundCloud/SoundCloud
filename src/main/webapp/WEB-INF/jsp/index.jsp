@@ -18,19 +18,6 @@
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 	
 	<script type="text/javascript">
- 
-   $(document).ready(function() {
-    $('myform').bootstrapValidator({
-        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        }
-        .on('success.form.bv', function(e) {
-            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-                $('#reg_form').data('bootstrapValidator').resetForm();
-            </script>
 	
 	<script type="text/javascript">
 	function validateRequest(){
@@ -57,6 +44,60 @@
 
 	}
 	</script>
+	
+		<script type="text/javascript">
+	function validateLoginRequest(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('myLoginForm').submit();
+       			}
+       			else{
+       				
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+			<script type="text/javascript">
+	function validateLogin(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==false){
+       				var z = document.getElementById('errorMsg');
+       				if(z.style.display === 'none'){
+       					z.style.display = 'block';
+       				}
+       			}
+       			
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
 
 
 	
@@ -95,17 +136,18 @@
   </div><!--.popup-header-->
   <div class="popup-content">
 
-    <form action="/SoundCloud/login" class="sign-in" method="post">
-    
+    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm"  >
+    <div id="errorMsg" size="1" color="red">
+    </div>
       <label for="username">Username:</label>
-      <input type="text" id="username-login" name="username-login" required>
+      <input type="text" id="username-login" name="username-login" required >
       <label for="password">Password:</label>
       <input type="password" id="password-login" name="password-login" required>
       <p class="check-mark">
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
       </p>
-      <input type="submit" id="submit" value="Submit">
+      <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">
       <input type="submit" id="submitFB" value="Log in with Facebook">
       <input type="submit" id="submitGP" value="Sign in with Google+">
     </form>
@@ -182,6 +224,27 @@
     </div>
   </section>
 </div>
+
+<script>
+function myLoginFunction1() {
+    var x = document.getElementById("username-login");
+    
+    $.post("validateUser", 
+			{ 
+				username: x.value
+			}
+			, function(result){
+			if(!result){
+				document.getElementById('error').innerHTML = "<h4 class='error'>Ok.</h4>"
+			}
+			else{
+				document.getElementById('error').innerHTML = "<h4 class='error'>There is no such username</h4>"
+			
+			}
+    });
+}
+</script>
+
 
 
 <script>

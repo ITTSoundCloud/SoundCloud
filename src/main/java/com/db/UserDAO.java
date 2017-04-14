@@ -69,7 +69,7 @@ public class UserDAO {
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if (rs.next()==false) {
+			if (!(rs.next())) {
 				System.out.println("Wrong credentials.");
 				return false;
 			}
