@@ -27,7 +27,7 @@ import com.validators.UsernameValidator;
 @Controller
 @MultipartConfig
 public class UserConroller {
-	
+	//lll
 	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -138,7 +138,6 @@ public class UserConroller {
 			@RequestParam(value = "email") String email,
 			HttpServletRequest request, Model model){
 
-		System.out.println("vika li");
 		return EmailValidator.validate(email) && UsernameValidator.validate(username) && passValidator.validate(password);
 	}
 	
