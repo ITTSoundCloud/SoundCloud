@@ -346,13 +346,16 @@ public class UserDAO {
 	    }
 	   
 	   
-	   public void addProfilePicture(int user_id, String photo) throws SQLException {
-	        String sql = "update soundcloud.users set profilePhoto_path = ? where user_id = ?;";
+	   public void addProfilePicture(String username, String photo) throws SQLException {
+	        String sql = "update soundcloud.users set profilephoto_path = ? where username = ?;";
 	        PreparedStatement ps = null;
 	        try {
 	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 	            ps.setString(1, photo);
-	            ps.setInt(2, user_id);
+	            ps.setString(2, username);
+	            System.out.println(ps.executeUpdate());
+	            System.out.println("promenqme");
+	            System.out.println(photo);
 	            ps.executeUpdate();
 	        } finally {
 	            if (ps != null) {

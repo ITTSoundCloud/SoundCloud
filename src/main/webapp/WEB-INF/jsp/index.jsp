@@ -31,8 +31,6 @@
 					username: x.value,
 					email: y.value,
 					password: z.value
-					
-
 				}
 				, function(result){
        			if(result==true){
@@ -62,7 +60,9 @@
        				document.getElementById('myLoginForm').submit();
        			}
        			else{
-       				
+       				document.getElementById('errorMsg').style.display = 'block';
+    				document.getElementById('errorMsg').innerHTML = "<h4 class='errorMsg'>Ok.</h4>"
+
        			}
 	    });
 		
@@ -136,7 +136,8 @@
   </div><!--.popup-header-->
   <div class="popup-content">
 
-    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()" >
+    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateLoginRequest()">
+
     <div id="errorMsg" size="1" color="red">
     </div>
       <label for="username">Username:</label>
