@@ -14,6 +14,23 @@
 	<script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
+     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+	
+	<script type="text/javascript">
+ 
+   $(document).ready(function() {
+    $('myform').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        }
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#reg_form').data('bootstrapValidator').resetForm();
+            </script>
 	
 	<script type="text/javascript">
 	function validateRequest(){
@@ -28,6 +45,10 @@
 					email: y.value,
 					password: z.value
 					
+<<<<<<< HEAD
+=======
+
+>>>>>>> a5cd64680cda134212a99c08f82d47fba36f633d
 				}
 				, function(result){
        			if(result==true){
