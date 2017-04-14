@@ -280,7 +280,7 @@ border-radius:10px;
 <div class="container">
   <div class="col-sm-4">
     <div class="sidebar">
-      <div class="image"  style="background-image:url(http://pinthisstar.com/images/adriana-lima--1.jpg)">
+        <div class="image"  style="background-image:url(E:/scUploads1469630533861.jpg);">
  <div class="p-image">
  <form method="POST" enctype="multipart/form-data">
     

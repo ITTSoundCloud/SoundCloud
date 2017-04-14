@@ -69,7 +69,7 @@ public class UserDAO {
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if (rs.next()==false) {
+			if (!(rs.next())) {
 				System.out.println("Wrong credentials.");
 				return false;
 			}
@@ -347,12 +347,15 @@ public class UserDAO {
 	   
 	   
 	   public void addProfilePicture(String username, String photo) throws SQLException {
-	        String sql = "update soundcloud.users set profilePhoto_path = ? where username = ?;";
+	        String sql = "update soundcloud.users set profilephoto_path = ? where username = ?;";
 	        PreparedStatement ps = null;
 	        try {
 	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 	            ps.setString(1, photo);
 	            ps.setString(2, username);
+	            System.out.println(ps.executeUpdate());
+	            System.out.println("promenqme");
+	            System.out.println(photo);
 	            ps.executeUpdate();
 	        } finally {
 	            if (ps != null) {

@@ -27,7 +27,7 @@ import com.validators.UsernameValidator;
 @Controller
 @MultipartConfig
 public class UserConroller {
-	
+	//lll
 	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -56,17 +56,9 @@ public class UserConroller {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
-		@RequestParam(value = "username") String username,
-		@RequestParam(value = "password") String password,
+			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
-			System.out.println(username);
-			System.out.println(password);
-			User user = null;
-            if (!UserDAO.getInstance().isValidLogin(username, password)) {
-            	model.addAttribute("ErrorRegMessage", "Cannot login.");
-            	return "index";
-			}
-            session.setAttribute("username", username);
+		 	session.setAttribute("username", username);
             return "search1";                                                   
 	}
 	
@@ -106,9 +98,10 @@ public class UserConroller {
 	@ResponseBody
 	@RequestMapping(value="/validateUser", method = RequestMethod.POST)
 	public boolean validateUser(@RequestParam(value = "username") String username){
-	
+		System.out.println("validateUser");
 		System.out.println(username);
-		System.out.println("validation for " + username);
+		
+		System.out.println("validation username for " + username);
 		return UsernameValidator.validate(username);
 	}
 	
@@ -116,7 +109,7 @@ public class UserConroller {
 	@RequestMapping(value="/validateEmail", method = RequestMethod.POST)
 	public boolean validateEmail(@RequestParam(value = "email") String email){
 		System.out.println("validation for " + email);
-		
+		System.out.println("validateEmail");
 		return EmailValidator.validate(email);
 	}
 	
@@ -125,7 +118,7 @@ public class UserConroller {
 	@RequestMapping(value="/validatePassword", method = RequestMethod.POST)
 	public boolean validatePassword(HttpServletRequest req){
 		System.out.println("validation for " + req.getParameter("password"));
-	
+		System.out.println("validatePassword");
 		return this.passValidator.validate(req.getParameter("password"));
 
 	}
@@ -137,10 +130,21 @@ public class UserConroller {
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "email") String email,
 			HttpServletRequest request, Model model){
-
-		System.out.println("vika li");
+		System.out.println("validateEverything");
 		return EmailValidator.validate(email) && UsernameValidator.validate(username) && passValidator.validate(password);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/validateAllLogin", method = RequestMethod.POST)
+	public boolean validateAllLogin(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password,
+			HttpServletRequest request, Model model){
+		System.out.println("all validation username " + username);
+		System.out.println("all validation pass " + password);
+		
+		return UserDAO.getInstance().isValidLogin(username, password);
+	}
+	
 	
 	
 }
