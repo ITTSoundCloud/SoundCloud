@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -21,33 +22,36 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @SessionAttributes("filename")
 @MultipartConfig
-public class UploadController {
-	
+public class UploadImageController {
+
 	private String vzemiToqImage;
 
-	private static final String FILE_LOCATION = "E:" + File.separator + "scUploads" + File.separator;
-	
+	private static final String FILE_LOCATION = "E:/scUpload";
+
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String prepareForUpload() {
 		return "upload";
 	}
-	
 
-	@RequestMapping(value="/music/{fileName}", method=RequestMethod.GET)
+
+	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
 		File file = new File(FILE_LOCATION + vzemiToqImage);
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
-	
+
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{
-		
+
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
+		System.out.println(fileOnDisk.toPath());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		
 		vzemiToqImage = multiPartFile.getOriginalFilename();
+		System.out.println(vzemiToqImage);
+		System.out.println(multiPartFile.getOriginalFilename());
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
 		return "upload";
 	}
-	
 }
