@@ -27,11 +27,11 @@ public class UploadImageController {
 
 	private String vzemiToqImage;
 
-	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator;
+	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads";
 
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
-	public String prepareForUpload() {
-		return "upload";
+	public void prepareForUpload() {
+		
 	}
 
 
@@ -43,12 +43,12 @@ public class UploadImageController {
 	}
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{
+	public void receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{
 
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		vzemiToqImage = multiPartFile.getOriginalFilename();
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		return "upload";
+		
 	}
 }

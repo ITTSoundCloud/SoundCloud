@@ -283,12 +283,12 @@ border-radius:10px;
       <div class="image"  style="background-image:url(http://pinthisstar.com/images/adriana-lima--1.jpg)">
  <div class="p-image">
  <form method="POST" enctype="multipart/form-data">
-   
-        <input type="file" id="file" name="failche" accept="image/*"/>
-        <input type="submit" value="Upload now">
-  </form>
- 
-        
+    
+       <i class="fa fa-camera upload-button"></i>
+        <input class="file-upload" type="file" id="file" name="failche"  accept="image/*"/>
+        <input type="submit" class = "idiotButton" value="Upload now">
+     
+       </form>
        <!--  <h2>File uploaded with name = ${filename}</h2>	
 		<img src="music/${filename}">  -->
      </div>        
@@ -354,7 +354,10 @@ $(document).ready(function() {
         }
     }
     
-
+    $(".idiotButton").on('click', function(){
+    	   $(".idiotButton").click();
+    });
+    
     $(".file-upload").on('change', function(){
         readURL(this);
     });
