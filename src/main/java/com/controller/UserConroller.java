@@ -54,7 +54,7 @@ public class UserConroller {
          
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
