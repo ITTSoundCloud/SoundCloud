@@ -3,8 +3,11 @@ package com.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.model.User;
 
@@ -53,6 +56,44 @@ public class UserDAO {
 		}
 		return true;
 	}
+	
+	// get all users
+    public Set<User> getAllUsers() {
+        Set<User> users = new HashSet<User>();
+        Statement st = null;
+        try {
+            st = DBManager.getInstance().getConnection().createStatement();
+
+            ResultSet resultSet = st.executeQuery("SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM sc.users;");
+            while (resultSet.next()) {
+                User user = new User(resultSet.getString("username"),
+                    resultSet.getString("email"), resultSet.getString("password"));
+                
+                user.setUserId(resultSet.getInt("user_id"));
+                user.setProfilePic(resultSet.getString("profilephoto_path"));
+                user.setCountry(resultSet.getString("country"));
+                user.setName(resultSet.getString("name"));
+                user.setBio(resultSet.getString("description"));
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Error with getAllUsers in UserDAO");
+            e.printStackTrace();
+
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    System.out.println("Error with closing statement in getAllUsers() in UserDAO");
+                    e.printStackTrace();
+                }
+            }
+        }
+        return users;
+    }
 	
 	
 	//login validation

@@ -13,6 +13,7 @@
 <link href="<c:url value="/static/css/css4.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/css2.css" />" rel="stylesheet" type="text/css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <style type="text/css">
        body {
   background: #ececec;
@@ -280,7 +281,7 @@ border-radius:10px;
 <div class="container">
   <div class="col-sm-4">
     <div class="sidebar">
-        <div class="image"  style="background-image:url(E:/scUploads1469630533861.jpg);">
+        <div class="image"  style="background-image:url(file:///E:/scUploads/pics/berlu.jpg);">
  <div class="p-image">
  <form method="POST" enctype="multipart/form-data">
     

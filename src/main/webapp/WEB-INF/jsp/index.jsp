@@ -16,6 +16,8 @@
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	
 	<script type="text/javascript">
 	
@@ -44,7 +46,7 @@
 	</script>
 	
 		<script type="text/javascript">
-	function validateLoginRequest(){
+	function validateRequestLogin(){
 		
 			var x = document.getElementById("username-login");
 		    var y = document.getElementById("password-login");
@@ -98,15 +100,96 @@
 	}
 	</script>
 	
+<!-- Facebook script -->	
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '229011207576478',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();   
+  };
 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  
+
+  FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+  });
+  
+
+  {
+      status: 'connected',
+      authResponse: {
+          accessToken: '...',
+          expiresIn:'...',
+          signedRequest:'...',
+          userID:'...'
+      }
+  }
+  
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+  
+  <fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+  
+</script>
+<!-- Facebook script -->
+
+<!-- Google script -->
+<script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+<!-- Google script -->
 
 	
+	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta name="google-signin-client_id" content="283687242675-av0ai4hsl57437eqj97qabimraarqd2p.apps.googleusercontent.com">
 	
 <title>Insert title here</title>
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=229011207576478";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 ﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿
  <div class="container">
   <section class="background">
@@ -137,6 +220,7 @@
   <div class="popup-content">
 
     <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateLoginRequest()">
+
     <div id="errorMsg" size="1" color="red">
     </div>
       <label for="username">Username:</label>
@@ -148,8 +232,10 @@
         <label for="remember-me">Remember me</label>
       </p>
       <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">
-      <input type="submit" id="submitFB" value="Log in with Facebook">
-      <input type="submit" id="submitGP" value="Sign in with Google+">
+      <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Sign in with facebook</div>
+      <br>
+      <div id="my-signin2"></div>
+      
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
     <font id="error" size="1" color="red">
