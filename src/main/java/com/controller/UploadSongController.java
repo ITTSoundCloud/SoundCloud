@@ -31,20 +31,20 @@ public class UploadSongController {
 
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+ File.separator + "songs" + File.separator;
 
-	@RequestMapping(value="/upload", method=RequestMethod.GET)
+	@RequestMapping(value="/uploadSong", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session) {
 		return "upload";
 	}
 
 
-	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
+	@RequestMapping(value="/song/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
 		File file = new File(FILE_LOCATION + getThisSong);
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@RequestMapping(value="/uploadSong", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("songFile") MultipartFile multiPartFile,HttpSession session,Model model) throws IOException{
 
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
