@@ -3,7 +3,7 @@ package com.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Song {
+public class Song implements Listable{
 	
 	private int songId;
 	private int userId;
