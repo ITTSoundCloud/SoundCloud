@@ -11,13 +11,6 @@ import java.util.Set;
 
 import com.model.User;
 
-import DB.DatabaseManager;
-import Exceptions.InvalidEmailException;
-import Exceptions.InvalidMobileNumberException;
-import Exceptions.InvalidNameException;
-import Exceptions.InvalidPasswordException;
-import Exceptions.InvalidUserLoginException;
-import Exceptions.InvalidUserNameException;
 
 public class UserDAO {
 	
