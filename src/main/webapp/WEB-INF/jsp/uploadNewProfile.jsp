@@ -53,40 +53,54 @@
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
-<c:set var="user" scope="request" value="${user}"/>
-					
+<c:set var="user" scope="request" value="${user}"/>	
 				<c:if test="${empty user}">
-					<h1>no user</h1>
+					<h1>No user.</h1>
 				</c:if>	
 		
-
  <button class="follow">
   <span class="msg-follow" >Follow</span>
   <span class="msg-following">Following</span>
   <span class="msg-unfollow">Unfollow</span>
 </button>
 
-<input  type="submit" class= "follow-btn" value="Follow">
+<!--<input  type="submit" class= "follow-btn" value="Follow">  -->
 <div class="container">
   <div class="cover row">
-    <h1><c:out value="${user.username }"/></h1>
-<h4>Bulgaria</h4>
-     </div>
+	   	<h1><c:out value="${user.username }"/></h1>
+	    <c:choose>
+		    <c:when test="${empty user.country}">
+		    	<h4> - </h4>
+		    </c:when>
+		    <c:otherwise>
+				<h4><c:out value="${user.country}"/></h4>
+			</c:otherwise>
+		</c:choose>
+    </div>
      <div class="profile-img">
     <img class="img-thumbnail" src="https://themostbeautifulwomen.net/wp-content/uploads/adriana-lima-love-magazine-advent-0.jpg?s=200"/>
-    <form method="POST" enctype="multipart/form-data">
-    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
-        <input class="file-upload" type="file" name="failche" id="file" accept="image/*"/>
-        <input type="submit" value="change"/></button>
-      </form>
+    <c:if test="${sessionScope.username.equals(user.username)}">
+	    <form method="POST" enctype="multipart/form-data">
+	    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
+	        <input class="file-upload" type="file" name="failche" id="file" accept="image/*"/>
+	        <input type="submit" value="change"/></button>
+	      </form>
+     </c:if>
    </div>
   <div class="row content">
     <div class="profile col-md-3 col-xs-12">
 		<ul class="profile-links">
-			<li><i class="glyphicon glyphicon-envelope"></i> <a href="mailto:me@example.com"><i class=""></i>thejordanforeman@gmail.com</a></li>
+			<li><i class="glyphicon glyphicon-envelope"></i> <a href="#"><i class=""></i><c:out value="${user.email}"/></a></li>
 		</ul>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus blanditiis illo repellendus consequuntur laborum obcaecati molestiae necessitatibus recusandae delectus vero amet, tenetur? Ex vitae sint temporibus. Ducimus rerum, eius impedit.</p>
+        <c:choose>
+	    <c:when test="${empty user.bio}">
+	    	<p> This user has no description. </p>
+	    </c:when>
+	    <c:otherwise>
+			<p><c:out value="${user.bio}"/></p>
+		</c:otherwise>
+	</c:choose>
     </div>
     <div class="feed col-md-9 col-xs-12">
       <div class="media feed-item">
@@ -110,6 +124,7 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 $('button').click(function(){
 	  var $this = $(this);
 	  $this.toggleClass('following')

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-public class User {
+public class User implements Listable{
 	
 	private int userId;
 	private String username;

@@ -74,7 +74,7 @@ public class UserConroller {
 	
 
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
-		public String daiMiCankovci(Model model, HttpSession s, 
+		public String giveUser(Model model, HttpSession s, 
 				@PathVariable(value="username") String username){
 			model.addAttribute("user", UserDAO.getInstance().getUser(username));
 			return "uploadNewProfile";

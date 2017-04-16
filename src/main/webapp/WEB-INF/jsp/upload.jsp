@@ -317,15 +317,16 @@ button.following:not(.wait):hover .msg-unfollow{
  <form method="POST" enctype="multipart/form-data">
     
        <i class="fa fa-camera upload-button"></i>
-        <input class="file-upload" type="file" id="file" name="failche"  accept="image/*"/>
-        <input type="submit" class = "idiotButton" value="Upload now">
-     	   	
+        <input class="file-upload" type="file" id="file" name="imageFile"  accept="image/*"/>
+        <input type="submit" class = "idiotButton" value="Upload now">   	   	
        </form>
+             
        <button class="follow">
   <span class="msg-follow" >Follow</span>
   <span class="msg-following">Following</span>
   <span class="msg-unfollow">Unfollow</span>
 </button>
+
        <!--  <h2>File uploaded with name = ${filename}</h2>	
 		<img src="music/${filename}">  -->
      </div>        
@@ -416,12 +417,11 @@ $(document).ready(function() {
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
+    $(".upload-songbutton").on('click', function() {
+        $(".file-upload").click();
+     });
 });
 </script>
-
-   
-		
-		
 		
 		</body>
 		</html>
