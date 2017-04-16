@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class User implements Listable{
 	
 	private int userId;
-	private String userName;
+	private String username;
 	private String password;
 	private String email;
 	private String name;
@@ -17,8 +17,8 @@ public class User implements Listable{
 	private String profilePic;
 	private ArrayList<Integer> likedSongs;
 	
-	public User(String userName, String email, String password) {
-		this.userName = userName;
+	public User(String username, String email, String password) {
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.likedSongs = new ArrayList<>();
@@ -26,8 +26,8 @@ public class User implements Listable{
 	}
 	
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 
@@ -92,8 +92,8 @@ public class User implements Listable{
 		this.profilePic = profilePic;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
 	public String getPassword() {

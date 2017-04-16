@@ -11,6 +11,14 @@ import java.util.Set;
 
 import com.model.User;
 
+import DB.DatabaseManager;
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidMobileNumberException;
+import Exceptions.InvalidNameException;
+import Exceptions.InvalidPasswordException;
+import Exceptions.InvalidUserLoginException;
+import Exceptions.InvalidUserNameException;
+
 public class UserDAO {
 	
 	private static UserDAO instance;
@@ -32,7 +40,7 @@ public class UserDAO {
 			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
 			
 			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getUserName());
+			statement.setString(2, user.getUsername());
 			statement.setString(3, user.getPassword());
 
 			int rowsAffected = statement.executeUpdate();
@@ -64,7 +72,7 @@ public class UserDAO {
         try {
             st = DBManager.getInstance().getConnection().createStatement();
 
-            ResultSet resultSet = st.executeQuery("SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM sc.users;");
+            ResultSet resultSet = st.executeQuery("SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM soundcloud.users;");
             while (resultSet.next()) {
                 User user = new User(resultSet.getString("username"),
                     resultSet.getString("email"), resultSet.getString("password"));
@@ -410,6 +418,54 @@ public class UserDAO {
 	        }
 
 	    }
+	   
+	   
+	   public User getUser(String username)  {
+		   String sql = "SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM soundcloud.users where username = ?;";
+	        User user = null;
+	        PreparedStatement ps = null;
+	        System.out.println("V DB SME" +username);
+	        
+	        try {
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setString(1, username);
+	            ResultSet resultSet = ps.executeQuery();
+	            
+	            while (resultSet.next()) {
+	                
+						user = new User(resultSet.getString("username"), 
+											resultSet.getString("email"),
+											resultSet.getString("password"));
+						
+				                user.setUserId(resultSet.getInt("user_id"));
+				                user.setProfilePic(resultSet.getString("profilephoto_path"));
+				                user.setCountry(resultSet.getString("country"));
+				                user.setName(resultSet.getString("name"));
+				                user.setBio(resultSet.getString("description"));
+						
+					
+						
+	                System.out.println("Eho" +user);
+	              
+	            }
+
+	        } catch (SQLException e) {
+
+	            System.out.println("Error in DB");
+	            e.printStackTrace();
+
+	        } finally {
+	                    try {
+							ps.close();
+						} catch (SQLException e) {
+							System.out.println("ops");
+						}
+	               
+	        }
+	        return user;
+	    }
+	 
+	 
 
 
 }

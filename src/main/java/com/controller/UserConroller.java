@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import javax.validation.Validator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,12 +62,25 @@ public class UserConroller {
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
 		 	session.setAttribute("username", username);
+		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
+		 	for(User u : allUsers){
+		 		System.out.println(u);
+		 	}
+		 	model.addAttribute("user", UserDAO.getInstance().getUser((String) session.getAttribute("username")));
+		 	model.addAttribute("allUsers", allUsers);
             return "search1";                                                   
 	}
 	
 	
 
-	
+		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
+		public String daiMiCankovci(Model model, HttpSession s, 
+				@PathVariable(value="username") String username){
+			model.addAttribute("user", UserDAO.getInstance().getUser(username));
+			return "uploadNewProfile";
+		}
+		
+		
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		
