@@ -170,7 +170,38 @@
         'onfailure': onFailure
       });
     }
+    
+    function onSignIn(googleUser) {
+    	  var profile = googleUser.getBasicProfile();
+    	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    	  console.log('Name: ' + profile.getName());
+    	  console.log('Image URL: ' + profile.getImageUrl());
+    	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    	  
+    	  if (auth2.isSignedIn.get()) {
+    		  var profile = auth2.currentUser.get().getBasicProfile();
+    		  console.log('ID: ' + profile.getId());
+    		  console.log('Full Name: ' + profile.getName());
+    		  console.log('Given Name: ' + profile.getGivenName());
+    		  console.log('Family Name: ' + profile.getFamilyName());
+    		  console.log('Image URL: ' + profile.getImageUrl());
+    		  console.log('Email: ' + profile.getEmail());
+    		}
+    	}
+    
+    
   </script>
+  
+  <script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+  
+  
 <!-- Google script -->
 
 	
@@ -235,6 +266,7 @@
       <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Sign in with facebook</div>
       <br>
       <div id="my-signin2"></div>
+      <a href="#" onclick="signOut();">Sign out google</a>
       
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
