@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeContoller {
 	
-	private static final String WELCOME_VIEW = "uploadPhoto";
+	private static final String WELCOME_VIEW = "search1";
 	
 	@RequestMapping("/index")
 	public String welcome(Model model){

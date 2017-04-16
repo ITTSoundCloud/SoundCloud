@@ -53,11 +53,23 @@
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
+<c:set var="user" scope="request" value="${user}"/>
+					
+				<c:if test="${empty user}">
+					<h1>no user</h1>
+				</c:if>	
+		
+
+ <button class="follow">
+  <span class="msg-follow" >Follow</span>
+  <span class="msg-following">Following</span>
+  <span class="msg-unfollow">Unfollow</span>
+</button>
 
 <input  type="submit" class= "follow-btn" value="Follow">
 <div class="container">
   <div class="cover row">
-    <h1>Jordan Foreman</h1>
+    <h1><c:out value="${user.username }"/></h1>
 <h4>Bulgaria</h4>
      </div>
      <div class="profile-img">
@@ -95,6 +107,19 @@
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$('button').click(function(){
+	  var $this = $(this);
+	  $this.toggleClass('following')
+	  if($this.is('.following')){
+	    $this.addClass('wait');
+	  }
+	}).on('mouseleave',function(){
+	  $(this).removeClass('wait');
+	})
+</script>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>

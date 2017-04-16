@@ -197,6 +197,37 @@ border-radius:10px;
   background: #fff;
   color: #aa1537;
 }
+
+button{
+  width:150px;
+  height:35px;
+}
+
+button .msg-follow,
+button .msg-following,
+button .msg-unfollow{
+  display: none;
+}
+
+button .msg-follow{
+  display: inline;
+}
+
+button.following .msg-follow{
+  display: none;
+}
+
+button.following .msg-following{
+  display: inline;
+}
+
+button.following:not(.wait):hover .msg-following{
+  display: none;
+}
+
+button.following:not(.wait):hover .msg-unfollow{
+  display: inline;
+}
     </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -288,8 +319,13 @@ border-radius:10px;
        <i class="fa fa-camera upload-button"></i>
         <input class="file-upload" type="file" id="file" name="failche"  accept="image/*"/>
         <input type="submit" class = "idiotButton" value="Upload now">
-     
+     	   	
        </form>
+       <button class="follow">
+  <span class="msg-follow" >Follow</span>
+  <span class="msg-following">Following</span>
+  <span class="msg-unfollow">Unfollow</span>
+</button>
        <!--  <h2>File uploaded with name = ${filename}</h2>	
 		<img src="music/${filename}">  -->
      </div>        
@@ -339,6 +375,20 @@ border-radius:10px;
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+$('button').click(function(){
+	  var $this = $(this);
+	  $this.toggleClass('following')
+	  if($this.is('.following')){
+	    $this.addClass('wait');
+	  }
+	}).on('mouseleave',function(){
+	  $(this).removeClass('wait');
+	})
+</script>
+
 <script>
 $(document).ready(function() {
 

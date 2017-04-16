@@ -97,18 +97,39 @@
 							<th><i>Open Profile</i></th>
 						</tr>
 					</thead>
+					<c:set var="allUsers" scope="request" value="${allUsers}"/>
 					
+						<c:if test="${empty allUsers}">
+						<h1>ok</h1>
+						</c:if>
 					<tbody>
+					<c:forEach items="${allUsers}" var="user">
 						<tr>
-						<td></td>
-							<td></td>
-
+						<td><c:choose>
+							<c:when test ="${empty user.profilePic}">
+								<a href="profile_${user.username }"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${user.username}"/>  
+							</c:when>
+							<c:otherwise>
+									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><c:choose>
+							<c:when test ="${empty user.bio}">
+								<h6>No description</h6>
+							</c:when>
+							<c:otherwise>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
 							<td><button type="button"
 									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud""></i></button></td>
-
+									><i class="fa fa-soundcloud""> Follow</i></button>
+							</td>
 						</tr>
-						
+						</c:forEach>
 					</tbody>
 				</table>
 			</div> 
