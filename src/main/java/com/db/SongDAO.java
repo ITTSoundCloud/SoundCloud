@@ -1,9 +1,14 @@
 package com.db;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.model.Song;
@@ -34,5 +39,38 @@ private static SongDAO instance;
         }
         return songs;
     }
+    
+    
+    
+    
+    public int uploadSong(int user_id,String title,String artist, String song_path, String songphoto_path, String description, String genre) throws SQLException {
+    	
+       String sql = "INSERT INTO soundcloud.songs(user_id, title, artist, songphoto_path, song_path, description, genre, upload_time,timesPlayed) "
+       		+ "VALUES (?,?,?,?,?,?,?,?,0)";
+
+        PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, user_id);
+        ps.setString(2, title);
+        ps.setString(3, artist);
+        ps.setString(4, songphoto_path);
+        ps.setString(5, song_path);
+        ps.setString(6, description);
+        ps.setString(7, genre);
+          
+        Instant instant = Instant.now(); 
+        Timestamp t=java.sql.Timestamp.from(instant);
+  
+        ps.setTimestamp(8, t);
+        int song_id = 0;
+        song_id = ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            song_id = rs.getInt(1);
+        }
+        return song_id;
+    }
+    
+    
+    
 
 }
