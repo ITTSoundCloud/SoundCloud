@@ -11,6 +11,7 @@ import java.util.Set;
 
 import com.model.User;
 
+
 public class UserDAO {
 	
 	private static UserDAO instance;
