@@ -258,7 +258,7 @@ button.following:not(.wait):hover .msg-unfollow{
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
-						<c:otherwise>			
+						<c:otherwise>
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -267,16 +267,16 @@ button.following:not(.wait):hover .msg-unfollow{
 						            <li role="separator" class="divider"></li>
 						            <li><a href="#">Log out</a></li>
 						          </ul>
-		       				 </li>  
+		       				 </li>
 						</c:otherwise>
 					</c:choose>
 			       </ul>
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
-		
-		
-		
+
+
+
 
     <header>
   <div class="container">
@@ -293,7 +293,7 @@ button.following:not(.wait):hover .msg-unfollow{
         </div>
       </div>
       <div class="col-sm-4 text-right">
-        
+
       </div>
     </div>
     <div class="info">
@@ -315,21 +315,21 @@ button.following:not(.wait):hover .msg-unfollow{
         <div class="image"  style="background-image:url(file:///E:/scUploads/pics/berlu.jpg);">
  <div class="p-image">
  <form method="POST" enctype="multipart/form-data">
-    
+
        <i class="fa fa-camera upload-button"></i>
         <input class="file-upload" type="file" id="file" name="imageFile"  accept="image/*"/>
-        <input type="submit" class = "idiotButton" value="Upload now">   	   	
+        <input type="submit" class = "idiotButton" value="Upload now">
        </form>
-             
+
        <button class="follow">
   <span class="msg-follow" >Follow</span>
   <span class="msg-following">Following</span>
   <span class="msg-unfollow">Unfollow</span>
 </button>
 
-       <!--  <h2>File uploaded with name = ${filename}</h2>	
+       <!--  <h2>File uploaded with name = ${filename}</h2>
 		<img src="music/${filename}">  -->
-     </div>        
+     </div>
      <div class="profile-action">
           <div class="row">
             <div class="col-sm-9"><a href="javascript:void(0)" class="btn btn-block btn-white btn-lg">FOLLOW OSCAR</a></div>
@@ -393,7 +393,7 @@ $('button').click(function(){
 <script>
 $(document).ready(function() {
 
-    
+
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -401,19 +401,19 @@ $(document).ready(function() {
             reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
             }
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
+
     $(".idiotButton").on('click', function(){
     	   $(".idiotButton").click();
     });
-    
+
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-    
+
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
@@ -422,6 +422,6 @@ $(document).ready(function() {
      });
 });
 </script>
-		
+
 		</body>
 		</html>

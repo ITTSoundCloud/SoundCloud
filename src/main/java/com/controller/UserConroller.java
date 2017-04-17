@@ -80,6 +80,12 @@ public class UserConroller {
 			return "uploadNewProfile";
 		}
 		
+		/*@RequestMapping(value = "/songUpload", method= RequestMethod.GET)
+		public String uploadSong(Model model, HttpSession s){
+
+			return "uploadSong";
+		}*/
+		
 		
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {

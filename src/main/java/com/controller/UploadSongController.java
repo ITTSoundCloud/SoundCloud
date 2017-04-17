@@ -31,22 +31,25 @@ public class UploadSongController {
 
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+ File.separator + "songs" + File.separator;
 
-	@RequestMapping(value="/uploadSong", method=RequestMethod.GET)
+	@RequestMapping(value="/songUpload", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session) {
-		return "upload";
+		System.out.println("vliza1");
+		return "uploadSong";
 	}
 
 
-	@RequestMapping(value="/song/{fileName}", method=RequestMethod.GET)
+	@RequestMapping(value="/audio/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
+		System.out.println("vliza2");
 		File file = new File(FILE_LOCATION + getThisSong);
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
-	@RequestMapping(value="/uploadSong", method=RequestMethod.POST)
+	@RequestMapping(value="/songUpload", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("songFile") MultipartFile multiPartFile,HttpSession session,Model model) throws IOException{
-
+		
+		System.out.println("vliza3");
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisSong = multiPartFile.getOriginalFilename();
@@ -57,7 +60,7 @@ public class UploadSongController {
 		}
 		session.setAttribute("profilePhoto", FILE_LOCATION + multiPartFile.getOriginalFilename());
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		return "upload";
+		return "uploadSong";
 
 	}
 

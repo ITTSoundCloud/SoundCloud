@@ -33,13 +33,13 @@
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">Upload</a></li>
+			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
-						<c:otherwise>			
+						<c:otherwise>
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -48,20 +48,20 @@
 						            <li role="separator" class="divider"></li>
 						            <li><a href="#">Log out</a></li>
 						          </ul>
-		       				 </li>  
+		       				 </li>
 						</c:otherwise>
 					</c:choose>
 			       </ul>
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
-		
+
   	<header></header>
-  
+
 	  <div class="row">
 	    <!-- Menu -->
 	    <div class="side-menu">
-	    
+
 	    <nav class="navbar navbar-default" role="navigation">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -76,12 +76,12 @@
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a href="#"><span class="fa fa-search"></span> Everything</a></li></br>  
+	            <li><a href="#"><span class="fa fa-search"></span> Everything</a></li></br>
 	            <li><a href="#"><span class="fa fa-music"></span> Tracks</a></li></br>
 	            <li><a href="#"><span class="fa fa-user"></span> People</a></li>
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
-	</nav> 
+	</nav>
 	    </div>
 	    <!-- Main Content -->
 	    <div class="container-fluid">
@@ -98,7 +98,7 @@
 						</tr>
 					</thead>
 					<c:set var="allUsers" scope="request" value="${allUsers}"/>
-					
+
 						<c:if test="${empty allUsers}">
 						<h1>ok</h1>
 						</c:if>
@@ -108,7 +108,7 @@
 						<td><c:choose>
 							<c:when test ="${empty user.profilePic}">
 								<a href="profile_${user.username }"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
-								<c:out value="${user.username}"/>  
+								<c:out value="${user.username}"/>
 							</c:when>
 							<c:otherwise>
 									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
@@ -132,20 +132,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</div> 
-			  
+			</div>
+
 	        </div>
 	    </div>
 	</div>
 
   <!-- change paths later -->
-  
+
   	<script src="./js/side-menu.js"></script>
     <script src="./js/index.js"></script>
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
 
-	
+
 </body>
 </html>

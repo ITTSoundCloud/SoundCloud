@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html data-ng-app="enterprise">
 <head>
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -70,10 +72,14 @@
   </div>
   <div class="form-group">
     <label for="exampleInputFile">File input</label>
-    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-    <small id="fileHelp" class="form-text text-muted">mp3 file here</small>
+    <form method="POST" enctype="multipart/form-data">
+
+      <input class="file-upload" type="file" id="file" name="songFile"  accept="audio/*"/>
+      <input type="submit" class = "idiotButton" value="Upload now">
+  </form>
+
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>
 </body>
 </html>
