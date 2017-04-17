@@ -56,15 +56,15 @@
 <form method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Song Tittle</label>
-    <input type="songTitle" class="form-control" id="InputTitle" placeholder="Enter Song Title">
+    <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Artist</label>
-    <input type="artist" class="form-control" id="Artist" placeholder="Artist">
+    <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist">
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Genre</label>
-    <select class="form-control" id="exampleSelect1">
+    <select class="form-control" id="exampleSelect1" name="genre">
       <option>Pop</option>
       <option>Rock</option>
       <option>NonStop Disco Hitove</option>
@@ -74,7 +74,7 @@
   </div>
   <div class="form-group">
     <label for="exampleTextarea">Description</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="3" name="description"></textarea>
   </div>
   <div class="form-group">
     <label for="exampleInputFile">File input</label>
