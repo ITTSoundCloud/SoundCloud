@@ -77,6 +77,7 @@ public class UserConroller {
 		public String giveUser(Model model, HttpSession s, 
 				@PathVariable(value="username") String username){
 			model.addAttribute("user", UserDAO.getInstance().getUser(username));
+			model.addAttribute("isFollowing", true);
 			return "uploadNewProfile";
 		}
 		

@@ -381,7 +381,10 @@ button.following:not(.wait):hover .msg-unfollow{
 <script type="text/javascript">
 $('button').click(function(){
 	  var $this = $(this);
-	  $this.toggleClass('following')
+	  var boo = false;
+	  
+		  $this.toggleClass('following')
+	  	  
 	  if($this.is('.following')){
 	    $this.addClass('wait');
 	  }

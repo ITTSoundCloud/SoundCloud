@@ -250,7 +250,7 @@
   </div><!--.popup-header-->
   <div class="popup-content">
 
-    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateLoginRequest()">
+    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateRequestLogin()">
 
     <div id="errorMsg" size="1" color="red">
     </div>
