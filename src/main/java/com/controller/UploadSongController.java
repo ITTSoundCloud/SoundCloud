@@ -53,11 +53,7 @@ public class UploadSongController {
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisSong = multiPartFile.getOriginalFilename();
-		try {
-			UserDAO.getInstance().addProfilePicture((String)session.getAttribute("username"), FILE_LOCATION + multiPartFile.getOriginalFilename());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		session.setAttribute("profilePhoto", FILE_LOCATION + multiPartFile.getOriginalFilename());
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
 		return "uploadSong";

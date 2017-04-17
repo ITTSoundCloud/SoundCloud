@@ -47,7 +47,7 @@
 			</div><!-- /.container-fluid -->
 	</nav>
 
-	<form>
+	<form form method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Song Tittle</label>
     <input type="songTitle" class="form-control" id="InputTitle" placeholder="Enter Song Title">
