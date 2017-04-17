@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +70,44 @@ private static SongDAO instance;
         }
         return song_id;
     }
+    
+    
+    
+    public List<Song> searchForSong(String word){
+		String sql = "SELECT song_id, title, artist,genre,song_path,user_id,timesPlayed,description,songphoto_path,"
+				+ "upload_time FROM soundcloud.songs WHERE title LIKE ? OR artist LIKE ?";
+		String search = "%" + word + "%";
+		ArrayList<Song> songsMatching = new ArrayList<>();
+		PreparedStatement prepStatement = null;
+		try {
+			prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
+			prepStatement.setString(1, search);
+			prepStatement.setString(2, search);
+			ResultSet rs = prepStatement.executeQuery();
+			
+			while (rs.next()) {
+				Song song = new Song(rs.getInt("song_id"), 
+						rs.getString("title"), 
+						rs.getString("artist"), 
+						rs.getString("genre"),
+						rs.getInt("user_id") ,
+						rs.getString("song_path"));
+				
+				song.setPhoto(rs.getString("songphoto_path"));
+				song.setAbout(rs.getString("description"));
+				song.setUploadingTime(rs.getTimestamp("upload_time").toLocalDateTime());
+				
+				songsMatching.add(song);
+			}
+		} catch (SQLException e) {
+			System.out.println("Problem with DataBase in searchForSong! - " + e.getMessage());
+		}
+		if(songsMatching.size() == 0){
+			System.out.println("There is no such artist or song! ");
+			return null;
+		}
+		return Collections.unmodifiableList(songsMatching);
+	}
     
     
     

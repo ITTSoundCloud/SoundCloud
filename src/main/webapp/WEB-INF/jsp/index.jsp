@@ -302,8 +302,8 @@
       <div class="login">
       <button class="btn-3" id="buttonReg">Browse SoundCloud</button>
     </div>
-      <form class="search-container">
-    <input type="text" id="search-bar" placeholder="Search for your favourite music now!">
+      <form class="search-container" action="/SoundCloud/search" method = "get">
+    <input type="text" id="search-bar" name="search_text" placeholder="Search for your favourite music now!">
     <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
   </form>
 
