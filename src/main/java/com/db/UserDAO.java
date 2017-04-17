@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.model.Song;
 import com.model.User;
 
 
@@ -457,6 +459,48 @@ public class UserDAO {
 	        }
 	        return user;
 	    }
+	   
+	   
+	   
+	   
+	    public List<User> searchForUser(String word){
+			String sql = "SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM "
+					+ "soundcloud.users where username LIKE ? OR name LIKE ?;";
+			String search = "%" + word + "%";
+			ArrayList<User> usersMatching = new ArrayList<>();
+			PreparedStatement prepStatement = null;
+			try {
+				prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
+				prepStatement.setString(1, search);
+				prepStatement.setString(2, search);
+				ResultSet resultSet = prepStatement.executeQuery();
+				
+				  while (resultSet.next()) {
+		                
+						User user = new User(resultSet.getString("username"), 
+											resultSet.getString("email"),
+											resultSet.getString("password"));
+						
+				                user.setUserId(resultSet.getInt("user_id"));
+				                user.setProfilePic(resultSet.getString("profilephoto_path"));
+				                user.setCountry(resultSet.getString("country"));
+				                user.setName(resultSet.getString("name"));
+				                user.setBio(resultSet.getString("description"));
+						
+	                System.out.println("Eho" +user);
+	                
+	              usersMatching.add(user);
+	            }
+			} catch (SQLException e) {
+				System.out.println("Error in DB with searching for users - " + e.getMessage());
+			}
+			if(usersMatching.size() == 0){
+				System.out.println("There is no such user! ");
+				return null;
+			}
+			return Collections.unmodifiableList(usersMatching);
+		}
+	    
 	 
 	 
 
