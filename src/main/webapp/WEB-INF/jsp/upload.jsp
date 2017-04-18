@@ -400,9 +400,7 @@ border-radius:10px;
 
 <script type="text/javascript">
         $('.follow-first').click(function() {
-        	
-        	
-        	  alert("zdr");
+        	       	 
             var $this = $(this);
           
         	$.post("profile_{username}"
