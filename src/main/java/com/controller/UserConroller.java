@@ -31,6 +31,7 @@ import com.validators.UsernameValidator;
 @MultipartConfig
 public class UserConroller {
 	//lll
+	
 	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -61,12 +62,13 @@ public class UserConroller {
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
-		 	session.setAttribute("username", username);
+		User user = UserDAO.getInstance().getUser(username);
+			session.setAttribute("user", user);
+		 
 		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 		 	for(User u : allUsers){
 		 		System.out.println(u);
 		 	}
-		 	model.addAttribute("user", UserDAO.getInstance().getUser((String) session.getAttribute("username")));
 		 	model.addAttribute("allUsers", allUsers);
             return "search1";                                                   
 	}
@@ -74,11 +76,26 @@ public class UserConroller {
 	
 
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
-		public String giveUser(Model model, HttpSession s, 
+		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){
-			model.addAttribute("user", UserDAO.getInstance().getUser(username));
-			model.addAttribute("isFollowing", true); // check in database if follow
-			return "uploadNewProfile";
+			User visitedUser = UserDAO.getInstance().getUser(username);
+			model.addAttribute("user", visitedUser);
+			User currentUser = (User) session.getAttribute("user");
+			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			
+			try {
+				model.addAttribute("followUser", UserDAO.getInstance().followUser(currentUser.getUserId(), visitedUser.getUserId()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				model.addAttribute("unfollowUser",UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "upload";
 		}
 		
 		/*@RequestMapping(value = "/songUpload", method= RequestMethod.GET)
@@ -87,6 +104,24 @@ public class UserConroller {
 			return "uploadSong";
 		}*/
 		
+		
+		@ResponseBody
+		@RequestMapping(value="/profile_{username}", method = RequestMethod.POST)
+		public void followUser(Model model,HttpSession session,@PathVariable(value="username") String username){
+			User currentUser = (User) session.getAttribute("user");
+			User visitedUser = UserDAO.getInstance().getUser("username");
+			
+			try {
+				if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
+					System.out.println("ok");
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("losho");
+		}
 		
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
@@ -166,6 +201,19 @@ public class UserConroller {
 		System.out.println("all validation pass " + password);
 		
 		return UserDAO.getInstance().isValidLogin(username, password);
+	}
+	
+	
+	public boolean isFollowing(int follower_id,int followed_id){
+		try {
+			if(UserDAO.getInstance().getFollowing(follower_id).contains(followed_id)){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	

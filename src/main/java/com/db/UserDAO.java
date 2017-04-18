@@ -322,7 +322,7 @@ public class UserDAO {
 	   
 	   
 	   
-	   public List<Integer> getFollowing(int follower_id) {
+	   public List<Integer> getFollowing(int follower_id) throws SQLException{
 	        
 	        String sql = "select followed_id from soundcloud.who_follows_who where follower_id = ?;";
 	        		

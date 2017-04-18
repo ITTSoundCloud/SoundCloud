@@ -284,13 +284,16 @@ border-radius:10px;
 		</nav>
 
 
-
+<c:set var="user" scope="request" value="${user}"/>	
+				<c:if test="${empty user}">
+					<h1>No user.</h1>
+				</c:if>	
 
     <header>
   <div class="container">
     <div class="row navigation">
       <div class="col-sm-4">
-        <h3>Oscar Mwanandimai</h3>
+        <h3><c:out value="${user.username }"/></h3>
       </div>
       <div class="col-sm-4">
         <div class="input-group">
@@ -397,14 +400,28 @@ border-radius:10px;
 
 <script type="text/javascript">
         $('.follow-first').click(function() {
+        	
+        	
+        	  alert("zdr");
             var $this = $(this);
+          
+        	$.post("profile_{username}"
+        			
+    				, function(result){
+           			if(result==true){
+           			
+           			}
+    	    });
+    		
+            
             $this.toggleClass('following')
-        })
+        });
 
         $('.following-first').click(function() {
+        	alert("hello");
             var $this = $(this);
             $this.toggleClass('btn-follow')
-        })
+        });
     </script>
 
 <script>
