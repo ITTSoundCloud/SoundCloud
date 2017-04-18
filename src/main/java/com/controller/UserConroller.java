@@ -71,7 +71,7 @@ public class UserConroller {
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
 
-            return "song";                                                   
+            return "search1";                                                   
 
 	}
 	
