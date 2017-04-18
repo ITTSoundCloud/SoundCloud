@@ -25,7 +25,7 @@ public class CommentDAO {
 		}
 		
 		
-		public int addComment(String content, int user_id,int song_id) throws SQLException{
+		public synchronized int addComment(String content, int user_id,int song_id) throws SQLException{
 			String sql = "Insert into soundcloud.comments (content,upload_time,user_id,song_id) "
 					+ "values (?,?,?,?);";
 			PreparedStatement ps = null;

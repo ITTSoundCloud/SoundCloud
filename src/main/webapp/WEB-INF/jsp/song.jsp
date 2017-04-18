@@ -12,10 +12,114 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js" type ="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.timeline.min.js" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/wavesurfer.min.js" />"  type ="text/javascript"></script>
+<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/wavesurfer.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/jsComment.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerSecond.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+
+
+<style type="text/css">
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,600);
+h4 {
+  margin: 5px 20px;
+}
+
+span {
+  float: right;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-box {
+  width: 85%;
+  margin-top: 50px;
+  background: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.comment-box p {
+  margin: 0 30px 15px;
+  font-weight: 300;
+  color: #333;
+  word-wrap: break-word;
+  background: #EEE;
+  padding: 5px 10px;
+}
+
+.header {
+  margin: 15px 20px;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+form {
+  margin: 10px 10px 30px 10px;
+}
+form ::-webkit-input-placeholder {
+  color: #CCC;
+  font-weight: 300;
+}
+
+input[type="text"], textarea {
+  margin: 5px 10px;
+  outline: none;
+  background: #efefef;
+  border: 0;
+  padding: 10px;
+}
+
+textarea {
+  resize: none;
+  width: 85%;
+}
+
+input[type="text"] {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+button {
+  font-weight: 400;
+  margin: 12px 0 0 10px;
+  border: 0;
+  color: #fff;
+  font-size: 15px;
+  background: #D3775D;
+  padding: 12px 20px 12px 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+button:hover {
+  background: #C15322;
+}
+
+.footer p {
+  float: right;
+  font-size: 13px;
+  margin-bottom: 10px;
+  background: #FFF;
+}
+
+
+</style>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -115,6 +219,28 @@
             </ul>
         </div>
     </div>
+    
+    
+    <body>
+  <div class="container">
+    <div class="comment-box">
+      <div class="comment-form">
+        <div class="header">Add Your Comment</div>
+        <form>
+          <div>
+            <textarea id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+          </div>
+          <button type="submit">COMMENT</button>
+         </form>
+      </div>
+      <div>
+        <h4 class="header">Comments</h4>
+        <div id="comments"></div>
+      </div>
+      <div class="footer"><hr><p>&copy 2016 by Josh Bivens</p></div>
+    </div>
+  </div>
+</body>
 
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
 </body>
@@ -140,6 +266,67 @@ slider.oninput = function() {
     var zoomLevel = Number(slider.value);
     wavesurfer.zoom(zoomLevel);
 };
+
+</script>
+
+
+
+<script type="text/javascript">
+const ref = new Firebase("https://radiant-torch-3037.firebaseio.com/");
+const form = document.querySelector("form");
+
+form.addEventListener("submit", postComment);
+
+const timeStamp = () => {
+  let options = {
+    month: '2-digit',
+    day: '2-digit',
+    year: '2-digit',
+    hour: '2-digit',
+    minute:'2-digit'
+  };
+  let now = new Date().toLocaleString('en-US', options);
+  return now;
+};
+
+function postComment(e) {
+  e.preventDefault();
+  let name = document.getElementById("name").value;
+  let comment = document.getElementById("comment").value;
+
+  if (name && comment) {
+    ref.push({
+      name: name,
+      comment: comment,
+      time: timeStamp()
+    });
+  }
+  
+
+  document.getElementById("name").value = '';
+  document.getElementById("comment").value = '';
+};
+
+$.post("comment", 
+		{ 
+			comment:document.getElementById("comment").value,
+			
+		}
+		, function(result){
+			if(result==true){
+				
+			}
+});
+
+ref.on("child_added", function(snapshot) {
+  let comment = snapshot.val();
+  addComment(comment.name, comment.comment, comment.time);
+});
+
+const addComment = (name, comment, timeStamp) => {
+  let comments = document.getElementById("comments");
+  comments.innerHTML = `<hr><h4>${name} says<span>${timeStamp}</span></h4><p>${comment}</p>${comments.innerHTML}`;
+}
 
 </script>
 

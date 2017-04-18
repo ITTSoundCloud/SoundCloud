@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.db.CommentDAO;
 import com.db.UserDAO;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.User;
@@ -119,6 +120,25 @@ public class UserConroller {
 			
 
 		}
+		
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/comment", method = RequestMethod.POST)
+		public void comment(Model model,HttpSession session,
+				@RequestParam (value="comment") String comment){
+			User currentUser = (User) session.getAttribute("user");
+			try {
+				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 1);
+				System.out.println("tuk sme");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("mina");
+				e.printStackTrace();
+			}	
+		}
+		
 		
 		@ResponseBody
 		@RequestMapping(value="/unFollow", method = RequestMethod.POST)
