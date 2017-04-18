@@ -198,44 +198,92 @@ border-radius:10px;
   color: #aa1537;
 }
 
-  button {
-            width: 150px;
-            height: 35px;
-        }
-        
-        button .msg-follow,
-        button .msg-following {
-            display: none;
-        }
-        
-        button .msg-follow {
-            display: inline;
-        }
-        
-        button.following .msg-follow {
-            display: none;
-        }
-        
-        button.following .msg-following {
-            display: inline;
-        }
-        
-        button .startmsg-follow,
-        button .startmsg-following {
-            display: none;
-        }
-        
-        button .startmsg-following {
-            display: inline;
-        }
-        
-        button.btn-follow .startmsg-following {
-            display: none;
-        }
-        
-        button.btn-follow .startmsg-follow {
-            display: inline;
-        }
+  
+  
+  
+  
+.btn {
+    cursor:pointer;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    
+    border:1px solid #a6a6a6;
+    border-top-color:#bdbdbd;
+    border-bottom-color:#8b8a8b;
+    
+    padding:9px 14px 9px;
+    
+    color:#666666;
+    font-size:11px;
+    background-position:0px 0px;
+    
+    text-shadow: 0 1px 0 #fff;
+    font-weight:bold;
+    
+    background-color: #ffffff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e8e8e8)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #ffffff, #e8e8e8); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #ffffff, #e8e8e8); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #ffffff, #e8e8e8); /* IE10 */
+    background-image:      -o-linear-gradient(top, #ffffff, #e8e8e8); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #ffffff, #e8e8e8);
+    
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    
+    
+}
+
+.btn:hover {
+    color:#333;
+    border-color:#999;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f6f6f6)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #ffffff, #f6f6f6); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #ffffff, #f6f6f6); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #ffffff, #f6f6f6); /* IE10 */
+    background-image:      -o-linear-gradient(top, #ffffff, #f6f6f6); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #ffffff, #f6f6f6);
+}
+.btn:active{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e8e8e8), to(#ffffff)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #e8e8e8, #ffffff); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #e8e8e8, #ffffff); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #e8e8e8, #ffffff); /* IE10 */
+    background-image:      -o-linear-gradient(top, #e8e8e8, #ffffff); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #e8e8e8, #ffffff);
+}
+.btn:focus {
+    outline: none;
+    border-color:#BD4A39;
+}
+
+
+/* Follow Button Styles */
+
+button.followButton{
+    width:160px;
+}
+button.followButton.following{
+    background-color: #57A957;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#62c462), to(#57a957));
+    background-image: -moz-linear-gradient(top, #62c462, #57a957);
+    background-image: -ms-linear-gradient(top, #62c462, #57a957);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #62c462), color-stop(100%, #57a957));
+    background-image: -webkit-linear-gradient(top, #62c462, #57a957);
+    background-image: -o-linear-gradient(top, #62c462, #57a957);
+    background-image: linear-gradient(top, #62c462, #57a957);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-color: #57A957 #57A957 #3D773D;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color:#fff;
+}
+
+  
+  
     </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -334,16 +382,10 @@ border-radius:10px;
        
        <c:choose>
 			        	<c:when test="${!isFollowing}">
-							      		<button class="follow-first">
-										<span class="msg-follow" >Follow</span>
-										<span class="msg-following">Following</span>
-										</button>
+							      		 <button class="btn followButton" rel="6">Follow</button>
 						</c:when>
 						<c:otherwise>
-					<button class="following-first">
-					<span class="startmsg-follow" >Follow</span>
-					<span class="startmsg-following">Following</span>
-					</button>
+					 <button class="btn followButton" rel="6">Following</button>
 						</c:otherwise>
 					</c:choose>
 
@@ -395,65 +437,39 @@ border-radius:10px;
     </div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">
-        $('.follow-first').click(function() {
-      
-        	  alert("zdr");
-            var $this = $(this);
-          
-        	$.post("profile_{username}"
-        			
-    				, function(result){
-           			if(result==true){
-           			
-           			}
-    	    });
-    		
-            
-            $this.toggleClass('following')
-        });
 
-        $('.following-first').click(function() {
-        	alert("hello");
-            var $this = $(this);
-            $this.toggleClass('btn-follow')
-        });
-    </script>
-
-<script>
-$(document).ready(function() {
-
-
-    var readURL = function(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('.profile-pic').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
+$('button.followButton').live('click', function(e){
+    e.preventDefault();
+    alert("nulevo");
+    $button = $(this);
+    if($button.hasClass('following')){
+    	alert("purvo");
+    	$.post("profile_{username}", 
+				{ 
+				
+				}
+				, function(result){
+       			if(result==true){
+       			
+       			}
+	    });
+    	
+        $button.removeClass('following');
+        $button.text('Follow');
+    } else {
+        alert("vtoro");
+        // $.ajax(); Do Follow
+        
+        $button.addClass('following');
+        $button.text('Following');
     }
-
-    $(".idiotButton").on('click', function(){
-    	   $(".idiotButton").click();
-    });
-
-    $(".file-upload").on('change', function(){
-        readURL(this);
-    });
-
-    $(".upload-button").on('click', function() {
-       $(".file-upload").click();
-    });
-    $(".upload-songbutton").on('click', function() {
-        $(".file-upload").click();
-     });
 });
+
+
 </script>
 
 		</body>
