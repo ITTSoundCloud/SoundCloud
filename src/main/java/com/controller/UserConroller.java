@@ -82,7 +82,7 @@ public class UserConroller {
 			model.addAttribute("user", visitedUser);
 			User currentUser = (User) session.getAttribute("user");
 			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
-			
+
 			try {
 				model.addAttribute("followUser", UserDAO.getInstance().followUser(currentUser.getUserId(), visitedUser.getUserId()));
 			} catch (SQLException e) {
@@ -105,24 +105,8 @@ public class UserConroller {
 		}*/
 		
 		
-		@ResponseBody
-		@RequestMapping(value="/profile_{username}", method = RequestMethod.POST)
-		public void followUser(Model model,HttpSession session,@PathVariable(value="username") String username){
-			User currentUser = (User) session.getAttribute("user");
-			User visitedUser = UserDAO.getInstance().getUser("daka123");
-			
-			try {
-				if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
-					System.out.println("ok");
-				}
 
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("losho");
-		}
-		
+	
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		

@@ -440,37 +440,7 @@ button.followButton.following{
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
 
-<script type="text/javascript">
 
-$('button.followButton').live('click', function(e){
-    e.preventDefault();
-    alert("nulevo");
-    $button = $(this);
-    if($button.hasClass('following')){
-    	alert("purvo");
-    	$.post("profile_{username}", 
-				{ 
-				
-				}
-				, function(result){
-       			if(result==true){
-       			
-       			}
-	    });
-    	
-        $button.removeClass('following');
-        $button.text('Follow');
-    } else {
-        alert("vtoro");
-        // $.ajax(); Do Follow
-        
-        $button.addClass('following');
-        $button.text('Following');
-    }
-});
-
-
-</script>
 
 		</body>
 		</html>
