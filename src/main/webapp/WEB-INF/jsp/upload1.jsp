@@ -445,25 +445,18 @@ button.followButton.following{
 $('button.followButton').live('click', function(e){
     e.preventDefault();
     alert("nulevo");
+    $.post("unFollow");
     $button = $(this);
     if($button.hasClass('following')){
     	alert("purvo");
-    	$.post("profile_{username}", 
-				{ 
-				
-				}
-				, function(result){
-       			if(result==true){
-       			
-       			}
-	    });
+    	
     	
         $button.removeClass('following');
         $button.text('Follow');
     } else {
         alert("vtoro");
         // $.ajax(); Do Follow
-        
+        $.post("follow");
         $button.addClass('following');
         $button.text('Following');
     }
