@@ -70,7 +70,7 @@ public class UserConroller {
 		 		System.out.println(u);
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
-            return "search1";                                                   
+            return "song";                                                   
 	}
 	
 	
@@ -78,9 +78,12 @@ public class UserConroller {
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
 		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){
+			System.out.println(username + "v profile_{username}");
 			User visitedUser = UserDAO.getInstance().getUser(username);
 			model.addAttribute("user", visitedUser);
 			User currentUser = (User) session.getAttribute("user");
+			session.setAttribute("usernameToFollow", username);
+			System.out.println(session.getAttribute("usernameToFollow").toString() + "from the session");
 			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 
 			try {
@@ -95,7 +98,7 @@ public class UserConroller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "upload";
+			return "upload1";
 		}
 		
 		/*@RequestMapping(value = "/songUpload", method= RequestMethod.GET)
@@ -104,9 +107,43 @@ public class UserConroller {
 			return "uploadSong";
 		}*/
 		
-		
-
 	
+		@ResponseBody
+		@RequestMapping(value="/follow", method = RequestMethod.POST)
+		public void followUser(Model model,HttpSession session){
+			User currentUser = (User) session.getAttribute("user");
+			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+			
+			try {
+				if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
+					System.out.println("ok");
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/unFollow", method = RequestMethod.POST)
+		public void unFollowUser(Model model,HttpSession session){
+			User currentUser = (User) session.getAttribute("user");
+			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+			
+			try {
+				if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
+					System.out.println("izstrit");
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		
