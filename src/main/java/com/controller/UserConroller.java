@@ -70,7 +70,9 @@ public class UserConroller {
 		 		System.out.println(u);
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
-            return "playerTry";                                                   
+
+            return "song";                                                   
+
 	}
 	
 	
@@ -86,7 +88,7 @@ public class UserConroller {
 			System.out.println(session.getAttribute("usernameToFollow").toString() + "from the session");
 			System.out.println(this.isFollowing(currentUser.getUserId(), visitedUser.getUserId()) + "follolva li");
 			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
-			
+
 			return "upload1";
 		}
 		
@@ -96,7 +98,7 @@ public class UserConroller {
 			return "uploadSong";
 		}*/
 		
-		
+	
 		@ResponseBody
 		@RequestMapping(value="/follow", method = RequestMethod.POST)
 		public void followUser(Model model,HttpSession session){
@@ -135,7 +137,7 @@ public class UserConroller {
 			}
 
 		}
-		
+
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		

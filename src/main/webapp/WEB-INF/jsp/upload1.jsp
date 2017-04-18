@@ -441,11 +441,12 @@ button.followButton.following{
 
 
 <script type="text/javascript">
-
 $('button.followButton').live('click', function(e){
+
     e.preventDefault();   
     $button = $(this);
     if($button.hasClass('following')){
+
     	$.post("unFollow");
         $button.removeClass('following');
         $button.text('Follow');
@@ -459,6 +460,7 @@ $('button.followButton').live('click', function(e){
 
 
 </script>
+
 
 		</body>
 		</html>
