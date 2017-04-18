@@ -15,7 +15,6 @@
 <script src="<c:url value="/static/js/wavesurfer.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerSecond.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
-<script src="<c:url value="/static/js/index.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 
 
@@ -119,5 +118,29 @@
 
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
 </body>
+
+
+<script type="text/javascript">
+var wavesurfer = Object.create(WaveSurfer);
+
+wavesurfer.init({
+    container: '#waveform',
+    barWidth: 1,
+    waveColor: 'white',
+    progressColor: 'orange',
+    cursorWidth: 0
+
+});
+
+wavesurfer.load('https://wavesurfer-js.org/example/split-channels/stereo.mp3');
+
+var slider = document.querySelector('#slider');
+
+slider.oninput = function() {
+    var zoomLevel = Number(slider.value);
+    wavesurfer.zoom(zoomLevel);
+};
+
+</script>
 
 </html>
