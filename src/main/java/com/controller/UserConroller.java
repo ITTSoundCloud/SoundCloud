@@ -70,7 +70,7 @@ public class UserConroller {
 		 		System.out.println(u);
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
-            return "search1";                                                   
+            return "playerTry";                                                   
 	}
 	
 	
@@ -84,20 +84,9 @@ public class UserConroller {
 			User currentUser = (User) session.getAttribute("user");
 			session.setAttribute("usernameToFollow", username);
 			System.out.println(session.getAttribute("usernameToFollow").toString() + "from the session");
+			System.out.println(this.isFollowing(currentUser.getUserId(), visitedUser.getUserId()) + "follolva li");
 			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 			
-			try {
-				model.addAttribute("followUser", UserDAO.getInstance().followUser(currentUser.getUserId(), visitedUser.getUserId()));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				model.addAttribute("unfollowUser",UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId()));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return "upload1";
 		}
 		
@@ -113,16 +102,19 @@ public class UserConroller {
 		public void followUser(Model model,HttpSession session){
 			User currentUser = (User) session.getAttribute("user");
 			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+			System.out.println("kvo stava tuka follow");
 			
-			try {
-				if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
-					System.out.println("ok");
-				}
+				try {
+					if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
+						System.out.println("ok");
+					}
 
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			
 
 		}
 		
@@ -131,7 +123,7 @@ public class UserConroller {
 		public void unFollowUser(Model model,HttpSession session){
 			User currentUser = (User) session.getAttribute("user");
 			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
-			
+			System.out.println("kvo stava tuka unfollow");
 			try {
 				if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
 					System.out.println("izstrit");

@@ -443,18 +443,13 @@ button.followButton.following{
 <script type="text/javascript">
 
 $('button.followButton').live('click', function(e){
-    e.preventDefault();
-    alert("nulevo");
-    $.post("unFollow");
+    e.preventDefault();   
     $button = $(this);
     if($button.hasClass('following')){
-    	alert("purvo");
-    	
-    	
+    	$.post("unFollow");
         $button.removeClass('following');
         $button.text('Follow');
     } else {
-        alert("vtoro");
         // $.ajax(); Do Follow
         $.post("follow");
         $button.addClass('following');
