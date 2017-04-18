@@ -198,36 +198,44 @@ border-radius:10px;
   color: #aa1537;
 }
 
-button{
-  width:150px;
-  height:35px;
-}
-
-button .msg-follow,
-button .msg-following,
-button .msg-unfollow{
-  display: none;
-}
-
-button .msg-follow{
-  display: inline;
-}
-
-button.following .msg-follow{
-  display: none;
-}
-
-button.following .msg-following{
-  display: inline;
-}
-
-button.following:not(.wait):hover .msg-following{
-  display: none;
-}
-
-button.following:not(.wait):hover .msg-unfollow{
-  display: inline;
-}
+  button {
+            width: 150px;
+            height: 35px;
+        }
+        
+        button .msg-follow,
+        button .msg-following {
+            display: none;
+        }
+        
+        button .msg-follow {
+            display: inline;
+        }
+        
+        button.following .msg-follow {
+            display: none;
+        }
+        
+        button.following .msg-following {
+            display: inline;
+        }
+        
+        button .startmsg-follow,
+        button .startmsg-following {
+            display: none;
+        }
+        
+        button .startmsg-following {
+            display: inline;
+        }
+        
+        button.btn-follow .startmsg-following {
+            display: none;
+        }
+        
+        button.btn-follow .startmsg-follow {
+            display: inline;
+        }
     </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -320,12 +328,21 @@ button.following:not(.wait):hover .msg-unfollow{
         <input class="file-upload" type="file" id="file" name="imageFile"  accept="image/*"/>
         <input type="submit" class = "idiotButton" value="Upload now">
        </form>
-
-       <button class="follow">
-  <span class="msg-follow" >Follow</span>
-  <span class="msg-following">Following</span>
-  <span class="msg-unfollow">Unfollow</span>
-</button>
+       
+       <c:choose>
+			        	<c:when test="${!isFollowing}">
+							      		<button class="follow-first">
+										<span class="msg-follow" >Follow</span>
+										<span class="msg-following">Following</span>
+										</button>
+						</c:when>
+						<c:otherwise>
+					<button class="following-first">
+					<span class="startmsg-follow" >Follow</span>
+					<span class="startmsg-following">Following</span>
+					</button>
+						</c:otherwise>
+					</c:choose>
 
        <!--  <h2>File uploaded with name = ${filename}</h2>
 		<img src="music/${filename}">  -->
@@ -379,19 +396,16 @@ button.following:not(.wait):hover .msg-unfollow{
 
 
 <script type="text/javascript">
-$('button').click(function(){
-	  var $this = $(this);
-	  var boo = false;
-	  
-		  $this.toggleClass('following')
-	  	  
-	  if($this.is('.following')){
-	    $this.addClass('wait');
-	  }
-	}).on('mouseleave',function(){
-	  $(this).removeClass('wait');
-	})
-</script>
+        $('.follow-first').click(function() {
+            var $this = $(this);
+            $this.toggleClass('following')
+        })
+
+        $('.following-first').click(function() {
+            var $this = $(this);
+            $this.toggleClass('btn-follow')
+        })
+    </script>
 
 <script>
 $(document).ready(function() {
