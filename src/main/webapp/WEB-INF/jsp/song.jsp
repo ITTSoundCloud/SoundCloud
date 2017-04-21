@@ -204,14 +204,14 @@ border-color: transparent transparent transparent #eeeeee;
 			  <c:when test="${comment.commentId % 2 == 0}">
 				<div class="message" id="comments">
 					 <img src="https://www.google.com" class="avatar">
-					 <p><strong>User, <em><c:out value="${comment.commentTime}"/></em></strong>
+					 <p><strong>${comment.username}  <em><c:out value="${comment.commentTime}"/></em></strong>
 					 <c:out value="${comment.content}"/></p>
 				</div>
 				</c:when>
 				<c:otherwise>
 					<div class="message" id="comments">
 					 <img src="https://www.google.com" class="avatar">
-					 <p><strong>User, <em><c:out value="${comment.commentTime}"/></em></strong>
+					 <p><strong>${comment.username} <em><c:out value="${comment.commentTime}"/></em></strong>
 					 <c:out value="${comment.content}"/></p>
 				</div>
 				</c:otherwise>

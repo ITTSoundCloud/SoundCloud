@@ -54,28 +54,33 @@ public class CommentDAO {
 		}
 		
 		
-		public List<Comment> getComments() throws SQLException{
+		public List<Comment> getComments() throws SQLException {
 			
-			String sql = "select comment_id,content,upload_time,user_id,song_id from soundcloud.comments;";
+			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,u.profilephoto_path,"
+					+ "u.username from soundcloud.comments c join "
+					+ "soundcloud.users u using(user_id);";
 			List<Comment> comments = new ArrayList<Comment>();
 			PreparedStatement ps = null;
 	       
 	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 	            ResultSet rs = ps.executeQuery();
 	            while (rs.next()) {
-	            	comments.add(new Comment(rs.getString("content"),
-	            			rs.getTimestamp("upload_time").toLocalDateTime(), 
-	            			rs.getInt("comment_id"), 
-	            			rs.getInt("song_id"), 
-	            			rs.getInt("user_id")));
+	            Comment comment = new Comment(rs.getString("c.content"),
+	            			rs.getTimestamp("c.upload_time").toLocalDateTime(), 
+	            			rs.getInt("c.comment_id"), 
+	            			rs.getInt("c.song_id"), 
+	            			rs.getInt("c.user_id"));
+	            //TODO
+	            
+	            comment.setphoto_user("nema snimka oshte");
+	            comment.setUsername(rs.getString("u.username"));
+	            comments.add(comment);
 	            }
 	        
 	        return comments;
 
 		}
 		
-		
-		
-	
+
 
 }

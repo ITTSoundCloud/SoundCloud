@@ -111,5 +111,32 @@ private static SongDAO instance;
     
     
     
+    public void increaseTimesPlayed(int song_id){
+		String sql = "update soundcloud.songs set timesPlayed=timesPlayed+1 where song_id = ?;";	
+		PreparedStatement ps=null;
+			try {
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setInt(1, song_id);
+				int rowsAff = ps.executeUpdate();
+				if(rowsAff>0){
+					System.out.println("success");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			finally{
+				if(ps != null){
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			}
+		
+	}
+    
+    
+    
 
 }

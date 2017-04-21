@@ -67,6 +67,7 @@ public class UserConroller {
 		HttpServletRequest request, Model model, HttpSession session) {
 		User user = UserDAO.getInstance().getUser(username);
 		try {
+			//TODO
 			List<Comment> comments = CommentDAO.getInstance().getComments();
 			model.addAttribute("allComments", comments);
 		} catch (SQLException e) {

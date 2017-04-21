@@ -9,6 +9,9 @@ public class Comment {
 	private int userId;
 	private String content;
 	private LocalDateTime commentTime;
+	private String photo_user;
+	private String username;
+	
 	
 	public Comment(String content, LocalDateTime commentTime, int commentId, int songId, int userId) {
 		this.commentId = commentId;
@@ -16,6 +19,26 @@ public class Comment {
 		this.commentTime = commentTime;
 		this.songId = songId;
 		this.userId = userId;
+	}
+
+
+	public String getPhoto_user() {
+		return photo_user;
+	}
+
+
+	public void setphoto_user(String photo_user) {
+		this.photo_user = photo_user;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 
