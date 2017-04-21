@@ -141,7 +141,7 @@ public class UserConroller {
 			User currentUser = (User) session.getAttribute("user");
 			
 			try {
-				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 3);
+				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 1);
 				System.out.println("tuk sme");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

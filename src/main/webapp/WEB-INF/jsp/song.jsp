@@ -16,7 +16,6 @@
 <script src="<c:url value="/static/js/wavesurfer.min.js" />"  type ="text/javascript"></script>
 <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/wavesurfer.js" />"  type ="text/javascript"></script>
-<script src="<c:url value="/static/js/jsComment.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerSecond.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
@@ -24,102 +23,74 @@
 
 <style type="text/css">
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,600);
-h4 {
-  margin: 5px 20px;
+.avatar{
+  border-radius:100px;
+  width:70px;
+  height:70px;
+  float:left;
+}
+.message{
+  font-family:calibri;
+  position:relative;
+  clear:both;
+  width:590px;
+}
+.message .avatar{
+  margin-top:5px;
+}
+.message p{
+  float:left;
+  font-family:calibri;
+  color:#333;
+  width:450px;
+  margin:0;
+  margin-left:20px;
+  margin-top:5px;
+  padding:10px;
+  background-color:#fafafa;
+  border:1px solid #eee;
+  border-radius:5px;
+  margin-bottom:10px;
+  word-spacing:3px;
+  line-height:22px;
+}
+.message p em.info{
+  display:block;
+  text-align:right;
+  margin-top:10px;
+  font-size:12px;
+  font-weight:bold;
+  color:#666px;
+}
+.message p strong{
+  display:block;
+  color:#428bca;
+  border-bottom:1px solid #ddd;
+  margin-bottom:10px;
+}
+.message p strong em{
+  font-weigh:normal;
+  color:#333;
+  font-size:10pt;
 }
 
-span {
-  float: right;
-  margin-right: 10px;
-  font-size: 12px;
-  font-weight: 300;
+.inverse .avatar{float:left;}
+.inverse p{float:none;background-color:#eee;}
+.inverse .triangle{
+  display:block;
+  position:absolute;
+  left:600px;
+width: 0;
+height: 0;
+border-style: solid;
+border-width: 10px 0 10px 15px;
+border-color: transparent transparent transparent #eeeeee;
 }
 
-hr {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+#global{
+  width:1140px;
 }
-
-.container {
-  display: flex;
-  justify-content: center;
-}
-
-.comment-box {
-  width: 85%;
-  margin-top: 50px;
-  background: #fff;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.comment-box p {
-  margin: 0 30px 15px;
-  font-weight: 300;
-  color: #333;
-  word-wrap: break-word;
-  background: #EEE;
-  padding: 5px 10px;
-}
-
-.header {
-  margin: 15px 20px;
-  font-size: 27px;
-  font-weight: 600;
-}
-
-form {
-  margin: 10px 10px 30px 10px;
-}
-form ::-webkit-input-placeholder {
-  color: #CCC;
-  font-weight: 300;
-}
-
-input[type="text"], textarea {
-  margin: 5px 10px;
-  outline: none;
-  background: #efefef;
-  border: 0;
-  padding: 10px;
-}
-
-textarea {
-  resize: none;
-  width: 85%;
-}
-
-input[type="text"] {
-  width: 50%;
-  margin-bottom: 15px;
-}
-
-button {
-  font-weight: 400;
-  margin: 12px 0 0 10px;
-  border: 0;
-  color: #fff;
-  font-size: 15px;
-  background: #D3775D;
-  padding: 12px 20px 12px 20px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-button:hover {
-  background: #C15322;
-}
-
-.footer p {
-  float: right;
-  font-size: 13px;
-  margin-bottom: 10px;
-  background: #FFF;
-}
-
+.messages{float:left;}
 
 </style>
 
@@ -193,10 +164,7 @@ button:hover {
     <br>
 
     <!--Comment Box -->
-    <div id="textbox" class="input-group">
-        <textarea class="form-control custom-control" rows="1" placeholder="Write your comment..."></textarea>
-        <span class="input-group-addon btn btn-default">Send</span>
-    </div>
+ 
 
     <!--Button group -->
     <div class="btn-group" style="text-align: center">
@@ -222,31 +190,42 @@ button:hover {
         </div>
     </div>
     
- 
-    <body>
-  <div class="container">
-    <div class="comment-box">
-      <div class="comment-form">
-        <div class="header">Add Your Comment</div>
-
-          <div>
-            <textarea id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
-          </div>
-          <button id="submitComment">COMMENT</button>
-      </div>
-      <div>
-        <h4 class="header">Comments</h4>
-        <div id="comments"></div>
-        <c:forEach items="${allComments}" var="comment">
-        <tr> <td> 
-        <c:out value="${comment.content}"/>
-        </td></tr>
-        </c:forEach>
-        
-      </div>
+    <div id="textbox" class="input-group">
+        <textarea class="form-control custom-control" id = "comment" rows="1" placeholder="Write your comment..."></textarea>
+        <button id="submitCom" class="input-group-addon btn btn-default">Send</button>
     </div>
-  </div>
-</body>
+    
+ <div id="global">
+  <div class="messages">
+  <c:choose>
+	  <c:when test="${not empty allComments }">
+		  <c:forEach items="${allComments}" var="comment">
+		  <c:choose>
+			  <c:when test="${comment.commentId % 2 == 0}">
+				<div class="message" id="comments">
+					 <img src="https://www.google.com" class="avatar">
+					 <p><strong>User, <em><c:out value="${comment.commentTime}"/></em></strong>
+					 <c:out value="${comment.content}"/></p>
+				</div>
+				</c:when>
+				<c:otherwise>
+					<div class="message" id="comments">
+					 <img src="https://www.google.com" class="avatar">
+					 <p><strong>User, <em><c:out value="${comment.commentTime}"/></em></strong>
+					 <c:out value="${comment.content}"/></p>
+				</div>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<div class="message" id="comments">
+			<p>No comments.</p>
+		</div>
+	</c:otherwise>
+</c:choose>
+</div>
+</div>
 
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
 
@@ -285,8 +264,20 @@ $(function(){
 	 var cms = document.getElementById("comments").value;
 	 var $comment = $('#comment');
 	 
+	 const timeStamp = () => {
+		  let options = {
+		    month: '2-digit',
+		    day: '2-digit',
+		    year: '2-digit',
+		    hour: '2-digit',
+		    minute:'2-digit'
+		  };
+		  let now = new Date().toLocaleString('en-US', options);
+		  return now;
+		};
 	 
-	 $('#submitComment').on('click', function(){
+	 
+	 $('#submitCom').on('click', function(){
 		 comment: cm.value,
 	 alert("hello?"),
 	 
@@ -299,7 +290,10 @@ $(function(){
 		    "comment" : cm.value,
 	    },
 		success: function(newComment){
-			$comments.append(cm.value),
+			var h = document.getElementById("comment");
+			document.getElementById('comments').innerHTML = `<img src="https://randomuser.me/api/portraits/med/men/23.jpg" class="avatar">
+				  <p><strong>George,<em>+${timeStamp}+</em></strong>`+h.value+`</p>`,
+				  $comments.append(timeStamp),
 			cm.value="";
 		}
 		
