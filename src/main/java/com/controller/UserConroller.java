@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
+import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.db.CommentDAO;
 import com.db.UserDAO;
+import com.email.CodeGenerator;
+import com.email.EmailSender;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.Comment;
 import com.model.User;
@@ -33,7 +36,6 @@ import com.validators.UsernameValidator;
 @Controller
 @MultipartConfig
 public class UserConroller {
-	//lll
 	
 	private PasswordValidator passValidator = new PasswordValidator();
 	
@@ -42,22 +44,33 @@ public class UserConroller {
 		@RequestParam(value = "username") String username,
 		@RequestParam(value = "password") String password,
 		@RequestParam(value = "email") String email,
-		HttpServletRequest request, Model model) {
+		HttpServletRequest request, Model model, HttpSession session) {
 			
 		System.out.println("query made");
 		User user = null;
-
         if (validateRegister(model, username, password, email)) {
         	user = new User(username, email, password);
-            if (!UserDAO.getInstance().saveUser(user)) {
-            	model.addAttribute("ErrorRegMessage", "Cannot register.");
-			}
-            else{
-            	return "search1";
-            }
-                                               
+           // if (!UserDAO.getInstance().saveUser(user)) {
+        	String code = CodeGenerator.createCode();
+        	session.setAttribute("verification", code);
+            EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
+            	return "verify";
+                                                          
         } 
             return "index";
+         
+	}
+	
+	@RequestMapping(value = "/verify", method = RequestMethod.POST)
+	public String verify(
+		@RequestParam(value = "code") String code,
+		HttpServletRequest request, HttpSession session) {
+		System.out.println(code);
+		System.out.println((String) session.getAttribute("verification"));
+		if (code.equals(session.getAttribute("verification").toString())) {
+			return "search1";
+		}
+		return "index";
          
 	}
 	
@@ -86,8 +99,6 @@ public class UserConroller {
             return "song";                                                   
 
 	}
-	
-	
 
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
 		public String giveUser(Model model, HttpSession session, 
@@ -104,13 +115,6 @@ public class UserConroller {
 			return "upload1";
 		}
 		
-		/*@RequestMapping(value = "/songUpload", method= RequestMethod.GET)
-		public String uploadSong(Model model, HttpSession s){
-
-			return "uploadSong";
-		}*/
-		
-	
 		@ResponseBody
 		@RequestMapping(value="/follow", method = RequestMethod.POST)
 		public void followUser(Model model,HttpSession session){
@@ -127,14 +131,8 @@ public class UserConroller {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
-			
-
 		}
-		
-		
-		
-		
+				
 		@ResponseBody
 		@RequestMapping(value="/comment", method = RequestMethod.POST)
 		public void comment(Model model,HttpSession session,
@@ -150,8 +148,7 @@ public class UserConroller {
 				e.printStackTrace();
 			}	
 		}
-		
-		
+				
 		@ResponseBody
 		@RequestMapping(value="/unFollow", method = RequestMethod.POST)
 		public void unFollowUser(Model model,HttpSession session){
@@ -169,7 +166,6 @@ public class UserConroller {
 			}
 
 		}
-
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		
@@ -262,7 +258,5 @@ public class UserConroller {
 		}
 		return false;
 	}
-	
-	
 	
 }
