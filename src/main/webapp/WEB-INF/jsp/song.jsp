@@ -4,7 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
@@ -18,6 +20,8 @@
 <script src="<c:url value="/static/js/playerSecond.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<script src="jquery-3.2.0.min.js"></script>
+
 
 
 <style type="text/css">
@@ -215,7 +219,7 @@ button:hover {
         <div class="btn-container-right">
             <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
-                <li><a href="#"><i class="fa fa-comment"></i> Comment</a></li>
+                <li><a href="#" ><i class="fa fa-comment"></i> Comment</a></li>
             </ul>
         </div>
     </div>
@@ -226,18 +230,22 @@ button:hover {
     <div class="comment-box">
       <div class="comment-form">
         <div class="header">Add Your Comment</div>
-        <form>
+
           <div>
             <textarea id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
           </div>
-          <button type="submit">COMMENT</button>
-         </form>
+          <button id="submitComment">COMMENT</button>
       </div>
       <div>
         <h4 class="header">Comments</h4>
         <div id="comments"></div>
+        <c:forEach items="${allComments}" var="comment">
+        <tr> <td> 
+        <c:out value="${comment.content}"/>
+        </td></tr>
+        </c:forEach>
+        
       </div>
-      <div class="footer"><hr><p>&copy 2016 by Josh Bivens</p></div>
     </div>
   </div>
 </body>
@@ -269,64 +277,31 @@ slider.oninput = function() {
 
 </script>
 
-
-
 <script type="text/javascript">
-const ref = new Firebase("https://radiant-torch-3037.firebaseio.com/");
-const form = document.querySelector("form");
 
-form.addEventListener("submit", postComment);
-
-const timeStamp = () => {
-  let options = {
-    month: '2-digit',
-    day: '2-digit',
-    year: '2-digit',
-    hour: '2-digit',
-    minute:'2-digit'
-  };
-  let now = new Date().toLocaleString('en-US', options);
-  return now;
-};
-
-function postComment(e) {
-  e.preventDefault();
-  let name = document.getElementById("name").value;
-  let comment = document.getElementById("comment").value;
-
-  if (name && comment) {
-    ref.push({
-      name: name,
-      comment: comment,
-      time: timeStamp()
-    });
-  }
-  
-
-  document.getElementById("name").value = '';
-  document.getElementById("comment").value = '';
-};
-
-$.post("comment", 
-		{ 
-			comment:document.getElementById("comment").value,
+$(function(){
+	 var $comments = $('#comments');
+	 var $comment = $('#comment');
+	 alert('wtf');
+	 
+	 $('#submitComment').on('click', function(){
+		 comment: $comment.val();
+	 });
+	 
+	 $.ajax({
+		type: 'POST',
+		url:'comment',
+		data: {
+		    "comment" : comment
+	    },
+		success: function(newComment){
 			
+			$comments.append('<li> comment:</li>');
 		}
-		, function(result){
-			if(result==true){
-				
-			}
+		
+	 });
+	 
 });
-
-ref.on("child_added", function(snapshot) {
-  let comment = snapshot.val();
-  addComment(comment.name, comment.comment, comment.time);
-});
-
-const addComment = (name, comment, timeStamp) => {
-  let comments = document.getElementById("comments");
-  comments.innerHTML = `<hr><h4>${name} says<span>${timeStamp}</span></h4><p>${comment}</p>${comments.innerHTML}`;
-}
 
 </script>
 
