@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.db.CommentDAO;
 import com.db.UserDAO;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
+import com.model.Comment;
 import com.model.User;
 import com.validators.EmailValidator;
 import com.validators.PasswordValidator;
@@ -64,13 +66,21 @@ public class UserConroller {
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
 		User user = UserDAO.getInstance().getUser(username);
+		try {
+			List<Comment> comments = CommentDAO.getInstance().getComments();
+			model.addAttribute("allComments", comments);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			session.setAttribute("user", user);
-		 
+			
 		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 		 	for(User u : allUsers){
 		 		System.out.println(u);
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
+
 
             return "song";                                                   
 
@@ -129,8 +139,9 @@ public class UserConroller {
 		public void comment(Model model,HttpSession session,
 				@RequestParam (value="comment") String comment){
 			User currentUser = (User) session.getAttribute("user");
+			
 			try {
-				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 1);
+				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 3);
 				System.out.println("tuk sme");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

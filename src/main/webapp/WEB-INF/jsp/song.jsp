@@ -4,7 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
@@ -18,6 +20,110 @@
 <script src="<c:url value="/static/js/playerSecond.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.2.0.js" type = "text/javascript"></script>
+
+<style type="text/css">
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,600);
+h4 {
+  margin: 5px 20px;
+}
+
+span {
+  float: right;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-box {
+  width: 85%;
+  margin-top: 50px;
+  background: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.comment-box p {
+  margin: 0 30px 15px;
+  font-weight: 300;
+  color: #333;
+  word-wrap: break-word;
+  background: #EEE;
+  padding: 5px 10px;
+}
+
+.header {
+  margin: 15px 20px;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+form {
+  margin: 10px 10px 30px 10px;
+}
+form ::-webkit-input-placeholder {
+  color: #CCC;
+  font-weight: 300;
+}
+
+input[type="text"], textarea {
+  margin: 5px 10px;
+  outline: none;
+  background: #efefef;
+  border: 0;
+  padding: 10px;
+}
+
+textarea {
+  resize: none;
+  width: 85%;
+}
+
+input[type="text"] {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+button {
+  font-weight: 400;
+  margin: 12px 0 0 10px;
+  border: 0;
+  color: #fff;
+  font-size: 15px;
+  background: #D3775D;
+  padding: 12px 20px 12px 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+button:hover {
+  background: #C15322;
+}
+
+.footer p {
+  float: right;
+  font-size: 13px;
+  margin-bottom: 10px;
+  background: #FFF;
+}
+
+
+</style>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Wavesurfer</title>
@@ -111,14 +217,39 @@
         <div class="btn-container-right">
             <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
-                <li><a href="#"><i class="fa fa-comment"></i> Comment</a></li>
+                <li><a href="#" ><i class="fa fa-comment"></i> Comment</a></li>
             </ul>
         </div>
     </div>
     
-    
-    <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
+ 
+    <body>
+  <div class="container">
+    <div class="comment-box">
+      <div class="comment-form">
+        <div class="header">Add Your Comment</div>
+
+          <div>
+            <textarea id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+          </div>
+          <button id="submitComment">COMMENT</button>
+      </div>
+      <div>
+        <h4 class="header">Comments</h4>
+        <div id="comments"></div>
+        <c:forEach items="${allComments}" var="comment">
+        <tr> <td> 
+        <c:out value="${comment.content}"/>
+        </td></tr>
+        </c:forEach>
+        
+      </div>
+    </div>
+  </div>
 </body>
+
+    <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
+
 
 
 <script type="text/javascript">
@@ -145,5 +276,43 @@ slider.oninput = function() {
 </script>
 
 
+<script type="text/javascript">
 
+$(function(){
+	alert('wtf');
+	 var $comments = $('#comments');
+	 var cm = document.getElementById("comment");
+	 var cms = document.getElementById("comments").value;
+	 var $comment = $('#comment');
+	 
+	 
+	 $('#submitComment').on('click', function(){
+		 comment: cm.value,
+	 alert("hello?"),
+	 
+	 
+	 $.ajax({
+		 
+		type: 'POST',
+		url:'comment',
+		data: {
+		    "comment" : cm.value,
+	    },
+		success: function(newComment){
+			$comments.append(cm.value),
+			cm.value="";
+		}
+		
+	 });
+});
+	 
+});
+
+</script>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
 </html>
