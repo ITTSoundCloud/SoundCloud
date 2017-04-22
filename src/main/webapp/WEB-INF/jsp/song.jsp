@@ -304,6 +304,16 @@ $(function(){
 
 <script type="text/javascript">
 
+function myFunction(){
+				$('#showSecond').hide();
+				$('#showThird').hide();
+				$('#showFirst').show();
+
+};
+
+	
+</script>
+
 </script>
 </body>
 </html>

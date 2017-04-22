@@ -494,10 +494,6 @@ public class UserDAO {
 			} catch (SQLException e) {
 				System.out.println("Error in DB with searching for users - " + e.getMessage());
 			}
-			if(usersMatching.size() == 0){
-				System.out.println("There is no such user! ");
-				return null;
-			}
 			return Collections.unmodifiableList(usersMatching);
 		}
 	    

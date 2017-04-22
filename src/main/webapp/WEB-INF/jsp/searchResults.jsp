@@ -76,18 +76,25 @@
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a href="#"><span class="fa fa-search"></span> Everything</a></li></br>
-	            <li><a href="#"><span class="fa fa-music"></span> Tracks</a></li></br>
-	            <li><a href="#"><span class="fa fa-user"></span> People</a></li>
+	            <li><a onclick="myFunction()" href="#" style="color:#f50" id="first"><span class="fa fa-search"></span> Everything</a></li></br>
+	            <li><a onclick="myFunction1()" href="#" id="second"><span class="fa fa-music"></span> Tracks</a></li></br>
+	            <li><a onclick="myFunction2()" href="#" id="third"><span class="fa fa-user"></span> People</a></li>
+	            <li><a onclick="myFunction3()" href="#" id="forth"><span class="fa fa-signal"></span> Playlists</a></li>
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
 	</nav>
-	    </div>
+</div>
+
+	<c:set var="searchedSongs" scope="request" value="${searchedSongs}"/>
+	<c:set var="searchedUsers" scope="request" value="${searchedUsers}"/>	
+	<c:set var="searchedPlaylists" scope="request" value="${searchedPlaylists}"/>
+	
 	    <!-- Main Content -->
 	    <div class="container-fluid">
 	        <div class="side-body">
-	           <h1> Main Content here </h1>
+	        <div id="showFirst" style="display:block">
 	           <div class="col-md-9">
+	           <h3> You searched for </h3>
 				<table class="table table-list-search">
 					<thead>
 						<tr>
@@ -96,11 +103,7 @@
 							<th><i>Open Profile</i></th>
 						</tr>
 					</thead>
-					
-					<c:set var="searchedSongs" scope="request" value="${searchedSongs}"/>
-					<c:set var="searchedUsers" scope="request" value="${searchedUsers}"/>
-
-						 <c:if test="${empty searchedUsers and empty searchedSongs}">
+						 <c:if test="${empty searchedUsers and empty searchedSongs and empty searchedPlylists}">
 							<h1>No results</h1>
 						</c:if>
 					<tbody>
@@ -160,10 +163,176 @@
 							</td>
 						</tr>
 						</c:forEach>
+						<c:forEach items="${searchedPlaylists}" var="playlist">
+						<tr>
+						<td><c:choose>
+							<c:when test ="${empty playlist.profilePic}">
+								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${user.username}"/>
+							</c:when>
+							<c:otherwise>
+									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><c:choose>
+							<c:when test ="${empty user.bio}">
+								<h6>No description</h6>
+							</c:when>
+							<c:otherwise>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><button type="button"
+									href="http://localhost:8080/SoundCloud/login"
+									><i class="fa fa-soundcloud""> smth</i></button>
+							</td>
+						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
-
+			</div>
+		<div id = "showSecond"  style="display:none">
+			   <div class="col-md-9">
+			     <h3> You searched for </h3>
+				<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Username</i></th>
+							<th><i>Some info here</i></th>
+							<th><i>Open Profile</i></th>
+						</tr>
+					</thead>
+					<c:if test="${empty searchedSongs}">
+						<h1 id="showSecond">No results</h1>
+					</c:if>
+						<tbody>
+							<c:forEach items="${searchedSongs}" var="song">
+								<tr>
+								<td>
+								<c:choose>
+									<c:when test ="${empty song.photo}">
+										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<c:out value="${song.title}"/>
+									</c:when>
+									<c:otherwise>
+										<a href="#"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+								<c:choose>
+									<c:when test ="${empty song.about}">
+										<h6>No description</h6>
+									</c:when>
+									<c:otherwise>
+										<c:out value="${song.about}"/>
+										<a href="#"><img class="" src="" alt="" width="100" height="100"></a>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+								<button type="button"
+										href="http://localhost:8080/SoundCloud/login">
+										<i class="fa fa-soundcloud"> Like</i></button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div class="col-md-9" id="showThird"  style="display:none">
+				<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Username</i></th>
+							<th><i>Some info here</i></th>
+							<th><i>Open Profile</i></th>
+						</tr>
+					</thead>
+						 <c:if test="${empty searchedUsers}">
+							<h1>No results</h1>
+						</c:if>
+					<tbody>
+					<c:forEach items="${searchedUsers}" var="user">
+						<tr>
+						<td><c:choose>
+							<c:when test ="${empty user.profilePic}">
+								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${user.username}"/>
+							</c:when>
+							<c:otherwise>
+									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><c:choose>
+							<c:when test ="${empty user.bio}">
+								<h6>No description</h6>
+							</c:when>
+							<c:otherwise>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><button type="button"
+									href="http://localhost:8080/SoundCloud/login"
+									><i class="fa fa-soundcloud""> Follow</i></button>
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<div id="showForth"  style="display:none">
+			<div class="col-md-9">
+				<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Playlist</i></th>
+							<th><i>Some info here</i></th>
+							<th><i>...</i></th>
+						</tr>
+					</thead>
+						 <c:if test="${empty searchedPlaylists}">
+							<h1>No results</h1>
+						</c:if>
+					<tbody>
+					<c:forEach items="${searchedPlaylists}" var="playlist">
+						<tr>
+						<td><c:choose>
+							<c:when test ="${empty playlist.profilePic}">
+								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${user.username}"/>
+							</c:when>
+							<c:otherwise>
+									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><c:choose>
+							<c:when test ="${empty user.bio}">
+								<h6>No description</h6>
+							</c:when>
+							<c:otherwise>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><button type="button"
+									href="http://localhost:8080/SoundCloud/login"
+									><i class="fa fa-soundcloud""> smth</i></button>
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			
 	        </div>
 	    </div>
 	</div>
@@ -175,6 +344,59 @@
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="./javascript.js"></script>
+
+    
+    
+ <script type = "text/javascript">
+
+function myFunction() {
+				$('#showSecond').hide();
+				$('#showThird').hide();
+				$('#showFirst').show();
+				$('#showForth').hide();
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#777";;
+				document.getElementById("first").style="color:#f50";
+				document.getElementById("forth").style="color:#777";
+};
+
+function myFunction1() {
+				$('#showSecond').show();
+				$('#showThird').hide();
+				$('#showFirst').hide();
+				$('#showForth').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("third").style="color:#777";;
+				document.getElementById("second").style="color:#f50";
+				document.getElementById("forth").style="color:#777";
+};
+
+function myFunction2() {
+				$('#showSecond').hide();
+				$('#showThird').show();
+				$('#showFirst').hide();
+				$('#showForth').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#f50";;
+				document.getElementById("forth").style="color:#777";
+};
+
+
+function myFunction3() {
+				$('#showFirst').hide();
+				$('#showSecond').hide();
+				$('#showForth').show();
+				$('#showThird').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#777";
+				document.getElementById("forth").style="color:#f50";
+};
+	
+</script>
 
 
 </body>

@@ -102,10 +102,6 @@ private static SongDAO instance;
 		} catch (SQLException e) {
 			System.out.println("Problem with DataBase in searchForSong! - " + e.getMessage());
 		}
-		if(songsMatching.size() == 0){
-			System.out.println("There is no such artist or song! ");
-			return null;
-		}
 		return Collections.unmodifiableList(songsMatching);
 	}
     

@@ -5,6 +5,10 @@
 <html>
 <head>
 
+
+<!-- TODO -->
+
+
 <link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
@@ -76,15 +80,16 @@
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a href="#"><span class="fa fa-search"></span> Everything</a></li></br>
-	            <li><a href="#"><span class="fa fa-music"></span> Tracks</a></li></br>
-	            <li><a href="#"><span class="fa fa-user"></span> People</a></li>
+	            <li><a onclick="myFunction()" href="#" style="color:#f50" id="first"><span class="fa fa-search"></span> Everything</a></li></br>
+	            <li><a onclick="myFunction1()" href="#" id="second"><span class="fa fa-music"></span> Tracks</a></li></br>
+	            <li><a onclick="myFunction2()" href="#" id="third"><span class="fa fa-user"></span> People</a></li>
+	            <li><a onclick="myFunction3()" href="#" id="forth"><span class="fa fa-signal"></span> Playlists</a></li>
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
 	</nav>
 	    </div>
 	    <!-- Main Content -->
-	    <div class="container-fluid">
+	    <div class="container-fluid" id="showFirst">
 	        <div class="side-body">
 	           <h1> Main Content here </h1>
 	           <div class="col-md-9">
@@ -133,6 +138,59 @@
 					</tbody>
 				</table>
 			</div>
+			
+			
+			
+			
+			 <div class="col-md-9" id="showSecond">
+				<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Track</i></th>
+							<th><i>Some info here</i></th>
+
+							<th><i>Like or smth...</i></th>
+						</tr>
+					</thead>
+					<c:set var="allUsers" scope="request" value="${allUsers}"/>
+
+						<c:if test="${empty allUsers}">
+						<h1>ok</h1>
+						</c:if>
+					<tbody>
+					<c:forEach items="${allUsers}" var="user">
+						<tr>
+						<td><c:choose>
+							<c:when test ="${empty user.profilePic}">
+								<a href="profile_${user.username }"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${user.username}"/>
+							</c:when>
+							<c:otherwise>
+									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><c:choose>
+							<c:when test ="${empty user.bio}">
+								<h6>No description</h6>
+							</c:when>
+							<c:otherwise>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td><button type="button"
+									href="http://localhost:8080/SoundCloud/login"
+									><i class="fa fa-soundcloud""> Follow</i></button>
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			
+			
+			
 
 	        </div>
 	    </div>
@@ -145,6 +203,58 @@
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
+    
+    
+    
+<script type = "text/javascript">
+
+function myFunction() {
+				$('#showSecond').hide();
+				$('#showThird').hide();
+				$('#showFirst').show();
+				$('#showForth').hide();
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#777";;
+				document.getElementById("first").style="color:#f50";
+				document.getElementById("forth").style="color:#777";
+};
+
+function myFunction1() {
+				$('#showSecond').show();
+				$('#showThird').hide();
+				$('#showFirst').hide();
+				$('#showForth').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("third").style="color:#777";;
+				document.getElementById("second").style="color:#f50";
+				document.getElementById("forth").style="color:#777";
+};
+
+function myFunction2() {
+				$('#showSecond').hide();
+				$('#showThird').show();
+				$('#showFirst').hide();
+				$('#showForth').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#f50";;
+				document.getElementById("forth").style="color:#777";
+};
+
+
+function myFunction3() {
+				$('#showFirst').hide();
+				$('#showSecond').hide();
+				$('#showForth').show();
+				$('#showFirst').hide();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#777";
+				document.getElementById("forth").style="color:#f50";
+};
+	
+</script>
+    
 
 
 </body>
