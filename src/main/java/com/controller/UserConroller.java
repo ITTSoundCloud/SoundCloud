@@ -53,6 +53,7 @@ public class UserConroller {
            // if (!UserDAO.getInstance().saveUser(user)) {
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
+        	session.setAttribute("currentUser", user);
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             	return "verify";
                                                           
@@ -68,9 +69,10 @@ public class UserConroller {
 		System.out.println(code);
 		System.out.println((String) session.getAttribute("verification"));
 		if (code.equals(session.getAttribute("verification").toString())) {
+			UserDAO.getInstance().saveUser((User) session.getAttribute("currentUser"));
 			return "search1";
 		}
-		return "index";
+		return "verify";
          
 	}
 	
