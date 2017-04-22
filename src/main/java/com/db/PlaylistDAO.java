@@ -29,15 +29,15 @@ public class PlaylistDAO {
 		return instance;
 	}
 
-	// create playlist
-	public int createPlaylist(int user_id, String title) throws SQLException{
-		String sql = "insert into soundcloud.playlists (user_id, title) VALUES (?,?) ";
+	public int createPlaylist(int user_id, String title,String description) throws SQLException{
+		String sql = "insert into soundcloud.playlists (user_id, title,description) VALUES (?,?,?) ";
 		int playlist_id = 0;
 		PreparedStatement ps = null;
 		try{
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, user_id);
 			ps.setString(2, title);
+			ps.setString(3, description);
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			while(rs.next()){
@@ -72,17 +72,19 @@ public class PlaylistDAO {
 	
 	//get all playlists
 	public List<Playlist> getAllPlaylists() throws SQLException {
-		String sql = "select playlist_id, title, user_id from soundcloud.playlists";
+		String sql = "select playlist_id, title, user_id,description from soundcloud.playlists";
 		List<Playlist> playlists = new ArrayList<>();
 		PreparedStatement ps = null;
 		try{
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				playlists.add(new Playlist(rs.getInt("playlist_id"), 
+				Playlist playlist = new Playlist(rs.getInt("playlist_id"), 
 											rs.getString("title"),
-											rs.getInt("user_id")));
+											rs.getInt("user_id"));
+				playlist.setDescription(rs.getString("description"));
 				
+				playlists.add(playlist);
 			}
 		}
 		finally{
@@ -99,7 +101,7 @@ public class PlaylistDAO {
 	
 	// get playlist by user
 	public List<Playlist> getUserPlaylists(int user_id) throws SQLException{
-		String sql = "SELECT playlist_id, title, user_id FROM soundcloud.playlists where user_id = ?;";
+		String sql = "SELECT playlist_id, title, user_id,description FROM soundcloud.playlists where user_id = ?;";
 		
 		List<Playlist> userPlaylists = new ArrayList<>();
 		PreparedStatement ps = null;
@@ -110,9 +112,12 @@ public class PlaylistDAO {
 			ResultSet resultSet = ps.executeQuery();
 			
 			while(resultSet.next()){
-				userPlaylists.add(new Playlist(resultSet.getInt("p.playlist_id"),
+				Playlist playlist = new Playlist(resultSet.getInt("p.playlist_id"),
 						resultSet.getString("p.title"),
-						resultSet.getInt("p.userId")));
+						resultSet.getInt("p.userId"));
+				playlist.setDescription(resultSet.getString("description"));
+				
+				userPlaylists.add(playlist);
 			}
 			System.out.println(userPlaylists);
 		}
@@ -136,7 +141,7 @@ public class PlaylistDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
-				id = rs.getInt("playlist_Id");
+				id = rs.getInt("playlist_id");
 			}
 		}
 		catch(SQLException e)
@@ -220,7 +225,7 @@ public class PlaylistDAO {
 	
 	// search playlist by name 
 	 public List<Playlist> searchForPLaylist(String word){
-			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
+			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
 			String search = "%" + word + "%";
 			ArrayList<Playlist> playlistsMatching = new ArrayList<>();
 			PreparedStatement prepStatement = null;
@@ -233,6 +238,7 @@ public class PlaylistDAO {
 					Playlist playlist = new Playlist(rs.getInt("playlist_id"), 
 							rs.getString("title"),
 							rs.getInt("user_id"));
+					playlist.setDescription(rs.getString("p.description"));
 					
 					playlist.setUsername(rs.getString("u.username"));
 			

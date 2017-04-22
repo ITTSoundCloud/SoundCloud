@@ -10,6 +10,7 @@ public class Playlist {
 	private String title;
 	private int userId;
 	private ArrayList<Song> songs;
+	private String description;
 	private String username;
 	
 
@@ -51,5 +52,14 @@ public class Playlist {
     public void removeSong(Song song){
     	songs.remove(song);
     }
+    
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	
 }

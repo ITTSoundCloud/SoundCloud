@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.db.CommentDAO;
+import com.db.PlaylistDAO;
 import com.db.UserDAO;
 import com.email.CodeGenerator;
 import com.email.EmailSender;
@@ -64,20 +65,6 @@ public class UserConroller {
 	
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
 	public String verify(
-		@RequestParam(value = "code") String code,
-		HttpServletRequest request, HttpSession session) {
-		System.out.println(code);
-		System.out.println((String) session.getAttribute("verification"));
-		if (code.equals(session.getAttribute("verification").toString())) {
-			UserDAO.getInstance().saveUser((User) session.getAttribute("currentUser"));
-			return "search1";
-		}
-		return "verify";
-         
-	}
-	
-	@RequestMapping(value = "/addPlaylist", method = RequestMethod.POST)
-	public String addPlaylist(
 		@RequestParam(value = "code") String code,
 		HttpServletRequest request, HttpSession session) {
 		System.out.println(code);
