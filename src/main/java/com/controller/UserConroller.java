@@ -96,7 +96,7 @@ public class UserConroller {
 		 	model.addAttribute("allUsers", allUsers);
 
 
-            return "song";                                                   
+            return "explore";                                                   
 
 	}
 

@@ -18,8 +18,7 @@
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-	
-	<script type="text/javascript">
+
 	
 	<script type="text/javascript">
 	function validateRequest(){
@@ -282,7 +281,7 @@
         <input type="checkbox" id="accept-terms">
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
       </p>
-      <input type="submit" id="lll" value="Create Account">
+      <input class="register-input" type="submit" id="lll" value="Create Account">
     </form>
   </div><!--.popup-content-->
 </div><!--.main-popup-->

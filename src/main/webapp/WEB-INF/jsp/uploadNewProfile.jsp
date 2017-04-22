@@ -58,11 +58,14 @@
 					<h1>No user.</h1>
 				</c:if>	
 		
- <button class="follow">
-  <span class="msg-follow" >Follow</span>
-  <span class="msg-following">Following</span>
-  <span class="msg-unfollow">Unfollow</span>
-</button>
+  <c:choose>
+			        	<c:when test="${!isFollowing}">
+							      		 <button class="btn followButton" rel="6">Follow</button>
+						</c:when>
+						<c:otherwise>
+					 <button class="btn followButton" rel="6">Following</button>
+						</c:otherwise>
+					</c:choose>
 
 <!--<input  type="submit" class= "follow-btn" value="Follow">  -->
 <div class="container">
@@ -122,34 +125,43 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
-<script type="text/javascript">
 
-$('button').click(function(){
-	  var $this = $(this);
-	  $this.toggleClass('following')
-	  if($this.is('.following')){
-	    $this.addClass('wait');
-	  }
-	}).on('mouseleave',function(){
-	  $(this).removeClass('wait');
-	})
-</script>
-
-
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
    
     <script src="./js/index.js"></script>
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
-    
-
-  
     <script src="./js/index.js"></script>
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
   <script src="./js/menu-js.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+$('button.followButton').live('click', function(e){
+
+    e.preventDefault();   
+    $button = $(this);
+    if($button.hasClass('following')){
+
+    	$.post("unFollow");
+        $button.removeClass('following');
+        $button.text('Follow');
+    } else {
+        // $.ajax(); Do Follow
+        $.post("follow");
+        $button.addClass('following');
+        $button.text('Following');
+    }
+});
+
+
+</script>
 
 
 </body>
