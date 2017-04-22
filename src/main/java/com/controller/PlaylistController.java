@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.db.PlaylistDAO;
 import com.db.UserDAO;
 import com.model.User;
+import com.validators.EmailValidator;
+import com.validators.UsernameValidator;
 
 public class PlaylistController {
 
@@ -25,7 +27,7 @@ public class PlaylistController {
 		@RequestParam(value = "description") String description,
 		HttpServletRequest request, HttpSession session) {
 		User user = (User)session.getAttribute("currentUser");
-		if (PlaylistDAO.getInstance().playlistExists(playlist, description, user.getUserId())) {
+		if (validatePlaylist(playlist, description, request, session)) {
 			PlaylistDAO.getInstance().createPlaylist(user.getUserId(), playlist, description);
 		}
 		return "song";
@@ -65,5 +67,15 @@ public class PlaylistController {
 			}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/validatePlaylist", method = RequestMethod.POST)
+	public boolean validatePlaylist(
+			@RequestParam(value = "playlist") String playlist,
+			@RequestParam(value = "description") String description,
+			HttpServletRequest request, HttpSession session){
+		User user = (User)session.getAttribute("currentUser");
+		System.out.println("validatePlaylist");
+		return PlaylistDAO.getInstance().playlistExists(playlist, description, user.getUserId());
+	}
 	
 }

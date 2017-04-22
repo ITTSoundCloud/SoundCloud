@@ -47,11 +47,9 @@ public class UserConroller {
 		@RequestParam(value = "email") String email,
 		HttpServletRequest request, Model model, HttpSession session) {
 			
-		System.out.println("query made");
 		User user = null;
         if (validateRegister(model, username, password, email)) {
         	user = new User(username, email, password);
-           // if (!UserDAO.getInstance().saveUser(user)) {
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
         	session.setAttribute("currentUser", user);
