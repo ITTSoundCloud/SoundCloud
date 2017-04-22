@@ -19,6 +19,7 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	
+	
 	<script type="text/javascript">
 	
 	<script type="text/javascript">
@@ -342,6 +343,7 @@
     </div>
   </section>
 </div>
+
 
 <script>
 function myLoginFunction1() {

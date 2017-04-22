@@ -76,6 +76,20 @@ public class UserConroller {
          
 	}
 	
+	@RequestMapping(value = "/addPlaylist", method = RequestMethod.POST)
+	public String addPlaylist(
+		@RequestParam(value = "code") String code,
+		HttpServletRequest request, HttpSession session) {
+		System.out.println(code);
+		System.out.println((String) session.getAttribute("verification"));
+		if (code.equals(session.getAttribute("verification").toString())) {
+			UserDAO.getInstance().saveUser((User) session.getAttribute("currentUser"));
+			return "search1";
+		}
+		return "verify";
+         
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
