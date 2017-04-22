@@ -237,8 +237,8 @@
       
       </div>
     </div>
-    <section class="hero-container">
-      
+    
+    <section class="hero-container">  
       <div class="text-block">
          <div class="main-popup">
   <div class="popup-header">
