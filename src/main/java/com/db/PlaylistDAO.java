@@ -250,6 +250,37 @@ public class PlaylistDAO {
 			
 			return Collections.unmodifiableList(playlistsMatching);
 		}
+	 
+	 
+	 
+	 public boolean playlistExists(String title,String description,int user_id){
+			String sql = "SELECT title,description,user_id FROM soundcloud.playlists "
+					+ "WHERE title = ? AND description = ? AND user_id=?;";
+			PreparedStatement ps = null;
+			try {
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setString(1, title);
+				ps.setString(2, description);
+				ps.setInt(3, user_id);
+				ResultSet rs = ps.executeQuery();
+			
+				if(rs.next()){
+					return false;
+				}
+				
+				} catch (SQLException e) {
+					System.out.println("ops");
+				}
+				finally{
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						System.out.println("ops");
+					}
+				}
+				return true;
+				
+			}
 	    
 	    
 		

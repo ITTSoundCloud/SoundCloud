@@ -17,7 +17,7 @@
 <script src="<c:url value="/static/js/jquery.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.2.0.js" type = "text/javascript"></script>
-<link href="<c:url value="/static/css/css3.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/playlistCss.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/playlistPopup.js" />" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
 
@@ -162,53 +162,45 @@ border-color: transparent transparent transparent #eeeeee;
               </button>
         <div id="waveform"></div>
     </div>
-
     <br>
 
     <!--Comment Box -->
- 
 
     <!--Button group -->
     <div class="btn-group" style="text-align: center">
+    
         <button type="button" class="btn btn-default btn-xs btn-space "><i class="fa fa-heart"></i> Like</button>
-
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
-
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
-
+        
         <div class="dropdown btn-space">
             <button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-            
+            <ul class="dropdown-menu">        
                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
-
-                <li><a href="#"><i class="fa fa-dot-circle-o"></i> Station</a></li>
-                
+                <li><a href="#"><i class="fa fa-dot-circle-o"></i> Station</a></li>   
             </ul>
              <div class="overlay"></div>
         </div>
         
-        <div class="main-popup">
-  <div class="popup-header">
-    <div id="popup-close-button"><a href="#"></a></div>
-    <ul>
-  
-    </ul>
-  </div><!--.popup-header-->
-  <div class="popup-content">
+ 	<div class="main-popup">
+	  <div class="popup-header">
+	    <div id="popup-close-button"><a href="#"></a></div>
+	    <ul>
+	  
+	    </ul>
+	  </div><!--.popup-header-->
+	  <div class="popup-content">
+	    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()">
+	    <div id="errorMsg" size="1" color="red"></div>
+	      <label for="playlist">Playlist name:</label></br>
+	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
+	      <label for="description">Description:</label></br>
+	      <textarea class="playlist-desc" id="description" name="description" required=""></textarea>
+	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
+	    </form>
+	  </div><!--.popup-content-->
+	</div>
 
-    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()">
-
-    <div id="errorMsg" size="1" color="red">
-    </div>
-      <label for="playlist">Playlist name:</label>
-      <input type="text" id="playlist" name="playlist" required="">
-      <label for="description">Description:</label></br>
-      <textarea id="description" name="description" required=""></textarea>
-      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
-    </form>
-  </div><!--.popup-content-->
-</div>
         <div class="btn-container-right">
             <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
