@@ -241,10 +241,7 @@ public class PlaylistDAO {
 			} catch (SQLException e) {
 				System.out.println("Problem with DataBase in playlistSearch - " + e.getMessage());
 			}
-			if(playlistsMatching.size() == 0){
-				System.out.println("There is no such artist or song! ");
-				return null;
-			}
+			
 			return Collections.unmodifiableList(playlistsMatching);
 		}
 	    

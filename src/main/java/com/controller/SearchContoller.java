@@ -32,10 +32,10 @@ public class SearchContoller {
 		ArrayList<Listable> results = new ArrayList<>();
 		ArrayList<Song> songs = new ArrayList<>();
 		ArrayList<Playlist> playlists = new ArrayList<>();
-		songs.addAll(SongDAO.getInstance().searchForSong(search_text));
-		playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
 		ArrayList<User> users = new ArrayList<>();
 		users.addAll(UserDAO.getInstance().searchForUser(search_text));
+		songs.addAll(SongDAO.getInstance().searchForSong(search_text));
+		playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
 		System.out.println(songs);
 		System.out.println(users);
 		System.out.println(playlists);
