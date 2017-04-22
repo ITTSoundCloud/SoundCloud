@@ -1,6 +1,5 @@
 package com.db;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -218,6 +217,38 @@ public class PlaylistDAO {
 		}
 		return songsInPlaylist;
 	}
+	
+	
+	 public List<Playlist> searchForPLaylist(String word){
+			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
+			String search = "%" + word + "%";
+			ArrayList<Playlist> playlistsMatching = new ArrayList<>();
+			PreparedStatement prepStatement = null;
+			try {
+				prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
+				prepStatement.setString(1, search);
+				ResultSet rs = prepStatement.executeQuery();
+				
+				while (rs.next()) {
+					Playlist playlist = new Playlist(rs.getInt("playlist_id"), 
+							rs.getString("title"),
+							rs.getInt("user_id"));
+					
+					playlist.setUsername(rs.getString("u.username"));
+			
+					playlistsMatching.add(playlist);
+				}
+			} catch (SQLException e) {
+				System.out.println("Problem with DataBase in playlistSearch - " + e.getMessage());
+			}
+			if(playlistsMatching.size() == 0){
+				System.out.println("There is no such artist or song! ");
+				return null;
+			}
+			return Collections.unmodifiableList(playlistsMatching);
+		}
+	    
+	    
 		
 	
 

@@ -10,12 +10,22 @@ public class Playlist {
 	private String title;
 	private int userId;
 	private ArrayList<Song> songs;
+	private String username;
 	
+
 	public Playlist(int playlistId, String title, int userId) {
 		this.playlistId = playlistId;
 		this.title = title;
 		this.userId = userId;
 		this.songs = new ArrayList<>();
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public int getPlaylistId() {
