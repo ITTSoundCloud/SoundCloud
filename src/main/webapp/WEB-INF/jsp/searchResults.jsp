@@ -136,7 +136,7 @@
 							</td>
 							<td><button type="button"
 									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud""> Follow</i></button>
+									><i class="fa fa-soundcloud"> Follow</i></button>
 							</td>
 						</tr>
 						</c:forEach>
@@ -221,9 +221,9 @@
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							<th><i>Username</i></th>
+							<th><i>Songs</i></th>
 							<th><i>Some info here</i></th>
-							<th><i>Open Profile</i></th>
+							<th><i>Open Song</i></th>
 						</tr>
 					</thead>
 					<c:if test="${empty searchedSongs}">
@@ -239,7 +239,7 @@
 										<c:out value="${song.title}"/>
 									</c:when>
 									<c:otherwise>
-										<a href="#"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
 									</c:otherwise>
 								</c:choose>
 								</td>
@@ -250,7 +250,7 @@
 									</c:when>
 									<c:otherwise>
 										<c:out value="${song.about}"/>
-										<a href="#"><img class="" src="" alt="" width="100" height="100"></a>
+										<a href="song_${song.title}"><img class="" src="" alt="" width="100" height="100"></a>
 									</c:otherwise>
 								</c:choose>
 								</td>

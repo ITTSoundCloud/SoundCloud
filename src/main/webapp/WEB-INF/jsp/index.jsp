@@ -19,12 +19,10 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	
-	
-	<script type="text/javascript">
-	
+		
 	<script type="text/javascript">
 	function validateRequest(){
-		
+
 			var x = document.getElementById("username");
 		    var y = document.getElementById("email");
 		    var z = document.getElementById("password");

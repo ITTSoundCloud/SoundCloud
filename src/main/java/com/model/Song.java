@@ -40,6 +40,38 @@ public class Song implements Listable{
 		this.photo = photo;
 	}
 
+	public void setSongId(int songId) {
+		this.songId = songId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public void setAtrist(String atrist) {
+		this.atrist = atrist;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public void setTimesPlayed(int timesPlayed) {
+		this.timesPlayed = timesPlayed;
+	}
+
+	public void setComments(ArrayList<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public LocalDateTime getUploadingTime() {
 		return uploadingTime;
 	}
