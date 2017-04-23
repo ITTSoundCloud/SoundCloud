@@ -93,15 +93,74 @@ border-color: transparent transparent transparent #eeeeee;
 }
 .messages{float:left;}
 
-.likeButton{
-width:20px;
+.btn{
+
+  border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+
 }
 
+
+button.likeButton{
+    border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+    
+  
+}
 button.likeButton.liked{
-width:30px;
+       
+  
 }
-
-<!--TODO-->
 
 </style>
 
@@ -179,18 +238,16 @@ width:30px;
 <c:out value="${song.title}"/>
     <!--Button group -->
     <div class="btn-group" style="text-align: center">
-
-   <c:choose>
-		<c:when test="${!isLiked}">
-			<button class="likeButton" rel="6">Like</button>
-		</c:when>
-		<c:otherwise>
-			<button class="likeButton" rel="6">Unlike</button>
-		</c:otherwise>
-	</c:choose>
+     
+       <c:choose>
+			  <c:when test="${!isLiked}">
+					<button class="btn likeButton" rel="6"><i class="fa fa-heart" ></i> Like</button>
+				</c:when>
+				<c:otherwise>
+				<button class="btn likeButton" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+					</c:otherwise>
+		</c:choose>
 			
-    	<button class = "likeButton"></button>
-        <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-heart"></i> Like</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
    
@@ -353,18 +410,6 @@ $(function(){
 </script>
 
 
-<script type="text/javascript">
-
-function myFunction(){
-				$('#showSecond').hide();
-				$('#showThird').hide();
-				$('#showFirst').show();
-
-};
-
-	
-</script>
-
 
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
@@ -372,11 +417,20 @@ function myFunction(){
 <script type="text/javascript">
 $('button.likeButton').live('click', function(e){
 
-alert("bachka"),
-    	$.post("like");
+    e.preventDefault();   
+    $button = $(this);
+    if($button.hasClass('liked')){
+    	alert("unlikevame"),
+    	$.post("removeLike");
+        $button.removeClass('liked');  
+        $button.text('Like');
+    } else {
+    	alert("likevame"),
+        $.post("like");
         $button.addClass('liked');
-        $button.text('Follow');
-    
+        $button.innerHTML = ('<i class="fa fa-heart"></i>'),
+        $button.text('Unlike');
+    }
 });
 
 
