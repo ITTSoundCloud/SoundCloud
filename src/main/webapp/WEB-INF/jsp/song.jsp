@@ -141,6 +141,11 @@ border-color: transparent transparent transparent #eeeeee;
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
+		
+		<c:set var="song" scope="request" value="${song}"/>	
+				<c:if test="${empty song}">
+					<h1>No song.</h1>
+				</c:if>	
   
     <header></header>
      
