@@ -77,8 +77,7 @@ public class UserConroller {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(
-		HttpServletRequest request, HttpSession session) {
+	public String home(HttpServletRequest request, HttpSession session) {
 		
 		return "explore";
          
