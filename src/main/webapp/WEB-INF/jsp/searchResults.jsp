@@ -9,13 +9,13 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/css4.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
   
-
+  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
@@ -229,11 +229,15 @@
 					<c:if test="${empty searchedSongs}">
 						<h1 id="showSecond">No results</h1>
 					</c:if>
-						<tbody>
-							<c:forEach items="${searchedSongs}" var="song">
-								<tr>
-								<td>
-								<c:choose>
+				<tbody>
+					<c:forEach items="${searchedSongs}" var="song">
+						<tr>
+						<div class="main">
+						<td>
+						  <ul>
+						    <li class="track">
+						      <div class="cover">
+						        <c:choose>
 									<c:when test ="${empty song.photo}">
 										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
 										<c:out value="${song.title}"/>
@@ -242,7 +246,11 @@
 										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
 									</c:otherwise>
 								</c:choose>
+							</div>
+							</li>
+							</ul>
 								</td>
+								</div>
 								<td>
 								<c:choose>
 									<c:when test ="${empty song.about}">
@@ -257,14 +265,16 @@
 								<td>
 								<button type="button"
 										href="http://localhost:8080/SoundCloud/login">
-										<i class="fa fa-soundcloud"> Like</i></button>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+										<i class="fa fa-soundcloud"> Like</i>
+								</button>
+								</td>	
+							</tr>	
+							</c:forEach>
+						</tbody>
+					</table>		
+				</div>
 			</div>
-			</div>
+			
 			<div class="col-md-9" id="showThird"  style="display:none">
 				<table class="table table-list-search">
 					<thead>
@@ -418,7 +428,6 @@ function myFunction3() {
 };
 	
 </script>
-
 
 </body>
 </html>
