@@ -198,8 +198,7 @@ border-color: transparent transparent transparent #eeeeee;
 	    </ul>
 	  </div><!--.popup-header-->
 	  <div class="popup-content">
-	    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()">
-	    <div id="errorMsg" size="1" color="red"></div>
+	<form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">	    <div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
 	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
 	      <label for="description">Description:</label></br>
