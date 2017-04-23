@@ -90,7 +90,7 @@ public class UserConroller {
 			e.printStackTrace();
 		}
 			session.setAttribute("user", user);
-			
+			session.setAttribute("username", user.getUsername());
 		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
 		 	
@@ -99,8 +99,11 @@ public class UserConroller {
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
 		 	model.addAttribute("allSongs", allSongs);
+		 	
+		 	List<String> genres = SongDAO.getInstance().getGenres();
+			model.addAttribute("genres", genres);
 
-            return "search1";                                                   
+            return "explore";                                                   
 
 	}
 
