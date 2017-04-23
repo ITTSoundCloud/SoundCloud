@@ -172,6 +172,24 @@ public class UserConroller {
 				}
 		}
 		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/removeLike", method = RequestMethod.POST)
+		public void removeLikeSong(Model model,HttpSession session){
+			User currentUser = (User) session.getAttribute("user");
+			System.out.println("kvo stava tuka ima li laikove??");
+			Song visitedSongProfile = (Song) session.getAttribute("songToAddInPlaylist");
+			model.addAttribute("song", visitedSongProfile);
+			
+				try {
+					System.out.println("Nema laikove");
+					LikeDAO.getInstance().removeLikeSong(currentUser.getUserId(), visitedSongProfile.getSongId());
+				} catch (SQLException e) {
+					System.out.println(e.getMessage() + " problem with song like.");
+				}
+		}
+		
 			
 				
 		@ResponseBody
