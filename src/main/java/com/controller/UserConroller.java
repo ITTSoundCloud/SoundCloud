@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.db.CommentDAO;
+import com.db.LikeDAO;
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.db.UserDAO;
@@ -150,6 +151,27 @@ public class UserConroller {
 					e.printStackTrace();
 				}
 		}
+		
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/like", method = RequestMethod.POST)
+		public void likeSong(Model model,HttpSession session){
+			User currentUser = (User) session.getAttribute("user");
+			System.out.println("kvo stava tuka ima li laikove??");
+			Song visitedSongProfile = (Song) session.getAttribute("songToAddInPlaylist");
+			model.addAttribute("song", visitedSongProfile);
+			
+				try {
+					System.out.println("Ima laikove");
+					LikeDAO.getInstance().likeSong(currentUser.getUserId(), visitedSongProfile.getSongId());
+				} catch (SQLException e) {
+					System.out.println(e.getMessage() + " problem with song like.");
+				}
+		}
+		
+			
 				
 		@ResponseBody
 		@RequestMapping(value="/comment", method = RequestMethod.POST)
@@ -276,5 +298,8 @@ public class UserConroller {
 		}
 		return false;
 	}
+	
+
+	
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.db.LikeDAO;
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.db.UserDAO;
@@ -54,13 +55,14 @@ public class PlaylistController {
 	public String giveUser(Model model, HttpSession session, 
 			@PathVariable(value="title") String songTitle){
 		System.out.println(songTitle + "v song_{title}");
-		
+		User currentUser = (User) session.getAttribute("user");
 		Song visitedSongProfile;
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);
-			session.setAttribute("songToAddInPlaylist", visitedSongProfile);
-			
+			session.setAttribute("songToAddInPlaylist", visitedSongProfile);//tova ne moje li da ne se kazva taka
+			model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
+
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -83,6 +85,15 @@ public class PlaylistController {
 		System.out.println(description);
 		//System.out.println(user.getUserId());
 		return PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
+	}
+	
+	
+	
+	public boolean isLiked(int song_id,String username){
+		if(LikeDAO.getInstance().getLikesOfSong(song_id).containsKey(username)){
+			return true;
+		}
+		return false;
 	}
 	
 }
