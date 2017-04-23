@@ -19,7 +19,7 @@ public class SongDAO {
 
 	private static SongDAO instance;
 	private static final String SELECT_SONGS_BY_GENRE =
-	        "SELECT s.song_id, s.title, s.artist, s.songphoto_path, s.user_id, s.genre, s.upload_time, description, "
+	        "SELECT s.song_id, s.title, s.artist, s.songphoto_path, s.user_id, s.genre, s.upload_time, s.description, "
 	        + "s.timesPlayed, s.song_path FROM soundcloud.songs s"
 	        + " JOIN soundcloud.genres g USING(genre) WHERE g.genre = ?;";
 
@@ -194,16 +194,16 @@ public class SongDAO {
 			ps.setString(1, genre);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Song song = new Song(rs.getInt("song_id"),
-						rs.getString("title"),
-						rs.getString("artist"),
-						rs.getString("genre"),
-						rs.getInt("user_id"),
-						rs.getString("song_path"));
+				Song song = new Song(rs.getInt("s.song_id"),
+						rs.getString("s.title"),
+						rs.getString("s.artist"),
+						rs.getString("s.genre"),
+						rs.getInt("s.user_id"),
+						rs.getString("s.song_path"));
 
-				song.setPhoto(rs.getString("songphoto_path"));
-				song.setAbout(rs.getString("description"));
-				song.setUploadingTime(rs.getTimestamp("upload_time").toLocalDateTime());
+				song.setPhoto(rs.getString("s.songphoto_path"));
+				song.setAbout(rs.getString("s.description"));
+				song.setUploadingTime(rs.getTimestamp("s.upload_time").toLocalDateTime());
 				
 				songsInGenre.add(song);
 				
