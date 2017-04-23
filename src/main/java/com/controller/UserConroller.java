@@ -76,10 +76,20 @@ public class UserConroller {
          
 	}
 	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home(
+		HttpServletRequest request, HttpSession session) {
+		
+		return "explore";
+         
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
+		
+		if (session.getAttribute("user") == null) {					
 		User user = UserDAO.getInstance().getUser(username);
 		try {
 			//TODO
@@ -103,7 +113,7 @@ public class UserConroller {
 		 	List<String> genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
 
-
+		}
             return "explore";                                                   
 
 
