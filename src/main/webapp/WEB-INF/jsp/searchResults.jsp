@@ -136,7 +136,7 @@
 							</td>
 							<td><button type="button"
 									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud""> Follow</i></button>
+									><i class="fa fa-soundcloud"> Follow</i></button>
 							</td>
 						</tr>
 						</c:forEach>
@@ -221,16 +221,16 @@
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							<th><i>Username</i></th>
+							<th><i>Songs</i></th>
 							<th><i>Some info here</i></th>
-							<th><i>Open Profile</i></th>
+							<th><i>Open Song</i></th>
 						</tr>
 					</thead>
 					<c:if test="${empty searchedSongs}">
 						<h1 id="showSecond">No results</h1>
 					</c:if>
-						<tbody>
-							<c:forEach items="${searchedSongs}" var="song">
+				<tbody>
+					<c:forEach items="${searchedSongs}" var="song">
 						<tr>
 						<div class="main">
 						<td>
@@ -239,44 +239,42 @@
 						      <div class="cover">
 						        <c:choose>
 									<c:when test ="${empty song.photo}">
-											<a href="www.google.com"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
-											<c:out value="${song.title}"/>
+										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<c:out value="${song.title}"/>
 									</c:when>
 									<c:otherwise>
-											<a href="#"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
-										</c:otherwise>
-									</c:choose>
-						      </div>
-						      <div class="info">
-						        <span class="titleSong">Wake Me Up</span>
-						        <span class="artist">Avicii</span>
-						      </div>
-						      <audio src="https://geo-samples.beatport.com/lofi/4702236.LOFI.mp3"></audio>
-						    </li>
-						  </ul>
-						  </td>	  
-						</div>
-						
-							<td><c:choose>
-							<c:when test ="${empty song.about}">
-								<h6>No description</h6>
-							</c:when>
-							<c:otherwise>
-									<h6><c:out value="${song.about}"/></h6>
-									<a href="#"></a>
-								</c:otherwise>
-							</c:choose>
-							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> Like</i></button>
-							</td>
-						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							</li>
+							</ul>
+								</td>
+								</div>
+								<td>
+								<c:choose>
+									<c:when test ="${empty song.about}">
+										<h6>No description</h6>
+									</c:when>
+									<c:otherwise>
+										<c:out value="${song.about}"/>
+										<a href="song_${song.title}"><img class="" src="" alt="" width="100" height="100"></a>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+								<button type="button"
+										href="http://localhost:8080/SoundCloud/login">
+										<i class="fa fa-soundcloud"> Like</i>
+								</button>
+								</td>	
+							</tr>	
+							</c:forEach>
+						</tbody>
+					</table>		
+				</div>
 			</div>
-			</div>
+			
 			<div class="col-md-9" id="showThird"  style="display:none">
 				<table class="table table-list-search">
 					<thead>

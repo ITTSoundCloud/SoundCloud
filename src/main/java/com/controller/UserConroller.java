@@ -22,11 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.db.CommentDAO;
+import com.db.PlaylistDAO;
+import com.db.SongDAO;
 import com.db.UserDAO;
 import com.email.CodeGenerator;
 import com.email.EmailSender;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.Comment;
+import com.model.Song;
 import com.model.User;
 import com.validators.EmailValidator;
 import com.validators.PasswordValidator;
@@ -46,18 +49,16 @@ public class UserConroller {
 		@RequestParam(value = "email") String email,
 		HttpServletRequest request, Model model, HttpSession session) {
 			
-		System.out.println("query made");
 		User user = null;
-        if (validateRegister(model, username, password, email)) {
         	user = new User(username, email, password);
-           // if (!UserDAO.getInstance().saveUser(user)) {
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
+        	session.setAttribute("currentUser", user);
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
+            
             	return "verify";
                                                           
-        } 
-            return "index";
+        
          
 	}
 	
@@ -68,9 +69,10 @@ public class UserConroller {
 		System.out.println(code);
 		System.out.println((String) session.getAttribute("verification"));
 		if (code.equals(session.getAttribute("verification").toString())) {
+			UserDAO.getInstance().saveUser((User) session.getAttribute("currentUser"));
 			return "search1";
 		}
-		return "index";
+		return "verify";
          
 	}
 	
@@ -90,13 +92,15 @@ public class UserConroller {
 			session.setAttribute("user", user);
 			
 		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
+		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
+		 	
 		 	for(User u : allUsers){
 		 		System.out.println(u);
 		 	}
 		 	model.addAttribute("allUsers", allUsers);
+		 	model.addAttribute("allSongs", allSongs);
 
-
-            return "explore";                                                   
+            return "search1";                                                   
 
 	}
 

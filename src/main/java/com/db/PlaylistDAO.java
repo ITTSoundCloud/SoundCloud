@@ -29,7 +29,6 @@ public class PlaylistDAO {
 		return instance;
 	}
 
-	
 	public int createPlaylist(int user_id, String title,String description) throws SQLException{
 		String sql = "insert into soundcloud.playlists (user_id, title,description) VALUES (?,?,?) ";
 		int playlist_id = 0;
@@ -53,7 +52,7 @@ public class PlaylistDAO {
 		return playlist_id;
 	}
 	
-	
+	//add song to playlist
 	public void addSongToPlayList(int playlist_id, int song_id) throws SQLException {
 		String sql = "insert into soundcloud.playlists_songs (playlist_id, song_id) VALUES (?,?) ";
 		PreparedStatement ps = null;
@@ -71,7 +70,7 @@ public class PlaylistDAO {
 		
 	}
 	
-
+	//get all playlists
 	public List<Playlist> getAllPlaylists() throws SQLException {
 		String sql = "select playlist_id, title, user_id,description from soundcloud.playlists";
 		List<Playlist> playlists = new ArrayList<>();
@@ -100,7 +99,7 @@ public class PlaylistDAO {
 		return playlists;
 	}
 	
-	
+	// get playlist by user
 	public List<Playlist> getUserPlaylists(int user_id) throws SQLException{
 		String sql = "SELECT playlist_id, title, user_id,description FROM soundcloud.playlists where user_id = ?;";
 		
@@ -130,7 +129,7 @@ public class PlaylistDAO {
 	}
 	
 
-	
+	// 
 	public int getPlaylistId(String name){
 		String sql = "select playlist_id from soundcloud.playlists where title = ?;";
 		PreparedStatement ps = null;
@@ -159,7 +158,7 @@ public class PlaylistDAO {
 		return id;
 	}
 	
-	
+	// if song exist in the playlist
 	public boolean existsInPlaylist(int song_id,int playlist_id){
 		String sql = "SELECT playlist_id,song_id FROM soundcloud.playlists_songs "
 				+ "WHERE playlist_id = ? AND song_id = ?";
@@ -188,7 +187,7 @@ public class PlaylistDAO {
 			
 		}
 	
-	
+	//get all songs from playlist
 	public List<Song> getAllSongsFromPlaylist(int playlist_id,int user_id) {
 		
 		String sql = "SELECT s.song_id, s.title, s.artist,s.genre,s.song_path,s.user_id,s.timesPlayed,s.description,"
@@ -224,7 +223,7 @@ public class PlaylistDAO {
 		return songsInPlaylist;
 	}
 	
-	
+	// search playlist by name 
 	 public List<Playlist> searchForPLaylist(String word){
 			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
 			String search = "%" + word + "%";
