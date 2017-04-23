@@ -55,6 +55,8 @@ public class UploadSongController {
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		System.out.println("vliza2");
 		File file = new File(FILE_LOCATION + getThisSong);
+		List<String> genres = SongDAO.getInstance().getGenres();
+		model.addAttribute("genres", genres);
 		User user = (User)session.getAttribute("currentUser");
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}

@@ -93,6 +93,16 @@ border-color: transparent transparent transparent #eeeeee;
 }
 .messages{float:left;}
 
+.likeButton{
+width:20px;
+}
+
+button.likeButton.liked{
+width:30px;
+}
+
+<!--TODO-->
+
 </style>
 
 
@@ -165,11 +175,22 @@ border-color: transparent transparent transparent #eeeeee;
     <br>
 
     <!--Comment Box -->
-
+<c:set var="song" scope="request" value="${song}"/>	
+<c:out value="${song.title}"/>
     <!--Button group -->
     <div class="btn-group" style="text-align: center">
-    
-        <button type="button" class="btn btn-default btn-xs btn-space "><i class="fa fa-heart"></i> Like</button>
+
+   <c:choose>
+		<c:when test="${!isLiked}">
+			<button class="likeButton" rel="6">Like</button>
+		</c:when>
+		<c:otherwise>
+			<button class="likeButton" rel="6">Unlike</button>
+		</c:otherwise>
+	</c:choose>
+			
+    	<button class = "likeButton"></button>
+        <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-heart"></i> Like</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
    
@@ -188,6 +209,7 @@ border-color: transparent transparent transparent #eeeeee;
 			        </div>
 						</c:otherwise>
 					</c:choose>
+
 
         
  	<div class="main-popup">
@@ -343,6 +365,23 @@ function myFunction(){
 	
 </script>
 
+
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+$('button.likeButton').live('click', function(e){
+
+alert("bachka"),
+    	$.post("like");
+        $button.addClass('liked');
+        $button.text('Follow');
+    
+});
+
+
 </script>
+
+
 </body>
 </html>
