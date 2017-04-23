@@ -2,9 +2,11 @@ package com.controller;
 
 import java.sql.SQLException;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ import com.model.User;
 import com.validators.EmailValidator;
 import com.validators.UsernameValidator;
 
+@Controller
+@MultipartConfig
 public class PlaylistController {
 
 	
@@ -33,7 +37,7 @@ public class PlaylistController {
 		Song songToAdd = (Song)session.getAttribute("songToAddInPlaylist");
 		if (validatePlaylist(playlist, description, request, session)) {
 			try {
-				int playlist_id = PlaylistDAO.getInstance().createPlaylist(user.getUserId(), playlist, description);			
+				int playlist_id = PlaylistDAO.getInstance().createPlaylist(2, playlist, description);			
 				PlaylistDAO.getInstance().addSongToPlayList(playlist_id, songToAdd.getSongId());
 			} catch (SQLException e) {
 				
@@ -46,7 +50,7 @@ public class PlaylistController {
 	
 	@RequestMapping(value = "/song_{title}", method= RequestMethod.GET)
 	public String giveUser(Model model, HttpSession session, 
-			@PathVariable(value="songTitle") String songTitle){
+			@PathVariable(value="title") String songTitle){
 		System.out.println(songTitle + "v song_{title}");
 		
 		Song visitedSongProfile;
@@ -70,9 +74,12 @@ public class PlaylistController {
 			@RequestParam(value = "playlist") String playlist,
 			@RequestParam(value = "description") String description,
 			HttpServletRequest request, HttpSession session){
-		User user = (User)session.getAttribute("currentUser");
+		//User user = (User)session.getAttribute("currentUser");
 		System.out.println("validatePlaylist");
-		return PlaylistDAO.getInstance().playlistExists(playlist, description, user.getUserId());
+		System.out.println(playlist);
+		System.out.println(description);
+		//System.out.println(user.getUserId());
+		return PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
 	}
 	
 }

@@ -195,13 +195,13 @@ border-color: transparent transparent transparent #eeeeee;
 	    </ul>
 	  </div><!--.popup-header-->
 	  <div class="popup-content">
-	    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()">
+	    <form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">	    
 	    <div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
 	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
 	      <label for="description">Description:</label></br>
 	      <textarea class="playlist-desc" id="description" name="description" required=""></textarea>
-	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
+	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validatePlaylist()">  
 	    </form>
 	  </div><!--.popup-content-->
 	</div>
@@ -341,6 +341,60 @@ function myFunction(){
 	
 </script>
 
-</script>
+			<script type="text/javascript">
+	function validatePlaylist(){
+		
+			var x = document.getElementById("playlist");
+		    var y = document.getElementById("description");
+		    
+		$.post("validatePlaylist", 
+				{ 
+					playlist: x.value,
+					description: y.value
+					
+				}
+				, function(result){
+       			if(result==false){
+       				var z = document.getElementById('errorMsg');
+       				if(z.style.display === 'none'){
+       					z.style.display = 'block';
+       				}
+       			}
+       			
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+	<script type="text/javascript">
+	function validateRequestPlaylist(){
+		
+			var x = document.getElementById("playlist");
+		    var y = document.getElementById("description");
+		    
+		$.post("validatePlaylist", 
+				{ 
+			playlist: x.value,
+			description: y.value
+					
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('addPlaylistForm').submit();
+       			}
+       			else{
+       				document.getElementById('errorMsg').style.display = 'block';
+    				document.getElementById('errorMsg').innerHTML = "<h4 class='errorMsg'>Ok.</h4>"
+
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+
 </body>
 </html>
