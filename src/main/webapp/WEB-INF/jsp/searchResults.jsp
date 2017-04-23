@@ -136,7 +136,7 @@
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><c:set var="user" scope="request" value="${user}"/>	
+							<td><c:set var="listedUser" scope="session" value="${user.username}"/>	
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
 				</c:if>	

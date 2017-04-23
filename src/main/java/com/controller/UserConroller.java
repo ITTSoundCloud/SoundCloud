@@ -127,9 +127,7 @@ public class UserConroller {
 			model.addAttribute("user", visitedUser);
 			User currentUser = (User) session.getAttribute("user");
 			session.setAttribute("usernameToFollow", username);
-			System.out.println(session.getAttribute("usernameToFollow").toString() + "from the session");
-			System.out.println(this.isFollowing(currentUser.getUserId(), visitedUser.getUserId()) + "follolva li");
-			model.addAttribute("isFollowing", this.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 
 			return "upload1";
 		}
@@ -287,7 +285,7 @@ public class UserConroller {
 	}
 	
 	
-	public boolean isFollowing(int follower_id,int followed_id){
+	public static boolean isFollowing(int follower_id,int followed_id){
 		try {
 			if(UserDAO.getInstance().getFollowing(follower_id).contains(followed_id)){
 				return true;

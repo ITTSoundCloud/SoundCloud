@@ -1,8 +1,10 @@
 package com.controller;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class SearchContoller {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(@RequestParam(value="search_text") String search_text,
 			HttpServletRequest request,
-			Model model){
+			Model model, HttpSession session){
 		
 		ArrayList<Listable> results = new ArrayList<>();
 		ArrayList<Song> songs = new ArrayList<>();
@@ -38,13 +40,26 @@ public class SearchContoller {
 		playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
 		System.out.println(songs);
 		System.out.println(users);
-		System.out.println(playlists);
+		System.out.println(playlists);	
+		User currentUser = (User)session.getAttribute("user");
+		String listedUser = (String)session.getAttribute("");
+		System.out.println("****************");
+		Enumeration keys = session.getAttributeNames();
+		while (keys.hasMoreElements())
+		{
+		  String key = (String)keys.nextElement();
+		 System.out.println(key + ": " + session.getValue(key) + "<br>");
+		}
+		System.out.println("*****************");
 		results.addAll(UserDAO.getInstance().searchForUser(search_text));
 		results.addAll(SongDAO.getInstance().searchForSong(search_text));
 		model.addAttribute("searchedItems", results);
 		model.addAttribute("searchedSongs", songs);
 		model.addAttribute("searchedUsers", users);
 		model.addAttribute("serchedPlaylists",playlists);
+		System.out.println(currentUser.getUserId());
+		System.out.println(listedUser);
+		//model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), listedUser.getUserId()));
 		
 		return "searchResults";
 		
