@@ -178,14 +178,23 @@ border-color: transparent transparent transparent #eeeeee;
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
         
-        <div class="dropdown btn-space">
-            <button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
-            <ul class="dropdown-menu">        
-               <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
-                <li><a href="#"><i class="fa fa-dot-circle-o"></i> Station</a></li>   
-            </ul>
-             <div class="overlay"></div>
-        </div>
+        <c:choose>
+			        	<c:when test="${empty sessionScope.username}">
+							
+						</c:when>
+						<c:otherwise>
+						<div class="dropdown btn-space">
+			            	<button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
+			            	<ul class="dropdown-menu">        
+			                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
+			                <li><a href="#"><i class="fa fa-dot-circle-o"></i> Station</a></li>   
+			            </ul>
+			             <div class="overlay"></div>
+			        </div>
+						</c:otherwise>
+					</c:choose>
+        
+        
         
  	<div class="main-popup">
 	  <div class="popup-header">
