@@ -18,6 +18,10 @@ import com.model.User;
 public class SongDAO {
 
 	private static SongDAO instance;
+	private static final String SELECT_SONGS_BY_GENRE =
+	        "SELECT s.song_id, s.title, s.artist, s.songphoto_path, s.user_id, s.genre, s.upload_time, description, "
+	        + "s.timesPlayed, s.song_path FROM soundcloud.songs s"
+	        + " JOIN soundcloud.genres g USING(genre) WHERE g.genre = ?;";
 
 	public synchronized static SongDAO getInstance() {
 		if (instance == null) {
@@ -152,5 +156,72 @@ public class SongDAO {
 		}
 
 	}
+	
+	
+	public List<String> getGenres(){
+		
+		String sql = "select genre from soundcloud.genres";
+		ArrayList<String> genres = new ArrayList<>();
+		PreparedStatement prepStatement = null;
+		try {
+			prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ResultSet rs = prepStatement.executeQuery();
+			while(rs.next()){
+				genres.add(rs.getString("genre"));
+			}
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+			
+		}
+		finally{
+			if(prepStatement!=null){
+				try {
+					prepStatement.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		return Collections.unmodifiableList(genres);
+	}
+	
+	
+	public List<Song> getGenreSongs(String genre) {
+		List<Song> songsInGenre = new ArrayList<Song>();
+		PreparedStatement ps=null;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(SELECT_SONGS_BY_GENRE);
+			ps.setString(1, genre);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Song song = new Song(rs.getInt("song_id"),
+						rs.getString("title"),
+						rs.getString("artist"),
+						rs.getString("genre"),
+						rs.getInt("user_id"),
+						rs.getString("song_path"));
 
+				song.setPhoto(rs.getString("songphoto_path"));
+				song.setAbout(rs.getString("description"));
+				song.setUploadingTime(rs.getTimestamp("upload_time").toLocalDateTime());
+				
+				songsInGenre.add(song);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("DB error.");
+		}
+		finally{
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		return Collections.unmodifiableList(songsInGenre);
+	}
+	
+	
 }

@@ -141,11 +141,6 @@ border-color: transparent transparent transparent #eeeeee;
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
-		
-		<c:set var="song" scope="request" value="${song}"/>	
-				<c:if test="${empty song}">
-					<h1>No song.</h1>
-				</c:if>	
   
     <header></header>
      
@@ -177,7 +172,7 @@ border-color: transparent transparent transparent #eeeeee;
         <button type="button" class="btn btn-default btn-xs btn-space "><i class="fa fa-heart"></i> Like</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
-        
+   
         <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
 							
@@ -193,8 +188,7 @@ border-color: transparent transparent transparent #eeeeee;
 			        </div>
 						</c:otherwise>
 					</c:choose>
-        
-        
+
         
  	<div class="main-popup">
 	  <div class="popup-header">
@@ -204,13 +198,13 @@ border-color: transparent transparent transparent #eeeeee;
 	    </ul>
 	  </div><!--.popup-header-->
 	  <div class="popup-content">
-	    <form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">	    
+	    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit="return validateRequestLogin()">
 	    <div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
 	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
 	      <label for="description">Description:</label></br>
 	      <textarea class="playlist-desc" id="description" name="description" required=""></textarea>
-	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validatePlaylist()">  
+	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
 	    </form>
 	  </div><!--.popup-content-->
 	</div>
@@ -350,60 +344,6 @@ function myFunction(){
 	
 </script>
 
-			<script type="text/javascript">
-	function validatePlaylist(){
-		
-			var x = document.getElementById("playlist");
-		    var y = document.getElementById("description");
-		    
-		$.post("validatePlaylist", 
-				{ 
-					playlist: x.value,
-					description: y.value
-					
-				}
-				, function(result){
-       			if(result==false){
-       				var z = document.getElementById('errorMsg');
-       				if(z.style.display === 'none'){
-       					z.style.display = 'block';
-       				}
-       			}
-       			
-	    });
-		
-		return false;
-
-	}
-	</script>
-	
-	<script type="text/javascript">
-	function validateRequestPlaylist(){
-		
-			var x = document.getElementById("playlist");
-		    var y = document.getElementById("description");
-		    
-		$.post("validatePlaylist", 
-				{ 
-			playlist: x.value,
-			description: y.value
-					
-				}
-				, function(result){
-       			if(result==true){
-       				document.getElementById('addPlaylistForm').submit();
-       			}
-       			else{
-       				document.getElementById('errorMsg').style.display = 'block';
-    				document.getElementById('errorMsg').innerHTML = "<h4 class='errorMsg'>Ok.</h4>"
-
-       			}
-	    });
-		
-		return false;
-
-	}
-	</script>
-
+</script>
 </body>
 </html>

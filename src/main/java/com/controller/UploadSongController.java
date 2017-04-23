@@ -7,7 +7,9 @@ import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.db.SongDAO;
 import com.db.UserDAO;
+import com.model.User;
 
 @Controller
 @SessionAttributes("filename")
@@ -33,20 +36,26 @@ public class UploadSongController {
 	
 	private String getThisSong;
 
-	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads";
+	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator;
 
 	@RequestMapping(value="/songUpload", method=RequestMethod.GET)
-	public String prepareForUpload(HttpSession session) {
+	public String prepareForUpload(HttpSession session,Model model) {
 		System.out.println("vliza1");
+		User user = (User)session.getAttribute("currentUser");
+		List<String> genres = SongDAO.getInstance().getGenres();
+		model.addAttribute("genres", genres);
+		System.out.println(genres);
+		System.out.println(genres.size());
 		return "uploadSong";
 	}
 
 
 	@RequestMapping(value="/audio/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
-	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
+	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		System.out.println("vliza2");
 		File file = new File(FILE_LOCATION + getThisSong);
+		User user = (User)session.getAttribute("currentUser");
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
@@ -58,7 +67,8 @@ public class UploadSongController {
 								@RequestParam("genre") String genre,
 								@RequestParam("description") String description,
 								HttpSession session,Model model) throws IOException{
-		
+		User user = (User)session.getAttribute("currentUser");
+		String username = (String) session.getAttribute("username");
 		System.out.println("vliza3");
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);

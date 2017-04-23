@@ -86,7 +86,10 @@
 		
 		
 	</div>
-
+	
+	<!-- TODO -->
+	
+<c:set var="genres" scope="request" value="${genres}"/>
 	<div id="genres" style="display:block">
 		<div class="bg-content">
 		  <div id="content">
@@ -95,15 +98,14 @@
 		        <article class="span12">
 		          <h3>Explore by Genres</h3>
 		        </article>
-		        <div class="clear"></div>
+		        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="https://s-media-cache-ak0.pinimg.com/736x/5d/83/3a/5d833a30d80932924d149a2901498e81.jpg"></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="http://cdn01.cdn.justjared.com/wp-content/uploads/headlines/2015/10/adele-hello.jpg" width=320px; height = 190px;></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="http://www.covermesongs.com/wp-content/uploads/2011/06/KanyeWest.jpg" width=320px; height = 220px;></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="img/page3-img4.jpg"></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="img/page3-img5.jpg"></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="img/page3-img6.jpg"></a></li>
-		          <li class="box"><a href="img/image-blank.png" class="magnifier"><img alt="" src="img/page3-img7.jpg"></a></li>
+		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" /></a></li>
+		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=320px; height = 220px; /></a></li>
+		          <li class="box"><a href="genres_Jazz" class="magnifier"><img alt="" src="http://cdn01.cdn.justjared.com/wp-content/uploads/headlines/2015/10/adele-hello.jpg" width=320px; height = 190px;></a></li>
+		          <li class="box"><a href="genres_Chillout" class="magnifier"><img alt="" src="http://www.covermesongs.com/wp-content/uploads/2011/06/KanyeWest.jpg" width=320px; height = 220px;></a></li>
+		          <li class="box"><a href="genres_Country" class="magnifier"><img alt="" src="img/page3-img4.jpg"></a></li>
+		          <li class="box"><a href="genres_Alternative" class="magnifier"><img alt="" src="img/page3-img5.jpg"></a></li>
 		         </ul>
 		      </div>
 		    </div>

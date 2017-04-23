@@ -65,11 +65,12 @@
   <div class="form-group">
     <label for="exampleSelect1">Genre</label>
     <select class="form-control" id="exampleSelect1" name="genre">
-      <option>Pop</option>
-      <option>Rock</option>
-      <option>NonStop Disco Hitove</option>
-      <option>Avto hits</option>
-      <option>Muzika za dushata</option>
+    <c:forEach items="${genres}" var="genre">
+    	<option> <c:out value="${genre}"/></option>
+	</c:forEach>
+ <!--   <c:forEach var="genre" begin="${genres.size() }" end="0">
+   	  <c:out value="${genre}"/>
+	</c:forEach>  --> 
     </select>
   </div>
   <div class="form-group">
