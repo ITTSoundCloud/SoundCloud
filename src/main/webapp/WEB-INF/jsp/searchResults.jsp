@@ -15,6 +15,30 @@
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
      
+     
+     <style type="text/css">
+     	button.followButton{
+    width:160px;
+}
+button.followButton.following{
+    background-color: #57A957;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#62c462), to(#57a957));
+    background-image: -moz-linear-gradient(top, #62c462, #57a957);
+    background-image: -ms-linear-gradient(top, #62c462, #57a957);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #62c462), color-stop(100%, #57a957));
+    background-image: -webkit-linear-gradient(top, #62c462, #57a957);
+    background-image: -o-linear-gradient(top, #62c462, #57a957);
+    background-image: linear-gradient(top, #62c462, #57a957);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-color: #57A957 #57A957 #3D773D;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color:#fff;
+}
+     	
+     </style>
+     
 
 
   
@@ -142,15 +166,18 @@
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
 				</c:if>	
-		
+		<c:if test="${not empty sessionScope.username}">
   					<c:choose>
-			        	<c:when test="${!isFollowing}">
-							      		 <button class="btn followButton" rel="6">Follow</button>
-						</c:when>
-						<c:otherwise>
-					 <button class="btn followButton" rel="6">Following</button>
-						</c:otherwise>
+	  					
+				        	<c:when test="${!isFollowing}">
+						<button class="btn followButton" rel="6" target="${user.username }">Follow</button>
+							</c:when>
+							<c:otherwise>
+						 <button class="btn followButton" target="${user.username }" rel="6">Following</button>
+							</c:otherwise>
+						
 					</c:choose>
+					</c:if>
 							</td>
 						</tr>
 						</c:forEach>
@@ -395,19 +422,29 @@
 
 	<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
+   
+<script type="text/javascript">
 $('button.followButton').live('click', function(e){
 
     e.preventDefault();   
     $button = $(this);
+    var x = $(this).attr("target");
     if($button.hasClass('following')){
 
-    	$.post("unFollow");
+    	alert("tuk sme"),
+    	$.post("unFollowSearch", 
+				{ 
+					username: x,
+					
+				});
         $button.removeClass('following');
         $button.text('Follow');
     } else {
-        // $.ajax(); Do Follow
-        $.post("follow");
+    	$.post("followSearch", 
+				{ 
+					username: x,
+					
+				});
         $button.addClass('following');
         $button.text('Following');
     }
@@ -415,6 +452,7 @@ $('button.followButton').live('click', function(e){
 
 
 </script>
+   
     
  <script type = "text/javascript">
 

@@ -33,19 +33,43 @@ public class SongDAO {
 	// get all songs
 	public List<Song> getAllSongs() {
 		List<Song> songs = new ArrayList<Song>();
-		try {
-			Statement st = DBManager.getInstance().getConnection().createStatement();
-			ResultSet resultSet = st.executeQuery("");
-			while (resultSet.next()) {
-				// songs.add(new Song(songId, title, artist, genre, userId,
-				// path));
+		String sql = "SELECT song_id, title, artist, songphoto_path, user_id, genre, upload_time, description, timesPlayed, song_path FROM soundcloud.songs;";
+		PreparedStatement ps = null;
 
-			}
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ResultSet resultSet = ps.executeQuery();
+
+		while (resultSet.next()) {
+
+			Song song = new Song(resultSet.getInt("song_id"),
+					resultSet.getString("title"),
+					resultSet.getString("artist"),
+					resultSet.getString("genre"),
+					resultSet.getInt("user_id"),
+					resultSet.getString("song_path"));
+
+			song.setPhoto(resultSet.getString("songphoto_path"));
+			song.setAbout(resultSet.getString("description"));
+			song.setUploadingTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
+			System.out.println(song.getSongId());
+			songs.add(song);
+
+		}
 		} catch (SQLException e) {
-			System.err.println("Error, cannot make postsDAO statement.");
+			System.out.println("DB problem extracting all songs.");
+		}
+		finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		return songs;
 	}
+	
+	
 
 	//get song by title
 	public Song getSong(String title) throws SQLException {

@@ -61,8 +61,8 @@
 		
 	<ul class="nav2">
 		<li id="settings"><a href="#"><img src="settings.png" /></a></li>
-		<li><a onclick="myFunction()" href="#">By Likes</a></li>
-		<li><a onclick="myFunction1()" href="#">By Upload</a></li>
+		<li><a onclick="myFunction1()" href="#">By Likes</a></li>
+		<li><a onclick="myFunction()" href="#">By Upload</a></li>
 		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
 	</ul>
 		
@@ -82,12 +82,77 @@
 	  </ul>
 	</div>
 </div>
+
+
+	<c:set var="songsByDate" scope="request" value="${songsByDate}"/>
+
 		
 	<div id="date" style="display:none">
-		
-		
-	</div>
-	
+	   <div class="container-fluid">
+	        <div class="side-body">
+			   <div class="col-md-9">
+			     <h3> You searched for </h3>
+					<table class="table table-list-search">
+					<thead>
+						<tr>
+							<th><i>Songs</i></th>
+							<th><i>Some info here</i></th>
+							<th><i>Open Song</i></th>
+						</tr>
+					</thead>
+					<c:if test="${empty songsByDate}">
+						<h1>No uploaded songs.</h1>
+					</c:if>
+				<tbody>
+					<c:forEach items="${songsByDate}" var="song">
+						<tr>
+						<div class="main">
+						<td>
+						  <ul>
+						    <li class="track">
+						      <div class="cover">
+						        <c:choose>
+									<c:when test ="${empty song.photo}">
+										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<c:out value="${song.title}"/>
+									</c:when>
+									<c:otherwise>
+										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							</li>
+							</ul>
+								</td>
+								</div>
+								<td>
+								<c:choose>
+									<c:when test ="${empty song.about}">
+										<h6>No description</h6>
+									</c:when>
+									<c:otherwise>
+										<c:out value="${song.about}"/>
+										<a href="song_${song.title}"></a></br><h6>Uploaded <c:out value="${ song.uploadingTime}" /></h6>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+								<button type="button"
+										href="http://localhost:8080/SoundCloud/login">
+										<i class="fa fa-soundcloud"> Like</i>
+								</button>
+								</td>	
+							</tr>	
+							</c:forEach>
+						</tbody>
+					</table>		
+				</div>
+			</div>
+			
+			</div>
+			
+	        </div>
+	  
 	<!-- TODO -->
 	
 <c:set var="genres" scope="request" value="${genres}"/>
