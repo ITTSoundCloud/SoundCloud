@@ -17,6 +17,10 @@ public class CommentDAO {
 	
 	private static CommentDAO instance;
 	
+	   private static final String LIKE_COMMENT = "insert into soundcloud.comments_likes (user_id,comment_id) values (?,?);";
+	   private static final String REMOVE_LIKE_COMMENT = "delete from soundcloud.comments_likes where user_id=? and song_id=?";
+
+	
 		public synchronized static CommentDAO getInstance() {
 			if (instance == null) {
 				instance = new CommentDAO();
@@ -81,6 +85,24 @@ public class CommentDAO {
 
 		}
 		
+		
+		
+		public void likeComment(int user_id,int comment_id) throws SQLException {
+			
+		     PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(LIKE_COMMENT);
+		        ps.setInt(1, user_id);
+		        ps.setInt(2, comment_id);
+		        ps.executeUpdate();
+		}
+		
+		
+		public void removeLikeComment(int user_id,int comment_id) throws SQLException {
+			
+		     PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(REMOVE_LIKE_COMMENT);
+		        ps.setInt(1, user_id);
+		        ps.setInt(2, comment_id);
+		        ps.executeUpdate();
+		}
 
 
 }

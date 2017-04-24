@@ -94,37 +94,7 @@ border-color: transparent transparent transparent #eeeeee;
 .messages{float:left;}
 
 .btn{
-
-  border-radius: 0;
-    margin-left: -1px;
-    position: relative;
-    float: left;
-    margin-right: 5px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-    padding: px 12px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-
 }
-
 
 button.likeButton{
     border-radius: 0;
@@ -154,7 +124,13 @@ button.likeButton{
     user-select: none;
     background-image: none;
     border: 1px solid #ccc;
-    
+  
+}
+
+button.likeButton:hover{
+    color: #000000;
+    background-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.2);
   
 }
 button.likeButton.liked{
