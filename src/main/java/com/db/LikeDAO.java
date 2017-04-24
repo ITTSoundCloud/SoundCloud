@@ -10,6 +10,7 @@ import java.util.Map;
 import com.model.Song;
 
 
+
 public class LikeDAO {
 	
 	   private static LikeDAO instance;
@@ -22,7 +23,8 @@ public class LikeDAO {
 		        + " JOIN soundcloud.songs_likes sl USING(song_id) WHERE sl.user_id = ?;";
 	   private static final String GET_USERS_LIKED = "SELECT u.username,u.profilephoto_path FROM soundcloud.users u"
 		        + " JOIN soundcloud.songs_likes sl USING(user_id) WHERE sl.song_id = ?;";
-	   
+	   private static final String COUNT_LIKES = " SELECT count(song_id) FROM soundcloud.songs_likes where song_id=?;";
+	
 
 	    public synchronized static LikeDAO getInstance() {
 	        if (instance == null) {
@@ -87,7 +89,7 @@ public class LikeDAO {
 			return likedSongs;
 		}
 	    
-	    
+
 	    
    public Map<String,String> getLikesOfSong(int song_id){
 	    	

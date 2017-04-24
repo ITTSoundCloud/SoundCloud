@@ -65,20 +65,23 @@
 		<li><a onclick="myFunction()" href="#">By Upload</a></li>
 		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
 	</ul>
+	
 		
 <div id="likes" style="display:none">
 	<div class="main">
 	  <ul>
+	  <c:forEach items="${songsByDate}" var="song">
 	    <li class="track">
 	       <div class="cover">
 	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px;alt="" />
 	      </div>
 	      <div class="info">
-	        <span class="titleSong">Levels</span>
+	        <span class="titleSong"><c:out value="${song.title }"/></span>Likes<c:out value="${song.likes }"/>
 	        <span class="artist">Avicii</span>
 	      </div>
 	      <audio src="http://a805.phobos.apple.com/us/r1000/071/Music/3b/2d/ac/mzm.wtdviygy.aac.p.m4a"></audio>
 	    </li>
+	     </c:forEach>
 	  </ul>
 	</div>
 </div>
