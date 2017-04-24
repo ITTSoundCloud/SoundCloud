@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.comparators.LikesComparator;
 import com.comparators.UploadTimeComparator;
 import com.db.CommentDAO;
 import com.db.LikeDAO;
@@ -116,12 +117,18 @@ public class UserConroller {
 			System.out.println("Hello??");
 			System.out.println(genres);
 			List<Song> songs = SongDAO.getInstance().getAllSongs();
-			System.out.println(songs);
 			Collections.sort(songs, new UploadTimeComparator());
+			model.addAttribute("songsByDate", songs);
 			for(Song s : songs){
 				System.out.println("date of uploading " + s.getUploadingTime());
 			}
-			model.addAttribute("songsByDate", songs);
+			Collections.sort(songs, new LikesComparator());
+			
+			System.out.println("by likes");
+			for(Song s : songs){
+				System.out.println("likes " + s.getLikes());
+			}
+//			model.addAttribute("songsByLikes", songs);    // not ok because of singleton 
 
             return "explore";                                                   
 

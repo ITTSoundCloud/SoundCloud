@@ -16,7 +16,9 @@ public class Song implements Listable{
 	private int timesPlayed;
 	private String about;
 	private ArrayList<Comment> comments;
+	private int likes;
 	
+
 	public Song(int songId, String title, String artist, String genre, int userId , String path) {
 		this.songId = songId;
 		this.userId = userId;
@@ -114,6 +116,15 @@ public class Song implements Listable{
 
 	public String getPath() {
 		return path;
+	}
+	
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	
 	

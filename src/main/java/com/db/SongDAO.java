@@ -30,10 +30,13 @@ public class SongDAO {
 		return instance;
 	}
 
-	// get all songs
+
 	public List<Song> getAllSongs() {
 		List<Song> songs = new ArrayList<Song>();
-		String sql = "SELECT song_id, title, artist, songphoto_path, user_id, genre, upload_time, description, timesPlayed, song_path FROM soundcloud.songs;";
+		String sql = "SELECT s.song_id, s.title, s.artist, s.songphoto_path, s.user_id, s.genre, s.upload_time,"
+				+ "s.description, s.timesPlayed, s.song_path,count(sl.song_id) FROM soundcloud.songs s "+
+				"left outer join soundcloud.songs_likes sl using(song_id) group by s.song_id;";
+		
 		PreparedStatement ps = null;
 
 		try {
@@ -42,16 +45,18 @@ public class SongDAO {
 
 		while (resultSet.next()) {
 
-			Song song = new Song(resultSet.getInt("song_id"),
-					resultSet.getString("title"),
-					resultSet.getString("artist"),
-					resultSet.getString("genre"),
-					resultSet.getInt("user_id"),
-					resultSet.getString("song_path"));
+			Song song = new Song(resultSet.getInt("s.song_id"),
+					resultSet.getString("s.title"),
+					resultSet.getString("s.artist"),
+					resultSet.getString("s.genre"),
+					resultSet.getInt("s.user_id"),
+					resultSet.getString("s.song_path"));
 
-			song.setPhoto(resultSet.getString("songphoto_path"));
-			song.setAbout(resultSet.getString("description"));
-			song.setUploadingTime(resultSet.getTimestamp("upload_time").toLocalDateTime());
+			song.setPhoto(resultSet.getString("s.songphoto_path"));
+			song.setAbout(resultSet.getString("s.description"));
+			song.setUploadingTime(resultSet.getTimestamp("s.upload_time").toLocalDateTime());
+			song.setLikes(resultSet.getInt("count(sl.song_id)"));
+			
 			System.out.println(song.getSongId());
 			songs.add(song);
 
