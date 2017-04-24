@@ -10,6 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
+import static java.util.stream.Collectors.toList;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
@@ -90,7 +91,7 @@ public class UserConroller {
 		Collections.sort(songs, new UploadTimeComparator());
 		model.addAttribute("songsByDate", songs);
 		
-		return "explore";    
+		return "uploadNewProfile";    
 	}
 	
 	
@@ -115,10 +116,10 @@ public class UserConroller {
 //		 	
 		 	List<String> genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
-			System.out.println("Hello??");
 			System.out.println(genres);
 			List<Song> songs = SongDAO.getInstance().getAllSongs();
-			Collections.sort(songs, new UploadTimeComparator());
+//			List<Song> clonedSongs = songs.stream().collect(toList());
+
 			model.addAttribute("songsByDate", songs);
 			for(Song s : songs){
 				System.out.println("date of uploading " + s.getUploadingTime());
@@ -129,7 +130,7 @@ public class UserConroller {
 			for(Song s : songs){
 				System.out.println("likes " + s.getLikes());
 			}
-//			model.addAttribute("songsByLikes", songs);    // not ok because of singleton 
+			model.addAttribute("songsByLikes", songs);    // not ok because of singleton 
 
             return "explore";                                                   
 
@@ -150,7 +151,6 @@ public class UserConroller {
 
 			return "upload1";
 		}
-		
 		
 		
 		@ResponseBody

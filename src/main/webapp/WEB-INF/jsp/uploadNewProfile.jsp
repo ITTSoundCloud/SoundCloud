@@ -85,7 +85,7 @@
     <c:if test="${sessionScope.username.equals(user.username)}">
 	    <form method="POST" enctype="multipart/form-data">
 	    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="failche" id="file" accept=".jpg"/>
+	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
 	        <input type="submit" value="change"/></button>
 	      </form>
      </c:if>
