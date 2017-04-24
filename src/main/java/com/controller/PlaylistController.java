@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.db.CommentDAO;
 import com.db.LikeDAO;
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.db.UserDAO;
+import com.model.Comment;
 import com.model.Playlist;
 import com.model.Song;
 import com.model.User;
@@ -62,10 +64,10 @@ public class PlaylistController {
 			model.addAttribute("song", visitedSongProfile);
 			session.setAttribute("songToAddInPlaylist", visitedSongProfile);//tova ne moje li da ne se kazva taka
 			model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
-
+			List<Comment> comments = CommentDAO.getInstance().getSongComments(visitedSongProfile.getSongId());
+			model.addAttribute("allComments", comments);
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			System.out.println("DB problem - song page.");
 		}	
 		
 		return "song";

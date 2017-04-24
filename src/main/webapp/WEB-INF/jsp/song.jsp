@@ -94,37 +94,14 @@ border-color: transparent transparent transparent #eeeeee;
 .messages{float:left;}
 
 .btn{
-
-  border-radius: 0;
-    margin-left: -1px;
-    position: relative;
-    float: left;
-    margin-right: 5px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-    padding: px 12px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-
 }
 
+button.likeCommentButton{
+}
+
+button.likeCommentButton.liked{
+
+}
 
 button.likeButton{
     border-radius: 0;
@@ -154,7 +131,13 @@ button.likeButton{
     user-select: none;
     background-image: none;
     border: 1px solid #ccc;
-    
+  
+}
+
+button.likeButton:hover{
+    color: #000000;
+    background-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.2);
   
 }
 button.likeButton.liked{
@@ -305,22 +288,16 @@ button.likeButton.liked{
   <c:choose>
 	  <c:when test="${not empty allComments }">
 		  <c:forEach items="${allComments}" var="comment">
-		  <c:choose>
-			  <c:when test="${comment.commentId % 2 == 0}">
+		  
 				<div class="message" id="comments">
 					 <img src="https://www.google.com" class="avatar">
 					 <p><strong>${comment.username}  <em><c:out value="${comment.commentTime}"/></em></strong>
 					 <c:out value="${comment.content}"/></p>
+					
+					 <button class="btn likeCommentButton" id="likeCom" target="${comment.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>		 
 				</div>
-				</c:when>
-				<c:otherwise>
-					<div class="message" id="comments">
-					 <img src="https://www.google.com" class="avatar">
-					 <p><strong>${comment.username} <em><c:out value="${comment.commentTime}"/></em></strong>
-					 <c:out value="${comment.content}"/></p>
-				</div>
-				</c:otherwise>
-			</c:choose>
+				
+			
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
@@ -418,7 +395,9 @@ $(function(){
 $('button.likeButton').live('click', function(e){
 
     e.preventDefault();   
+    
     $button = $(this);
+    
     if($button.hasClass('liked')){
     	alert("unlikevame"),
     	$.post("removeLike");
@@ -428,10 +407,44 @@ $('button.likeButton').live('click', function(e){
     	alert("likevame"),
         $.post("like");
         $button.addClass('liked');
-        $button.innerHTML = ('<i class="fa fa-heart"></i>'),
+        $button.innerHTML = `<i class="fa fa-heart"></i>`,
         $button.text('Unlike');
     }
 });
+
+
+</script>
+
+
+<script type="text/javascript">
+$('button.likeCommentButton').live('click', function(e){
+	
+    e.preventDefault();   
+    
+    $button = $(this);
+   	var x = $(this).attr("target");
+   	
+    if($button.hasClass('liked')){
+    	alert("unlikevameCommenta"),
+    	 $.post("removeLikeComment", 
+ 				{ 
+ 					commentId: x,
+ 					
+ 				});
+        $button.removeClass('liked');  
+        $button.text('Like Comment');
+    } else {
+    	alert("likevame"),
+    	  $.post("likeComment", 
+    				{ 
+    					commentId: x,
+    					
+    				});
+        $button.addClass('liked');
+        $button.text('Unlike Comment');
+    }
+});
+
 
 
 </script>

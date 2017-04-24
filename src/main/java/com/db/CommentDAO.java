@@ -17,6 +17,10 @@ public class CommentDAO {
 	
 	private static CommentDAO instance;
 	
+	   private static final String LIKE_COMMENT = "insert into soundcloud.comments_likes (user_id,commend_id) values (?,?);";
+	   private static final String REMOVE_LIKE_COMMENT = "delete from soundcloud.comments_likes where user_id=? and commend_id=?";
+
+	
 		public synchronized static CommentDAO getInstance() {
 			if (instance == null) {
 				instance = new CommentDAO();
@@ -54,16 +58,17 @@ public class CommentDAO {
 		}
 		
 		
-		public List<Comment> getComments() throws SQLException {
+		public List<Comment> getSongComments(int song_id) throws SQLException {
 			
 			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,u.profilephoto_path,"
 					+ "u.username from soundcloud.comments c join "
-					+ "soundcloud.users u using(user_id);";
+					+ "soundcloud.users u using(user_id) where c.song_id=?;";
 			List<Comment> comments = new ArrayList<Comment>();
 			PreparedStatement ps = null;
 	       
 	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-	            ResultSet rs = ps.executeQuery();
+	            ps.setInt(1,song_id );
+	            ResultSet rs = ps.executeQuery();    
 	            while (rs.next()) {
 	            Comment comment = new Comment(rs.getString("c.content"),
 	            			rs.getTimestamp("c.upload_time").toLocalDateTime(), 
@@ -81,6 +86,24 @@ public class CommentDAO {
 
 		}
 		
+		
+		
+		public void likeComment(int user_id,int comment_id) throws SQLException {
+			
+		     PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(LIKE_COMMENT);
+		        ps.setInt(1, user_id);
+		        ps.setInt(2, comment_id);
+		        ps.executeUpdate();
+		}
+		
+		
+		public void removeLikeComment(int user_id,int comment_id) throws SQLException {
+			
+		     PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(REMOVE_LIKE_COMMENT);
+		        ps.setInt(1, user_id);
+		        ps.setInt(2, comment_id);
+		        ps.executeUpdate();
+		}
 
 
 }
