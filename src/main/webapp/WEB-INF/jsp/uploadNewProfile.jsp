@@ -53,12 +53,12 @@
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
-<c:set var="user" scope="request" value="${user}"/>	
+				<c:set var="user" scope="request" value="${user}"/>	
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
 				</c:if>	
 		
-  <c:choose>
+  					<c:choose>
 			        	<c:when test="${!isFollowing}">
 							      		 <button class="btn followButton" rel="6">Follow</button>
 						</c:when>

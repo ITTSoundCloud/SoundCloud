@@ -22,9 +22,9 @@
 			      <ul class="nav navbar-nav">
 			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
 			      </ul>
-			      <form class="navbar-form navbar-left">
+			       <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
+			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>

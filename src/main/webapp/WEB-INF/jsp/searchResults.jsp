@@ -14,7 +14,9 @@
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
-  
+     
+
+
   
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -29,11 +31,11 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="#"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
 			      </ul>
-			      <form class="navbar-form navbar-left">
+			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
+			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -134,9 +136,19 @@
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> Follow</i></button>
+							<td><c:set var="listedUser" scope="session" value="${user.username}"/>	
+				<c:if test="${empty user}">
+					<h1>No user.</h1>
+				</c:if>	
+		
+  					<c:choose>
+			        	<c:when test="${!isFollowing}">
+							      		 <button class="btn followButton" rel="6">Follow</button>
+						</c:when>
+						<c:otherwise>
+					 <button class="btn followButton" rel="6">Following</button>
+						</c:otherwise>
+					</c:choose>
 							</td>
 						</tr>
 						</c:forEach>
@@ -369,16 +381,38 @@
 	</div>
 
   <!-- change paths later -->
-
+  
   	<script src="./js/side-menu.js"></script>
     <script src="./js/index.js"></script>
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="./javascript.js"></script>
+	<script type="text/javascript" src="./javascript.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
 
-    
+	<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+$('button.followButton').live('click', function(e){
+
+    e.preventDefault();   
+    $button = $(this);
+    if($button.hasClass('following')){
+
+    	$.post("unFollow");
+        $button.removeClass('following');
+        $button.text('Follow');
+    } else {
+        // $.ajax(); Do Follow
+        $.post("follow");
+        $button.addClass('following');
+        $button.text('Following');
+    }
+});
+
+
+</script>
     
  <script type = "text/javascript">
 
