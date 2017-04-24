@@ -2,6 +2,7 @@ package com.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.comparators.UploadTimeComparator;
 import com.db.CommentDAO;
 import com.db.LikeDAO;
 import com.db.PlaylistDAO;
@@ -78,11 +80,17 @@ public class UserConroller {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(HttpServletRequest request, HttpSession session) {
+	public String home(HttpServletRequest request, HttpSession session,Model model) {
 		
-		return "explore";
-         
+	 	List<String> genres = SongDAO.getInstance().getGenres();
+		model.addAttribute("genres", genres);
+		List<Song> songs = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songs, new UploadTimeComparator());
+		model.addAttribute("songsByDate", songs);
+		
+		return "explore";    
 	}
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
@@ -93,19 +101,28 @@ public class UserConroller {
 		User user = UserDAO.getInstance().getUser(username);
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
-		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
-		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
-		 	
-		 	for(User u : allUsers){
-		 		System.out.println(u);
-		 	}
-		 	model.addAttribute("allUsers", allUsers);
-		 	model.addAttribute("allSongs", allSongs);
-		 	
+		}
+//		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
+//		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
+//		 	
+//		 	for(User u : allUsers){
+//		 		System.out.println(u);
+//		 	}
+//		 	model.addAttribute("allUsers", allUsers);
+//		 	model.addAttribute("allSongs", allSongs);
+//		 	
 		 	List<String> genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
+			System.out.println("Hello??");
+			System.out.println(genres);
+			List<Song> songs = SongDAO.getInstance().getAllSongs();
+			System.out.println(songs);
+			Collections.sort(songs, new UploadTimeComparator());
+			for(Song s : songs){
+				System.out.println("date of uploading " + s.getUploadingTime());
+			}
+			model.addAttribute("songsByDate", songs);
 
-		}
             return "explore";                                                   
 
 
@@ -123,25 +140,6 @@ public class UserConroller {
 
 			return "upload1";
 		}
-		
-		@ResponseBody
-		@RequestMapping(value="/follow", method = RequestMethod.POST)
-		public void followUser(Model model,HttpSession session){
-			User currentUser = (User) session.getAttribute("user");
-			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
-			System.out.println("kvo stava tuka follow");
-			
-				try {
-					if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
-						System.out.println("ok");
-					}
-
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-		
 		
 		
 		
@@ -238,24 +236,77 @@ public class UserConroller {
 			}
 				
 		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/follow", method = RequestMethod.POST)
+		public void followUser(Model model,HttpSession session){//another follow method may be necessary
+
+			User currentUser = (User) session.getAttribute("user");
+			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+				
+					try {
+						if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
+							System.out.println("user " + currentUser + "was followed on his profile page.");
+						}
+	
+					} catch (SQLException e) {
+						System.out.println("Error following user on his page!");
+					}
+				}
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/followSearch", method = RequestMethod.POST)
+		public void followUserSearch(Model model,HttpSession session,
+				@RequestParam(value = "username") String username){//another follow method may be necessary
+
+			User currentUser = (User) session.getAttribute("user");
+			User userToFollow = UserDAO.getInstance().getUser(username);
+				try {
+					UserDAO.getInstance().followUser(currentUser.getUserId(), userToFollow.getUserId());
+					System.out.println("The user " + currentUser + " was followed successfully from search page.");
+				} catch (SQLException e) {
+					System.out.println("Error following user on search page!");
+				}
+				
+		}
+		
+		
 				
 		@ResponseBody
 		@RequestMapping(value="/unFollow", method = RequestMethod.POST)
-		public void unFollowUser(Model model,HttpSession session){
+		public void unFollowUser(Model model,HttpSession session){//another unfollow method may be necessary
 			User currentUser = (User) session.getAttribute("user");
-			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
-			System.out.println("kvo stava tuka unfollow");
-			try {
-				if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
-					System.out.println("izstrit");
-				}
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			
+				User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+				try {
+					if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
+						System.out.println("The user " + currentUser + " was unfollowd successfully on his profile page.");
+					}
+	
+				} catch (SQLException e) {
+					System.out.println("Error unfollowing user on his page!");
+				}	
 		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/unFollowSearch", method = RequestMethod.POST)
+		public void unFollowSearch(Model model,HttpSession session,
+				@RequestParam(value = "username") String username){//another unfollow method may be necessary
+			User currentUser = (User) session.getAttribute("user");
+		
+				User userToUnfollow = UserDAO.getInstance().getUser(username);
+				try {
+					UserDAO.getInstance().unfollow(currentUser.getUserId(), userToUnfollow.getUserId());
+					System.out.println("The user " + currentUser + " was unfollowd successfully from search page.");
+				} catch (SQLException e) {
+					System.out.println("Error unfollowing user on search page!");
+				}
+		}
+		
 	
 	private boolean validateRegister(Model model, String username, String password, String email) {
 		
