@@ -112,9 +112,12 @@ public class PlaylistDAO {
 			ResultSet resultSet = ps.executeQuery();
 			
 			while(resultSet.next()){
-				Playlist playlist = new Playlist(resultSet.getInt("playlist_id"),
+
+				Playlist playlist = new Playlist(
+						resultSet.getInt("playlist_id"),
 						resultSet.getString("title"),
-						resultSet.getInt("userId"));
+						resultSet.getInt("user_Id"));
+
 				playlist.setDescription(resultSet.getString("description"));
 				
 				userPlaylists.add(playlist);

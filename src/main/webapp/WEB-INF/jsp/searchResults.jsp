@@ -148,6 +148,7 @@ button.followButton.following{
 							</c:when>
 							<c:otherwise>
 									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+									
 								</c:otherwise>
 							</c:choose>
 							</td>
@@ -156,11 +157,12 @@ button.followButton.following{
 								<h6>No description</h6>
 							</c:when>
 							<c:otherwise>
-									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>																	
 								</c:otherwise>
-							</c:choose>
+							</c:choose>							
 							</td>
-							<td><c:set var="listedUser" scope="session" value="${user.username}"/>	
+							<c:set var="listedUser" scope="session" value="${user.username}"/>
+							<td>	
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
 				</c:if>	
