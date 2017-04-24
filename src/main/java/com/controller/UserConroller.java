@@ -30,6 +30,7 @@ import com.email.CodeGenerator;
 import com.email.EmailSender;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.Comment;
+import com.model.Playlist;
 import com.model.Song;
 import com.model.User;
 import com.validators.EmailValidator;
@@ -118,7 +119,9 @@ public class UserConroller {
 			User visitedUser = UserDAO.getInstance().getUser(username);
 			model.addAttribute("user", visitedUser);
 			User currentUser = (User) session.getAttribute("user");
+			
 			session.setAttribute("usernameToFollow", username);
+			
 			model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 
 			return "upload1";

@@ -61,7 +61,7 @@ public class SearchContoller {
 		model.addAttribute("serchedPlaylists",playlists);
 		System.out.println(currentUser.getUserId());
 		System.out.println(listedUser);
-		model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), UserDAO.getInstance().getUser(session.getAttribute("listedUser").toString()).getUserId()));
+		//model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), UserDAO.getInstance().getUser(session.getAttribute("listedUser").toString()).getUserId()));
 		
 		return "searchResults";
 		

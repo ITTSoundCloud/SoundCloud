@@ -243,7 +243,13 @@ button.likeButton.liked{
 			            	<button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
 			            	<ul class="dropdown-menu">        
 			                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
-			                <li><a href="#"><i class="fa fa-dot-circle-o"></i> Station</a></li>   
+			                
+			                <c:forEach items="${currentUserPlaylists}" var="playlist">
+
+								 <li><a id="addTocurrentPlaylist"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>
+																 								
+							</c:forEach>
+			                   
 			            </ul>
 			             <div class="overlay"></div>
 			        </div>
@@ -260,7 +266,8 @@ button.likeButton.liked{
 	    </ul>
 	  </div><!--.popup-header-->
 	  <div class="popup-content">
-	<form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">	    <div id="errorMsg" size="1" color="red"></div>
+	<form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">
+	<div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
 	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
 	      <label for="description">Description:</label></br>
@@ -310,8 +317,16 @@ button.likeButton.liked{
 </div>
 
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
+<script type="text/javascript">
 
-
+$(function () {
+	 $('#addTocurrentPlaylist').on('click', function() {
+    	alert('tam li sme');
+        
+        
+    });
+});
+	</script>
 
 <script type="text/javascript">
 var wavesurfer = Object.create(WaveSurfer);

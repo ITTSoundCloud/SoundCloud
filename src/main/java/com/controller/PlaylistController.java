@@ -59,6 +59,7 @@ public class PlaylistController {
 		System.out.println(songTitle + "v song_{title}");
 		User currentUser = (User) session.getAttribute("user");
 		Song visitedSongProfile;
+		
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);
@@ -69,6 +70,12 @@ public class PlaylistController {
 		} catch (SQLException e) {
 			System.out.println("DB problem - song page.");
 		}	
+		try {
+			List<Playlist> currentUserPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
+			model.addAttribute("currentUserPlaylists", currentUserPlaylists);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return "song";
 	}
