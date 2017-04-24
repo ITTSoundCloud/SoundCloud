@@ -204,9 +204,38 @@ public class UserConroller {
 		@RequestMapping(value="/likeComment", method = RequestMethod.POST)
 		public void likeComment(Model model,HttpSession session,
 				@RequestParam(value = "commentId") int comment_id){
-			System.out.println("Vzehme go " +comment_id);
+		
 			User currentUser = (User) session.getAttribute("user");
 			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
+			try {
+				System.out.println("Laiknahme commenta");
+				CommentDAO.getInstance().likeComment(currentUser.getUserId(), comment_id);
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			finally{
+				//TODO
+			}
+				
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/removeLikeComment", method = RequestMethod.POST)
+		public void removeLikeComment(Model model,HttpSession session,
+				@RequestParam(value = "commentId") int comment_id){
+		
+			User currentUser = (User) session.getAttribute("user");
+			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
+			try {
+				System.out.println("UnLaiknahme commenta");
+				CommentDAO.getInstance().removeLikeComment(currentUser.getUserId(), comment_id);
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			finally{
+				//TODO
+			}
 				
 		}
 				

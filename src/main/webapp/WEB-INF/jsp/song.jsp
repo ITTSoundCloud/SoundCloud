@@ -423,9 +423,14 @@ $('button.likeCommentButton').live('click', function(e){
     
     $button = $(this);
    	var x = $(this).attr("target");
+   	
     if($button.hasClass('liked')){
     	alert("unlikevameCommenta"),
-    	$.post("removeLikeComment");
+    	 $.post("removeLikeComment", 
+ 				{ 
+ 					commentId: x,
+ 					
+ 				});
         $button.removeClass('liked');  
         $button.text('Like Comment');
     } else {
@@ -436,8 +441,7 @@ $('button.likeCommentButton').live('click', function(e){
     					
     				});
         $button.addClass('liked');
-        $button.innerHTML = ('<i class="fa fa-heart"></i>'),
-        $button.text('Unlike');
+        $button.text('Unlike Comment');
     }
 });
 

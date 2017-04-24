@@ -17,8 +17,8 @@ public class CommentDAO {
 	
 	private static CommentDAO instance;
 	
-	   private static final String LIKE_COMMENT = "insert into soundcloud.comments_likes (user_id,comment_id) values (?,?);";
-	   private static final String REMOVE_LIKE_COMMENT = "delete from soundcloud.comments_likes where user_id=? and song_id=?";
+	   private static final String LIKE_COMMENT = "insert into soundcloud.comments_likes (user_id,commend_id) values (?,?);";
+	   private static final String REMOVE_LIKE_COMMENT = "delete from soundcloud.comments_likes where user_id=? and commend_id=?";
 
 	
 		public synchronized static CommentDAO getInstance() {
