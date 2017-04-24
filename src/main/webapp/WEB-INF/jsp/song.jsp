@@ -96,6 +96,13 @@ border-color: transparent transparent transparent #eeeeee;
 .btn{
 }
 
+button.likeCommentButton{
+}
+
+button.likeCommentButton.liked{
+
+}
+
 button.likeButton{
     border-radius: 0;
     margin-left: -1px;
@@ -281,22 +288,16 @@ button.likeButton.liked{
   <c:choose>
 	  <c:when test="${not empty allComments }">
 		  <c:forEach items="${allComments}" var="comment">
-		  <c:choose>
-			  <c:when test="${comment.commentId % 2 == 0}">
+		  
 				<div class="message" id="comments">
 					 <img src="https://www.google.com" class="avatar">
 					 <p><strong>${comment.username}  <em><c:out value="${comment.commentTime}"/></em></strong>
 					 <c:out value="${comment.content}"/></p>
+					
+					 <button class="btn likeCommentButton" id="likeCom" target="${comment.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>		 
 				</div>
-				</c:when>
-				<c:otherwise>
-					<div class="message" id="comments">
-					 <img src="https://www.google.com" class="avatar">
-					 <p><strong>${comment.username} <em><c:out value="${comment.commentTime}"/></em></strong>
-					 <c:out value="${comment.content}"/></p>
-				</div>
-				</c:otherwise>
-			</c:choose>
+				
+			
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
@@ -394,7 +395,9 @@ $(function(){
 $('button.likeButton').live('click', function(e){
 
     e.preventDefault();   
+    
     $button = $(this);
+    
     if($button.hasClass('liked')){
     	alert("unlikevame"),
     	$.post("removeLike");
@@ -404,10 +407,40 @@ $('button.likeButton').live('click', function(e){
     	alert("likevame"),
         $.post("like");
         $button.addClass('liked');
+        $button.innerHTML = `<i class="fa fa-heart"></i>`,
+        $button.text('Unlike');
+    }
+});
+
+
+</script>
+
+
+<script type="text/javascript">
+$('button.likeCommentButton').live('click', function(e){
+	
+    e.preventDefault();   
+    
+    $button = $(this);
+   	var x = $(this).attr("target");
+    if($button.hasClass('liked')){
+    	alert("unlikevameCommenta"),
+    	$.post("removeLikeComment");
+        $button.removeClass('liked');  
+        $button.text('Like Comment');
+    } else {
+    	alert("likevame"),
+    	  $.post("likeComment", 
+    				{ 
+    					commentId: x,
+    					
+    				});
+        $button.addClass('liked');
         $button.innerHTML = ('<i class="fa fa-heart"></i>'),
         $button.text('Unlike');
     }
 });
+
 
 
 </script>

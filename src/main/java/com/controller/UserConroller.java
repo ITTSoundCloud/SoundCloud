@@ -91,14 +91,6 @@ public class UserConroller {
 		
 		if (session.getAttribute("user") == null) {					
 		User user = UserDAO.getInstance().getUser(username);
-		try {
-			//TODO
-			List<Comment> comments = CommentDAO.getInstance().getComments();
-			model.addAttribute("allComments", comments);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
 		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
@@ -194,15 +186,28 @@ public class UserConroller {
 		public void comment(Model model,HttpSession session,
 				@RequestParam (value="comment") String comment){
 			User currentUser = (User) session.getAttribute("user");
-			
+			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
 			try {
-				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), 1);
+				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), visitedSong.getSongId());
 				System.out.println("tuk sme");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				System.out.println("mina");
 				e.printStackTrace();
 			}	
+		}
+		
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/likeComment", method = RequestMethod.POST)
+		public void likeComment(Model model,HttpSession session,
+				@RequestParam(value = "commentId") int comment_id){
+			System.out.println("Vzehme go " +comment_id);
+			User currentUser = (User) session.getAttribute("user");
+			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
+				
 		}
 				
 		@ResponseBody

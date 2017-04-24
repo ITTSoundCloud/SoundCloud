@@ -58,16 +58,17 @@ public class CommentDAO {
 		}
 		
 		
-		public List<Comment> getComments() throws SQLException {
+		public List<Comment> getSongComments(int song_id) throws SQLException {
 			
 			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,u.profilephoto_path,"
 					+ "u.username from soundcloud.comments c join "
-					+ "soundcloud.users u using(user_id);";
+					+ "soundcloud.users u using(user_id) where c.song_id=?;";
 			List<Comment> comments = new ArrayList<Comment>();
 			PreparedStatement ps = null;
 	       
 	            ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-	            ResultSet rs = ps.executeQuery();
+	            ps.setInt(1,song_id );
+	            ResultSet rs = ps.executeQuery();    
 	            while (rs.next()) {
 	            Comment comment = new Comment(rs.getString("c.content"),
 	            			rs.getTimestamp("c.upload_time").toLocalDateTime(), 
