@@ -18,6 +18,12 @@
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+	
+	<meta property="og:url"           content="http://localhost:8080/SoundCloud/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="Your Website Title" />
+  <meta property="og:description"   content="Your description" />
+  <meta property="og:image"         content="http://kingofwallpapers.com/picture/img-001.php?pic=/picture/picture-001.jpg" />
 
 	<script type="text/javascript">
 	function validateRequest(){
@@ -261,10 +267,7 @@
         <label for="remember-me">Remember me</label>
       </p>
       <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">
-      <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Sign in with facebook</div>
-      <br>
-      <div id="my-signin2"></div>
-      <a href="#" onclick="signOut();">Sign out google</a>
+	<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>      <a href="#" onclick="signOut();">Sign out google</a>
       
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">

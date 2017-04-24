@@ -152,8 +152,18 @@ button.likeButton.liked{
 
 <title>Wavesurfer</title>
 
+
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
    <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -275,10 +285,9 @@ button.likeButton.liked{
 	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
 	    </form>
 	  </div><!--.popup-content-->
-	</div>
-
-        <div class="btn-container-right">
-            <ul class="buttons-right pull-left">
+	  	</div>
+	  	<div class="fb-like" data-href="http://localhost:8080/SoundCloud/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+	<div class="fb-share-button" data-href="http://localhost:8080/SoundCloud/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FSoundCloud%2F&amp;src=sdkpreparse">Share</a></div>            <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
                 <li><a href="#" ><i class="fa fa-comment"></i> Comment</a></li>
             </ul>
@@ -308,6 +317,8 @@ button.likeButton.liked{
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
+	
+	
 		<div class="message" id="comments">
 			<p>No comments.</p>
 		</div>

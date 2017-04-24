@@ -48,6 +48,35 @@ button.followButton.following{
 
 </head>
 <body>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '229011207576478',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,8 +96,9 @@ button.followButton.following{
 			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
+					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
 							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+							  <button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
