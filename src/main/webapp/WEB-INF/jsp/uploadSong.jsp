@@ -80,7 +80,7 @@
   <div class="form-group">
     <label for="exampleInputFile">File input</label>
   
-      <input class="file-upload" type="file" id="file" name="songFile"  accept="music/*"/>
+      <input class="file-upload" type="file" id="file" name="songFile"  accept=".mp3"/>
       <input type="submit" class = "idiotButton" value="Upload now">
   </div>
 </form>

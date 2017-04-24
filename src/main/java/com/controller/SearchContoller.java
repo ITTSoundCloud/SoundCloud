@@ -42,7 +42,8 @@ public class SearchContoller {
 		System.out.println(users);
 		System.out.println(playlists);	
 		User currentUser = (User)session.getAttribute("user");
-		String listedUser = (String)session.getAttribute("");
+		String listedUser = (String)session.getAttribute("listedUser");
+		
 		System.out.println("****************");
 		Enumeration keys = session.getAttributeNames();
 		while (keys.hasMoreElements())
@@ -51,6 +52,7 @@ public class SearchContoller {
 		 System.out.println(key + ": " + session.getValue(key) + "<br>");
 		}
 		System.out.println("*****************");
+		
 		results.addAll(UserDAO.getInstance().searchForUser(search_text));
 		results.addAll(SongDAO.getInstance().searchForSong(search_text));
 		model.addAttribute("searchedItems", results);
@@ -59,7 +61,7 @@ public class SearchContoller {
 		model.addAttribute("serchedPlaylists",playlists);
 		System.out.println(currentUser.getUserId());
 		System.out.println(listedUser);
-		//model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), listedUser.getUserId()));
+		model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), UserDAO.getInstance().getUser(session.getAttribute("listedUser").toString()).getUserId()));
 		
 		return "searchResults";
 		
