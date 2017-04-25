@@ -147,6 +147,10 @@ button.likeButton.liked{
   
 }
 
+.playlist{
+
+}
+
 </style>
 
 
@@ -258,8 +262,8 @@ button.likeButton.liked{
 			                
 			                <c:forEach items="${currentUserPlaylists}" var="playlist">
 
-								 <li><a id="addTocurrentPlaylist"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>
-																 								
+								<li><a class="playlist" target="${playlist.playlistId }"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>
+								
 							</c:forEach>
 			                   
 			            </ul>
@@ -330,16 +334,25 @@ button.likeButton.liked{
 </div>
 
     <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
+	
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+	
+	
 <script type="text/javascript">
+$('a.playlist').live('click', function(e){
+	
+    e.preventDefault();   
+    alert("hello"),
+    $button = $(this);
+   	var x = $(this).attr("target");
 
-$(function () {
-	 $('#addTocurrentPlaylist').on('click', function() {
-    	alert('tam li sme');
-        
-        
-    });
+    	 $.post("addSongToPlaylist", 
+ 				{ 
+ 					playlistId: x,
+ 					
+ 				});
 });
-	</script>
+</script>	
 
 <script type="text/javascript">
 var wavesurfer = Object.create(WaveSurfer);
@@ -413,10 +426,6 @@ $(function(){
 });
 
 </script>
-
-
-
-<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">

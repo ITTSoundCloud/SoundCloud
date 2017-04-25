@@ -10,6 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
+import static java.util.stream.Collectors.toList;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
@@ -107,7 +108,7 @@ public class UserConroller {
 		}
 		
 		
-		return "explore";    
+		return "uploadNewProfile";    
 	}
 	
 	
@@ -144,6 +145,7 @@ public class UserConroller {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
 			
 			List<Song> songs;
@@ -159,13 +161,14 @@ public class UserConroller {
 				System.out.println("by likes");
 				for(Song s : songs){
 					System.out.println("likes " + s.getLikes());
+					model.addAttribute("songsByLikes", songs);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-//			model.addAttribute("songsByLikes", songs);    // not ok because of singleton 
+
+			    // not ok because of singleton 
 
             return "explore";                                                   
 
@@ -190,7 +193,6 @@ public class UserConroller {
 
 			return "upload1";
 		}
-		
 		
 		
 		@ResponseBody
