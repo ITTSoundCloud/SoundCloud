@@ -84,12 +84,13 @@
      <div class="profile-img">
     <img class="img-thumbnail" src="https://themostbeautifulwomen.net/wp-content/uploads/adriana-lima-love-magazine-advent-0.jpg?s=200"/>
     <c:if test="${sessionScope.username.equals(user.username)}">
-   
-	   <form method="POST" enctype="multipart/form-data">
-	    <button class="btn btn-sm btn-default" type="button">Change Picture<i class="fa fa-camera upload-button"></i>
+    
+	    <form method="POST" enctype="multipart/form-data">
+	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
 	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
 	        <input type="submit" value="change">
-	   </form>
+
+	      </form>
      </c:if>
    </div>
   <div class="row content">

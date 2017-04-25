@@ -61,12 +61,14 @@ public class UploadImageController {
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("imageFile") MultipartFile multiPartFile,HttpSession session,Model model) throws IOException{
-
-		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
+		
+		
+		String username = (String)session.getAttribute("username");
+		File fileOnDisk = new File(FILE_LOCATION + username + ".jpg");
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisImage = multiPartFile.getOriginalFilename();
 		try {
-			UserDAO.getInstance().addProfilePicture((String)session.getAttribute("username"), FILE_LOCATION + multiPartFile.getOriginalFilename());
+			UserDAO.getInstance().addProfilePicture((String)session.getAttribute("username"), FILE_LOCATION + username + ".jpg");
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -71,9 +72,11 @@ public class SearchContoller {
 		model.addAttribute("searchedSongs", songs);
 		model.addAttribute("searchedUsers", users);
 		model.addAttribute("serchedPlaylists",playlists);
+		model.addAttribute("isFollowing", isFollowing());
 //		System.out.println(currentUser.getUserId());
 //
 //		for(User u : users){
+		
 //			model.addAttribute("isFollowing_{username}", UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
 //		}
 		
@@ -97,5 +100,9 @@ public class SearchContoller {
 //		return WELCOME_VIEW;
 //		
 //	}
+	
+	public boolean isFollowing(){
+		return new Random().nextBoolean();
+	}
 //	
 }
