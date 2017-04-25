@@ -191,7 +191,7 @@ public class UserConroller {
 				e.printStackTrace();
 			}
 
-			return "upload1";
+			return "uploadNewProfile";
 		}
 		
 		
@@ -459,7 +459,6 @@ public class UserConroller {
 	
 	public static boolean isFollowing(int follower_id,int followed_id){
 		
-		System.out.println("tul li sme tuk li sme ");
 		try {
 			if(UserDAO.getInstance().getFollowing(follower_id).contains(followed_id)){
 				return true;

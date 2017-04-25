@@ -199,7 +199,7 @@ button.followButton.following{
 		<c:if test="${not empty sessionScope.username}">
   					<c:choose>
 	  					
-				        	<c:when test="${!isFollowing}">
+				        	<c:when test="${isFollowing}">
 						<button class="btn followButton" rel="6" target="${user.username }">Follow</button>
 							</c:when>
 							<c:otherwise>

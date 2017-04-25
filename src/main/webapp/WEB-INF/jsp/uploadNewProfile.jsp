@@ -88,15 +88,10 @@
     
     
 	    <form method="POST" enctype="multipart/form-data">
-<<<<<<< HEAD
 	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
 	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
 	        <input type="submit" value="change">
-=======
-	    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
-	        <input type="submit" value="change"/></button>
->>>>>>> af47ea21b0bb448d07edf6b2c06de4642a0b8867
+
 	      </form>
      </c:if>
    </div>
