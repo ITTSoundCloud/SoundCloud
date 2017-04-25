@@ -366,7 +366,7 @@ wavesurfer.init({
 
 });
 
-wavesurfer.load('https://wavesurfer-js.org/example/split-channels/stereo.mp3');
+wavesurfer.load('http://localhost:8080/scUploads/songs/song.mp3');
 
 var slider = document.querySelector('#slider');
 
