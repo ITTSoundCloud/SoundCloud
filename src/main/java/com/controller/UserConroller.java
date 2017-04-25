@@ -472,7 +472,5 @@ public class UserConroller {
 		return false;
 	}
 	
-
-	
 	
 }
