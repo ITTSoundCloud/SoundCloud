@@ -28,8 +28,15 @@ public class SongController {
 		System.out.println(genre + "genre_{name}");
 		User user = (User)session.getAttribute("currentUser");
 		
-		List<Song> songs = SongDAO.getInstance().getGenreSongs(genre);
-		model.addAttribute("songsGenre", songs);
+		List<Song> songs;
+		try {
+			songs = SongDAO.getInstance().getGenreSongs(genre);
+			model.addAttribute("songsGenre", songs);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return "some jsp with songs that is not existing yet ;x";
 	}

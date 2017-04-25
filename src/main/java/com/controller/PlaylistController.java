@@ -93,14 +93,26 @@ public class PlaylistController {
 		System.out.println(playlist);
 		System.out.println(description);
 		//System.out.println(user.getUserId());
-		return PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
+		boolean isValidPlaylist = false;
+		try {
+			isValidPlaylist = PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isValidPlaylist;
 	}
 	
 	
 	
 	public boolean isLiked(int song_id,String username){
-		if(LikeDAO.getInstance().getLikesOfSong(song_id).containsKey(username)){
-			return true;
+		try {
+			if(LikeDAO.getInstance().getLikesOfSong(song_id).containsKey(username)){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return false;
 	}

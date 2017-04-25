@@ -20,6 +20,8 @@
 <link href="<c:url value="/static/css/playlistCss.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/playlistPopup.js" />" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
+
 
 
 <style type="text/css">

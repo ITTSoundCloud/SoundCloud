@@ -133,12 +133,12 @@ public class PlaylistDAO {
 	
 
 	// 
-	public int getPlaylistId(String name){
+	public int getPlaylistId(String name) throws SQLException {
 		String sql = "select playlist_id from soundcloud.playlists where title = ?;";
 		PreparedStatement ps = null;
 		int id = 0;
 		
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
@@ -146,27 +146,16 @@ public class PlaylistDAO {
 			while(rs.next()){
 				id = rs.getInt("playlist_id");
 			}
-		}
-		catch(SQLException e)
-		{
-			System.out.println("DB problem selecting the playlist.");
-		}
-		finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				System.out.println("ops");
-			}
-		}
+				
 		return id;
 	}
 	
 	// if song exist in the playlist
-	public boolean existsInPlaylist(int song_id,int playlist_id){
+	public boolean existsInPlaylist(int song_id,int playlist_id) throws SQLException {
 		String sql = "SELECT playlist_id,song_id FROM soundcloud.playlists_songs "
 				+ "WHERE playlist_id = ? AND song_id = ?";
 		PreparedStatement ps = null;
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, playlist_id);
 			ps.setInt(2, song_id);
@@ -175,23 +164,13 @@ public class PlaylistDAO {
 			if(rs.next()){
 				return false;
 			}
-			
-			} catch (SQLException e) {
-				System.out.println("ops");
-			}
-			finally{
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					System.out.println("ops");
-				}
-			}
+						
 			return true;
 			
 		}
 	
 	//get all songs from playlist
-	public List<Song> getAllSongsFromPlaylist(int playlist_id,int user_id) {
+	public List<Song> getAllSongsFromPlaylist(int playlist_id,int user_id) throws SQLException {
 		
 		String sql = "SELECT s.song_id, s.title, s.artist,s.genre,s.song_path,s.user_id,s.timesPlayed,s.description,"
 				+ "s.songphoto_path,s.upload_time FROM soundcloud.songs s join soundcloud.playlists_songs ps"
@@ -199,7 +178,7 @@ public class PlaylistDAO {
 
 		List<Song> songsInPlaylist = new ArrayList<Song>();
 		PreparedStatement ps;
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, playlist_id);
 			ps.setInt(2, user_id);
@@ -220,19 +199,17 @@ public class PlaylistDAO {
 		
 			}
 			System.out.println("OK " + songsInPlaylist);
-		} catch (SQLException e) {
-			System.out.println("DB problem with selcting all songs." + e.getMessage());
-		}
+		
 		return songsInPlaylist;
 	}
 	
 	// search playlist by name 
-	 public List<Playlist> searchForPLaylist(String word){
+	 public List<Playlist> searchForPLaylist(String word) throws SQLException {
 			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
 			String search = "%" + word + "%";
 			ArrayList<Playlist> playlistsMatching = new ArrayList<>();
 			PreparedStatement prepStatement = null;
-			try {
+
 				prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
 				prepStatement.setString(1, search);
 				ResultSet rs = prepStatement.executeQuery();
@@ -247,20 +224,18 @@ public class PlaylistDAO {
 			
 					playlistsMatching.add(playlist);
 				}
-			} catch (SQLException e) {
-				System.out.println("Problem with DataBase in playlistSearch - " + e.getMessage());
-			}
+			
 			
 			return Collections.unmodifiableList(playlistsMatching);
 		}
 	 
 	 
 	 
-	 public boolean playlistExists(String title,String description,int user_id){
+	 public boolean playlistExists(String title,String description,int user_id) throws SQLException {
 			String sql = "SELECT title,description,user_id FROM soundcloud.playlists "
 					+ "WHERE title = ? AND description = ? AND user_id=?;";
 			PreparedStatement ps = null;
-			try {
+
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 				ps.setString(1, title);
 				ps.setString(2, description);
@@ -270,23 +245,9 @@ public class PlaylistDAO {
 				if(rs.next()){
 					return false;
 				}
-				
-				} catch (SQLException e) {
-					System.out.println("ops");
-				}
-				finally{
-					try {
-						ps.close();
-					} catch (SQLException e) {
-						System.out.println("ops");
-					}
-				}
+
 				return true;
 				
 			}
-	    
-	    
-		
-	
 
 }

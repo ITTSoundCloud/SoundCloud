@@ -53,11 +53,11 @@ public class LikeDAO {
 	    }
 	    
 	    
-	    public List<Song> getUserLikedSongs(int user_id){
+	    public List<Song> getUserLikedSongs(int user_id) throws SQLException {
 	    	
 	    	List<Song> likedSongs = new ArrayList<>();
 			PreparedStatement ps = null;
-			try {
+
 				ps = DBManager.getInstance().getConnection().prepareStatement(GET_LIKED_SONGS);
 				ps.setInt(1, user_id);
 				ResultSet rs = ps.executeQuery();
@@ -74,28 +74,17 @@ public class LikeDAO {
 					song.setUploadingTime(rs.getTimestamp("s.upload_time").toLocalDateTime());
 					
 					likedSongs.add(song);
-
-				}
-			} catch (SQLException e) {
-				System.err.println(e.getMessage());
 			}
-			finally{
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
+				
 			return likedSongs;
 		}
 	    
-
-	    
-   public Map<String,String> getLikesOfSong(int song_id){
+    
+   public Map<String,String> getLikesOfSong(int song_id) throws SQLException {
 	    	
 	   		Map<String,String> usersLiked = new HashMap<>();
 			PreparedStatement ps = null;
-			try {
+
 		   
 				ps = DBManager.getInstance().getConnection().prepareStatement(GET_USERS_LIKED);
 				ps.setInt(1, song_id);
@@ -103,23 +92,10 @@ public class LikeDAO {
 				while (rs.next()) {
 					
 					usersLiked.put(rs.getString("u.username"),rs.getString("u.profilephoto_path"));
-				}
-			} catch (SQLException e) {
-				System.err.println(e.getMessage() + "tuka e problema");
 			}
-			finally{
-				if(ps != null){
-					try {
-						ps.close();
-					} catch (SQLException e) {
-						System.out.println(e.getMessage());
-					}
-				}
-			}
+			
 			return usersLiked;
 		}
-
-	
 	    
 
 }

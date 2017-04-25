@@ -35,7 +35,7 @@ public class UploadImageController {
 
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session) {
-		return "upload";
+		return "uploadNewProfile";
 	}
 
 
@@ -59,7 +59,7 @@ public class UploadImageController {
 		}
 		session.setAttribute("profilePhoto", FILE_LOCATION + multiPartFile.getOriginalFilename());
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		return "upload";
+		return "uploadNewProfile";
 
 	}
 

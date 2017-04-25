@@ -375,8 +375,8 @@ button.followButton.following{
  <div class="p-image">
  <form method="POST" enctype="multipart/form-data">
 
-       <i class="fa fa-camera upload-button"></i>
-        <input class="file-upload" type="file" id="file" name="imageFile"  accept="image/*"/>
+      	<button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></button>
+        <input type="button"class="file-upload" type="file" id="file" name="imageFile"  accept="image/*"/>
         <input type="submit" class = "idiotButton" value="Upload now">
        </form>
        

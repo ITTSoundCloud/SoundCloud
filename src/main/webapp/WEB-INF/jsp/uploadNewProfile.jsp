@@ -83,10 +83,14 @@
      <div class="profile-img">
     <img class="img-thumbnail" src="https://themostbeautifulwomen.net/wp-content/uploads/adriana-lima-love-magazine-advent-0.jpg?s=200"/>
     <c:if test="${sessionScope.username.equals(user.username)}">
+    
+
+    
+    
 	    <form method="POST" enctype="multipart/form-data">
-	    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="failche" id="file" accept=".jpg"/>
-	        <input type="submit" value="change"/></button>
+	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
+	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
+	        <input type="submit" value="change">
 	      </form>
      </c:if>
    </div>

@@ -41,9 +41,24 @@ public class SearchContoller {
 		ArrayList<Song> songs = new ArrayList<>();
 		ArrayList<Playlist> playlists = new ArrayList<>();
 		ArrayList<User> users = new ArrayList<>();
-		users.addAll(UserDAO.getInstance().searchForUser(search_text));
-		songs.addAll(SongDAO.getInstance().searchForSong(search_text));
-		playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+		try {
+			users.addAll(UserDAO.getInstance().searchForUser(search_text));
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			songs.addAll(SongDAO.getInstance().searchForSong(search_text));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(songs);
 		System.out.println(users);
 		System.out.println(playlists);

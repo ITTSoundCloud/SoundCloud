@@ -42,10 +42,17 @@ public class UploadSongController {
 	public String prepareForUpload(HttpSession session,Model model) {
 		System.out.println("vliza1");
 		User user = (User)session.getAttribute("currentUser");
-		List<String> genres = SongDAO.getInstance().getGenres();
-		model.addAttribute("genres", genres);
-		System.out.println(genres);
-		System.out.println(genres.size());
+		List<String> genres;
+		try {
+			genres = SongDAO.getInstance().getGenres();
+			model.addAttribute("genres", genres);
+			System.out.println(genres);
+			System.out.println(genres.size());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return "uploadSong";
 	}
 
@@ -55,8 +62,15 @@ public class UploadSongController {
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		System.out.println("vliza2");
 		File file = new File(FILE_LOCATION + getThisSong);
-		List<String> genres = SongDAO.getInstance().getGenres();
-		model.addAttribute("genres", genres);
+		List<String> genres;
+		try {
+			genres = SongDAO.getInstance().getGenres();
+			model.addAttribute("genres", genres);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		User user = (User)session.getAttribute("currentUser");
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}

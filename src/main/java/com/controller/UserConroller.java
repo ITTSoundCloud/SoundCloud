@@ -74,7 +74,10 @@ public class UserConroller {
 		System.out.println(code);
 		System.out.println((String) session.getAttribute("verification"));
 		if (code.equals(session.getAttribute("verification").toString())) {
-			UserDAO.getInstance().saveUser((User) session.getAttribute("currentUser"));
+			UserDAO userDAO = UserDAO.getInstance();
+			User userToAdd = (User) session.getAttribute("currentUser");
+			userDAO.saveUser(userToAdd);
+			userDAO.addUserToCash(userToAdd);
 			return "search1";
 		}
 		return "verify";
@@ -84,11 +87,25 @@ public class UserConroller {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpSession session,Model model) {
 		
-	 	List<String> genres = SongDAO.getInstance().getGenres();
-		model.addAttribute("genres", genres);
-		List<Song> songs = SongDAO.getInstance().getAllSongs();
-		Collections.sort(songs, new UploadTimeComparator());
-		model.addAttribute("songsByDate", songs);
+	 	List<String> genres;
+		try {
+			genres = SongDAO.getInstance().getGenres();
+			model.addAttribute("genres", genres);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<Song> songs;
+		try {
+			songs = SongDAO.getInstance().getAllSongs();
+			Collections.sort(songs, new UploadTimeComparator());
+			model.addAttribute("songsByDate", songs);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return "explore";    
 	}
@@ -100,9 +117,16 @@ public class UserConroller {
 		HttpServletRequest request, Model model, HttpSession session) {
 		
 		if (session.getAttribute("user") == null) {					
-		User user = UserDAO.getInstance().getUser(username);
+		User user;
+		try {
+			user = UserDAO.getInstance().getUser(username);
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 		}
 //		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 //		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
@@ -113,22 +137,34 @@ public class UserConroller {
 //		 	model.addAttribute("allUsers", allUsers);
 //		 	model.addAttribute("allSongs", allSongs);
 //		 	
-		 	List<String> genres = SongDAO.getInstance().getGenres();
-			model.addAttribute("genres", genres);
-			System.out.println("Hello??");
-			System.out.println(genres);
-			List<Song> songs = SongDAO.getInstance().getAllSongs();
-			Collections.sort(songs, new UploadTimeComparator());
-			model.addAttribute("songsByDate", songs);
-			for(Song s : songs){
-				System.out.println("date of uploading " + s.getUploadingTime());
+		 	List<String> genres;
+			try {
+				genres = SongDAO.getInstance().getGenres();
+				model.addAttribute("genres", genres);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			Collections.sort(songs, new LikesComparator());
 			
-			System.out.println("by likes");
-			for(Song s : songs){
-				System.out.println("likes " + s.getLikes());
+			List<Song> songs;
+			try {
+				songs = SongDAO.getInstance().getAllSongs();
+				Collections.sort(songs, new UploadTimeComparator());
+				model.addAttribute("songsByDate", songs);
+				for(Song s : songs){
+					System.out.println("date of uploading " + s.getUploadingTime());
+				}
+				Collections.sort(songs, new LikesComparator());
+				
+				System.out.println("by likes");
+				for(Song s : songs){
+					System.out.println("likes " + s.getLikes());
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 //			model.addAttribute("songsByLikes", songs);    // not ok because of singleton 
 
             return "explore";                                                   
@@ -140,13 +176,17 @@ public class UserConroller {
 		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){
 			System.out.println(username + "v profile_{username}");
-			User visitedUser = UserDAO.getInstance().getUser(username);
-			model.addAttribute("user", visitedUser);
-			User currentUser = (User) session.getAttribute("user");
-			
-			session.setAttribute("usernameToFollow", username);
-			
-			model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			User visitedUser;
+			try {
+				visitedUser = UserDAO.getInstance().getUser(username);
+				model.addAttribute("user", visitedUser);
+				User currentUser = (User) session.getAttribute("user");			
+				session.setAttribute("usernameToFollow", username);
+				model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			return "upload1";
 		}
@@ -253,17 +293,18 @@ public class UserConroller {
 		public void followUser(Model model,HttpSession session){//another follow method may be necessary
 
 			User currentUser = (User) session.getAttribute("user");
-			User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
-				
-					try {
-						if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
-							System.out.println("user " + currentUser + "was followed on his profile page.");
-						}
-	
-					} catch (SQLException e) {
-						System.out.println("Error following user on his page!");
-					}
+			User visitedUser;
+			try {
+				visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+				if(UserDAO.getInstance().followUser(currentUser.getUserId(),visitedUser.getUserId())){
+					System.out.println("user " + currentUser + "was followed on his profile page.");
 				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
 		
 		
 		
@@ -273,13 +314,15 @@ public class UserConroller {
 				@RequestParam(value = "username") String username){//another follow method may be necessary
 
 			User currentUser = (User) session.getAttribute("user");
-			User userToFollow = UserDAO.getInstance().getUser(username);
-				try {
-					UserDAO.getInstance().followUser(currentUser.getUserId(), userToFollow.getUserId());
-					System.out.println("The user " + currentUser + " was followed successfully from search page.");
-				} catch (SQLException e) {
-					System.out.println("Error following user on search page!");
-				}
+			User userToFollow;
+			try {
+				userToFollow = UserDAO.getInstance().getUser(username);
+				UserDAO.getInstance().followUser(currentUser.getUserId(), userToFollow.getUserId());
+				System.out.println("The user " + currentUser + " was followed successfully from search page.");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				
 		}
 		
@@ -290,15 +333,22 @@ public class UserConroller {
 		public void unFollowUser(Model model,HttpSession session){//another unfollow method may be necessary
 			User currentUser = (User) session.getAttribute("user");
 			
-				User visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+				User visitedUser;
 				try {
-					if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
-						System.out.println("The user " + currentUser + " was unfollowd successfully on his profile page.");
+					visitedUser = UserDAO.getInstance().getUser(session.getAttribute("usernameToFollow").toString());
+					try {
+						if(UserDAO.getInstance().unfollow(currentUser.getUserId(), visitedUser.getUserId())){
+							System.out.println("The user " + currentUser + " was unfollowd successfully on his profile page.");
+						}
+		
+					} catch (SQLException e) {
+						System.out.println("Error unfollowing user on his page!");
 					}
-	
-				} catch (SQLException e) {
-					System.out.println("Error unfollowing user on his page!");
-				}	
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					
 		}
 		
 		
@@ -308,13 +358,20 @@ public class UserConroller {
 				@RequestParam(value = "username") String username){//another unfollow method may be necessary
 			User currentUser = (User) session.getAttribute("user");
 		
-				User userToUnfollow = UserDAO.getInstance().getUser(username);
+				User userToUnfollow;
 				try {
-					UserDAO.getInstance().unfollow(currentUser.getUserId(), userToUnfollow.getUserId());
-					System.out.println("The user " + currentUser + " was unfollowd successfully from search page.");
-				} catch (SQLException e) {
-					System.out.println("Error unfollowing user on search page!");
+					userToUnfollow = UserDAO.getInstance().getUser(username);
+					try {
+						UserDAO.getInstance().unfollow(currentUser.getUserId(), userToUnfollow.getUserId());
+						System.out.println("The user " + currentUser + " was unfollowd successfully from search page.");
+					} catch (SQLException e) {
+						System.out.println("Error unfollowing user on search page!");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
+				
 		}
 		
 	

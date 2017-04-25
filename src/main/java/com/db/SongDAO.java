@@ -31,7 +31,7 @@ public class SongDAO {
 	}
 
 
-	public List<Song> getAllSongs() {
+	public List<Song> getAllSongs() throws SQLException {
 		List<Song> songs = new ArrayList<Song>();
 		String sql = "SELECT s.song_id, s.title, s.artist, s.songphoto_path, s.user_id, s.genre, s.upload_time,"
 				+ "s.description, s.timesPlayed, s.song_path,count(sl.song_id) FROM soundcloud.songs s "+
@@ -39,7 +39,7 @@ public class SongDAO {
 		
 		PreparedStatement ps = null;
 
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ResultSet resultSet = ps.executeQuery();
 
@@ -61,16 +61,7 @@ public class SongDAO {
 			songs.add(song);
 
 		}
-		} catch (SQLException e) {
-			System.out.println("DB problem extracting all songs.");
-		}
-		finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
+		
 		return songs;
 	}
 	
@@ -134,13 +125,13 @@ public class SongDAO {
 		return song_id;
 	}
 
-	public List<Song> searchForSong(String word) {
+	public List<Song> searchForSong(String word) throws SQLException {
 		String sql = "SELECT song_id, title, artist,genre,song_path,user_id,timesPlayed,description,songphoto_path,"
 				+ "upload_time FROM soundcloud.songs WHERE title LIKE ? OR artist LIKE ?";
 		String search = "%" + word + "%";
 		ArrayList<Song> songsMatching = new ArrayList<>();
 		PreparedStatement prepStatement = null;
-		try {
+
 			prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
 			prepStatement.setString(1, search);
 			prepStatement.setString(2, search);
@@ -156,69 +147,44 @@ public class SongDAO {
 
 				songsMatching.add(song);
 			}
-		} catch (SQLException e) {
-			System.out.println("Problem with DataBase in searchForSong! - " + e.getMessage());
-		}
+		
 		return Collections.unmodifiableList(songsMatching);
 	}
 
-	public void increaseTimesPlayed(int song_id) {
+	public void increaseTimesPlayed(int song_id) throws SQLException {
 		String sql = "update soundcloud.songs set timesPlayed=timesPlayed+1 where song_id = ?;";
 		PreparedStatement ps = null;
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, song_id);
 			int rowsAff = ps.executeUpdate();
 			if (rowsAff > 0) {
 				System.out.println("success");
 			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
-
+		
 	}
 	
 	
-	public List<String> getGenres(){
+	public List<String> getGenres() throws SQLException {
 		
 		String sql = "select genre from soundcloud.genres";
 		ArrayList<String> genres = new ArrayList<>();
 		PreparedStatement prepStatement = null;
-		try {
+
 			prepStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet rs = prepStatement.executeQuery();
 			while(rs.next()){
 				genres.add(rs.getString("genre"));
 			}
-		}catch(SQLException e){
-			System.out.println(e.getMessage());
-			
-		}
-		finally{
-			if(prepStatement!=null){
-				try {
-					prepStatement.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
+		
 		return Collections.unmodifiableList(genres);
 	}
 	
 	
-	public List<Song> getGenreSongs(String genre) {
+	public List<Song> getGenreSongs(String genre) throws SQLException {
 		List<Song> songsInGenre = new ArrayList<Song>();
 		PreparedStatement ps=null;
-		try {
+
 			ps = DBManager.getInstance().getConnection().prepareStatement(SELECT_SONGS_BY_GENRE);
 			ps.setString(1, genre);
 			ResultSet rs = ps.executeQuery();
@@ -237,18 +203,7 @@ public class SongDAO {
 				songsInGenre.add(song);
 				
 			}
-		} catch (SQLException e) {
-			System.out.println("DB error.");
-		}
-		finally{
-			if(ps != null){
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
+		
 		return Collections.unmodifiableList(songsInGenre);
 	}
 	
