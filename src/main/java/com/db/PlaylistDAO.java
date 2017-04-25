@@ -170,30 +170,29 @@ public class PlaylistDAO {
 		}
 	
 	//get all songs from playlist
-	public List<Song> getAllSongsFromPlaylist(int playlist_id,int user_id) throws SQLException {
+	public List<Song> getAllSongsFromPlaylist(int playlist_id) throws SQLException {
 		
 		String sql = "SELECT s.song_id, s.title, s.artist,s.genre,s.song_path,s.user_id,s.timesPlayed,s.description,"
 				+ "s.songphoto_path,s.upload_time FROM soundcloud.songs s join soundcloud.playlists_songs ps"
-				+ " using(song_id) where ps.playlist_id = ? AND ps.song_id = ?;";
+				+ " using(song_id) where ps.playlist_id = ?;";
 
 		List<Song> songsInPlaylist = new ArrayList<Song>();
 		PreparedStatement ps;
 
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, playlist_id);
-			ps.setInt(2, user_id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Song song = new Song(rs.getInt("song_id"), 
-						rs.getString("title"), 
-						rs.getString("artist"), 
+				Song song = new Song(rs.getInt("s.song_id"), 
+						rs.getString("s.title"), 
+						rs.getString("s.artist"), 
 						rs.getString("genre"),
-						rs.getInt("user_id") ,
-						rs.getString("song_path"));
+						rs.getInt("s.user_id") ,
+						rs.getString("s.song_path"));
 				
-				song.setPhoto(rs.getString("songphoto_path"));
-				song.setAbout(rs.getString("description"));
-				song.setUploadingTime(rs.getTimestamp("upload_time").toLocalDateTime());
+				song.setPhoto(rs.getString("s.songphoto_path"));
+				song.setAbout(rs.getString("s.description"));
+				song.setUploadingTime(rs.getTimestamp("s.upload_time").toLocalDateTime());
 				
 			songsInPlaylist.add(song);
 		

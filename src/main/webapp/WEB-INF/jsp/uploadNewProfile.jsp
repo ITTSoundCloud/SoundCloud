@@ -81,8 +81,16 @@
 			</c:otherwise>
 		</c:choose>
     </div>
-     <div class="profile-img">
-    <img class="img-thumbnail" src="https://themostbeautifulwomen.net/wp-content/uploads/adriana-lima-love-magazine-advent-0.jpg?s=200"/>
+     <div class="profile-img"> 
+  		<c:choose>
+			<c:when test ="${empty user.profilePic}">
+				<img class="img-thumbnail" src="<c:url value="/static/playlist/default.png" />"/>
+			</c:when>
+			<c:otherwise>
+				<img class="img-thumbnail" src="<c:url value="/static/playlist/default.png" />"/>									
+			</c:otherwise>
+		</c:choose>
+		
     <c:if test="${sessionScope.username.equals(user.username)}">
     
 	    <form method="POST" enctype="multipart/form-data">
@@ -108,12 +116,15 @@
 		</c:otherwise>
 	</c:choose>
     </div></br>
-    <h3> Playlists</h3>
+    <h3> Playlists</h3></br>
+    <c:if test="${empty currentPlaylists }">
+    	<h6>This user has no playlists yet.</h6>
+    </c:if>
     <div class="feed col-md-9 col-xs-12">
     <c:forEach items="${currentPlaylists}" var="playlist">
 	      <div class="media feed-item">
 	        <div class="media-left">
-	          <a href="#">
+	          <a href="playlist_${playlist.playlistId }">
 	          <img src="<c:url value="/static/playlist/photo.png" />" class="media-object feed-image" />
 	          </a>
 	        </div>
@@ -121,7 +132,7 @@
 	          <h4 class="media-heading"><c:out value="${playlist.title }"/></h4>
 	          <p><c:out value="${playlist.description }"/></p>
 	          <ul class="item-opts"></br>
-	            <li><a href="">Checkout Playlist</a></li>
+	            <li><a href="playlist_${playlist.playlistId }">Checkout Playlist</a></li>
 	          </ul>
 	        </div>
 	      </div>
