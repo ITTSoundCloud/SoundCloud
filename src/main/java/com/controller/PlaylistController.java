@@ -54,6 +54,24 @@ public class PlaylistController {
 	}
 	
 	
+	@RequestMapping(value = "/playlist_{playlistId}", method = RequestMethod.GET)
+	public String getPlaylist(
+		@PathVariable(value = "playlistId") int playlist_id,Model model,
+		HttpServletRequest request, HttpSession session) {
+		User user = (User)session.getAttribute("currentUser");
+		System.out.println(user);
+		try {
+			List<Song> songs = PlaylistDAO.getInstance().getAllSongsFromPlaylist(playlist_id);
+			model.addAttribute("songsInPlaylist", songs);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return "playlistSongs";
+         
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/addSongToPlaylist", method = RequestMethod.POST)
 	public void addSongToPlaylist(Model model,HttpSession session,

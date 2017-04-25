@@ -187,7 +187,7 @@ public class UserConroller {
 				session.setAttribute("usernameToFollow", username);
 				model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 				List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
-				model.addAttribute("visitedPlaylists", visitedPlaylists);
+				model.addAttribute("currentPlaylists", visitedPlaylists);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
