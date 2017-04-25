@@ -9,6 +9,7 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style1.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/static/css/profile.css" />" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
@@ -57,23 +58,23 @@
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
 				</c:if>	
-		
+				<c:if test="${!user.username.equals(sessionScope.username) and !(empty sessionScope.username)}">
   					<c:choose>
 			        	<c:when test="${!isFollowing}">
-							      		 <button class="btn followButton" rel="6">Follow</button>
+							  <button class="btn followButton" style="color:#f50" rel="6">Follow</button>
 						</c:when>
 						<c:otherwise>
-					 <button class="btn followButton" rel="6">Following</button>
+							<button class="btn followButton" style="color:#f50" rel="6">Following</button>
 						</c:otherwise>
 					</c:choose>
-
+				</c:if>
 <!--<input  type="submit" class= "follow-btn" value="Follow">  -->
 <div class="container">
   <div class="cover row">
 	   	<h1><c:out value="${user.username }"/></h1>
 	    <c:choose>
 		    <c:when test="${empty user.country}">
-		    	<h4> - </h4>
+		    	<h4> No conutry </h4>
 		    </c:when>
 		    <c:otherwise>
 				<h4><c:out value="${user.country}"/></h4>
@@ -83,21 +84,12 @@
      <div class="profile-img">
     <img class="img-thumbnail" src="https://themostbeautifulwomen.net/wp-content/uploads/adriana-lima-love-magazine-advent-0.jpg?s=200"/>
     <c:if test="${sessionScope.username.equals(user.username)}">
-    
-
-    
-    
-	    <form method="POST" enctype="multipart/form-data">
-<<<<<<< HEAD
-	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
+   
+	   <form method="POST" enctype="multipart/form-data">
+	    <button class="btn btn-sm btn-default" type="button">Change Picture<i class="fa fa-camera upload-button"></i>
 	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
 	        <input type="submit" value="change">
-=======
-	    <button class="btn btn-sm btn-default">Change Picture   <i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
-	        <input type="submit" value="change"/></button>
->>>>>>> af47ea21b0bb448d07edf6b2c06de4642a0b8867
-	      </form>
+	   </form>
      </c:if>
    </div>
   <div class="row content">
@@ -114,23 +106,25 @@
 			<p><c:out value="${user.bio}"/></p>
 		</c:otherwise>
 	</c:choose>
-    </div>
+    </div></br>
+    <h3> Playlists</h3>
     <div class="feed col-md-9 col-xs-12">
-      <div class="media feed-item">
-        <div class="media-left">
-          <a href="#">
-            <img class="media-object feed-image" src="https://s3-us-west-2.amazonaws.com/jf-sillygoose/DGIT_Cover.jpg" alt="...">
-          </a>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">Don't Go In There</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo pariatur dolore animi eius doloremque assumenda!</p>
-          <ul class="item-opts">
-            <li><a href="">Edit Details</a></li>
-            <li><a href="">New Episode</a></li>
-          </ul>
-        </div>
-      </div>
+    <c:forEach items="${currentPlaylists}" var="playlist">
+	      <div class="media feed-item">
+	        <div class="media-left">
+	          <a href="#">
+	          <img src="<c:url value="/static/playlist/photo.png" />" class="media-object feed-image" />
+	          </a>
+	        </div>
+	        <div class="media-body">
+	          <h4 class="media-heading"><c:out value="${playlist.title }"/></h4>
+	          <p><c:out value="${playlist.description }"/></p>
+	          <ul class="item-opts"></br>
+	            <li><a href="">Checkout Playlist</a></li>
+	          </ul>
+	        </div>
+	      </div>
+      </c:forEach>
     </div>
   </div>
 </div>

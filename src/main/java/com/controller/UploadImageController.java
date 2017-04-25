@@ -6,6 +6,7 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.db.PlaylistDAO;
 import com.db.UserDAO;
+import com.model.Playlist;
+import com.model.User;
 
 
 @Controller
@@ -34,7 +38,16 @@ public class UploadImageController {
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+ File.separator + "pics" + File.separator;
 
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
-	public String prepareForUpload(HttpSession session) {
+	public String prepareForUpload(HttpSession session,Model model) { //TODO CHANGE
+		System.out.println("toq kontroller vikmae");
+		User currentUser = (User) session.getAttribute("user");
+		try {
+			List<Playlist> userPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
+			model.addAttribute("currentPlaylists", userPlaylists);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "uploadNewProfile";
 	}
 
