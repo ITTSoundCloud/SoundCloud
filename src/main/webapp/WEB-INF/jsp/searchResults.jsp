@@ -36,6 +36,49 @@ button.followButton.following{
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color:#fff;
 }
+
+
+button.likeButton{
+    border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+  
+}
+
+button.likeButton:hover{
+    color: #000000;
+    background-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.2);
+  
+}
+button.likeButton.liked{
+       
+  
+}
      	
      </style>
      
@@ -249,9 +292,15 @@ button.followButton.following{
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> Like</i></button>
+							<td>
+							<c:choose>
+								  <c:when test="${!entry.value}">
+										<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart" ></i> Like</button>
+									</c:when>
+									<c:otherwise>
+									<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+										</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 						</c:forEach>
@@ -276,9 +325,8 @@ button.followButton.following{
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> smth</i></button>
+							<td>
+							
 							</td>
 						</tr>
 						</c:forEach>
@@ -333,11 +381,15 @@ button.followButton.following{
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td>
-								<button type="button"
-										href="http://localhost:8080/SoundCloud/login">
-										<i class="fa fa-soundcloud"> Like</i>
-								</button>
+								<td>	
+								<c:choose>
+								  <c:when test="${!entry.value}">
+										<button class="btn likeButton" rel="6"><i class="fa fa-heart" ></i> Like</button>
+									</c:when>
+									<c:otherwise>
+									<button class="btn likeButton" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+										</c:otherwise>
+								</c:choose>
 								</td>	
 							</tr>	
 							</c:forEach>
@@ -480,6 +532,38 @@ $('button.followButton').live('click', function(e){
     }
 });
 
+</script>
+
+
+
+
+<script type="text/javascript">
+$('button.likeButton').live('click', function(e){
+
+    e.preventDefault();   
+    
+    $button = $(this);
+    var x = $(this).attr("target");
+    
+    if($button.hasClass('liked')){
+    	alert("unlikevame"),
+    	 $.post("unlikeSearch",
+    		  {
+    		    	title:x,
+    		  });
+        $button.removeClass('liked');  
+        $button.text('Like');
+    } else {
+    	alert("likevame"),
+        $.post("likeSearch",
+        {
+    		title:x,
+    	});
+        $button.addClass('liked');
+        $button.innerHTML = `<i class="fa fa-heart"></i>`,
+        $button.text('Unlike');
+    }
+});
 
 </script>
    

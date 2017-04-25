@@ -231,6 +231,44 @@ public class UserConroller {
 				}
 		}
 		
+		
+		@ResponseBody
+		@RequestMapping(value="/likeSearch", method = RequestMethod.POST)
+		public void likeSongSearch(Model model,HttpSession session,
+				@RequestParam(value = "title") String title){
+
+			User currentUser = (User) session.getAttribute("user");
+			Song song;
+			try {
+				song = SongDAO.getInstance().getSong(title);
+				LikeDAO.getInstance().likeSong(currentUser.getUserId(), song.getSongId());
+				System.out.println("The song " + song + " was liked successfully from search page.");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/unlikeSearch", method = RequestMethod.POST)
+		public void unlikeSongSearch(Model model,HttpSession session,
+				@RequestParam(value = "title") String title){
+			
+			User currentUser = (User) session.getAttribute("user");
+			Song song;
+			try {
+				song = SongDAO.getInstance().getSong(title);
+				LikeDAO.getInstance().removeLikeSong(currentUser.getUserId(), song.getSongId());
+				System.out.println("The song " + song + " was unliked successfully from search page.");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				
+		}
+		
 			
 				
 		@ResponseBody
