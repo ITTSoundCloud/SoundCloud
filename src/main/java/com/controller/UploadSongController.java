@@ -79,7 +79,7 @@ public class UploadSongController {
 	public String receiveUpload(@RequestParam("songFile") MultipartFile multiPartFile,
 								@RequestParam("songTitle") String title,
 								@RequestParam("artist") String artist,
-//								@RequestParam("user_id") int user_id,
+								@RequestParam("user_id") int user_id,
 								@RequestParam("genre") String genre,
 								@RequestParam("description") String description,
 								HttpSession session,Model model) throws IOException{

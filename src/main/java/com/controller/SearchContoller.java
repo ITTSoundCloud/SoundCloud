@@ -47,6 +47,7 @@ public class SearchContoller {
 			List<User> users = UserDAO.getInstance().searchForUser(search_text);
 			Map<User,Boolean> mapUsers = new HashMap<>();
 			for(User u : users){
+//				if(USER IS LOGGED) TODO
 				mapUsers.put(u,UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
 			}
 			model.addAttribute("searchedUsers", mapUsers);
