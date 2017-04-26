@@ -1,5 +1,7 @@
 package com.controller;
 
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,8 +36,9 @@ public class SongController {
 			songs = SongDAO.getInstance().getGenreSongs(genre);
 			model.addAttribute("songsGenre", songs);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant getGenreSongs.//genre_{name}");
 			e.printStackTrace();
+			return "error";
 		}
 		
 		

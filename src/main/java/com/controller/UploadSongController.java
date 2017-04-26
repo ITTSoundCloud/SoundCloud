@@ -50,8 +50,9 @@ public class UploadSongController {
 			System.out.println(genres);
 			System.out.println(genres.size());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get genres. /songUpload");
 			e.printStackTrace();
+			return "error";
 		}
 
 		return "uploadSong";
@@ -69,7 +70,7 @@ public class UploadSongController {
 			genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get genres./audio/{fileName}");
 			e.printStackTrace();
 		}
 		
@@ -98,6 +99,7 @@ public class UploadSongController {
 		} catch (SQLException e) {
 			System.out.println("Problem uploading song in DB");
 			e.printStackTrace();
+			return "error";
 		}
 
 		session.setAttribute("profilePhoto", FILE_LOCATION + multiPartFile.getOriginalFilename());

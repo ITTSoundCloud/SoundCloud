@@ -11,6 +11,9 @@
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/static/css/profile.css" />" rel="stylesheet" type="text/css">
+<script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 <body>
