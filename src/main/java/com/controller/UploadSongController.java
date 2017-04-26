@@ -35,6 +35,7 @@ import com.model.User;
 public class UploadSongController {
 	
 	private String getThisSong;
+	
 
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator + "songs" + File.separator;
 
@@ -61,6 +62,7 @@ public class UploadSongController {
 	@ResponseBody
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		System.out.println("vliza2");
+		
 		File file = new File(FILE_LOCATION + getThisSong);
 		List<String> genres;
 		try {
