@@ -36,10 +36,13 @@ public class UploadImageController {
 	private String getThisImage;
 
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+ File.separator + "pics" + File.separator;
+	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/pics/";
 
-	@RequestMapping(value="/upload", method=RequestMethod.GET)
-	public String prepareForUpload(HttpSession session,Model model) { //TODO CHANGE
+	@RequestMapping(value="/profile_{username}", method=RequestMethod.GET)
+	public String prepareForUpload(HttpSession session,Model model, @PathVariable(value="username") String username) { //TODO CHANGE
 		System.out.println("toq kontroller vikmae");
+		String profilePicToShow = RESOURSES_PATH + username + ".jpg";
+		session.setAttribute("profilePhoto", profilePicToShow);
 		User currentUser = (User) session.getAttribute("user");
 		try {
 			List<Playlist> userPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
@@ -60,7 +63,7 @@ public class UploadImageController {
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@RequestMapping(value="/profile_{username}", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("imageFile") MultipartFile multiPartFile,HttpSession session,Model model) throws IOException{
 		
 		
@@ -73,8 +76,9 @@ public class UploadImageController {
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
-		session.setAttribute("profilePhoto", FILE_LOCATION + multiPartFile.getOriginalFilename());
+		session.setAttribute("profilePhoto", "http://localhost:8080/scUploads/pics/" + username + ".jpg");
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
+		System.out.println("*****************" + session.getAttribute("profilePhoto"));
 		return "uploadNewProfile";
 
 	}

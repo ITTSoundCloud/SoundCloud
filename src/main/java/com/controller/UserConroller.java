@@ -47,6 +47,7 @@ import com.validators.UsernameValidator;
 @MultipartConfig
 public class UserConroller {
 	
+	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/pics/";
 	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -222,14 +223,16 @@ public class UserConroller {
 	}
 	
 	
-		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
+		@RequestMapping(value = "/profille_{username}", method= RequestMethod.GET)
 		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){
 			
 			if (session.getAttribute("user") == null) {
 				return "index";
 			}
-			
+			String profilePicToShow = RESOURSES_PATH + username + ".jpg";
+			model.addAttribute("profilePic", profilePicToShow);
+			session.setAttribute("profilePicOne", profilePicToShow);
 			System.out.println(username + "v profile_{username}");
 			User visitedUser;
 			try {

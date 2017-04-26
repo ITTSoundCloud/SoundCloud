@@ -90,7 +90,7 @@
 				<img class="img-thumbnail" src="<c:url value="/static/playlist/default.png" />"/>
 			</c:when>
 			<c:otherwise>
-				<img class="img-thumbnail" src="<c:url value="/static/playlist/default.png" />"/>									
+				<img class="img-thumbnail" src="<c:url value="${sessionScope.profilePhoto}" />"/>									
 			</c:otherwise>
 		</c:choose>
 		
