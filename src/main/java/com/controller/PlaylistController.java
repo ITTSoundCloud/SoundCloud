@@ -161,4 +161,20 @@ public class PlaylistController {
 		return false;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/timesPlayed", method = RequestMethod.POST)
+	public void timesPlayed(Model model,HttpSession session,
+			@RequestParam(value = "songId") int song_id
+			) {
+		User currentUser = (User) session.getAttribute("user");
+		try {
+			SongDAO.getInstance().increaseTimesPlayed(song_id);
+			System.out.println("You successfuly increased listened times of song " + song_id);
+		} catch (SQLException e) {
+			
+		}
+		
+	}
+	
 }

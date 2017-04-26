@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -160,17 +161,14 @@ public class UserConroller {
 			List<Song> songs;
 			try {
 				songs = SongDAO.getInstance().getAllSongs();
-				Collections.sort(songs, new UploadTimeComparator());
-				model.addAttribute("songsByDate", songs);
+				session.setAttribute("songs", songs);
 				for(Song s : songs){
 					System.out.println("date of uploading " + s.getUploadingTime());
 				}
-				Collections.sort(songs, new LikesComparator());
 				
 				System.out.println("by likes");
 				for(Song s : songs){
 					System.out.println("likes " + s.getLikes());
-					model.addAttribute("songsByLikes", songs);
 				}
 			} catch (SQLException e) {
 				System.out.println("cant get all songs from dao. /login");
@@ -184,7 +182,46 @@ public class UserConroller {
 
 
 	}
+	
+	
 
+	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
+	public String sortByDate(Model model, HttpSession session){
+		
+		List<Song> songsByDate;
+		try {
+			songsByDate = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByDate, new UploadTimeComparator());
+		session.setAttribute("songs", songsByDate);
+		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "explore";	
+	
+	}
+	
+	
+	
+	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
+	public String sortLikes(Model model, HttpSession session){
+		
+		List<Song> songsByLikes;
+		try {
+			songsByLikes = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByLikes, new LikesComparator());
+		session.setAttribute("songs", songsByLikes);
+		System.out.println("v likes");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "explore";
+		
+	}
+	
+	
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
 		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){

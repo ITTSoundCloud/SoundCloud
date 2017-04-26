@@ -47,6 +47,7 @@ public class SearchContoller {
 		
 		try {
 			List<User> users = UserDAO.getInstance().searchForUser(search_text);
+
 			if (currentUser != null) {
 				Map<User,Boolean> mapUsers = new HashMap<>();
 				for(User u : users){
@@ -61,6 +62,7 @@ public class SearchContoller {
 					mapUsers.put(u, false);
 					model.addAttribute("searchedUsers", mapUsers);
 					System.out.println(mapUsers);
+
 			}
 		}
 			

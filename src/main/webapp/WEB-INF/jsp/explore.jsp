@@ -62,8 +62,8 @@
 		
 	<ul class="nav2">
 		<li id="settings"><a href="#"><img src="settings.png" /></a></li>
-		<li><a onclick="myFunction1()" href="#">By Likes</a></li>
-		<li><a onclick="myFunction()" href="#">By Upload</a></li>
+		<li><a onclick="myFunction1()" href="sortLikes">By Likes</a></li>
+		<li><a onclick="myFunction()" href="sortDate">">By Upload</a></li>
 		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
 	</ul>
 	
@@ -71,7 +71,7 @@
 <div id="likes" style="display:none">
 	<div class="main">
 	  <ul>
-	  <c:forEach items="${songsByDate}" var="song">
+	  <c:forEach items="${sessionScope.songs}" var="song">
 	    <li class="track">
 	       <div class="cover">
 	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px;alt="" />
@@ -87,10 +87,7 @@
 	</div>
 </div>
 
-
-	<c:set var="songsByDate" scope="request" value="${songsByDate}"/>
-
-		
+<div class = "sectionn">
 	<div id="date" style="display:none">
 	   <div class="container-fluid">
 	        <div class="side-body">
@@ -104,11 +101,11 @@
 							<th><i>Open Song</i></th>
 						</tr>
 					</thead>
-					<c:if test="${empty songsByDate}">
+					<c:if test="${empty songs}">
 						<h1>No uploaded songs.</h1>
 					</c:if>
 				<tbody>
-					<c:forEach items="${songsByDate}" var="song">
+					<c:forEach items="${sessionScope.songs}" var="song">
 						<tr>
 						<div class="main">
 						<td>
@@ -155,7 +152,7 @@
 			
 			</div>
 			
-	        </div>
+	       </div>
 	  
 	<!-- TODO -->
 	
@@ -194,30 +191,34 @@
 <script type = "text/javascript">
 
 function myFunction() {
-				$('#date').show();
-				$('#likes').hide();
-				$('#genres').hide();
-				document.getElementById("second").style="color:#777";
-				document.getElementById("third").style="color:#777";;
-				document.getElementById("first").style="color:#f50";
-};
-
-function myFunction1() {
+				$.get("sortDate");
 				$('#likes').show();
 				$('#genres').hide();
 				$('#date').hide();
-				document.getElementById("first").style="color:#777";
-				document.getElementById("third").style="color:#777";;
-				document.getElementById("second").style="color:#f50";
+			
+				
+};
+
+function myFunction1() {
+
+				$.get("sortLikes");
+				$('#likes').hide();
+				$('#genres').hide();
+				$('#date').show();
+			
+			
 };
 
 function myFunction2() {
+
 				$('#likes').hide();
 				$('#genres').show();
 				$('#date').hide();
 				document.getElementById("first").style="color:#777";
 				document.getElementById("second").style="color:#777";
-				document.getElementById("third").style="color:#f50";;
+				document.getElementById("third").style="color:#f50";
+				
+			
 };
 
 </script>
