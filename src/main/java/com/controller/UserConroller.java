@@ -63,9 +63,7 @@ public class UserConroller {
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             
             	return "verify";
-                                                          
-        
-         
+                                                                  
 	}
 	
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
@@ -88,13 +86,18 @@ public class UserConroller {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpSession session,Model model) {
 		
+		if (session.getAttribute("user") == null) {
+			return "index";
+		}
+		
 	 	List<String> genres;
 		try {
 			genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get genres. /home");
 			e.printStackTrace();
+			return "error";
 		}
 		
 		List<Song> songs;
@@ -103,12 +106,13 @@ public class UserConroller {
 			Collections.sort(songs, new UploadTimeComparator());
 			model.addAttribute("songsByDate", songs);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get all songs from dao. /home");
 			e.printStackTrace();
+			return "error";
 		}
 		
 		
-		return "uploadNewProfile";    
+		return "explore";    
 	}
 	
 	
@@ -124,10 +128,14 @@ public class UserConroller {
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get user form dao. /login");
 			e.printStackTrace();
+			return "error";
 		}
 			
+		}
+		if (session.getAttribute("user") == null) {
+			return "index";
 		}
 //		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 //		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
@@ -143,8 +151,9 @@ public class UserConroller {
 				genres = SongDAO.getInstance().getGenres();
 				model.addAttribute("genres", genres);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("cant get genres from dao./login");
 				e.printStackTrace();
+				return "error";
 
 			}
 			
@@ -164,8 +173,9 @@ public class UserConroller {
 					model.addAttribute("songsByLikes", songs);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("cant get all songs from dao. /login");
 				e.printStackTrace();
+				return "error";
 			}
 
 			    // not ok because of singleton 
@@ -178,6 +188,11 @@ public class UserConroller {
 		@RequestMapping(value = "/profile_{username}", method= RequestMethod.GET)
 		public String giveUser(Model model, HttpSession session, 
 				@PathVariable(value="username") String username){
+			
+			if (session.getAttribute("user") == null) {
+				return "index";
+			}
+			
 			System.out.println(username + "v profile_{username}");
 			User visitedUser;
 			try {
@@ -189,8 +204,9 @@ public class UserConroller {
 				List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
 				model.addAttribute("currentPlaylists", visitedPlaylists);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("cant get user from dao./profile_{username}");
 				e.printStackTrace();
+				return "error";
 			}
 
 			return "uploadNewProfile";
@@ -200,16 +216,17 @@ public class UserConroller {
 		@ResponseBody
 		@RequestMapping(value="/like", method = RequestMethod.POST)
 		public void likeSong(Model model,HttpSession session){
+			
 			User currentUser = (User) session.getAttribute("user");
 			System.out.println("kvo stava tuka ima li laikove??");
 			Song visitedSongProfile = (Song) session.getAttribute("songToAddInPlaylist");
-			model.addAttribute("song", visitedSongProfile);
-			
+			model.addAttribute("song", visitedSongProfile);			
 				try {
 					System.out.println("Ima laikove");
 					LikeDAO.getInstance().likeSong(currentUser.getUserId(), visitedSongProfile.getSongId());
 				} catch (SQLException e) {
-					System.out.println(e.getMessage() + " problem with song like.");
+					System.out.println(e.getMessage() + " problem with song like. / like");
+					
 				}
 		}
 		
@@ -415,36 +432,7 @@ public class UserConroller {
 				}
 				
 		}
-		
-	
-	private boolean validateRegister(Model model, String username, String password, String email) {
-		
-		PasswordValidator passwordValidator = new PasswordValidator();
 
-        if (username != null && !username.isEmpty() && password != null && !password.isEmpty()  && email != null && !email.isEmpty()) {
-                if (!EmailValidator.validate(email)) {
-                    model.addAttribute("ErrorRegMessage", "Wrong email format or it already exist.");
-                    return false;
-                }
-
-            if (username.length() <= 30 && username.length() >= 3) {
-                if (!UsernameValidator.validate(username)) {
-                    model.addAttribute("ErrorRegMessage", "Username already exist");
-                    return false;
-                }
-            } else {
-                model.addAttribute("ErrorRegMessage", "Username length should be between 3 to 30 characters.");
-                return false;
-            }
-            
-            if (!passwordValidator.validate(password)) {
-            	model.addAttribute("ErrorRegMessage", "Invalid password. It must contains ....");
-                return false;
-			}
-                                  
-        }      
-        return true;
-    }
 	
 	@ResponseBody
 	@RequestMapping(value="/validateUser", method = RequestMethod.POST)
@@ -504,8 +492,9 @@ public class UserConroller {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant getFollowing from dao./isFollowing");
 			e.printStackTrace();
+			
 		}
 		return false;
 	}

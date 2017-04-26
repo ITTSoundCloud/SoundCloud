@@ -46,8 +46,9 @@ public class PlaylistController {
 				int playlist_id = PlaylistDAO.getInstance().createPlaylist(2, playlist, description);			
 				PlaylistDAO.getInstance().addSongToPlayList(playlist_id, songToAdd.getSongId());
 			} catch (SQLException e) {
-				
+				System.out.println("cant add song to playlist./addPlaylist");
 				e.printStackTrace();
+				return "error";
 			}
 		}
 		return "song";
@@ -65,7 +66,9 @@ public class PlaylistController {
 			List<Song> songs = PlaylistDAO.getInstance().getAllSongsFromPlaylist(playlist_id);
 			model.addAttribute("songsInPlaylist", songs);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+
+			System.out.println(e.getMessage() + "cant get all songs from playlist./playlist_{playlistId}");
+			return "error";
 		}
 		
 		return "playlistSongs";
@@ -106,12 +109,16 @@ public class PlaylistController {
 			model.addAttribute("allComments", comments);
 		} catch (SQLException e) {
 			System.out.println("DB problem - song page.");
+			e.printStackTrace();
+			return "error";
 		}	
 		try {
 			List<Playlist> currentUserPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
 			model.addAttribute("currentUserPlaylists", currentUserPlaylists);
 		} catch (SQLException e) {
+			System.out.println("cant get user playlists./song_{title}");
 			e.printStackTrace();
+			return "error";
 		}
 		
 		return "song";

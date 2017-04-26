@@ -12,6 +12,7 @@
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
+ <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 

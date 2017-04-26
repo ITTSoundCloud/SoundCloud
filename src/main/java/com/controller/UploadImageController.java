@@ -45,8 +45,9 @@ public class UploadImageController {
 			List<Playlist> userPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
 			model.addAttribute("currentPlaylists", userPlaylists);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant getUserPlaylists./upload");
 			e.printStackTrace();
+			return "error";
 		}
 		return "uploadNewProfile";
 	}

@@ -15,6 +15,8 @@
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
      
+<script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+     
      
      <style type="text/css">
      	button.followButton{

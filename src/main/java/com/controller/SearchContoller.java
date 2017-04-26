@@ -1,5 +1,7 @@
 package com.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,32 +47,60 @@ public class SearchContoller {
 		
 		try {
 			List<User> users = UserDAO.getInstance().searchForUser(search_text);
-			Map<User,Boolean> mapUsers = new HashMap<>();
-			for(User u : users){
-				mapUsers.put(u,UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
+			if (currentUser != null) {
+				Map<User,Boolean> mapUsers = new HashMap<>();
+				for(User u : users){
+					mapUsers.put(u,UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
+					model.addAttribute("searchedUsers", mapUsers);
+					System.out.println(mapUsers);
+				}		
 			}
-			model.addAttribute("searchedUsers", mapUsers);
-			System.out.println(mapUsers);
+			else{
+				Map<User,Boolean> mapUsers = new HashMap<>();
+				for(User u : users){
+					mapUsers.put(u, false);
+					model.addAttribute("searchedUsers", mapUsers);
+					System.out.println(mapUsers);
+			}
+		}
+			
 		} catch (SQLException e) {
-			System.out.println("Error getting users from DB for listing in search");
+			System.out.println("Error getting users from DB for listing in search./search");
+			e.printStackTrace();
+			return "error";
 		}
 		try {
 			List<Song> songs = SongDAO.getInstance().getAllSongs();
-			Map<Song,Boolean> mapSongs = new HashMap<>();
-			for(Song s : songs){
-				mapSongs.put(s, PlaylistController.isLiked(s.getSongId(), currentUser.getUsername()));
+			
+			if (currentUser != null) {
+				Map<Song,Boolean> mapSongs = new HashMap<>();
+				for(Song s : songs){
+					mapSongs.put(s, PlaylistController.isLiked(s.getSongId(), currentUser.getUsername()));
+				}
+				model.addAttribute("searchedSongs", mapSongs);
 			}
-			model.addAttribute("searchedSongs", mapSongs);
+			else{
+				Map<Song,Boolean> mapSongs = new HashMap<>();
+				for(Song s : songs){
+					mapSongs.put(s, false);
+				}
+				model.addAttribute("searchedSongs", mapSongs);
+				
+			}
+			
 		} catch (SQLException e1) {
 			System.out.println("Error getting songs from DB for listing in search");
+			e1.printStackTrace();
+			return "error";
 		}
 
 		try {
 			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
 			model.addAttribute("serchedPlaylists",playlists);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant searchForPlaylist./search");
 			e.printStackTrace();
+			return "error";
 		}
 
 
@@ -87,16 +117,4 @@ public class SearchContoller {
 		
 	}
 	
-	
-//	@RequestMapping("/search_text")
-//	public String search(Model model){
-//			
-//		return WELCOME_VIEW;
-//		
-//	}
-	
-	public boolean isFollowing(){
-		return new Random().nextBoolean();
-	}
-//	
 }
