@@ -52,6 +52,19 @@ public class UploadImageController {
 			e.printStackTrace();
 			return "error";
 		}
+		User visitedUser;
+		try {
+			visitedUser = UserDAO.getInstance().getUser(username);
+			model.addAttribute("user", visitedUser);			
+			session.setAttribute("usernameToFollow", username);
+			model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
+			model.addAttribute("currentPlaylists", visitedPlaylists);
+		} catch (SQLException e) {
+			System.out.println("cant get user from dao./profile_{username}");
+			e.printStackTrace();
+			return "error";
+		}
 		return "uploadNewProfile";
 	}
 

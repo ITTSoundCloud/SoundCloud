@@ -234,20 +234,7 @@ public class UserConroller {
 			model.addAttribute("profilePic", profilePicToShow);
 			session.setAttribute("profilePicOne", profilePicToShow);
 			System.out.println(username + "v profile_{username}");
-			User visitedUser;
-			try {
-				visitedUser = UserDAO.getInstance().getUser(username);
-				model.addAttribute("user", visitedUser);
-				User currentUser = (User) session.getAttribute("user");			
-				session.setAttribute("usernameToFollow", username);
-				model.addAttribute("isFollowing", isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
-				List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
-				model.addAttribute("currentPlaylists", visitedPlaylists);
-			} catch (SQLException e) {
-				System.out.println("cant get user from dao./profile_{username}");
-				e.printStackTrace();
-				return "error";
-			}
+			
 
 			return "uploadNewProfile";
 		}
