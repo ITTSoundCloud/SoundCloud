@@ -99,6 +99,7 @@ public class PlaylistController {
 			@PathVariable(value="title") String songTitle){
 		System.out.println(songTitle + "v song_{title}");
 		User currentUser = (User) session.getAttribute("user");
+		System.out.println(currentUser);
 		String songToPlayUrl = RESOURSES_PATH + songTitle + ".mp3";
 		model.addAttribute("songToPlay", songToPlayUrl);
 		Song visitedSongProfile;		

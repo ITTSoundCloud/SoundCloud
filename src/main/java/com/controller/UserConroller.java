@@ -178,7 +178,7 @@ public class UserConroller {
 			}
 
 			    // not ok because of singleton 
-
+			System.out.println("*****************" + session.getAttribute("user"));
             return "explore";                                                   
 
 
