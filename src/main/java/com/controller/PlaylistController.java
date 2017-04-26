@@ -2,7 +2,9 @@ package com.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -103,10 +105,18 @@ public class PlaylistController {
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);
-			session.setAttribute("songToAddInPlaylist", visitedSongProfile);//tova ne moje li da ne se kazva taka
+			session.setAttribute("songToAddInPlaylist", visitedSongProfile);
 			model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
+			//TODO
+			
 			List<Comment> comments = CommentDAO.getInstance().getSongComments(visitedSongProfile.getSongId());
-			model.addAttribute("allComments", comments);
+			Map<Comment,Boolean> mapComments = new HashMap<>();
+			
+			for(Comment c : comments){
+				mapComments.put(c,PlaylistController.isLikedComment(currentUser.getUserId(), c.getCommentId()));
+			}
+			
+			model.addAttribute("allComments", mapComments);
 		} catch (SQLException e) {
 			System.out.println("DB problem - song page.");
 			e.printStackTrace();
@@ -160,6 +170,35 @@ public class PlaylistController {
 		}
 		return false;
 	}
+	
+	
+	
+	public static boolean isLikedComment(int user_id,int comment_id){
+		try {
+			if(LikeDAO.getInstance().getLikesOfComment(comment_id).contains(user_id)){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	public static boolean isCommentLiked(int song_id,String username){
+		try {
+			if(LikeDAO.getInstance().getLikesOfSong(song_id).containsKey(username)){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	
 	
 	@ResponseBody

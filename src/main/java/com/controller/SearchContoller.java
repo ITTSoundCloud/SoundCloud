@@ -26,7 +26,6 @@ import com.db.DBManager;
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.db.UserDAO;
-import com.model.Listable;
 import com.model.Playlist;
 import com.model.Song;
 import com.model.User;
@@ -98,7 +97,9 @@ public class SearchContoller {
 
 		try {
 			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
-			model.addAttribute("serchedPlaylists",playlists);
+			System.out.println("Playlists?");
+			System.out.println(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+			model.addAttribute("searchedPlaylists",playlists);
 		} catch (SQLException e) {
 			System.out.println("cant searchForPlaylist./search");
 			e.printStackTrace();

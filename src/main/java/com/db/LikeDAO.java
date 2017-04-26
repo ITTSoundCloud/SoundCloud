@@ -24,12 +24,13 @@ public class LikeDAO {
 	   private static final String GET_USERS_LIKED = "SELECT u.username,u.profilephoto_path FROM soundcloud.users u"
 		        + " JOIN soundcloud.songs_likes sl USING(user_id) WHERE sl.song_id = ?;";
 	   private static final String COUNT_LIKES = " SELECT count(song_id) FROM soundcloud.songs_likes where song_id=?;";
-	
+	   private static final String USERS_LIKED_COMMENT= "SELECT user_id FROM soundcloud.comments_likes"
+		        + " WHERE commend_id = ?;";
 
 	    public synchronized static LikeDAO getInstance() {
 	        if (instance == null) {
 	        	instance = new LikeDAO();
-	            }
+	         }
 	        
 	        return instance;
 	    }
@@ -96,6 +97,26 @@ public class LikeDAO {
 			
 			return usersLiked;
 		}
+   
+   
+   
+   
+  public List<Integer> getLikesOfComment(int comment_id) throws SQLException {
+	    	
+	   		List<Integer> usersLikedComment = new ArrayList<>();
+			PreparedStatement ps = null;
+
+		   
+				ps = DBManager.getInstance().getConnection().prepareStatement(USERS_LIKED_COMMENT);
+				ps.setInt(1, comment_id);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					usersLikedComment.add(rs.getInt("user_id"));
+			}
+			
+			return usersLikedComment;
+		}
+	    
 	    
 
 }
