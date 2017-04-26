@@ -15,6 +15,19 @@
 <link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
+
+<style type="text/css">
+
+.content {
+    min-height: 200px;
+    margin-left: 30px;
+}
+
+.row {
+    margin-right: -65px;
+        margin-left: -120px;
+}
+</style>
 </head>
 <body>
 

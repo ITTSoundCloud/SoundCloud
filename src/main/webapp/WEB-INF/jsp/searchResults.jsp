@@ -158,7 +158,7 @@ button.likeButton.liked{
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home">Explore</a></li>
 			      </ul>
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
@@ -167,7 +167,6 @@ button.likeButton.liked{
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			      	<li><a href="http://localhost:8080/SoundCloud/songUpload">Explore</a></li>
 			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
@@ -271,16 +270,13 @@ button.likeButton.liked{
 							</td>
 							<c:set var="listedUser" scope="session" value="${entry.key.username}"/>
 							<td>	
-							<c:if test="${empty user}">
-								<h1>No user.</h1>
-							</c:if>	
 							<c:if test="${not empty sessionScope.username and !sessionScope.username.equals(entry.key.username)}">
 			  					<c:choose>		
-							        <c:when test="${entry.value}">
+							        <c:when test="${!entry.value}">
 										<button class="btn followButton" rel="6" target="${entry.key.username }"><i class = "fa fa-soundcloud"></i> Follow</button>
 									</c:when>
 									<c:otherwise>
-									 	<button class="btn followButton" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following</button>
+									 	<button class="btn followButton following" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following</button>
 									</c:otherwise>
 								</c:choose>
 							</c:if>
@@ -326,14 +322,16 @@ button.likeButton.liked{
 							</c:choose>
 							</td>
 							<td>
+							<c:if test="${not empty sessionScope.username}">
 							<c:choose>
 								  <c:when test="${!entry.value}">
 										<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart" ></i> Like</button>
 									</c:when>
 									<c:otherwise>
-									<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
-										</c:otherwise>
+										<button class="btn likeButton liked" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+									</c:otherwise>
 								</c:choose>
+							</c:if>
 							</td>
 						</tr>
 						</c:forEach>
@@ -404,26 +402,28 @@ button.likeButton.liked{
 						  </ul>
 						  </td>	  
 						</div>
-						
-							<td><c:choose>
-							<c:when test ="${empty entry.key.about}">
-								<h6 style="margin-top:55px;">No description</h6>
-							</c:when>
-							<c:otherwise>
-									<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
-									<a href="#"></a>
-								</c:otherwise>
-							</c:choose>
+							<td>
+								<c:choose>
+								<c:when test ="${empty entry.key.about}">
+									<h6 style="margin-top:55px;">No description</h6>
+								</c:when>
+								<c:otherwise>
+										<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
+										<a href="#"></a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>
+							<c:if test="${not empty sessionScope.username}">	
 							<c:choose>
 								  <c:when test="${!entry.value}">
 										<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart" ></i> Like</button>
 									</c:when>
 									<c:otherwise>
-									<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+									<button class="btn likeButton liked" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
 										</c:otherwise>
 								</c:choose>
+								</c:if>
 							</td>
 						</tr>
 						</c:forEach>
@@ -477,11 +477,11 @@ button.likeButton.liked{
 							</c:if>	
 							<c:if test="${not empty sessionScope.username and !sessionScope.username.equals(entry.key.username)}">
 			  					<c:choose>		
-							        <c:when test="${entry.value}">
+							        <c:when test="${!entry.value}">
 										<button class="btn followButton" rel="6" target="${entry.key.username }"><i class = "fa fa-soundcloud"></i> Follow</button>
 									</c:when>
 									<c:otherwise>
-									 	<button class="btn followButton" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following</button>
+									 	<button class="btn followButton following" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following</button>
 									</c:otherwise>
 								</c:choose>
 							</c:if>
@@ -557,9 +557,8 @@ $('button.followButton').live('click', function(e){
     var x = $(this).attr("target");
     if($button.hasClass('following')){
 
-    	alert("tuk sme"),
     	$.post("unFollowSearch", 
-				{ 
+				{
 					username: x,
 					
 				});
@@ -579,12 +578,6 @@ $('button.followButton').live('click', function(e){
 </script>
 
 
-
-
-
-
-
-
 <script type="text/javascript">
 $('button.likeButton').live('click', function(e){
 
@@ -594,7 +587,6 @@ $('button.likeButton').live('click', function(e){
     var x = $(this).attr("target");
     
     if($button.hasClass('liked')){
-    	alert("unlikevame"),
     	 $.post("unlikeSearch",
     		  {
     		    	title:x,
@@ -602,7 +594,6 @@ $('button.likeButton').live('click', function(e){
         $button.removeClass('liked');  
         $button.text('Like');
     } else {
-    	alert("likevame"),
         $.post("likeSearch",
         {
     		title:x,

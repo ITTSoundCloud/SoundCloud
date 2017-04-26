@@ -230,10 +230,10 @@ button.likeButton.liked{
         <!-- Song Name & Song Title-->
         <ul class="song-info">
             <li>
-                <div class="song-artist"><a href="#">&nbsp Artist &nbsp</a></div>
+                <div class="song-artist"><a href="#">&nbsp <c:out value="${song.artist }"/> &nbsp</a></div>
             </li>
             <li>
-                <div class="song-title">&nbsp Song Title &nbsp</div>
+                <div class="song-title">&nbsp<c:out value="${song.title }"/> &nbsp</div>
             </li>
         </ul>
 
@@ -306,7 +306,7 @@ button.likeButton.liked{
 	<div class="fb-like" data-href="http://localhost:8080/SoundCloud/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 	<div class="fb-share-button" data-href="http://localhost:8080/SoundCloud/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FSoundCloud%2F&amp;src=sdkpreparse">Share</a></div>            <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
-                <li><a href="#" ><i class="fa fa-comment"></i> Comment</a></li>
+                <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
             </ul>
         </div>
     </div>
@@ -354,7 +354,6 @@ button.likeButton.liked{
 $('a.playlist').live('click', function(e){
 	
     e.preventDefault();   
-    alert("hello"),
     $button = $(this);
    	var x = $(this).attr("target");
 
@@ -393,7 +392,6 @@ slider.oninput = function() {
 <script type="text/javascript">
 
 $(function(){
-	alert('wtf');
 	 var $comments = $('#comments');
 	 var cm = document.getElementById("comment");
 	 var cms = document.getElementById("comments").value;

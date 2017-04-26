@@ -67,7 +67,7 @@
        			}
        			else{
        				document.getElementById('errorMsg').style.display = 'block';
-    				document.getElementById('errorMsg').innerHTML = "<h4 class='errorMsg'>Ok.</h4>"
+    				document.getElementById('errorMsg').innerHTML = "<h4 class='errorMsg'>Wrong data.</h4>"
 
        			}
 	    });
