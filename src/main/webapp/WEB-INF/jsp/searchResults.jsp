@@ -36,6 +36,49 @@ button.followButton.following{
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color:#fff;
 }
+
+
+button.likeButton{
+    border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+  
+}
+
+button.likeButton:hover{
+    color: #000000;
+    background-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.2);
+  
+}
+button.likeButton.liked{
+       
+  
+}
      	
      </style>
      
@@ -169,29 +212,29 @@ button.followButton.following{
 							<h1>No results</h1>
 						</c:if>
 					<tbody>
-					<c:forEach items="${searchedUsers}" var="user">
+					<c:forEach items="${searchedUsers}" var="entry">
 						<tr>
 						<td><c:choose>
-							<c:when test ="${empty user.profilePic}">
-								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
-								<c:out value="${user.username}"/>
+							<c:when test ="${empty entry.key.profilePic}">
+								<a href="profile_${entry.key.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${entry.key.username}"/>
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+									<a href="profile_${entry.key.username }"><img class="" src="" alt="" width="100" height="100"></a>
 									
 								</c:otherwise>
 							</c:choose>
 							</td>
 							<td><c:choose>
-							<c:when test ="${empty user.bio}">
+							<c:when test ="${empty entry.key.bio}">
 								<h6>No description</h6>
 							</c:when>
 							<c:otherwise>
-									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>																	
+									<a href="uploadNewProfile-${entry.key.username}"><img class="" src="" alt="" width="100" height="100"></a>																	
 								</c:otherwise>
 							</c:choose>							
 							</td>
-							<c:set var="listedUser" scope="session" value="${user.username}"/>
+							<c:set var="listedUser" scope="session" value="${entry.key.username}"/>
 							<td>	
 				<c:if test="${empty user}">
 					<h1>No user.</h1>
@@ -199,11 +242,11 @@ button.followButton.following{
 		<c:if test="${not empty sessionScope.username}">
   					<c:choose>
 	  					
-				        	<c:when test="${isFollowing}">
-						<button class="btn followButton" rel="6" target="${user.username }">Follow</button>
+				        	<c:when test="${entry.value}">
+						<button class="btn followButton" rel="6" target="${entry.key.username }">Follow</button>
 							</c:when>
 							<c:otherwise>
-						 <button class="btn followButton" target="${user.username }" rel="6">Following</button>
+						 <button class="btn followButton" target="${entry.key.username }" rel="6">Following</button>
 							</c:otherwise>
 						
 					</c:choose>
@@ -212,7 +255,7 @@ button.followButton.following{
 						</tr>
 						</c:forEach>
 						
-						<c:forEach items="${searchedSongs}" var="song">
+						<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
 						<div class="main">
 						<td>
@@ -220,9 +263,9 @@ button.followButton.following{
 						    <li class="track">
 						      <div class="cover">
 						        <c:choose>
-									<c:when test ="${empty song.photo}">
+									<c:when test ="${empty entry.key.photo}">
 											<a href="www.google.com"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
-											<c:out value="${song.title}"/>
+											<c:out value="${entry.key.title}"/>
 									</c:when>
 									<c:otherwise>
 											<a href="#"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
@@ -240,18 +283,24 @@ button.followButton.following{
 						</div>
 						
 							<td><c:choose>
-							<c:when test ="${empty song.about}">
+							<c:when test ="${empty entry.key.about}">
 								<h6>No description</h6>
 							</c:when>
 							<c:otherwise>
-									<h6><c:out value="${song.about}"/></h6>
+									<h6><c:out value="${entry.key.about}"/></h6>
 									<a href="#"></a>
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> Like</i></button>
+							<td>
+							<c:choose>
+								  <c:when test="${!entry.value}">
+										<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart" ></i> Like</button>
+									</c:when>
+									<c:otherwise>
+									<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+										</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 						</c:forEach>
@@ -276,9 +325,8 @@ button.followButton.following{
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud"> smth</i></button>
+							<td>
+							
 							</td>
 						</tr>
 						</c:forEach>
@@ -301,7 +349,7 @@ button.followButton.following{
 						<h1 id="showSecond">No results</h1>
 					</c:if>
 				<tbody>
-					<c:forEach items="${searchedSongs}" var="song">
+					<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
 						<div class="main">
 						<td>
@@ -309,12 +357,12 @@ button.followButton.following{
 						    <li class="track">
 						      <div class="cover">
 						        <c:choose>
-									<c:when test ="${empty song.photo}">
+									<c:when test ="${empty  entry.key.photo}">
 										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
-										<c:out value="${song.title}"/>
+										<c:out value="${ entry.key.title}"/>
 									</c:when>
 									<c:otherwise>
-										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<a href="song_${entry.key.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -324,20 +372,24 @@ button.followButton.following{
 								</div>
 								<td>
 								<c:choose>
-									<c:when test ="${empty song.about}">
+									<c:when test ="${empty entry.key.about}">
 										<h6>No description</h6>
 									</c:when>
 									<c:otherwise>
-										<c:out value="${song.about}"/>
-										<a href="song_${song.title}"><img class="" src="" alt="" width="100" height="100"></a>
+										<c:out value="${entry.key.about}"/>
+										<a href="song_${entry.key.title}"><img class="" src="" alt="" width="100" height="100"></a>
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td>
-								<button type="button"
-										href="http://localhost:8080/SoundCloud/login">
-										<i class="fa fa-soundcloud"> Like</i>
-								</button>
+								<td>	
+								<c:choose>
+								  <c:when test="${!entry.value}">
+										<button class="btn likeButton" rel="6"><i class="fa fa-heart" ></i> Like</button>
+									</c:when>
+									<c:otherwise>
+									<button class="btn likeButton" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+										</c:otherwise>
+								</c:choose>
 								</td>	
 							</tr>	
 							</c:forEach>
@@ -359,24 +411,24 @@ button.followButton.following{
 							<h1>No results</h1>
 						</c:if>
 					<tbody>
-					<c:forEach items="${searchedUsers}" var="user">
+					<c:forEach items="${searchedUsers}" var="entry">
 						<tr>
 						<td><c:choose>
-							<c:when test ="${empty user.profilePic}">
-								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
-								<c:out value="${user.username}"/>
+							<c:when test ="${empty entry.key.profilePic}">
+								<a href="profile_${entry.key.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
+								<c:out value="${entry.key.username}"/>
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
+									<a href="profile_${entry.key.username }"><img class="" src="" alt="" width="100" height="100"></a>
 								</c:otherwise>
 							</c:choose>
 							</td>
 							<td><c:choose>
-							<c:when test ="${empty user.bio}">
+							<c:when test ="${empty entry.key.bio}">
 								<h6>No description</h6>
 							</c:when>
 							<c:otherwise>
-									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+									<a href="uploadNewProfile-${entry.key.username}"><img class="" src="" alt="" width="100" height="100"></a>
 								</c:otherwise>
 							</c:choose>
 							</td>
@@ -480,6 +532,38 @@ $('button.followButton').live('click', function(e){
     }
 });
 
+</script>
+
+
+
+
+<script type="text/javascript">
+$('button.likeButton').live('click', function(e){
+
+    e.preventDefault();   
+    
+    $button = $(this);
+    var x = $(this).attr("target");
+    
+    if($button.hasClass('liked')){
+    	alert("unlikevame"),
+    	 $.post("unlikeSearch",
+    		  {
+    		    	title:x,
+    		  });
+        $button.removeClass('liked');  
+        $button.text('Like');
+    } else {
+    	alert("likevame"),
+        $.post("likeSearch",
+        {
+    		title:x,
+    	});
+        $button.addClass('liked');
+        $button.innerHTML = `<i class="fa fa-heart"></i>`,
+        $button.text('Unlike');
+    }
+});
 
 </script>
    

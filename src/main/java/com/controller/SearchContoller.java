@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,48 +40,40 @@ public class SearchContoller {
 			HttpServletRequest request,
 			Model model, HttpSession session){
 		
-//		ArrayList<Listable> results = new ArrayList<>();
-		ArrayList<Song> songs = new ArrayList<>();
+		User currentUser = (User) session.getAttribute("user");
 		ArrayList<Playlist> playlists = new ArrayList<>();
-		ArrayList<User> users = new ArrayList<>();
+		
 		try {
-			users.addAll(UserDAO.getInstance().searchForUser(search_text));
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			List<User> users = UserDAO.getInstance().searchForUser(search_text);
+			Map<User,Boolean> mapUsers = new HashMap<>();
+			for(User u : users){
+				mapUsers.put(u,UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
+			}
+			model.addAttribute("searchedUsers", mapUsers);
+			System.out.println(mapUsers);
+		} catch (SQLException e) {
+			System.out.println("Error getting users from DB for listing in search");
 		}
 		try {
-			songs.addAll(SongDAO.getInstance().searchForSong(search_text));
+			List<Song> songs = SongDAO.getInstance().getAllSongs();
+			Map<Song,Boolean> mapSongs = new HashMap<>();
+			for(Song s : songs){
+				mapSongs.put(s, PlaylistController.isLiked(s.getSongId(), currentUser.getUsername()));
+			}
+			model.addAttribute("searchedSongs", mapSongs);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("Error getting songs from DB for listing in search");
 		}
+
 		try {
 			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+			model.addAttribute("serchedPlaylists",playlists);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(songs);
-		System.out.println(users);
-		System.out.println(playlists);
-	
-		User currentUser = (User)session.getAttribute("user");
-	
-//		results.addAll(UserDAO.getInstance().searchForUser(search_text));
-//		results.addAll(SongDAO.getInstance().searchForSong(search_text));
-//		model.addAttribute("searchedItems", results);
-		model.addAttribute("searchedSongs", songs);
-		model.addAttribute("searchedUsers", users);
-		model.addAttribute("serchedPlaylists",playlists);
-		model.addAttribute("isFollowing", isFollowing());
-//		System.out.println(currentUser.getUserId());
-//
-//		for(User u : users){
-		
-//			model.addAttribute("isFollowing_{username}", UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
-//		}
-		
+
+
 		return "searchResults";
 		
 	}

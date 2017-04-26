@@ -142,7 +142,7 @@ public class PlaylistController {
 	
 	
 	
-	public boolean isLiked(int song_id,String username){
+	public static boolean isLiked(int song_id,String username){
 		try {
 			if(LikeDAO.getInstance().getLikesOfSong(song_id).containsKey(username)){
 				return true;
