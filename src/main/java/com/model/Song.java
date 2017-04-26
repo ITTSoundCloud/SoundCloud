@@ -3,12 +3,12 @@ package com.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Song implements Listable{
+public class Song {
 	
 	private int songId;
 	private int userId;
 	private String path;
-	private String atrist;
+	private String artist;
 	private String title;
 	private String photo;
 	private String genre;
@@ -24,7 +24,7 @@ public class Song implements Listable{
 		this.userId = userId;
 		this.title = title;
 		this.genre = genre;
-		this.atrist =  artist;
+		this.artist =  artist;
 		this.path = path;
 		this.comments = new ArrayList<>();
 		
@@ -54,8 +54,8 @@ public class Song implements Listable{
 		this.path = path;
 	}
 
-	public void setAtrist(String atrist) {
-		this.atrist = atrist;
+	public void setArtist(String atrist) {
+		this.artist = atrist;
 	}
 
 	public void setTitle(String title) {
@@ -90,8 +90,8 @@ public class Song implements Listable{
 		this.about = about;
 	}
 
-	public String getAtrist() {
-		return atrist;
+	public String getArtist() {
+		return artist;
 	}
 
 	public String getTitle() {

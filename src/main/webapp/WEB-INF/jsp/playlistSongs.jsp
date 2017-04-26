@@ -95,7 +95,7 @@
 									<c:otherwise>
 										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
 										<c:out value="${song.title}"/>
-										
+									
 									</c:otherwise>
 								</c:choose>
 							</div>

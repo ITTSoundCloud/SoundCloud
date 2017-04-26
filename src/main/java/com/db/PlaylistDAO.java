@@ -204,7 +204,7 @@ public class PlaylistDAO {
 	
 	// search playlist by name 
 	 public List<Playlist> searchForPLaylist(String word) throws SQLException {
-			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u WHERE title LIKE ?";
+			String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u using(user_id) WHERE p.title LIKE ?";
 			String search = "%" + word + "%";
 			ArrayList<Playlist> playlistsMatching = new ArrayList<>();
 			PreparedStatement prepStatement = null;
@@ -214,9 +214,9 @@ public class PlaylistDAO {
 				ResultSet rs = prepStatement.executeQuery();
 				
 				while (rs.next()) {
-					Playlist playlist = new Playlist(rs.getInt("playlist_id"), 
-							rs.getString("title"),
-							rs.getInt("user_id"));
+					Playlist playlist = new Playlist(rs.getInt("p.playlist_id"), 
+							rs.getString("p.title"),
+							rs.getInt("p.user_id"));
 					playlist.setDescription(rs.getString("p.description"));
 					
 					playlist.setUsername(rs.getString("u.username"));

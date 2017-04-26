@@ -108,7 +108,7 @@ button.likeButton.liked{
        
   
 }
-   	
+
      </style>
      
 
@@ -295,19 +295,19 @@ button.likeButton.liked{
 						      <div class="cover">
 						        <c:choose>
 									<c:when test ="${empty entry.key.photo}">
-											<a href="www.google.com"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="110" height="110"></a>
+											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 											<c:out value="${entry.key.title}"/>
 									</c:when>
 									<c:otherwise>
-											<a href="#"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="110" height="110"></a>
+											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 										</c:otherwise>
 									</c:choose>
 						      </div>
 						      <div class="info">
-						        <span class="titleSong">Wake Me Up</span>
-						        <span class="artist">Avicii</span>
+						         <span class="titleSong"><c:out value="${entry.key.title}"/></span>
+						        <span class="artist" style="font-size:11px;"><c:out value="${entry.key.artist}"/></span>
 						      </div>
-						      <audio src="https://geo-samples.beatport.com/lofi/4702236.LOFI.mp3"></audio>
+						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
 						    </li>
 						  </ul>
 						  </td>	  
@@ -337,22 +337,17 @@ button.likeButton.liked{
 						</c:forEach>
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
-						<td><c:choose>
-							<c:when test ="${empty playlist.profilePic}">
-								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
-								<c:out value="${user.username}"/>
-							</c:when>
-							<c:otherwise>
-									<a href="profile_${user.username }"><img class="" src="" alt="" width="120" height="120"></a>
-								</c:otherwise>
-							</c:choose>
+						<td>
+								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" alt="" width="120" height="120"></a>
+								<h6 style="font-size:15px;"><c:out value="${playlist.title}"/></h6>
+								<h6 style="color:#707070;"> playlist of <c:out value="${playlist.username}"/></h6>
 							</td>
 							<td><c:choose>
-							<c:when test ="${empty user.bio}">
+							<c:when test ="${empty playlist.description}">
 								<h6 style="margin-top:55px;" >No description</h6>
 							</c:when>
 							<c:otherwise>
-									<a href="uploadNewProfile-${user.username}"></a>
+									<h6 style="margin-top:55px;"><c:out value="${playlist.description}"/></h6>
 								</c:otherwise>
 							</c:choose>
 							</td>
@@ -390,19 +385,19 @@ button.likeButton.liked{
 						      <div class="cover">
 						        <c:choose>
 									<c:when test ="${empty entry.key.photo}">
-											<a href="www.google.com"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+											<a href="www.google.com"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 											<c:out value="${entry.key.title}"/>
 									</c:when>
 									<c:otherwise>
-											<a href="#"><img class="song-image" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+											<a href="#"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 										</c:otherwise>
 									</c:choose>
 						      </div>
 						      <div class="info">
-						        <span class="titleSong">Wake Me Up</span>
-						        <span class="artist">Avicii</span>
+						        <span class="titleSong"><c:out value="${entry.key.title}"/></span>
+						        <span class="artist" style="font-size:12px;"><c:out value="${entry.key.artist}"/></span>
 						      </div>
-						      <audio src="https://geo-samples.beatport.com/lofi/4702236.LOFI.mp3"></audio>
+						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
 						    </li>
 						  </ul>
 						  </td>	  
@@ -452,36 +447,43 @@ button.likeButton.liked{
 						<tr>
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
-								<a href="profile_${entry.key.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
-								<c:out value="${entry.key.username}"/>
+								<a href="profile_${entry.key.username}"><img class="cirle_photo" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+								<h6>&nbsp;<c:out value="${entry.key.username}"></c:out></h6>
+						
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class="" src="" alt="" width="100" height="100"></a>
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+									<h6><c:out value="${entry.key.username}" > </c:out><i class = "fa fa-user" style="margin-left:5px;color:#707070;"></i></h6>
 								</c:otherwise>
 							</c:choose>
-							</td>
-							<td><c:choose>
-							<c:when test ="${empty entry.key.bio}">
-								<h6>No description</h6>
-							</c:when>
-							<c:otherwise>
-									<a href="uploadNewProfile-${entry.key.username}"><img class="" src="" alt="" width="100" height="100"></a>
-								</c:otherwise>
-							</c:choose>
-							</td>
-							<c:if test="${not empty sessionScope.username and !sessionScope.username.equals(entry.key.username)}">
 							
+							</td>
 							<td>
-						<c:choose>		
-				        	<c:when test="${entry.value}">
-								<button class="btn followButton" rel="6" target="${entry.key.username }"><i class = "fa fa-soundcloud"></i> Follow <c:out value="${entry.key.username}"/></button>
+							<c:choose>
+							<c:when test ="${empty entry.key.bio}">
+								<h6 style="margin-top:55px;">No description</h6>
 							</c:when>
 							<c:otherwise>
-						 		<button class="btn followButton" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following <c:out value="${entry.key.username}"/></button>
-							</c:otherwise>
-						</c:choose>
+									<a href="uploadNewProfile-${entry.key.username}"></a>																	
+								</c:otherwise>
+							</c:choose>							
 							</td>
+							<c:set var="listedUser" scope="session" value="${entry.key.username}"/>
+							<td>	
+							<c:if test="${empty user}">
+								<h1>No user.</h1>
+							</c:if>	
+							<c:if test="${not empty sessionScope.username and !sessionScope.username.equals(entry.key.username)}">
+			  					<c:choose>		
+							        <c:when test="${entry.value}">
+										<button class="btn followButton" rel="6" target="${entry.key.username }"><i class = "fa fa-soundcloud"></i> Follow</button>
+									</c:when>
+									<c:otherwise>
+									 	<button class="btn followButton" target="${entry.key.username }" rel="6"><i class = "fa fa-soundcloud"></i> Following</button>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -501,30 +503,24 @@ button.likeButton.liked{
 							<h1>No results</h1>
 						</c:if>
 					<tbody>
-					<c:forEach items="${searchedPlaylists}" var="playlist">
+						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
-						<td><c:choose>
-							<c:when test ="${empty playlist.profilePic}">
-								<a href="profile_${user.username}"><img class="" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="100" height="100"></a>
-								<c:out value="${user.username}"/>
-							</c:when>
-							<c:otherwise>
-									<a href="profile_${user.username }"><img class="" src="" alt="" width="100" height="100"></a>
-								</c:otherwise>
-							</c:choose>
+						<td>
+								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" alt="" width="120" height="120"></a>
+								<h6 style="font-size:15px;"><c:out value="${playlist.title}"/></h6>
+								<h6 style="color:#707070;"> playlist of <c:out value="${playlist.username}"/></h6>
 							</td>
 							<td><c:choose>
-							<c:when test ="${empty user.bio}">
-								<h6>No description</h6>
+							<c:when test ="${empty playlist.description}">
+								<h6 style="margin-top:55px;" >No description</h6>
 							</c:when>
 							<c:otherwise>
-									<a href="uploadNewProfile-${user.username}"><img class="" src="" alt="" width="100" height="100"></a>
+									<h6 style="margin-top:55px;"><c:out value="${playlist.description}"/></h6>
 								</c:otherwise>
 							</c:choose>
 							</td>
-							<td><button type="button"
-									href="http://localhost:8080/SoundCloud/login"
-									><i class="fa fa-soundcloud""> smth</i></button>
+							<td>
+							
 							</td>
 						</tr>
 						</c:forEach>
@@ -603,7 +599,6 @@ $('button.likeButton').live('click', function(e){
     		  });
         $button.removeClass('liked');  
         $button.text('Like');
-        window.location.reload();
     } else {
     	alert("likevame"),
         $.post("likeSearch",
@@ -613,7 +608,6 @@ $('button.likeButton').live('click', function(e){
         $button.addClass('liked');
         $button.innerHTML = `<i class="fa fa-heart"></i>`,
         $button.text('Unlike');
-        window.location.reload();
     }
 });
 

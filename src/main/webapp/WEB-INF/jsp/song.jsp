@@ -151,6 +151,18 @@ button.likeButton.liked{
 
 }
 
+.btn-group {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom:20px;
+}
+
+
+.fb_iframe_widget span {
+    margin-top: -80px;
+ }
+   	
+
 </style>
 
 
@@ -233,8 +245,7 @@ button.likeButton.liked{
     <br>
 
     <!--Comment Box -->
-<c:set var="song" scope="request" value="${song}"/>	
-<c:out value="${song.title}"/>
+<c:set var="song" scope="request" value="${song}"/>
     <!--Button group -->
     <div class="btn-group" style="text-align: center">
      
@@ -283,7 +294,7 @@ button.likeButton.liked{
 	  </div><!--.popup-header-->
 	  <div class="popup-content">
 	<form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">
-	<div id="errorMsg" size="1" color="red"></div>
+		<div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
 	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
 	      <label for="description">Description:</label></br>
@@ -291,8 +302,8 @@ button.likeButton.liked{
 	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
 	    </form>
 	  </div><!--.popup-content-->
-	  	</div>
-	  	<div class="fb-like" data-href="http://localhost:8080/SoundCloud/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+	</div>
+	<div class="fb-like" data-href="http://localhost:8080/SoundCloud/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 	<div class="fb-share-button" data-href="http://localhost:8080/SoundCloud/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FSoundCloud%2F&amp;src=sdkpreparse">Share</a></div>            <ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
                 <li><a href="#" ><i class="fa fa-comment"></i> Comment</a></li>
@@ -307,36 +318,37 @@ button.likeButton.liked{
     
  <div id="global">
   <div class="messages">
-  <c:choose>
-	  <c:when test="${not empty allComments }">
-		  <c:forEach items="${allComments}" var="comment">
-		  
-				<div class="message" id="comments">
-					 <img src="https://www.google.com" class="avatar">
-					 <p><strong>${comment.username}  <em><c:out value="${comment.commentTime}"/></em></strong>
-					 <c:out value="${comment.content}"/></p>
-					
-					 <button class="btn likeCommentButton" id="likeCom" target="${comment.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>		 
-				</div>
-				
-			
-		</c:forEach>
-	</c:when>
-	<c:otherwise>
-	
-	
-		<div class="message" id="comments">
-			<p>No comments.</p>
-		</div>
-	</c:otherwise>
-</c:choose>
+	  <c:choose>
+		  <c:when test="${not empty allComments }">
+			  <c:forEach items="${allComments}" var="entry">
+			  
+					<div class="message" id="comments">
+						 <img src="https://www.google.com" class="avatar">
+						 <p><strong>${entry.key.username}  <em><c:out value="${entry.key.commentTime}"/></em></strong>
+						 <c:out value="${entry.key.content}"/></p>
+						<c:if test="${not empty sessionScope.username}">
+						<c:choose>
+						<c:when test="${!entry.value}">
+							 <button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Unlike Comment</button>
+						</c:otherwise>
+						 </c:choose>
+						 </c:if>		 
+					</div>	
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<div class="message" id="comments">
+				<p>No comments.</p>
+			</div>
+		</c:otherwise>
+	</c:choose>
+  </div>
 </div>
-</div>
-
-    <!-- <div style="background-image:url(http://b.vimeocdn.com/ts/192/106/19210697_1280.jpg);width:1340px;height:450px;color:black;font-size:18px;"></div> -->
 	
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
-	
 	
 <script type="text/javascript">
 $('a.playlist').live('click', function(e){
@@ -401,9 +413,7 @@ $(function(){
 	 
 	 
 	 $('#submitCom').on('click', function(){
-		 comment: cm.value,
-	 alert("hello?"),
-	 
+		 comment: cm.value, 
 	 
 	 $.ajax({
 		 
@@ -414,7 +424,7 @@ $(function(){
 	    },
 		success: function(newComment){
 			var h = document.getElementById("comment");
-			document.getElementById('comments').innerHTML = `<img src="https://randomuser.me/api/portraits/med/men/23.jpg" class="avatar">
+			document.getElementById('comments').innerHTML += `<img src="https://randomuser.me/api/portraits/med/men/23.jpg" class="avatar">
 				  <p><strong>George,<em>+${timeStamp}+</em></strong>`+h.value+`</p>`,
 				  $comments.append(timeStamp),
 			cm.value="";

@@ -454,35 +454,6 @@ public class UserConroller {
 		}
 		
 	
-	private boolean validateRegister(Model model, String username, String password, String email) {
-		
-		PasswordValidator passwordValidator = new PasswordValidator();
-
-        if (username != null && !username.isEmpty() && password != null && !password.isEmpty()  && email != null && !email.isEmpty()) {
-                if (!EmailValidator.validate(email)) {
-                    model.addAttribute("ErrorRegMessage", "Wrong email format or it already exist.");
-                    return false;
-                }
-
-            if (username.length() <= 30 && username.length() >= 3) {
-                if (!UsernameValidator.validate(username)) {
-                    model.addAttribute("ErrorRegMessage", "Username already exist");
-                    return false;
-                }
-            } else {
-                model.addAttribute("ErrorRegMessage", "Username length should be between 3 to 30 characters.");
-                return false;
-            }
-            
-            if (!passwordValidator.validate(password)) {
-            	model.addAttribute("ErrorRegMessage", "Invalid password. It must contains ....");
-                return false;
-			}
-                                  
-        }      
-        return true;
-    }
-	
 	@ResponseBody
 	@RequestMapping(value="/validateUser", method = RequestMethod.POST)
 	public boolean validateUser(@RequestParam(value = "username") String username){
