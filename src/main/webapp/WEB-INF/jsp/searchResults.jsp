@@ -249,12 +249,12 @@ button.likeButton.liked{
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
 								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
-								<h6>&nbsp;<c:out value="${entry.key.username}"></c:out></h6>
+								<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" > </c:out></h6>
 						
 							</c:when>
 							<c:otherwise>
 									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
-									<h6><c:out value="${entry.key.username}" > </c:out><i class = "fa fa-user" style="margin-left:5px;color:#707070;"></i></h6>
+									<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" > </c:out></h6>
 								</c:otherwise>
 							</c:choose>
 							
@@ -296,12 +296,12 @@ button.likeButton.liked{
 						    <li class="track">
 						      <div class="cover">
 						        <c:choose>
-									<c:when test ="${empty entry.key.photo}">
-											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
+									<c:when test ="${empty entry.key.title}">
+											<a href="song_${entry.key.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 											<c:out value="${entry.key.title}"/>
 									</c:when>
 									<c:otherwise>
-											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
+											<a href="song_${entry.key.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
 										</c:otherwise>
 									</c:choose>
 						      </div>
@@ -450,12 +450,12 @@ button.likeButton.liked{
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
 								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />"alt="" width="120" height="120"></a>
-								<h6>&nbsp;<c:out value="${entry.key.username}"></c:out></h6>
+								<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" ></c:out></h6>
 						
 							</c:when>
 							<c:otherwise>
 									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
-									<h6><c:out value="${entry.key.username}" > </c:out><i class = "fa fa-user" style="margin-left:5px;color:#707070;"></i></h6>
+									<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" ></c:out></h6>
 								</c:otherwise>
 							</c:choose>
 							
