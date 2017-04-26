@@ -366,7 +366,7 @@ wavesurfer.init({
 
 });
 
-wavesurfer.load('http://localhost:8080/scUploads/songs/song.mp3');
+wavesurfer.load('${songToPlay}');
 
 var slider = document.querySelector('#slider');
 

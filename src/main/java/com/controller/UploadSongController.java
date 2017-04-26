@@ -36,7 +36,7 @@ public class UploadSongController {
 	
 	private String getThisSong;
 
-	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator;
+	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator + "songs" + File.separator;
 
 	@RequestMapping(value="/songUpload", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session,Model model) {
@@ -86,13 +86,13 @@ public class UploadSongController {
 		User user = (User)session.getAttribute("currentUser");
 		String username = (String) session.getAttribute("username");
 		System.out.println("vliza3");
-		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
+		File fileOnDisk = new File(FILE_LOCATION + title + ".mp3");
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisSong = multiPartFile.getOriginalFilename();
 		
 
 		try {
-			SongDAO.getInstance().uploadSong(1, title, artist, FILE_LOCATION + getThisSong, "path_of_photo", description, genre);
+			SongDAO.getInstance().uploadSong(1, title, artist, FILE_LOCATION + title + ".mp3", "path_of_photo", description, genre);
 		} catch (SQLException e) {
 			System.out.println("Problem uploading song in DB");
 			e.printStackTrace();
