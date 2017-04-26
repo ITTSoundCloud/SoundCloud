@@ -32,6 +32,7 @@ import com.validators.UsernameValidator;
 @MultipartConfig
 public class PlaylistController {
 
+	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/songs/";
 	
 	@RequestMapping(value = "/addPlaylist", method = RequestMethod.POST)
 	public String addPlaylist(
@@ -93,8 +94,9 @@ public class PlaylistController {
 			@PathVariable(value="title") String songTitle){
 		System.out.println(songTitle + "v song_{title}");
 		User currentUser = (User) session.getAttribute("user");
-		Song visitedSongProfile;
-		
+		String songToPlayUrl = RESOURSES_PATH + songTitle + ".mp3";
+		model.addAttribute("songToPlay", songToPlayUrl);
+		Song visitedSongProfile;		
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);

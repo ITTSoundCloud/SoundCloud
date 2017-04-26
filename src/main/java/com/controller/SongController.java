@@ -22,6 +22,7 @@ import com.model.User;
 public class SongController {
 
 	
+	
 	@RequestMapping(value = "/genre_{name}", method= RequestMethod.GET)
 	public String getGenreSongs(Model model, HttpSession session, 
 			@PathVariable(value="name") String genre){
