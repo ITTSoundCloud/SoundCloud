@@ -247,12 +247,12 @@ button.likeButton.liked{
 						<tr>
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
-								<a href="profile_${entry.key.username}"><img class="cirle_photo" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
 								<h6>&nbsp;<c:out value="${entry.key.username}"></c:out></h6>
 						
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
 									<h6><c:out value="${entry.key.username}" > </c:out><i class = "fa fa-user" style="margin-left:5px;color:#707070;"></i></h6>
 								</c:otherwise>
 							</c:choose>
@@ -449,12 +449,12 @@ button.likeButton.liked{
 						<tr>
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
-								<a href="profile_${entry.key.username}"><img class="cirle_photo" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />"alt="" width="120" height="120"></a>
 								<h6>&nbsp;<c:out value="${entry.key.username}"></c:out></h6>
 						
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://www.lorealparis.com.au/_en/_au/caps/Cap_120402_Spokes/img/main/Doutzen-Kroes-main-visual.jpg" alt="" width="120" height="120"></a>
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
 									<h6><c:out value="${entry.key.username}" > </c:out><i class = "fa fa-user" style="margin-left:5px;color:#707070;"></i></h6>
 								</c:otherwise>
 							</c:choose>
