@@ -321,7 +321,7 @@ button.followButton.following{
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						          </ul>
 		       				 </li>
 						</c:otherwise>

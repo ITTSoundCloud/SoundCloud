@@ -122,8 +122,17 @@ button.likeButton.liked{
 
 <title>Insert title here</title>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
 <script>
   window.fbAsyncInit = function() {
@@ -183,7 +192,7 @@ button.likeButton.liked{
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						          </ul>
 		       				 </li>
 						</c:otherwise>

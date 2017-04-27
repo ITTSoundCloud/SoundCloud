@@ -11,8 +11,18 @@
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -21,7 +31,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home"> Explore </a></li>
 			      </ul>
 			       <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
@@ -43,7 +53,7 @@
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						          </ul>
 		       				 </li>  
 						</c:otherwise>
@@ -81,7 +91,7 @@
   <div class="form-group">
     <label for="exampleInputFile">File input</label>
   
-      <input class="file-upload" type="file" id="file" name="songFile"  accept=".mp3"/>
+      <input class="file-upload" type="file" id="file" name="songFile"  accept=".mp3" required/>
       <input type="submit" class = "idiotButton" value="Upload now">
   </div>
 </form>

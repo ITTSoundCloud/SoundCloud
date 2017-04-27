@@ -18,6 +18,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Explore SoundCloud</title>
+
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
 
@@ -30,7 +39,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home"> Explore </a></li>
 			      </ul>
 		      
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
@@ -192,13 +201,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="./javascript.js"></script>
 
-<script>
-$(document).ready(function(e) {
-    var $input = $('#refresh');
 
-    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
-});
-</script>
 
 <script type = "text/javascript">
 

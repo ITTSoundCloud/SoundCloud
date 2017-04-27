@@ -20,9 +20,16 @@
 
 <title>Songs in Playlist</title>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
-
+<input type="hidden" id="refresh" value="no">
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -30,7 +37,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home"> Explore </a></li>
 			      </ul>
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
@@ -53,7 +60,7 @@
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						          </ul>
 		       				 </li>
 						</c:otherwise>

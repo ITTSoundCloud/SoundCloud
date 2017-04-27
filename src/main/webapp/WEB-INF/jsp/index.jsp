@@ -150,63 +150,8 @@
 </script>
 <!-- Facebook script -->
 
-<!-- Google script -->
-<script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-    
-    function onSignIn(googleUser) {
-    	  var profile = googleUser.getBasicProfile();
-    	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    	  console.log('Name: ' + profile.getName());
-    	  console.log('Image URL: ' + profile.getImageUrl());
-    	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    	  
-    	  if (auth2.isSignedIn.get()) {
-    		  var profile = auth2.currentUser.get().getBasicProfile();
-    		  console.log('ID: ' + profile.getId());
-    		  console.log('Full Name: ' + profile.getName());
-    		  console.log('Given Name: ' + profile.getGivenName());
-    		  console.log('Family Name: ' + profile.getFamilyName());
-    		  console.log('Image URL: ' + profile.getImageUrl());
-    		  console.log('Email: ' + profile.getEmail());
-    		}
-    	}
-    
-    
-  </script>
-  
-  <script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
-  
-  
-<!-- Google script -->
-
-	
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="google-signin-client_id" content="283687242675-av0ai4hsl57437eqj97qabimraarqd2p.apps.googleusercontent.com">
 	
 <title>Insert title here</title>
 </head>
@@ -261,9 +206,7 @@
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
       </p>
-      <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">
-	<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>      <a href="#" onclick="signOut();">Sign out google</a>
-      
+      <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">      
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
     <font id="error" size="1" color="red">
