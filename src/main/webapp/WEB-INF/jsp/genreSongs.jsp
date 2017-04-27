@@ -68,7 +68,7 @@
   	<div class="container-fluid">
 	  <div class="side-body">
 			   <div class="col-md-9">
-			     <h3> Playlist </h3>
+			     <h3><c:out value="${genre}"/> </h3>
 				<table class="table table-list-search">
 					<thead>
 						<tr>
@@ -77,11 +77,11 @@
 							<th><i>Open Song</i></th>
 						</tr>
 					</thead>
-					<c:if test="${empty songsInPlaylist}">
-						<h3>No songs in playlist</h3>
+					<c:if test="${empty songsGenre}">
+						<h5>No songs for this genre</h5>
 					</c:if>
 					<tbody>
-						<c:forEach items="${songsInPlaylist}" var="song">
+						<c:forEach items="${songsGenre}" var="song">
 						<tr>
 						<div class="main">
 						<td>

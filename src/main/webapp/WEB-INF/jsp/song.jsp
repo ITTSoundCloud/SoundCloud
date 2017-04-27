@@ -254,11 +254,10 @@ button.likeButton.liked{
 					<button class="btn likeButton" rel="6"><i class="fa fa-heart" ></i> Like</button>
 				</c:when>
 				<c:otherwise>
-				<button class="btn likeButton" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+				<button class="btn likeButton liked" rel="6"><i class="fa fa-heart"></i> Unlike</button>
 					</c:otherwise>
 		</c:choose>
 			
-        <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-retweet"></i> Repost</button>
         <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
    
         <c:choose>
@@ -323,7 +322,7 @@ button.likeButton.liked{
 			  <c:forEach items="${allComments}" var="entry">
 			  
 					<div class="message" id="comments">
-						 <img src="https://www.google.com" class="avatar">
+						 <img src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" />" class="avatar">
 						 <p><strong>${entry.key.username}  <em><c:out value="${entry.key.commentTime}"/></em></strong>
 						 <c:out value="${entry.key.content}"/></p>
 						<c:if test="${not empty sessionScope.username}">
@@ -332,7 +331,7 @@ button.likeButton.liked{
 							 <button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>
 						</c:when>
 						<c:otherwise>
-							<button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Unlike Comment</button>
+							<button class="btn likeCommentButton liked" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Unlike Comment</button>
 						</c:otherwise>
 						 </c:choose>
 						 </c:if>		 
@@ -444,12 +443,10 @@ $('button.likeButton').live('click', function(e){
     $button = $(this);
     
     if($button.hasClass('liked')){
-    	alert("unlikevame"),
     	$.post("removeLike");
         $button.removeClass('liked');  
         $button.text('Like');
     } else {
-    	alert("likevame"),
         $.post("like");
         $button.addClass('liked');
         $button.innerHTML = `<i class="fa fa-heart"></i>`,

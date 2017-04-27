@@ -60,7 +60,7 @@ public class CommentDAO {
 		
 		public List<Comment> getSongComments(int song_id) throws SQLException {
 			
-			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,u.profilephoto_path,"
+			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,"
 					+ "u.username from soundcloud.comments c join "
 					+ "soundcloud.users u using(user_id) where c.song_id=?;";
 			List<Comment> comments = new ArrayList<Comment>();
@@ -75,9 +75,7 @@ public class CommentDAO {
 	            			rs.getInt("c.comment_id"), 
 	            			rs.getInt("c.song_id"), 
 	            			rs.getInt("c.user_id"));
-	            //TODO
-	            
-	            comment.setphoto_user("nema snimka oshte");
+	            	            
 	            comment.setUsername(rs.getString("u.username"));
 	            comments.add(comment);
 	            }

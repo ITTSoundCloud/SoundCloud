@@ -25,12 +25,12 @@ public class SongController {
 
 	
 	
-	@RequestMapping(value = "/genre_{name}", method= RequestMethod.GET)
+	@RequestMapping(value = "/genres_{name}", method= RequestMethod.GET)
 	public String getGenreSongs(Model model, HttpSession session, 
 			@PathVariable(value="name") String genre){
 		System.out.println(genre + "genre_{name}");
 		User user = (User)session.getAttribute("currentUser");
-		
+		model.addAttribute("genre", genre);
 		List<Song> songs;
 		try {
 			songs = SongDAO.getInstance().getGenreSongs(genre);
@@ -42,7 +42,7 @@ public class SongController {
 		}
 		
 		
-		return "some jsp with songs that is not existing yet ;x";
+		return "genreSongs";
 	}
 	
 	

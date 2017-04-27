@@ -165,6 +165,7 @@ public class UserConroller {
 			try {
 				songs = SongDAO.getInstance().getAllSongs();
 				session.setAttribute("songs", songs);
+				Collections.sort(songs, new UploadTimeComparator());
 				for(Song s : songs){
 					System.out.println("date of uploading " + s.getUploadingTime());
 				}
@@ -195,23 +196,23 @@ public class UserConroller {
 	
 	
 
-	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
-	public String sortByDate(Model model, HttpSession session){
-		
-		List<Song> songsByDate;
-		try {
-			songsByDate = SongDAO.getInstance().getAllSongs();
-		Collections.sort(songsByDate, new UploadTimeComparator());
-		session.setAttribute("songs", songsByDate);
-		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "explore";	
-	
-	}
-	
+//	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
+//	public String sortByDate(Model model, HttpSession session){
+//		
+//		List<Song> songsByDate;
+//		try {
+//			songsByDate = SongDAO.getInstance().getAllSongs();
+//		Collections.sort(songsByDate, new UploadTimeComparator());
+//		session.setAttribute("songs", songsByDate);
+//		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "explore";	
+//	
+//	}
+//	
 	
 	
 	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)

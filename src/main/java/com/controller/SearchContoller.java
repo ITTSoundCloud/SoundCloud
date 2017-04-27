@@ -71,7 +71,7 @@ public class SearchContoller {
 			return "error";
 		}
 		try {
-			List<Song> songs = SongDAO.getInstance().getAllSongs();
+			List<Song> songs = SongDAO.getInstance().searchForSong(search_text);
 			
 			if (currentUser != null) {
 				Map<Song,Boolean> mapSongs = new HashMap<>();

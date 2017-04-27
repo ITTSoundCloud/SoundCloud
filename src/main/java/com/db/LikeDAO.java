@@ -23,7 +23,7 @@ public class LikeDAO {
 		        + " JOIN soundcloud.songs_likes sl USING(song_id) WHERE sl.user_id = ?;";
 	   private static final String GET_USERS_LIKED = "SELECT u.username,u.profilephoto_path FROM soundcloud.users u"
 		        + " JOIN soundcloud.songs_likes sl USING(user_id) WHERE sl.song_id = ?;";
-	   private static final String COUNT_LIKES = " SELECT count(song_id) FROM soundcloud.songs_likes where song_id=?;";
+//	   private static final String COUNT_LIKES = " SELECT count(song_id) FROM soundcloud.songs_likes where song_id=?;";
 	   private static final String USERS_LIKED_COMMENT= "SELECT user_id FROM soundcloud.comments_likes"
 		        + " WHERE commend_id = ?;";
 
