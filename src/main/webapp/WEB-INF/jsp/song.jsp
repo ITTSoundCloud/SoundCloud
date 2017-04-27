@@ -377,7 +377,7 @@ wavesurfer.init({
 
 });
 
-wavesurfer.load('${songToPlay}');
+wavesurfer.load('${sessionScope.songToPlay}');
 
 var slider = document.querySelector('#slider');
 

@@ -101,14 +101,15 @@ public class PlaylistController {
 		User currentUser = (User) session.getAttribute("user");
 		System.out.println(currentUser);
 		String songToPlayUrl = RESOURSES_PATH + songTitle + ".mp3";
-		model.addAttribute("songToPlay", songToPlayUrl);
+		session.setAttribute("songToPlay", songToPlayUrl);
+		System.out.println("-------------------" + songToPlayUrl);
+		//model.addAttribute("songToPlay", songToPlayUrl);
 		Song visitedSongProfile;		
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);
 			session.setAttribute("songToAddInPlaylist", visitedSongProfile);
 			model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
-			//TODO
 			
 			List<Comment> comments = CommentDAO.getInstance().getSongComments(visitedSongProfile.getSongId());
 			Map<Comment,Boolean> mapComments = new HashMap<>();

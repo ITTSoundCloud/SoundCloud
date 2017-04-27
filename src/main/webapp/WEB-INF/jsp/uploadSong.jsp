@@ -57,11 +57,11 @@
 <form method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Song Tittle</label>
-    <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title">
+    <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Artist</label>
-    <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist">
+    <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist" required>
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Genre</label>

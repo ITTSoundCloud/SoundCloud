@@ -82,7 +82,7 @@ public class UploadSongController {
 	public String receiveUpload(@RequestParam("songFile") MultipartFile multiPartFile,
 								@RequestParam("songTitle") String title,
 								@RequestParam("artist") String artist,
-								@RequestParam("user_id") int user_id,
+						
 								@RequestParam("genre") String genre,
 								@RequestParam("description") String description,
 								HttpSession session,Model model) throws IOException{
@@ -95,7 +95,7 @@ public class UploadSongController {
 		
 
 		try {
-			SongDAO.getInstance().uploadSong(1, title, artist, FILE_LOCATION + title + ".mp3", "path_of_photo", description, genre);
+			SongDAO.getInstance().uploadSong(user.getUserId(), title, artist, FILE_LOCATION + title + ".mp3", "path_of_photo", description, genre);
 		} catch (SQLException e) {
 			System.out.println("Problem uploading song in DB");
 			e.printStackTrace();

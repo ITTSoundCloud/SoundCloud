@@ -118,6 +118,8 @@ public class UserConroller {
 	}
 	
 	
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
@@ -183,6 +185,13 @@ public class UserConroller {
 
 
 	}
+	
+	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	    public String logOut(HttpServletRequest request, Model model) {
+	        HttpSession session = request.getSession();
+	        session.invalidate();
+	        return "index";
+	    }
 	
 	
 

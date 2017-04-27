@@ -13,12 +13,15 @@
  <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Explore SoundCloud</title>
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
  	<nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -50,9 +53,11 @@
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
+						            
 						          </ul>
 		       				 </li>
+		       				 
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -188,7 +193,16 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="./javascript.js"></script>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 <script type = "text/javascript">
+
 
 function myFunction() {
 				$.get("sortDate");

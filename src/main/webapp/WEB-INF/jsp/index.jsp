@@ -18,12 +18,7 @@
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-	
-	<meta property="og:url"           content="http://localhost:8080/SoundCloud/" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="Your Website Title" />
-  <meta property="og:description"   content="Your description" />
-  <meta property="og:image"         content="http://kingofwallpapers.com/picture/img-001.php?pic=/picture/picture-001.jpg" />
+
 
 	<script type="text/javascript">
 	function validateRequest(){
