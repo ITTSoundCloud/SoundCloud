@@ -30,7 +30,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="http://localhost:8080/SoundCloud/home"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home"> Explore </a></li>
 			      </ul>
 		      
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">

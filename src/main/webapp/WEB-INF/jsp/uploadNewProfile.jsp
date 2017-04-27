@@ -14,6 +14,7 @@
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 <link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
+<script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -38,9 +39,9 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			      	<li><a href="#"> Home </a></li>
+			      	<li><a href="http://localhost:8080/SoundCloud/home" > Explore </a></li>
 			      </ul>
-			      <form class="navbar-form navbar-left">
+			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
 			          <input type="text" class="form-control" placeholder="Search">
 			        </div>
@@ -60,7 +61,7 @@
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="#">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						          </ul>
 		       				 </li>  
 						</c:otherwise>
@@ -111,7 +112,7 @@
     
 	    <form method="POST" enctype="multipart/form-data">
 	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg"/>
+	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg" required/>
 	        <input type="submit" value="change">
 
 	      </form>
