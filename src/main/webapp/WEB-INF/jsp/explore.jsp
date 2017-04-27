@@ -42,12 +42,12 @@
 			      <ul class="nav navbar-nav navbar-right">
 			       <c:choose>
 			        <c:when test="${empty sessionScope.username}">
-			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
+								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						            <li><a href="#">Profile</a></li>

@@ -10,7 +10,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
-import static java.util.stream.Collectors.toList;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
@@ -215,22 +214,22 @@ public class UserConroller {
 //	
 	
 	
-	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
-	public String sortLikes(Model model, HttpSession session){
-		
-		List<Song> songsByLikes;
-		try {
-			songsByLikes = SongDAO.getInstance().getAllSongs();
-		Collections.sort(songsByLikes, new LikesComparator());
-		session.setAttribute("songs", songsByLikes);
-		System.out.println("v likes");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		return "explore";
-		
-	}
+//	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
+//	public String sortLikes(Model model, HttpSession session){
+//		
+//		List<Song> songsByLikes;
+//		try {
+//			songsByLikes = SongDAO.getInstance().getAllSongs();
+//		Collections.sort(songsByLikes, new LikesComparator());
+//		session.setAttribute("songs", songsByLikes);
+//		System.out.println("v likes");
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+//		return "explore";
+//		
+//	}
 	
 	
 		@RequestMapping(value = "/profille_{username}", method= RequestMethod.GET)
