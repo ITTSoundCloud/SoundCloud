@@ -37,9 +37,9 @@
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
+			       <c:choose>
+			        <c:when test="${empty sessionScope.username}">
 			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
-			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
@@ -62,8 +62,8 @@
 		
 	<ul class="nav2">
 		<li id="settings"><a href="#"><img src="settings.png" /></a></li>
-		<li><a onclick="myFunction1()" href="sortLikes">By Likes</a></li>
-		<li><a onclick="myFunction()" href="sortDate">">By Upload</a></li>
+		<li><a onclick="#" href="#">By Likes</a></li>
+		<li><a onclick="myFunction()" href="#">By Upload</a></li>
 		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
 	</ul>
 	
@@ -87,7 +87,6 @@
 	</div>
 </div>
 
-<div class = "sectionn">
 	<div id="date" style="display:none">
 	   <div class="container-fluid">
 	        <div class="side-body">
@@ -169,10 +168,10 @@
 		        <ul class="portfolio clearfix">
 		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" /></a></li>
 		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=320px; height = 220px; /></a></li>
-		          <li class="box"><a href="genres_Jazz" class="magnifier"><img alt="" src="http://cdn01.cdn.justjared.com/wp-content/uploads/headlines/2015/10/adele-hello.jpg" width=320px; height = 190px;></a></li>
-		          <li class="box"><a href="genres_Chillout" class="magnifier"><img alt="" src="http://www.covermesongs.com/wp-content/uploads/2011/06/KanyeWest.jpg" width=320px; height = 220px;></a></li>
-		          <li class="box"><a href="genres_Country" class="magnifier"><img alt="" src="img/page3-img4.jpg"></a></li>
-		          <li class="box"><a href="genres_Alternative" class="magnifier"><img alt="" src="img/page3-img5.jpg"></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img alt="" src="http://cdn01.cdn.justjared.com/wp-content/uploads/headlines/2015/10/adele-hello.jpg" width=320px; height = 190px;></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img alt="" src="http://www.covermesongs.com/wp-content/uploads/2011/06/KanyeWest.jpg" width=320px; height = 220px;></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img alt="" src="img/page3-img4.jpg"></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img alt="" src="img/page3-img5.jpg"></a></li>
 		         </ul>
 		      </div>
 		    </div>
@@ -191,15 +190,17 @@
 <script type = "text/javascript">
 
 function myFunction() {
-				$.get("sortDate");
-				$('#likes').show();
+				$('#likes').hide();
 				$('#genres').hide();
-				$('#date').hide();
+				$('#date').show();
+				document.getElementById("first").style="color:#777";
+				document.getElementById("second").style="color:#777";
+				document.getElementById("third").style="color:#f50";
 			
 				
 };
 
-function myFunction1() {
+/* function myFunction1() {
 
 				$.get("sortLikes");
 				$('#likes').hide();
@@ -207,7 +208,7 @@ function myFunction1() {
 				$('#date').show();
 			
 			
-};
+}; */
 
 function myFunction2() {
 

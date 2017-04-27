@@ -9,7 +9,6 @@ public class Comment {
 	private int userId;
 	private String content;
 	private LocalDateTime commentTime;
-	private String photo_user;
 	private String username;
 	
 	
@@ -21,15 +20,6 @@ public class Comment {
 		this.userId = userId;
 	}
 
-
-	public String getPhoto_user() {
-		return photo_user;
-	}
-
-
-	public void setphoto_user(String photo_user) {
-		this.photo_user = photo_user;
-	}
 
 
 	public String getUsername() {

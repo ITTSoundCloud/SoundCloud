@@ -454,7 +454,7 @@ button.likeButton.liked{
 						
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" />" alt="" width="120" height="120"></a>
 									<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" ></c:out></h6>
 								</c:otherwise>
 							</c:choose>
