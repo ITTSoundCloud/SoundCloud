@@ -18,25 +18,9 @@
 
 <style type="text/css">
 
-
-@media (min-width: 992px)
-bootstrap.min.css:5
-.col-md-3 {
-    width: 25%;
-    margin-left: 120px;
-  }
-  
-  h3,.h3{
-  margin-left:400px;}
-  
-  @media (min-width: 992px)
-bootstrap.min.css:5
-.col-md-9 {
-    width: 75%;
-    margin-left: 400px;
-    margin-top: -110px;
+.container {
+    width: 1470px;
 }
- 
 </style>
 </head>
 <body>
