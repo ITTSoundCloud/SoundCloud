@@ -27,6 +27,7 @@
 
 .h6,h6{
 margin-left:25px;}
+
      
      
     button.followButton{
@@ -110,8 +111,9 @@ button.likeButton.liked{
        
   
 }
+  
 
-     </style>
+</style>
      
 
 
@@ -120,8 +122,17 @@ button.likeButton.liked{
 
 <title>Insert title here</title>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
 <script>
   window.fbAsyncInit = function() {
@@ -167,7 +178,6 @@ button.likeButton.liked{
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
 					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
@@ -176,6 +186,7 @@ button.likeButton.liked{
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
+								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						            <li><a href="#">Profile</a></li>

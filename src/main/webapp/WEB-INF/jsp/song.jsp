@@ -170,9 +170,17 @@ button.likeButton.liked{
 
 <title>Wavesurfer</title>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
 
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -199,13 +207,13 @@ button.likeButton.liked{
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
+						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -421,8 +429,8 @@ $(function(){
 	    },
 		success: function(newComment){
 			var h = document.getElementById("comment");
-			document.getElementById('comments').innerHTML += `<img src="https://randomuser.me/api/portraits/med/men/23.jpg" class="avatar">
-				  <p><strong>George,<em>+${timeStamp}+</em></strong>`+h.value+`</p>`,
+			document.getElementById('comments').innerHTML += `<img src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />" class="avatar">
+				  <p><strong>${user.username}, <em>+{timeStamp}+</em></strong>`+h.value+`</p>`,
 				  $comments.append(timeStamp),
 			cm.value="";
 		}

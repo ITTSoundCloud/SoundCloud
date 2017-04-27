@@ -19,18 +19,38 @@
 
 <style type="text/css">
 
-.content {
-    min-height: 200px;
-    margin-left: 30px;
-}
 
-.row {
-    margin-right: -65px;
-        margin-left: -120px;
+@media (min-width: 992px)
+bootstrap.min.css:5
+.col-md-3 {
+    width: 25%;
+    margin-left: 120px;
+  }
+  
+  h3,.h3{
+  margin-left:400px;}
+  
+  @media (min-width: 992px)
+bootstrap.min.css:5
+.col-md-9 {
+    width: 75%;
+    margin-left: 400px;
+    margin-top: -110px;
 }
+ 
 </style>
+
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
 
  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -48,7 +68,6 @@
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
 							<button type="button" class="btn btn-success">Sign In</button>
@@ -56,6 +75,7 @@
 						</c:when>
 						<c:otherwise>			
 							<li class="dropdown">
+								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						            <li><a href="#">Profile</a></li>

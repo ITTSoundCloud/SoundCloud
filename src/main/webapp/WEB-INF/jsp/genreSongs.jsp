@@ -20,9 +20,16 @@
 
 <title>Songs in Playlist</title>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
-
+<input type="hidden" id="refresh" value="no">
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->

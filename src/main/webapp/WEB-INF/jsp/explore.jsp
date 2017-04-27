@@ -18,6 +18,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Explore SoundCloud</title>
+
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
+
 </head>
 <body>
 
@@ -42,12 +51,12 @@
 			      <ul class="nav navbar-nav navbar-right">
 			       <c:choose>
 			        <c:when test="${empty sessionScope.username}">
-			        <li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
+								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						            <li><a href="#">Profile</a></li>
@@ -192,13 +201,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="./javascript.js"></script>
 
-<script>
-$(document).ready(function(e) {
-    var $input = $('#refresh');
 
-    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
-});
-</script>
 
 <script type = "text/javascript">
 

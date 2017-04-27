@@ -33,7 +33,7 @@
 	<!-- Javascripts -->
 	
 </head>
-	<body id="errorpage" class="error404">
+	<body id="errorpage" class="error404" background="https://www.xmple.com/wallpaper/linear-yellow-brown-gradient-1920x1080-c2-f4a460-fafad2-a-60-f-14.svg">
         <div id="pagewrap">
             <!--Header Start-->
             <div id="header" class="header">

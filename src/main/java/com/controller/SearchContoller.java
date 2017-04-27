@@ -33,7 +33,7 @@ import com.model.User;
 @Controller
 public class SearchContoller {
 	
-	private static final String WELCOME_VIEW = "search1";
+	private static final String WELCOME_VIEW = "error";
 	
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -113,7 +113,7 @@ public class SearchContoller {
 	
 	
 	
-	@RequestMapping("/index")
+	@RequestMapping("/welcome")
 	public String welcome(Model model){
 			
 		return WELCOME_VIEW;
