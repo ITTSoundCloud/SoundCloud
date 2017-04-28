@@ -59,6 +59,8 @@ public class UploadImageController {
 			session.setAttribute("usernameToFollow", username);
 			model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
 			List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
+			List<String> followers = UserDAO.getInstance().getFollowers(visitedUser.getUserId());
+			model.addAttribute("followers",followers);
 			model.addAttribute("currentPlaylists", visitedPlaylists);
 		} catch (SQLException e) {
 			System.out.println("cant get user from dao./profile_{username}");

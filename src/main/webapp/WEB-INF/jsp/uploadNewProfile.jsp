@@ -5,7 +5,6 @@
 <html>
 <head>
 
-<link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style1.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
@@ -15,6 +14,13 @@
 <link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/buttonPopup.js" />" type ="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.2.0.js" type = "text/javascript"></script>
+<script src="<c:url value="/static/js/playlistPopup.js" />"  type ="text/javascript"></script>
+<link href="<c:url value="/static/css/playlistCss.css" />" rel="stylesheet" type="text/css">
+
+
+
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -74,6 +80,7 @@ $(document).ready(function(e) {
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
+		<div class="overlay"></div>
 		
 				<c:set var="user" scope="request" value="${user}"/>	
 				<c:if test="${empty user}">
@@ -126,9 +133,12 @@ $(document).ready(function(e) {
     <div class="profile col-md-3 col-xs-12">
 		<ul class="profile-links">
 			<li><i class="glyphicon glyphicon-envelope"></i> <a href="#"><i class=""></i><c:out value="${user.email}"/></a></li>
+		<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
+			
 		</ul>
       <hr>
         <c:choose>
+        
 	    <c:when test="${empty user.bio}">
 	    	<p> This user has no description. </p>
 	    </c:when>
@@ -136,6 +146,28 @@ $(document).ready(function(e) {
 			<p><c:out value="${user.bio}"/></p>
 		</c:otherwise>
 	</c:choose>
+	
+	<c:set var="followers" scope="request" value="${followers}"/>	
+	
+<div class="main-popup">
+<div class="popup-header">
+	<div id="popup-close-button" style="margin-top:0px;"><a href="#"></a></div> 
+	</div><!--.popup-header-->
+	  	 <h4 style="margin-left:160px;color:#f50;font-size:18px;margin-top:-10px;">Followers</h4>
+	<div class="popup-content">
+		<table class="table table-list-search">	
+			<tbody>
+				<c:forEach items="${followers}" var = "follower">
+				<tr><td>
+					<img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="50" height="50">&nbsp; 
+					&nbsp;<c:out value=" ${follower}"/>
+				</td></tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	  </div><!--.popup-content-->
+	</div>
+	   
     </div></br>
     <h3> Playlists</h3></br>
     <c:if test="${empty currentPlaylists }">
@@ -162,8 +194,6 @@ $(document).ready(function(e) {
   </div>
 </div>
 
-
-   
     <script src="./js/index.js"></script>
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>

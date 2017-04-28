@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
@@ -43,6 +45,22 @@ public class SongController {
 		
 		
 		return "genreSongs";
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/timesPlayed", method = RequestMethod.POST)
+	public void timesPlayed(Model model,HttpSession session,
+			@RequestParam(value = "songId") int song_id) {
+		User currentUser = (User) session.getAttribute("user");
+		try {
+			SongDAO.getInstance().increaseTimesPlayed(song_id);
+			System.out.println("You successfuly increased listened times of song " + song_id);
+		} catch (SQLException e) {
+			
+		}
+		
 	}
 	
 	

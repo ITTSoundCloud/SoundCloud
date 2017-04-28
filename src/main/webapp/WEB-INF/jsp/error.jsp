@@ -5,35 +5,13 @@
 <html>
 <head>
 
-<link href="<c:url value="/static/errorPage/css/ie.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/styleError.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/error1.js" />"  type ="text/javascript"></script>
-    <script src="<c:url value="/static/js/error2.js" />"  type ="text/javascript"></script>
-  	<script src="https://code.jquery.com/jquery-1.8.3.js" type = "text/javascript"></script>
-  	
-  	<script src="<c:url value="/static/js/error3.js" />" type ="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.8.3.js" type = "text/javascript"></script>
+<script src="<c:url value="/static/js/error3.js" />" type ="text/javascript"></script>
 
-
-
-    <meta charset="utf-8"/>
-    <title>Lost Cloud - Error page</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="squirrellabs"/>
-    <meta name="keywords" content="squirrellabs"/>
-    <meta name="description" content="Lost Cloud - Error page"/>
-
-    <!-- Stylesheets -->
-   <link rel="stylesheet" type="text/css" media="all" href="/static/errorPage/css/style.css">
-
-    <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" media="all" href="css/ie.css" />
-    <script type="text/javascript" src="js/html5.js" ></script>
-    <![endif]-->
-
-	<!-- Javascripts -->
-	
 </head>
-	<body id="errorpage" class="error404" background="https://www.xmple.com/wallpaper/linear-yellow-brown-gradient-1920x1080-c2-f4a460-fafad2-a-60-f-14.svg">
+	<body id="errorpage" class="error404">
         <div id="pagewrap">
             <!--Header Start-->
             <div id="header" class="header">
@@ -44,7 +22,7 @@
             </div><!--Header End-->
 			<!-- Plane -->
 			<div id="main-content">
-				<div class="duck-animation" style="background-image:url(http://localhost:8080/scUploads/pics/bg.jpg)"></div>
+				<div class="duck-animation" style="background-image:url(http://localhost:8080/SoundCloud/static/errorPage/images/plane.png);margin-top:30px;"></div>
 				<!-- mg src="<c:url value="/static/genres/POP.jpg" />" />-->
 			</div>
 			<!--page content-->
@@ -70,12 +48,14 @@
                 <ul class="copyright_info">
                     <li>&copy; 2017 SoundCloud</li>
 					<li>&middot;</li>
-					<li>Made with love in It Tallents.</li>
+					<li>Made with love in It Talents.</li>
                 </ul>
 				<!--social links-->
 
             </div>
-        </div><!--end page footer-->
+        </div>
+        
+<!--end page footer-->
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -86,5 +66,23 @@
   ga('send', 'pageview');
 
 </script>
-    </body>
+
+<script type="text/javascript">
+$(function(e){
+	var x=document.documentElement.clientHeight;
+	var y=e(".header").outerHeight();
+	e("#parallax_wrapper").css("height",x-y+"px");
+	e("#parallax_wrapper").css("left",50+"%");
+	e(".scene_1").plaxify({"xRange":0,"yRange":0,"invert":true}),
+	e(".scene_2").plaxify({"xRange":70,"yRange":20,"invert":true}),
+	e(".scene_3").plaxify({"xRange":0,"yRange":40,"invert":true}),
+	e.plax.enable();
+	e(document).ready(function(){});
+	window.setInterval(function(){
+  $('.duck-animation').delay(0).css('background-position-x','-1000px').animate({'background-position-x':'2000px'},20000,'linear');
+}, 100);
+});
+</script>
+
+</body>
 </html>
