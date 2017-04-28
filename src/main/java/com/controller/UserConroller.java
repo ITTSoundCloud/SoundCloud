@@ -248,6 +248,7 @@ public class UserConroller {
 			return "uploadNewProfile";
 		}
 		
+
 		
 		@ResponseBody
 		@RequestMapping(value="/like", method = RequestMethod.POST)

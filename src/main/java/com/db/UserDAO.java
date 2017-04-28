@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.model.Song;
@@ -251,11 +253,12 @@ public class UserDAO {
 	   
 	
 	   
-	   public List<Integer> getFollowers(int followed_id) throws SQLException {
+	   public ArrayList<String> getFollowers(int followed_id) throws SQLException {
 	        
-	        String sql = "select follower_id from soundcloud.who_follows_who where followed_id = ?;";
+	        String sql = "select u.username from soundcloud.who_follows_who f join soundcloud.users u on "
+	        		+ "f.follower_id=u.user_id where f.followed_id = ?;";
 	        
-	        ArrayList<Integer> followers = new ArrayList();
+	        ArrayList<String> followers = new ArrayList();
 	        PreparedStatement ps = null;
 
 	        	ps = DBManager.getInstance().getConnection().prepareStatement(sql);
@@ -263,7 +266,7 @@ public class UserDAO {
 	            ResultSet rs = ps.executeQuery();
 	            
 	            while (rs.next()) {
-	                followers.add(rs.getInt("follower_id"));
+	                followers.add(rs.getString("u.username"));
 	            }
 	       
 	        return followers;
