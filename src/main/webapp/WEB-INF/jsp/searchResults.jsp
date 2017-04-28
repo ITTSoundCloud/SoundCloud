@@ -122,45 +122,91 @@ button.likeButton.liked{
 
 <title>Insert title here</title>
 
-<script>
-$(document).ready(function(e) {
-    var $input = $('#refresh');
-    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
-});
-</script>
-
 </head>
 <body>
 
-<input type="hidden" id="refresh" value="no">
+<div id="fb-root"></div>
 
 <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '229011207576478',
-      xfbml      : true,
-      version    : 'v2.9'
-    });
-    FB.AppEvents.logPageView();
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      testAPI();
+      console.log("<br>Connected to Facebook");
+      FB.api('/me', {
+			fields : 'first_name,last_name,email'
+		}, function(response) {		
+			$.post("loginFB", {
+				first_name : response.first_name,
+				last_name : response.last_name,
+				email : response.email,
+			});
+		});
+      
+    } else {
+    	
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '229011207576478',
+    cookie     : true,  
+                        
+    xfbml      : true,  
+    version    : 'v2.9' 
+  });
+
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+  
+  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+
+  (function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+
+
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      
+    });
+  }
 </script>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<input type="hidden" id="refresh" value="no">
+
+
 
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -180,9 +226,12 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
-					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
+							<span class="fb-login-button" data-max-rows="1" data-size=medium data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
+							
+							<div id="status">
+							</div>		
 							<button type="button" class="btn btn-success">Sign In</button>
-							  <button type="submit" class="btn btn-warning">Create account</button>
+							 <button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
