@@ -67,7 +67,7 @@ textarea, input { outline: none; }
 #footer .container .links li{float:right;margin-left:10px}
 
 #main-content{position:relative;margin-bottom:-100px}
-.duck-animation{background-position:-1000px 30%;background-repeat:no-repeat;height:100px}
+.duck-animation{background-position:-1000px 0%;background-repeat:no-repeat;height:100px}
 
 /* === Search form === */
 #email {
@@ -151,7 +151,7 @@ textarea, input { outline: none; }
 	#errorpage #content .button{margin-top:35px;cursor:pointer;position:relative;z-index:99999;}
 	#errorpage #content h1{font-color:#fff;font-family:"MuseoSans-700",Helvetica,Arial,Verdana,sans-serif;font-size:55px;font-weight:normal;line-height:65px;text-shadow:0px 1px 3px rgba(0,0,0,0.45)}
 	#errorpage #content p{font-family:HelveticaNeue,Arial,Verdana,sans-serif;font-size:18px;font-weight:normal;width:512px;margin:0 auto;line-height:26px;text-shadow:0px 1px 3px rgba(0,0,0,0.45)}
-	#errorpage.error404{background: url(../images/bg.jpg)}
+	#errorpage.error404{background: url(http://localhost:8080/SoundCloud/static/errorPage/images/bg.jpg)}
 	#errorpage.error404 #content{width:590px;z-index:9999}
 	#errorpage.error404 h1{margin:0 auto;padding:200px 0 20px}
 	#errorpage.error404 p{width:440px}
@@ -159,9 +159,9 @@ textarea, input { outline: none; }
 	#errorpage.error404 .scene{position:absolute;bottom:-100px;display:block;width:1920px}
 	
 	/* === scene's === */
-	#errorpage.error404 .scene.scene_1{height:336px;background:url(../images/scene_1.png) no-repeat left top;pozition:relative; z-index:3;}
-	#errorpage.error404 .scene.scene_2{height:500px;background:url(../images/scene_2.png) no-repeat left top;pozition:relative; z-index:2;}
-	#errorpage.error404 .scene.scene_3{height:500px;background:url(../images/scene_3.png) no-repeat left top;pozition:relative; z-index:1;}
+	#errorpage.error404 .scene.scene_1{height:336px;background:url(http://localhost:8080/SoundCloud/static/errorPage/images/scene_1.png) no-repeat left top;pozition:relative; z-index:3;}
+	#errorpage.error404 .scene.scene_2{height:500px;background:url(http://localhost:8080/SoundCloud/static/errorPage/images/scene_2.png) no-repeat left top;pozition:relative; z-index:2;}
+	#errorpage.error404 .scene.scene_3{height:500px;background:url(http://localhost:8080/SoundCloud/static/errorPage/images/scene_3.png) no-repeat left top;pozition:relative; z-index:1;}
 	
 	/* === footer === */
 	#errorpage.error404 #footer .container{color:#111;margin-top:0;font-size:12px;text-shadow:none}
