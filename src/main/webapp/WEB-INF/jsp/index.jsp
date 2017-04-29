@@ -174,9 +174,16 @@
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
       <div class="login">
-        <button class="btn-1" id="buttonLogin">Sign in</button>
-         <button class="btn-2" id="buttonReg">Create account</button>
-        <div class="overlay">
+      <c:choose>
+	      <c:when test="${empty sessionScope.username}">
+		        <button class="btn-1" id="buttonLogin">Sign in</button>
+		         <button class="btn-2" id="buttonReg">Create account</button>
+	        </c:when>
+	        <c:otherwise>
+	             <button class="btn-1" style="color:#fff;margin-right:20px;margin-top:-5px;">Log out</button>
+	        </c:otherwise>
+        </c:choose>
+		<div class="overlay" style="margin-top:-26px;height:1000px;">
         </div>
       
       </div>
@@ -184,7 +191,7 @@
     
     <section class="hero-container">  
       <div class="text-block">
-         <div class="main-popup">
+         <div class="main-popup" style="height:460px;">
   <div class="popup-header">
     <div id="popup-close-button"><a href="#"></a></div>
     <ul>
@@ -192,7 +199,7 @@
       <header><a href="#" id="register">Register</a></header>
     </ul>
   </div><!--.popup-header-->
-  <div class="popup-content">
+  <div class="popup-content" style="height:370px;">
 
     <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateRequestLogin()">
 
@@ -206,7 +213,7 @@
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
       </p>
-      <input type="submit" id="submit-login" value="Submit-login" onclick="validateLogin()">      
+      <input type="submit" style="width:89%;height:40px;background:rgba(255,82,0,0.7);margin-top:15px;color:#fff;font-size:17px;" id="submit-login" value="Submit-login" onclick="validateLogin()">      
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
     <font id="error" size="1" color="red">
@@ -218,10 +225,10 @@
       <label for="password-register">Password:</label>
       <input type="password" id="password" name="password" required onblur="myFunction3()">
       <p class="check-mark">
-        <input type="checkbox" id="accept-terms">
+        <input type="checkbox" id="accept-terms" required>
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
       </p>
-      <input class="register-input" type="submit" id="lll" value="Create Account">
+      <input class="register-input" type="submit" style="width:89%;height:40px;background:rgba(255,82,0,0.7);margin-top:15px;" id="lll" value="Create Account">
     </form>
   </div><!--.popup-content-->
 </div><!--.main-popup-->

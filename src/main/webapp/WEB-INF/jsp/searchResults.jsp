@@ -182,7 +182,7 @@ $(document).ready(function(e) {
 			        	<c:when test="${empty sessionScope.username}">
 					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
 							<button type="button" class="btn btn-success">Sign In</button>
-							  <button type="submit" class="btn btn-warning">Create account</button>
+							  <button type="submit" class="btn btn-warning">Sign Up</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
@@ -300,7 +300,7 @@ $(document).ready(function(e) {
 						<div class="main">
 						<td>
 						  <ul>
-						    <li class="track">
+						    <li class="track" id="tracka">
 						      <div class="cover">
 						        <c:choose>
 									<c:when test ="${empty entry.key.title}">
@@ -594,15 +594,14 @@ $('button.followButton').live('click', function(e){
 $('button.play').live('click', function(e){
 	
     e.preventDefault();   
-    
     $button = $(this);
     var x = $(this).attr("target");
     alert(x),
-    
     	 $.post("timesPlayed",
     		  {
     		    	songId:x,
     		  });
+  
 });
 
 </script>

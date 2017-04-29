@@ -259,14 +259,14 @@ $(document).ready(function(e) {
      
        <c:choose>
 			  <c:when test="${!isLiked}">
-					<button class="btn likeButton" rel="6"><i class="fa fa-heart" ></i> Like</button>
+					<button class="btn likeButton" rel="6" style="padding:5px 14px;font-size:12px;"><i class="fa fa-heart" ></i> Like</button>
 				</c:when>
 				<c:otherwise>
-				<button class="btn likeButton liked" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+				<button class="btn likeButton liked" rel="6" style="padding:5px 14px;font-size:12px;"><i class="fa fa-heart"></i> Unlike</button>
 					</c:otherwise>
 		</c:choose>
 			
-        <button type="button" class="btn btn-default btn-xs btn-space"><i class="fa fa-share-square-o"></i> Share</button>
+        <button type="button" class="btn btn-default btn-xs btn-space" style="padding:5px 14px;font-size:12px;"><i class="fa fa-share-square-o"></i> Share</button>
    
         <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
@@ -274,7 +274,7 @@ $(document).ready(function(e) {
 						</c:when>
 						<c:otherwise>
 						<div class="dropdown btn-space">
-			            	<button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
+			            	<button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" style="padding:5px 14px;font-size:12px;"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
 			            	<ul class="dropdown-menu">        
 			                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
 			                
@@ -326,9 +326,16 @@ $(document).ready(function(e) {
  <div id="global">
   <div class="messages">
 	  <c:choose>
-		  <c:when test="${not empty allComments }">
-			  <c:forEach items="${allComments}" var="entry">
+		  <c:when test="${empty allComments }">
+		  <div class="message" id="comments">
+				<p>No comments.</p>
+			</div>
 			  
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${allComments}" var="entry">
+					<div class="message" id="comments">
+					</div>
 					<div class="message" id="comments">
 						 <img src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" />" class="avatar">
 						 <p><strong>${entry.key.username}  <em><c:out value="${entry.key.commentTime}"/></em></strong>
@@ -345,11 +352,6 @@ $(document).ready(function(e) {
 						 </c:if>		 
 					</div>	
 			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<div class="message" id="comments">
-				<p>No comments.</p>
-			</div>
 		</c:otherwise>
 	</c:choose>
   </div>
@@ -429,8 +431,8 @@ $(function(){
 	    },
 		success: function(newComment){
 			var h = document.getElementById("comment");
-			document.getElementById('comments').innerHTML += `<img src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />" class="avatar">
-				  <p><strong>${user.username}, <em>+{timeStamp}+</em></strong>`+h.value+`</p>`,
+			document.getElementById('comments').innerHTML += `<div class="message" id="comments"><img src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />" class="avatar">
+				  <p><strong>${user.username}, <em>${timeStamp}</em></strong>`+h.value+`</p></div>`,
 				  $comments.append(timeStamp),
 			cm.value="";
 		}

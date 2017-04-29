@@ -19,6 +19,17 @@
 
 <title>Explore SoundCloud</title>
 
+<style type="text/css">
+.row {
+    margin-left: 45px;
+}
+h3 {
+    margin: 25px 0 15px;
+   
+}
+</style>
+
+
 <script>
 $(document).ready(function(e) {
     var $input = $('#refresh');
@@ -28,7 +39,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body>
+<body style="background:rgba(0,0,0,0.1);">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -74,8 +85,8 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
-	<ul class="nav2">
-		<li id="settings"><a href="#"><img src="settings.png" /></a></li>
+	<ul class="nav2" style="background:rgba(0,0,0,0.6);">
+		<li><a onclick="#" href="#" style="background:rgba(0,0,0,0.4);">EXPLORE</a></li>
 		<li><a onclick="#" href="#">By Likes</a></li>
 		<li><a onclick="myFunction()" href="#">By Upload</a></li>
 		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
@@ -88,7 +99,7 @@ $(document).ready(function(e) {
 	  <c:forEach items="${sessionScope.songs}" var="song">
 	    <li class="track">
 	       <div class="cover">
-	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px;alt="" />
+	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px; alt="" />
 	      </div>
 	      <div class="info">
 	        <span class="titleSong"><c:out value="${song.title }"/></span>Likes<c:out value="${song.likes }"/>
@@ -180,12 +191,13 @@ $(document).ready(function(e) {
 		        </article>
 		        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
-		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" /></a></li>
-		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=320px; height = 220px; /></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img alt="" src="http://cdn01.cdn.justjared.com/wp-content/uploads/headlines/2015/10/adele-hello.jpg" width=320px; height = 190px;></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img alt="" src="http://www.covermesongs.com/wp-content/uploads/2011/06/KanyeWest.jpg" width=320px; height = 220px;></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img alt="" src="img/page3-img4.jpg"></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img alt="" src="img/page3-img5.jpg"></a></li>
+		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" Width=430px; height = 430px; /></a></li>
+		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=330px; height = 220px; /></a></li>
+		          <li class="box"><a href="genres_Chillout" class="magnifier"><img src="<c:url value="http://static.idolator.com/uploads/2014/10/Gorgon-City-Sirens-album-cover-artwork-600x426.jpg" />" Width=330px; height = 230px; /></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img alt=""  style="margin-top:-40px;" src="http://keeprockingit.com/wp-content/uploads/2015/06/taylor-swift.jpg" width=330px; height = 210px;></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img style="margin-top:-30px;" alt="" src="https://s-media-cache-ak0.pinimg.com/564x/0e/65/7e/0e657ef934f2260888ab3016f8c7f09f.jpg"  height=360px; width=330px;></a></li>
+		          <li class="box"><a href="#" class="magnifier"><img src="<c:url value="http://localhost:8080/scUploads/pics/vjaza.jpg" />" style="margin-top:-190px;" width=760px; height = 160px; />
+		          </a></li>
 		         </ul>
 		      </div>
 		    </div>

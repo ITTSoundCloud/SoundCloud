@@ -1,5 +1,7 @@
 package com.controller;
 
+import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFromStackTrace;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
+import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +38,8 @@ import com.db.SongDAO;
 import com.db.UserDAO;
 import com.email.CodeGenerator;
 import com.email.EmailSender;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.Comment;
 import com.model.Playlist;
@@ -40,6 +48,9 @@ import com.model.User;
 import com.validators.EmailValidator;
 import com.validators.PasswordValidator;
 import com.validators.UsernameValidator;
+
+import net.minidev.json.JSONArray;
+import net.minidev.json.parser.JSONParser;
 
 
 @Controller
@@ -195,41 +206,39 @@ public class UserConroller {
 	
 	
 
-//	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
-//	public String sortByDate(Model model, HttpSession session){
-//		
-//		List<Song> songsByDate;
-//		try {
-//			songsByDate = SongDAO.getInstance().getAllSongs();
-//		Collections.sort(songsByDate, new UploadTimeComparator());
-//		session.setAttribute("songs", songsByDate);
-//		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "explore";	
-//	
-//	}
+	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
+	public String sortByDate(Model model, HttpSession session){
+		
+		List<Song> songsByDate;
+		try {
+			songsByDate = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByDate, new UploadTimeComparator());
+		session.setAttribute("songs", songsByDate);
+		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "explore";	
+	
+	}
 //	
 	
 	
-//	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
-//	public String sortLikes(Model model, HttpSession session){
-//		
-//		List<Song> songsByLikes;
-//		try {
-//			songsByLikes = SongDAO.getInstance().getAllSongs();
-//		Collections.sort(songsByLikes, new LikesComparator());
-//		session.setAttribute("songs", songsByLikes);
-//		System.out.println("v likes");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-//		return "explore";
-//		
-//	}
+	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
+	public void sortLikes(Model model, HttpSession session){
+		
+		List<Song> songsByLikes;
+		try {
+			songsByLikes = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByLikes, new LikesComparator());
+		session.setAttribute("songs", songsByLikes);
+		System.out.println("v likes");
+		} catch (SQLException e) {
+			System.out.println("problem");
+		}	
+			
+	}
 	
 	
 		@RequestMapping(value = "/profille_{username}", method= RequestMethod.GET)
@@ -248,7 +257,43 @@ public class UserConroller {
 			return "uploadNewProfile";
 		}
 		
-
+//		@RequestMapping(value="", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+//		public @ResponseBody JSONObject getAll() {
+//		    List<Song> songs = SongDAO.getInstance().getAllSongs();
+//		   
+//			JSONObject smeeshtiSe = new JSONObject();
+//			org.json.JSONArray smeesshtiSeObekti = new org.json.JSONArray();
+//			
+//		    for(Song s:songs){
+//		    	smeesshtiSeObekti.put(s);
+//		    }
+//		 
+//		    return smeeshtiSe;
+//		}
+		
+		
+		
+		
+		
+//
+//		@ResponseBody
+//		@RequestMapping(value="/getJson", method = RequestMethod.POST)
+//			public String GetData(){ 
+//			String jsonInString = null;
+//			List<Song> songs;
+//			try {
+//				songs = SongDAO.getInstance().getAllSongs();
+//			
+//			ObjectMapper mapper = new ObjectMapper();
+//			jsonInString = mapper.writeValueAsString(songs);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return jsonInString;
+//			
+//		}
+		
 		
 		@ResponseBody
 		@RequestMapping(value="/like", method = RequestMethod.POST)

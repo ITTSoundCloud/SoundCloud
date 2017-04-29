@@ -14,11 +14,15 @@
 <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/wavesurfer.min.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/wavesurfer.js" />"  type ="text/javascript"></script>
+<link href="<c:url value="/static/css/css1.css" />" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
 
   
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Songs in Playlist</title>
 
-<title>Songs in Playlist</title>
+
 
 <script>
 $(document).ready(function(e) {
@@ -29,6 +33,30 @@ $(document).ready(function(e) {
 
 </head>
 <body>
+
+
+
+<div class="row" style="margin: 30px 0">
+                    <div class="col-sm-10">
+                        <div id="waveform">
+                            <!-- Here be waveform -->
+                        <wave style="display: block; position: relative; user-select: none; height: 120px; overflow-x: auto; overflow-y: hidden;"><canvas width="695" height="120" style="position: absolute; z-index: 1; left: 0px; top: 0px; bottom: 0px; width: 695px;"></canvas><wave style="position: absolute; z-index: 2; left: 0px; top: 0px; bottom: 0px; overflow: hidden; width: 511px; display: block; box-sizing: border-box; border-right: 1px solid rgb(51, 51, 51);"><canvas width="695" height="120" style="width: 695px;"></canvas></wave></wave></div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button class="btn btn-success btn-block" id="playPause">
+                            <span id="play" style="display: none;">
+                                <i class="glyphicon glyphicon-play"></i>
+                                Play
+                            </span>
+
+                            <span id="pause">
+                                <i class="glyphicon glyphicon-pause"></i>
+                                Pause
+                            </span>
+                        </button>
+                    </div>
+                </div>
 <input type="hidden" id="refresh" value="no">
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
@@ -129,11 +157,115 @@ $(document).ready(function(e) {
 							</td>
 						</tr>
 						</c:forEach>
+						
+						
+            
 						</tbody>
-					</table>		
+					</table>	
+					
+					 <div class="col-sm-2">
+                        <button class="btn btn-success btn-block" id="playPause">
+                            <span id="play" style="display: none;">
+                                <i class="glyphicon glyphicon-play"></i>
+                                Play
+                            </span>
+
+                            <span id="pause">
+                                <i class="glyphicon glyphicon-pause"></i>
+                                Pause
+                            </span>
+                        </button>
+                    </div>	
+                    
+                    
+                     <div class="col-sm-2">
+                        <button class="btn btn-success btn-block" id="playPause">
+                            <span id="play" style="display: none;">
+                                <i class="glyphicon glyphicon-play"></i>
+                                Play
+                            </span>
+
+                            <span id="pause">
+                                <i class="glyphicon glyphicon-pause"></i>
+                                Pause
+                            </span>
+                        </button>
+                    </div>	
 				  </div>
 				</div>
 	        </div>
+	        
+	        
+	        <script type="text/javascript">
+	        var wavesurfer = Object.create(WaveSurfer);
+
+
+	     // Init on DOM ready
+	     document.addEventListener('DOMContentLoaded', function () {
+	         wavesurfer.init({
+	             container: '#waveform',
+	             waveColor: '#428bca',
+	             progressColor: '#31708f',
+	             height: 120,
+	             barWidth: 3
+	         });
+	     });
+
+
+	     // Bind controls
+	     document.addEventListener('DOMContentLoaded', function () {
+	         var playPause = document.querySelector('#playPause');
+	         playPause.addEventListener('click', function () {
+	             wavesurfer.playPause();
+	         });
+
+	         // Toggle play/pause text
+	         wavesurfer.on('play', function () {
+	             document.querySelector('#play').style.display = 'none';
+	             document.querySelector('#pause').style.display = '';
+	         });
+	         wavesurfer.on('pause', function () {
+	             document.querySelector('#play').style.display = '';
+	             document.querySelector('#pause').style.display = 'none';
+	         });
+
+
+	         // The playlist links
+	         var links = document.querySelectorAll('#playlist a');
+	         var currentTrack = 0;
+
+	         // Load a track by index and highlight the corresponding link
+	         var setCurrentSong = function (index) {
+	             links[currentTrack].classList.remove('active');
+	             currentTrack = index;
+	             links[currentTrack].classList.add('active');
+	             wavesurfer.load(links[currentTrack].href);
+	         };
+
+	         // Load the track on click
+	         Array.prototype.forEach.call(links, function (link, index) {
+	             link.addEventListener('click', function (e) {
+	                 e.preventDefault();
+	                 setCurrentSong(index);
+	             });
+	         });
+
+	         // Play on audio load
+	         wavesurfer.on('ready', function () {
+	             wavesurfer.play();
+	         });
+
+	         // Go to the next track on finish
+	         wavesurfer.on('finish', function () {
+	             setCurrentSong((currentTrack + 1) % links.length);
+	         });
+
+	         // Load the first track
+	         setCurrentSong(currentTrack);
+	     });
+
+	        
+	        </script>
   	
   	
   	</body>
