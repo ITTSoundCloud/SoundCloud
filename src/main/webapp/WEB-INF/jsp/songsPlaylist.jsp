@@ -57,12 +57,20 @@
 
 </style>
 
+<script>
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
+</script>
 
 
 <title>Insert title here</title>
 </head>
 
     <body style="background:url(http://4.bp.blogspot.com/-V35Ll67C3ag/TpC9Rf8ejwI/AAAAAAAAAqI/DZWM-PoPCYA/s1600/002+Italy+232+Pompeii+Landscape++18x24+.jpg);">
+    <input type="hidden" id="refresh" value="no">
      <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -120,32 +128,15 @@
                             " alt="" style="margin-left:70px;" width="180" height="180">
     </div>
 
-                           
-    
-                <div class="list-group" id="playlist">
-                    <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
-                        <img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="30" height="30">
-                        czskamaarù – Trou
-                        <span class="badge">0:21</span>
-                    </a>
-
-                    <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
-                           <img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="30" height="30">
-
-                        日本人の話し
-                        <span class="badge">1:04</span>
-                    </a>
-
-                    <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
-                        <img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="30" height="30">
-                        Рассказы о сновидениях
-                        <span class="badge badge-info">1:26</span>
-                    </a>
-
-                </div>
-            </div>          
-            </div>
-        </div>
+                 
+           <div class="list-group" id="playlist">
+                <c:forEach items="${songsInPlaylist}" var="song">
+	                <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
+	                       <img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="30" height="30">
+	                       <span class="badge">0:21</span>
+	                 </a>
+                 </c:forEach>
+       	  </div>
 
 
         <script>

@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.Song;
 import com.model.User;
@@ -127,6 +129,31 @@ public class SongDAO {
 		}
 		return song_id;
 	}
+	
+	
+	
+	//we only need the title and the artist
+	public Map<String,String> getSongsByUser(int user_id) throws SQLException {
+		
+		Map<String,String> songs = new HashMap<String, String>();
+		String sql = "SELECT title,artist from soundcloud.songs where user_id=?";
+		
+		PreparedStatement ps = null;
+		
+		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps.setInt(1, user_id);
+		ResultSet resultSet = ps.executeQuery();
+
+		while (resultSet.next()) {
+			
+			songs.put(resultSet.getString("title"), resultSet.getString("artist"));
+
+		}
+		
+		return songs;
+	}
+	
+
 
 	public List<Song> searchForSong(String word) throws SQLException {
 		String sql = "SELECT song_id, title, artist,genre,song_path,user_id,timesPlayed,description,songphoto_path,"

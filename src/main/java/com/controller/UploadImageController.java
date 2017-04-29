@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.db.PlaylistDAO;
+import com.db.SongDAO;
 import com.db.UserDAO;
 import com.model.Playlist;
 import com.model.User;
@@ -64,6 +66,15 @@ public class UploadImageController {
 			model.addAttribute("currentPlaylists", visitedPlaylists);
 		} catch (SQLException e) {
 			System.out.println("cant get user from dao./profile_{username}");
+			e.printStackTrace();
+			return "error";
+		}
+		
+		try {
+			Map<String,String> songsUploaded = SongDAO.getInstance().getSongsByUser(visitedUser.getUserId());
+			model.addAttribute("songsUploaded", songsUploaded);
+		} catch (SQLException e) {
+			System.out.println("cant get songs uploaded by user from dao./profile_{username}");
 			e.printStackTrace();
 			return "error";
 		}
