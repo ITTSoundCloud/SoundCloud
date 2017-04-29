@@ -309,6 +309,7 @@ public class UserConroller {
 				return "index";
 			}
 			String profilePicToShow = RESOURSES_PATH + username + ".jpg";
+			
 			model.addAttribute("profilePic", profilePicToShow);
 			session.setAttribute("profilePicOne", profilePicToShow);
 			System.out.println(username + "v profile_{username}");

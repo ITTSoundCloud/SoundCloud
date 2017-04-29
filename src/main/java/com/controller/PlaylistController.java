@@ -74,7 +74,7 @@ public class PlaylistController {
 			return "error";
 		}
 		
-		return "playlistSongs";
+		return "songsPlaylist";
          
 	}
 	

@@ -19,36 +19,6 @@
 
 <title>Explore SoundCloud</title>
 
-<style type="text/css">
-.row {
-    margin-left: 45px;
-}
-h3 {
-    margin: 25px 0 15px;
-   
-}
-.explore-btn{
-font-size: 15.5px;
-    color: white;
-    display: block;
-    line-height: 40px;
-    padding: 0 26px;
-    text-decoration: none;
-    font-family: Montserrat, sans-serif;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-    background:rgba(0,0,0,0.0);
-    border:none;
-    border-left: 1px solid #ccc;
- }
-     
- .explore-btn:hover{
-   background:rgba(0,0,0,0.3);
-   color:rgba(255,88,0,0.6);
- }
- 
-</style>
-
-
 <script>
 $(document).ready(function(e) {
     var $input = $('#refresh');
