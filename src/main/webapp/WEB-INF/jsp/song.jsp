@@ -182,15 +182,6 @@ $(document).ready(function(e) {
 
 <input type="hidden" id="refresh" value="no">
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
    <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -310,8 +301,7 @@ $(document).ready(function(e) {
 	    </form>
 	  </div><!--.popup-content-->
 	</div>
-	<div class="fb-like" data-href="http://localhost:8080/SoundCloud/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-	<div class="fb-share-button" data-href="http://localhost:8080/SoundCloud/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FSoundCloud%2F&amp;src=sdkpreparse">Share</a></div>            <ul class="buttons-right pull-left">
+            <div><ul class="buttons-right pull-left">
                 <li><i class="fa fa-play"></i> 55</li>
                 <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
             </ul>

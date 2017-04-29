@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,56 +99,7 @@
 	}
 	</script>
 	
-<!-- Facebook script -->	
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '229011207576478',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-    FB.AppEvents.logPageView();   
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-  
-
-  FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-  });
-  
-
-  {
-      status: 'connected',
-      authResponse: {
-          accessToken: '...',
-          expiresIn:'...',
-          signedRequest:'...',
-          userID:'...'
-      }
-  }
-  
-
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-  
-  <fb:login-button 
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
-  
-</script>
-<!-- Facebook script -->
 
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -158,13 +109,82 @@
 <body>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=229011207576478";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>
+
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      testAPI();
+      console.log("<br>Connected to Facebook");
+      FB.api('/me', {
+			fields : 'first_name,last_name,email'
+		}, function(response) {		
+			$.post("loginFB", {
+				first_name : response.first_name,
+				last_name : response.last_name,
+				email : response.email,
+			
+			});
+			$('#faceb').click(function() {
+			    location.reload(true);
+			});
+		});
+      
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '229011207576478',
+    cookie     : true,  
+                        
+    xfbml      : true,  
+    version    : 'v2.9' 
+  });
+
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+  
+  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+
+  (function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+
+
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      
+    });
+  }
+</script>
 ﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿
  <div class="container">
   <section class="background">
@@ -174,8 +194,18 @@
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
       <div class="login">
-        <button class="btn-1" id="buttonLogin">Sign in</button>
-         <button class="btn-2" id="buttonReg">Create account</button>
+         <span class="fb-login-button" id="faceb" data-max-rows="1" data-size=large data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span> 
+             
+             <c:choose>
+			        	<c:when test="${empty sessionScope.user}">
+							<button class="btn-1" id="buttonLogin">Sign in</button>     
+         					<button class="btn-2" id="buttonReg">Create account</button>
+						</c:when>
+						<c:otherwise>			
+						</c:otherwise>
+					</c:choose>
+             
+        
         <div class="overlay">
         </div>
       
@@ -188,8 +218,10 @@
   <div class="popup-header">
     <div id="popup-close-button"><a href="#"></a></div>
     <ul>
-      <header><a href="#" id="sign-in">Sign In</a></header>
+    
+	  <header><a href="#" id="sign-in">Sign In</a></header>
       <header><a href="#" id="register">Register</a></header>
+    
     </ul>
   </div><!--.popup-header-->
   <div class="popup-content">

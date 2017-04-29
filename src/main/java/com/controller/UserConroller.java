@@ -9,8 +9,10 @@ import java.util.Set;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthStyle;
 import javax.validation.Validator;
 
+import org.apache.catalina.util.SessionIdGeneratorBase;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,7 @@ import com.validators.UsernameValidator;
 public class UserConroller {
 	
 	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/pics/";
+	private static final String DEFAULT_FB_PASS = "Default1*";
 	private PasswordValidator passValidator = new PasswordValidator();
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -76,7 +79,12 @@ public class UserConroller {
 		if (code.equals(session.getAttribute("verification").toString())) {
 			UserDAO userDAO = UserDAO.getInstance();
 			User userToAdd = (User) session.getAttribute("currentUser");
-			userDAO.saveUser(userToAdd);
+			try {
+				userDAO.saveUser(userToAdd);
+			} catch (SQLException e) {
+				System.out.println("catn save user in db./verify");
+				e.printStackTrace();
+			}
 			userDAO.addUserToCash(userToAdd);
 			return "search1";
 		}
@@ -186,6 +194,43 @@ public class UserConroller {
 
 	}
 	
+	@RequestMapping(value="/loginFB", method=RequestMethod.POST)
+	public String fbRegister(Model viewModel,HttpSession session,@RequestParam String last_name,
+			@RequestParam String first_name,@RequestParam String email) {
+		
+		System.out.println("vlizash li we ?");
+		String username = first_name + " " + last_name;
+		
+		User fbUser = null;
+		try {
+			fbUser = (User)UserDAO.getInstance().getUser(username);
+		} catch (SQLException e) {
+			System.out.println("Cant get user by name. /loginFB");
+			e.printStackTrace();
+			
+		}
+		if(fbUser != null) {  
+			session.setAttribute("user", fbUser);
+			session.setAttribute("username", fbUser.getUsername());
+			System.out.println("kvo stava tuka sega");
+			return "login";
+		}
+		else {			
+			User newFbUser = new User(username, email, DEFAULT_FB_PASS);
+			System.out.println("stava li");
+			try {
+				UserDAO.getInstance().saveUser(newFbUser);
+				session.setAttribute("user", newFbUser);
+				session.setAttribute("username", newFbUser.getUsername());
+			} catch (SQLException e) {
+				System.out.println("Problem adding user to DB");
+				e.printStackTrace();
+			}
+					 
+		}
+		return "login";
+	}
+	
 	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	    public String logOut(HttpServletRequest request, Model model) {
 	        HttpSession session = request.getSession();
@@ -193,43 +238,54 @@ public class UserConroller {
 	        return "index";
 	    }
 	
-	
+	 @RequestMapping(value = "/index", method = RequestMethod.GET)
+	    public String index() {        
+	        return "index";
+	    }
+	 
 
-//	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
-//	public String sortByDate(Model model, HttpSession session){
-//		
-//		List<Song> songsByDate;
-//		try {
-//			songsByDate = SongDAO.getInstance().getAllSongs();
-//		Collections.sort(songsByDate, new UploadTimeComparator());
-//		session.setAttribute("songs", songsByDate);
-//		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "explore";	
-//	
-//	}
-//	
+	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
+	public String sortByDate(Model model, HttpSession session){
+		User currentUser=(User) session.getAttribute("user");
+		session.setAttribute("email", currentUser.getEmail());
+		session.setAttribute("username", currentUser.getUsername());
+		session.setAttribute("type", currentUser.getUsername());
+		List<Song> songsByDate;
+		try {
+			songsByDate = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByDate, new UploadTimeComparator());
+		session.setAttribute("songs", songsByDate);
+		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "explore";	
+	
+	}
 	
 	
-//	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
-//	public String sortLikes(Model model, HttpSession session){
-//		
-//		List<Song> songsByLikes;
-//		try {
-//			songsByLikes = SongDAO.getInstance().getAllSongs();
-//		Collections.sort(songsByLikes, new LikesComparator());
-//		session.setAttribute("songs", songsByLikes);
-//		System.out.println("v likes");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-//		return "explore";
-//		
-//	}
+	
+	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
+	public String sortLikes(Model model, HttpSession session){
+		User currentUser = (User) session.getAttribute("user");
+		session.setAttribute("email", currentUser.getEmail());
+		session.setAttribute("username", currentUser.getUsername());
+		session.setAttribute("type", currentUser.getEmail());
+		
+		List<Song> songsByLikes;
+		try {
+			songsByLikes = SongDAO.getInstance().getAllSongs();
+		Collections.sort(songsByLikes, new LikesComparator());
+		session.setAttribute("songs", songsByLikes);
+		System.out.println("v likes");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block/
+			e.printStackTrace();
+		}	
+		return "explore";
+		
+	}
 	
 	
 		@RequestMapping(value = "/profille_{username}", method= RequestMethod.GET)
@@ -357,9 +413,6 @@ public class UserConroller {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-			finally{
-				//TODO
-			}
 				
 		}
 		
@@ -376,9 +429,6 @@ public class UserConroller {
 				CommentDAO.getInstance().removeLikeComment(currentUser.getUserId(), comment_id);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
-			}
-			finally{
-				//TODO
 			}
 				
 		}

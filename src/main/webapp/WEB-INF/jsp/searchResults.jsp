@@ -201,7 +201,6 @@ button.likeButton.liked{
   }
 </script>
 
-<div id="fb-root"></div>
 
 
 <input type="hidden" id="refresh" value="no">

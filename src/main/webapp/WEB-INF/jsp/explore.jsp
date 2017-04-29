@@ -65,7 +65,6 @@ $(document).ready(function(e) {
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						            
 						          </ul>
-		       				 </li>
 		       				 
 						</c:otherwise>
 					</c:choose>
@@ -76,13 +75,17 @@ $(document).ready(function(e) {
 		
 	<ul class="nav2">
 		<li id="settings"><a href="#"><img src="settings.png" /></a></li>
-		<li><a onclick="#" href="#">By Likes</a></li>
-		<li><a onclick="myFunction()" href="#">By Upload</a></li>
-		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
+		<li><a  class="hello" target="likes" id="likes" href="">By Likes</a></li>
+		<li><a  target="date" id="date" >By Upload</a></li>
+		<li><a  target="genres" id="genres">By Genres</a></li>
 	</ul>
 	
-		
-<div id="likes" style="display:none">
+<c:choose >
+	<c:when test="${!sessionScope.type.equals(sessionScope.username) or empty sessionScope.type}">
+		<div style="display:none"></div>
+		</c:when>
+	<c:otherwise>
+		<div style="display:block">
 	<div class="main">
 	  <ul>
 	  <c:forEach items="${sessionScope.songs}" var="song">
@@ -100,8 +103,15 @@ $(document).ready(function(e) {
 	  </ul>
 	</div>
 </div>
+</c:otherwise>
+</c:choose>
 
-	<div id="date" style="display:none">
+	<c:choose>
+	<c:when test="${!sessionScope.type.equals(sessionScope.email) or empty sessionScope.type}">
+		<div style="display:none"></div>
+	</c:when>
+	<c:otherwise>
+		<div style="display:block">
 	   <div class="container-fluid">
 	        <div class="side-body">
 			   <div class="col-md-9">
@@ -165,11 +175,12 @@ $(document).ready(function(e) {
 			
 			</div>
 			
-	       </div>
-	  
+	       </c:otherwise>
+	       </c:choose>
+	 
 	<!-- TODO -->
-	
 <c:set var="genres" scope="request" value="${genres}"/>
+	<c:if test="${!sessionScope.type.equals(sessionScope.email) or empty sessionScope.type or !sessionScope.type.equals(sessionScope.username)}">
 	<div id="genres" style="display:block">
 		<div class="bg-content">
 		  <div id="content">
@@ -192,6 +203,7 @@ $(document).ready(function(e) {
 		  </div>
 		</div>
 	</div>
+	</c:if>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
      <script src="./js/index.js"></script>
@@ -202,11 +214,44 @@ $(document).ready(function(e) {
 <script type="text/javascript" src="./javascript.js"></script>
 
 
+	
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$('a.#date').live('click', function(e){
+
+    e.preventDefault();   
+    
+    alert("hello"),
+    $.get("sortDate");
+    
+   
+});
+
+</script>
+
+
+
+
+<script type="text/javascript">
+$('a.#likes').live('click', function(e){
+
+    e.preventDefault();   
+    
+    alert("hello2"),
+    $.get("sortLikes");
+    
+   
+});
+
+</script>
 
 <script type = "text/javascript">
 
 
 function myFunction() {
+	
+	
 				$('#likes').hide();
 				$('#genres').hide();
 				$('#date').show();

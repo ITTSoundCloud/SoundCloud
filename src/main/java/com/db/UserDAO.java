@@ -29,10 +29,9 @@ public class UserDAO {
 	}
 	
 	//insert user
-	public synchronized boolean saveUser(User user){
+	public synchronized boolean saveUser(User user) throws SQLException {
 
 		PreparedStatement statement = null;
-		try {
 			String sql = "INSERT INTO users (email,username,password)"
 					+ "VALUES(?,?,?)";
 			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
@@ -47,20 +46,7 @@ public class UserDAO {
 				return true;
 			}
 
-		} catch (SQLException e) {
-			System.out.println("Cannot add to DB." + e.getClass().getName() + " " + e.getMessage());
-			return false;
-		}
-		finally{
-			if(statement != null){
-				try {
-					statement.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
-		return true;
+		return false;
 	}
 	
 	// get all users
