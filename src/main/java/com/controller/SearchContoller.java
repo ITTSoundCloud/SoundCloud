@@ -35,6 +35,7 @@ public class SearchContoller {
 	
 	private static final String WELCOME_VIEW = "new";
 	
+	
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(@RequestParam(value="search_text") String search_text,
@@ -63,7 +64,7 @@ public class SearchContoller {
 					System.out.println(mapUsers);
 
 			}
-		}
+		}		
 			
 		} catch (SQLException e) {
 			System.out.println("Error getting users from DB for listing in search./search");

@@ -37,23 +37,24 @@ public class PlaylistController {
 	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/songs/";
 	
 	@RequestMapping(value = "/addPlaylist", method = RequestMethod.POST)
-	public String addPlaylist(
+	public void addPlaylist(
 		@RequestParam(value = "playlist") String playlist,
-		@RequestParam(value = "description") String description,
+		@RequestParam(value = "description") String description,Model model,
 		HttpServletRequest request, HttpSession session) {
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		Song songToAdd = (Song)session.getAttribute("songToAddInPlaylist");
 		if (validatePlaylist(playlist, description, request, session)) {
 			try {
-				int playlist_id = PlaylistDAO.getInstance().createPlaylist(2, playlist, description);			
+				int playlist_id = PlaylistDAO.getInstance().createPlaylist(user.getUserId(), playlist, description);			
 				PlaylistDAO.getInstance().addSongToPlayList(playlist_id, songToAdd.getSongId());
 			} catch (SQLException e) {
 				System.out.println("cant add song to playlist./addPlaylist");
 				e.printStackTrace();
-				return "error";
+				//return "error";
 			}
 		}
-		return "song";
+		giveUser(model, session, songToAdd.getTitle());
+		
          
 	}
 	

@@ -27,6 +27,25 @@ h3 {
     margin: 25px 0 15px;
    
 }
+.explore-btn{
+font-size: 15.5px;
+    color: white;
+    display: block;
+    line-height: 40px;
+    padding: 0 26px;
+    text-decoration: none;
+    font-family: Montserrat, sans-serif;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    background:rgba(0,0,0,0.0);
+    border:none;
+    border-left: 1px solid #ccc;
+ }
+     
+ .explore-btn:hover{
+   background:rgba(0,0,0,0.3);
+   color:rgba(255,88,0,0.6);
+ }
+ 
 </style>
 
 
@@ -76,7 +95,6 @@ $(document).ready(function(e) {
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						            
 						          </ul>
-		       				 </li>
 		       				 
 						</c:otherwise>
 					</c:choose>
@@ -85,15 +103,20 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
+
 	<ul class="nav2" style="background:rgba(0,0,0,0.6);">
 		<li><a onclick="#" href="#" style="background:rgba(0,0,0,0.4);">EXPLORE</a></li>
-		<li><a onclick="#" href="#">By Likes</a></li>
-		<li><a onclick="myFunction()" href="#">By Upload</a></li>
-		<li><a onclick="myFunction2()" href="#">By Genres</a></li>
+		<li><form action="sortLikes" method="get"><button class="explore-btn">By Likes</button></form></li>
+		<li><form action="sortDate" method="get"><button class="explore-btn">By Upload</button></form></li>
+		<li><form action="sortGenres" method="get"><button class="explore-btn">By Genres</button></form></li>
 	</ul>
 	
-		
-<div id="likes" style="display:none">
+<c:choose >
+	<c:when test="${!type.equals('likes') or empty type}">
+		<div style="display:none"></div>
+		</c:when>
+	<c:otherwise>
+		<div style="display:block">
 	<div class="main">
 	  <ul>
 	  <c:forEach items="${sessionScope.songs}" var="song">
@@ -111,8 +134,15 @@ $(document).ready(function(e) {
 	  </ul>
 	</div>
 </div>
+</c:otherwise>
+</c:choose>
 
-	<div id="date" style="display:none">
+	<c:choose>
+	<c:when test="${!type.equals('date') or empty type}">
+		<div style="display:none"></div>
+	</c:when>
+	<c:otherwise>
+		<div style="display:block">
 	   <div class="container-fluid">
 	        <div class="side-body">
 			   <div class="col-md-9">
@@ -173,14 +203,15 @@ $(document).ready(function(e) {
 					</table>		
 				</div>
 			</div>
-			
+			</div>
 			</div>
 			
-	       </div>
-	  
+	       </c:otherwise>
+	       </c:choose>
+	 
 	<!-- TODO -->
-	
 <c:set var="genres" scope="request" value="${genres}"/>
+	<c:if test="${!type.equals('likes') and !type.equals('date') or empty type}">
 	<div id="genres" style="display:block">
 		<div class="bg-content">
 		  <div id="content">
@@ -204,6 +235,7 @@ $(document).ready(function(e) {
 		  </div>
 		</div>
 	</div>
+	</c:if>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
      <script src="./js/index.js"></script>
@@ -214,44 +246,8 @@ $(document).ready(function(e) {
 <script type="text/javascript" src="./javascript.js"></script>
 
 
-
-<script type = "text/javascript">
-
-
-function myFunction() {
-				$('#likes').hide();
-				$('#genres').hide();
-				$('#date').show();
-				document.getElementById("first").style="color:#777";
-				document.getElementById("second").style="color:#777";
-				document.getElementById("third").style="color:#f50";
-			
-				
-};
-
-/* function myFunction1() {
-
-				$.get("sortLikes");
-				$('#likes').hide();
-				$('#genres').hide();
-				$('#date').show();
-			
-			
-}; */
-
-function myFunction2() {
-
-				$('#likes').hide();
-				$('#genres').show();
-				$('#date').hide();
-				document.getElementById("first").style="color:#777";
-				document.getElementById("second").style="color:#777";
-				document.getElementById("third").style="color:#f50";
-				
-			
-};
-
-</script>
+	
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
 </body>
 </html>
