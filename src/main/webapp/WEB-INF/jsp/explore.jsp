@@ -8,7 +8,8 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/styleGenres.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="<c:url value="/static/css/miniPlayerLikes.css" />" rel="stylesheet" type="text/css">
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
@@ -28,7 +29,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:rgba(0,0,0,0.1);">
+<body style="background:url(http://www.rmweb.co.uk/community/uploads/monthly_03_2015/post-3717-0-28910200-1427235972.jpg);">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -87,20 +88,26 @@ $(document).ready(function(e) {
 		</c:when>
 	<c:otherwise>
 		<div style="display:block">
+		<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Our most listened</h3>
+		<hr>
 	<div class="main">
 	  <ul>
 	  <c:forEach items="${sessionScope.songs}" var="song">
 	    <li class="track">
 	       <div class="cover">
-	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px; alt="" />
+	          <span class="artist" style="font-size:15px;color:#707070;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
+	         <span class="titleSong" style="font-size:18px;margin-left:25px;"><c:out value="${song.title }"/></span>
+	    
+	        <img src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg"  width=200px; height = 200px; alt="" />
+	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
 	      </div>
-	      <div class="info">
-	        <span class="titleSong"><c:out value="${song.title }"/></span>Likes<c:out value="${song.likes }"/>
-	        <span class="artist">Avicii</span>
+	      <div class="info" style="margin-top:10px;">
+	       	<i class="fa fa-heart"></i> <c:out value="${song.likes }"/>
 	      </div>
-	      <audio src="http://a805.phobos.apple.com/us/r1000/071/Music/3b/2d/ac/mzm.wtdviygy.aac.p.m4a"></audio>
-	    </li>
+	      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
+	    </li> 
 	     </c:forEach>
+	     <hr>
 	  </ul>
 	</div>
 </div>
@@ -188,7 +195,8 @@ $(document).ready(function(e) {
 		    <div class="container">
 		      <div class="row">
 		        <article class="span12">
-		          <h3>Explore by Genres</h3>
+		          <h3><i class="fa fa-cloud" style="color:#707070;margin-left:-60px;"></i> Explore by Genres</h3>
+		          <hr>
 		        </article>
 		        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
