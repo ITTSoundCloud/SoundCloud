@@ -10,117 +10,15 @@
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/searchResults.css" />" rel="stylesheet" type="text/css">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
- <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
-    <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
-     <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
-     
+<script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>  
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
-     
-     
-     <style type="text/css">
-     
-  ol, ul {
-    margin-top: 0;
-    margin-bottom: -30px;
-}
 
-.h6,h6{
-margin-left:25px;}
-
-     
-     
-    button.followButton{
-    margin-top:50px;
-     border-radius: 0;
-    margin-left: 30px;
-    position: relative;
-    float: left;
-    margin-right: 5px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-    padding: 4px 15px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-}
-button.followButton.following{
-}
-
-button.likeButton{
-margin-top:50px;
-    border-radius: 0;
-    margin-left: 30px;
-    position: relative;
-    float: left;
-    margin-right: 5px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-   padding: 4px 15px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-  
-}
-
-button.likeButton:hover{
-    color: #000000;
-    background-color: rgba(0,0,0,0.1);
-    border-color: rgba(0,0,0,0.2);
-  
-}
-
-button.followButton:hover{
- color: #000000;
-    background-color: rgba(0,0,0,0.1);
-    border-color: rgba(0,0,0,0.2);
-}
-button.likeButton.liked{
-       
-  
-}
-  
-
-</style>
-     
-
-
-  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>Insert title here</title>
+<title>Search</title>
 
 </head>
 <body>
@@ -202,10 +100,7 @@ button.likeButton.liked{
 </script>
 
 
-
 <input type="hidden" id="refresh" value="no">
-
-
 
 	  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
