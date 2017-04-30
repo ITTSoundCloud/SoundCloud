@@ -1,5 +1,6 @@
 package com.db;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -235,6 +236,39 @@ public class SongDAO {
 			}
 		
 		return Collections.unmodifiableList(songsInGenre);
+	}
+	
+	public synchronized static void deleteSong(int songId) throws SQLException {
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		PreparedStatement ps3 = null;
+		try {
+			con.setAutoCommit(false);
+			String sql1 = "DELETE FROM soundcloud.songs_likes WHERE song_id = ?";
+			ps1 = con.prepareStatement(sql1);
+			ps1.setInt(1, songId);
+			ps1.execute();
+			
+			String sql2 = "DELETE FROM soundcloud.playlists_songs WHERE song_id = ?";
+			ps2 = con.prepareStatement(sql2);
+			ps2.setInt(1, songId);
+			ps2.execute();
+			
+			String sql3 = "DELETE FROM soundcloud.comments WHERE song_id = ?";
+			ps3 = con.prepareStatement(sql3);
+			ps3.setInt(1, songId);
+			ps3.execute();
+			
+			con.commit();
+		} catch (SQLException e) {
+			con.rollback();
+			throw new SQLException("rolled back, something went wrong");
+		} finally {
+			if (ps1 != null) ps1.close();
+			if (ps2 != null) ps2.close();
+			con.setAutoCommit(true);
+		}
 	}
 	
 	

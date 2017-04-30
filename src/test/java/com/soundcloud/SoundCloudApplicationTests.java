@@ -11,6 +11,7 @@ public class SoundCloudApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

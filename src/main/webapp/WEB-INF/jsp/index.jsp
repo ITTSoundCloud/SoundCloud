@@ -194,7 +194,7 @@
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
       <div class="login">
-
+		<span class="fb-login-button" data-max-rows="1" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
       <c:choose>
 	      <c:when test="${empty sessionScope.username}">
 		        <button class="btn-1" id="buttonLogin">Sign in</button>
@@ -229,9 +229,9 @@
     <div id="errorMsg" size="1" color="red">
     </div>
       <label for="username">Username:</label>
-      <input type="text" id="username-login" name="username-login" required >
+      <input type="text" id="username-login" name="username-login" required maxlength="35">
       <label for="password">Password:</label>
-      <input type="password" id="password-login" name="password-login" required>
+      <input type="password" id="password-login" name="password-login" required maxlength="35">
       <p class="check-mark">
         <input type="checkbox" id="remember-me">
         <label for="remember-me">Remember me</label>
@@ -242,11 +242,11 @@
     <font id="error" size="1" color="red">
 </font>
       <label for="email-register" >Email: </label>
-      <input type="text" id="email" name="email" required onblur="myFunction2()">
+      <input type="text" id="email" name="email" required maxlength="45" onblur="myFunction2()">
       <label for="username-register">Username:</label>
-      <input type="text" id="username" name="username" required onblur="myFunction1()">
+      <input type="text" id="username" name="username" required maxlength="35" onblur="myFunction1()">
       <label for="password-register">Password:</label>
-      <input type="password" id="password" name="password" required onblur="myFunction3()">
+      <input type="password" id="password" name="password" required maxlength="35" onblur="myFunction3()">
       <p class="check-mark">
         <input type="checkbox" id="accept-terms" required>
         <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
@@ -272,7 +272,7 @@
       <button class="btn-3" id="buttonReg">Browse SoundCloud</button>
     </div>
       <form class="search-container" action="/SoundCloud/search" method = "get">
-    <input type="text" id="search-bar" name="search_text" placeholder="Search for your favourite music now!">
+    <input type="text" id="search-bar" name="search_text" placeholder="Search for your favourite music now!" maxlength="45">
     <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
   </form>
 

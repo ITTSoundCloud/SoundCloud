@@ -4,9 +4,12 @@ import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFro
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +38,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.MapDeserializer;
 import com.model.Comment;
+import com.model.Countries;
 import com.model.Playlist;
 import com.model.Song;
 import com.model.User;
@@ -243,13 +247,11 @@ public class UserConroller {
 	
 	 @RequestMapping(value = "/index", method = RequestMethod.GET)
 	    public String index() {        
-	        return "index";
+	        return "newUpdateProfile";
 	    }
-	 
-
+	 	 
 	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
 	public String sortByDate(Model model, HttpSession session){
-		User currentUser=(User) session.getAttribute("user");
 		model.addAttribute("type", "date");
 		
 		List<Song> songsByDate;
@@ -262,19 +264,89 @@ public class UserConroller {
 			System.out.println(s.getSongId());
 		}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("cant get all songs./sordDate");
 			e.printStackTrace();
+			return "error";
 		}
 		return "explore";	
 	
 	}
+	
+	@RequestMapping(value="/updateCurrentProfile_{username}", method=RequestMethod.GET)
+	public String updateCurrentProfile(
+			@PathVariable(value="username") String username,
+			HttpSession session,Model model) {
+		
+		System.out.println("--------------------------------------------------");
+		
+		
+		List<String> countries = Arrays.asList(countriesToString().split(" "));
+		
+		System.out.println(countries + "******************************************************");
+		model.addAttribute("countries", countries);
+		model.addAttribute("username", username);
 
+		return "newUpdateProfile";
+	}
+	
+	public static String countriesToString() {
+	    return Stream.of(Countries.values()).
+	                map(Countries::name).
+	                collect(Collectors.joining(" "));
+	}
+
+	
+	@RequestMapping(value="/updateProfile", method=RequestMethod.POST)
+	public String updateProfile(
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "country") String country,
+			@RequestParam(value = "about") String about,
+			HttpSession session,Model model) {
+		System.out.println("--------------------------------------------------");
+		//String[] countries = countriesToString().split(" ");
+		//System.out.println(countries + "******************************************************");
+		//model.addAttribute("countries", countries);
+		User currentUser = (User) session.getAttribute("user");
+		
+		try {
+			UserDAO dao = UserDAO.getInstance();
+			dao.editName(currentUser.getUsername(), name);
+			dao.editCountry(currentUser.getUsername(), country);
+			dao.editDescription(currentUser.getUsername(), about);
+			
+		} catch (SQLException e) {
+			System.out.println("cant update profile in dao. /updateProfile");
+			e.printStackTrace();
+			return "error";
+		}
+
+		return "newUpdateProfile";
+	}
+	
+	@RequestMapping(value="/changePassword", method=RequestMethod.POST)
+	public String changePassword(
+			@RequestParam(value = "currentPassword") String currentPassword,
+			@RequestParam(value = "newPassword") String newPassword,
+			HttpSession session,Model model) {
+		System.out.println("Change password***************");
+		User currentUser = (User) session.getAttribute("user");
+		if (currentPassword.equals(currentUser.getPassword()) && passValidator.validate(newPassword)) {
+			try {
+				UserDAO.getInstance().editPassword(currentUser.getUserId(), newPassword);
+			} catch (SQLException e) {
+				System.out.println("cant change password. /changePassword");
+				e.printStackTrace();
+				return "error";
+			}
+		}
+
+		return "newUpdateProfile";
+	}
 
 	
 	@RequestMapping(value = "/sortLikes", method= RequestMethod.GET)
 	public String sortLikes(Model model, HttpSession session){
 		model.addAttribute("type", "likes");
-		User currentUser = (User) session.getAttribute("user");	
 		List<Song> songsByLikes;
 		try {
 			songsByLikes = SongDAO.getInstance().getAllSongs();
@@ -285,7 +357,9 @@ public class UserConroller {
 			System.out.println(s.getLikes());
 		}
 		} catch (SQLException e) {
-			System.out.println("problem");
+			System.out.println("cant get all songs./sortLikes");
+			e.printStackTrace();
+			return "error";
 		}	
 
 		return "explore";
@@ -404,7 +478,6 @@ public class UserConroller {
 				LikeDAO.getInstance().likeSong(currentUser.getUserId(), song.getSongId());
 				System.out.println("The song " + song + " was liked successfully from search page.");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 				
@@ -423,7 +496,6 @@ public class UserConroller {
 				LikeDAO.getInstance().removeLikeSong(currentUser.getUserId(), song.getSongId());
 				System.out.println("The song " + song + " was unliked successfully from search page.");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 				
@@ -441,7 +513,6 @@ public class UserConroller {
 				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), visitedSong.getSongId());
 				System.out.println("tuk sme");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				System.out.println("mina");
 				e.printStackTrace();
 			}	
@@ -456,7 +527,6 @@ public class UserConroller {
 				@RequestParam(value = "commentId") int comment_id){
 		
 			User currentUser = (User) session.getAttribute("user");
-			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
 			try {
 				System.out.println("Laiknahme commenta");
 				CommentDAO.getInstance().likeComment(currentUser.getUserId(), comment_id);
@@ -473,7 +543,6 @@ public class UserConroller {
 				@RequestParam(value = "commentId") int comment_id){
 		
 			User currentUser = (User) session.getAttribute("user");
-			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
 			try {
 				System.out.println("UnLaiknahme commenta");
 				CommentDAO.getInstance().removeLikeComment(currentUser.getUserId(), comment_id);
@@ -496,7 +565,6 @@ public class UserConroller {
 					System.out.println("user " + currentUser + "was followed on his profile page.");
 				}
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -516,7 +584,6 @@ public class UserConroller {
 				UserDAO.getInstance().followUser(currentUser.getUserId(), userToFollow.getUserId());
 				System.out.println("The user " + currentUser + " was followed successfully from search page.");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 				
@@ -541,7 +608,6 @@ public class UserConroller {
 						System.out.println("Error unfollowing user on his page!");
 					}
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 					
@@ -564,7 +630,6 @@ public class UserConroller {
 						System.out.println("Error unfollowing user on search page!");
 					}
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -609,6 +674,28 @@ public class UserConroller {
 		System.out.println("validateEverything");
 		return EmailValidator.validate(email) && UsernameValidator.validate(username) && passValidator.validate(password);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/validateChangePassword", method = RequestMethod.POST)
+	public boolean validateChangePassword(
+			@RequestParam(value = "currentPass") String currentPass,
+			@RequestParam(value = "newPass") String newPass,
+			HttpServletRequest request, HttpSession session){
+		System.out.println("validateChangePassword");
+		User currentUser = (User) session.getAttribute("user");
+		return currentPass.equals(currentUser.getPassword()) && passValidator.validate(newPass);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/checkCurrentPass", method = RequestMethod.POST)
+	public boolean isValidPass(
+			@RequestParam(value = "currentPass") String currentPass,
+			HttpServletRequest request, HttpSession session){
+		System.out.println("checkCurrentPass");
+		User currentUser = (User) session.getAttribute("user");
+		return currentPass.equals(currentUser.getPassword());
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/validateAllLogin", method = RequestMethod.POST)

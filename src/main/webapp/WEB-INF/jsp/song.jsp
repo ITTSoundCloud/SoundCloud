@@ -197,7 +197,7 @@ button.likeButton.liked{
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Wavesurfer</title>
+<title>Song</title>
 
 <script>
 $(document).ready(function(e) {
@@ -222,7 +222,7 @@ $(document).ready(function(e) {
 			      </ul>
 			       <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text">
+			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -237,7 +237,7 @@ $(document).ready(function(e) {
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="#">Profile</a></li>
+						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
@@ -334,9 +334,9 @@ $(document).ready(function(e) {
 	<form action="/SoundCloud/addPlaylist" class="add-playlist" method="post" name="addPlaylistForm" id="addPlaylistForm" onsubmit="return validateRequestPlaylist()">
 		<div id="errorMsg" size="1" color="red"></div>
 	      <label for="playlist">Playlist name:</label></br>
-	      <input type="text" class="playlist-name" id="playlist" name="playlist" required=""></br>
+	      <input type="text" class="playlist-name" id="playlist" name="playlist" required maxlength="45"></br>
 	      <label for="description">Description:</label></br>
-	      <textarea class="playlist-desc" id="description" name="description" required=""></textarea>
+	      <textarea class="playlist-desc" id="description" name="description" required maxlength="45"></textarea>
 	      <input type="submit" class="button-playlist" id="create-playlist" value="Create Playlist" onclick="validateLogin()">  
 	    </form>
 	  </div><!--.popup-content-->

@@ -58,7 +58,7 @@ $(document).ready(function(e) {
 			      </ul>
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
+			          <input type="text" class="form-control" placeholder="Search" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -73,7 +73,7 @@ $(document).ready(function(e) {
 								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="#">Profile</a></li>
+						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
@@ -138,7 +138,8 @@ $(document).ready(function(e) {
     <div class="profile col-md-3 col-xs-12">
 		<ul class="profile-links">
 			<li><i class="glyphicon glyphicon-envelope"></i> <a><i class=""></i><c:out value="${user.email}"/></a></li>
-			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>	
+			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
+		
 			<hr>
 			 <c:choose>     
 		  	    <c:when test="${empty user.bio}">
@@ -157,12 +158,13 @@ $(document).ready(function(e) {
 						<div class="main">
 							<td>
 								<ul>
+										<form action="deleteSong" method="POST">
 								  <li class="track" style="margin-bottom:-10px;" id="tracka">
 									      <div class="cover-c">	       
 												<a href="song_${entry.key}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="60" height="60"></a>					
 										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${entry.key}"/> - </span>
 										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${entry.value}"/></span>
-										  <i class="fa fa-trash-o" style="margin-left:30px;"></i>  
+										  		<button><i class="fa fa-trash-o" style="margin-left:0px;"></i>delete</button>  
 												<button class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 												
 									     	</div>
@@ -171,6 +173,8 @@ $(document).ready(function(e) {
 									     
 									      <hr>
 									    </li>
+									    </form>
+									    								    
 									  </ul>
 									  </td>	  
 									  

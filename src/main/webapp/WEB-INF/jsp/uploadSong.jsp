@@ -35,7 +35,7 @@ $(document).ready(function(e) {
 			      </ul>
 			       <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text">
+			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -50,7 +50,7 @@ $(document).ready(function(e) {
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="#">Profile</a></li>
+						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
@@ -67,11 +67,11 @@ $(document).ready(function(e) {
 <form method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Song Tittle</label>
-    <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title" required>
+    <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title" required maxlength="45">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Artist</label>
-    <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist" required>
+    <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist" required maxlength="45">
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Genre</label>
@@ -86,7 +86,7 @@ $(document).ready(function(e) {
   </div>
   <div class="form-group">
     <label for="exampleTextarea">Description</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3" name="description"></textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="3" name="description" maxlength="300"></textarea>
   </div>
   <div class="form-group">
     <label for="exampleInputFile">File input</label>
@@ -95,5 +95,6 @@ $(document).ready(function(e) {
       <input type="submit" class = "idiotButton" value="Upload now">
   </div>
 </form>
+
 </body>
 </html>
