@@ -111,7 +111,8 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
             
-
+	<h3 style="margin-left:120px;margin-bottom:-33px;">Playlist</h3>
+	<h3 style="margin-left:160px;margin-bottom:-33px;font-size:15px;color:#707070;">by borko123</h3>
            <div class="container" style="background:url(http://59.160.153.185/iyff/iyff2014/iyff/sites/default/files/banner-text-bg_1.png) no-repeat;margin-top:20px;width:1900px;height:190px;">
 
         <!-- Song Name & Song Title-->
@@ -127,8 +128,9 @@ $(document).ready(function(e) {
              <img class="song-image" src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg
                             " alt="" style="margin-left:70px;" width="180" height="180">
     </div>
-
-                 
+		
+           <h5 style="margin-left:340px;font-size:17px;margin-top:30px;color:#707070"><i class="fa fa-headphones"></i> ${songsInPlaylist.size()} Tracks</h5>
+           <hr>
            <div class="list-group" id="playlist">
                 <c:forEach items="${songsInPlaylist}" var="song">
 	                <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
@@ -159,7 +161,7 @@ $(document).ready(function(e) {
                 waveColor: '#707070',
                 progressColor: 'rgba(255,88,6,0.8)',
                 height: 120,
-                barWidth: 3
+                barWidth: 1
             });
         });
 

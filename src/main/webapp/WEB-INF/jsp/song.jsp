@@ -36,7 +36,8 @@
   font-family:calibri;
   position:relative;
   clear:both;
-  width:590px;
+  width:790px;
+  margin-left:100px;
 }
 .message .avatar{
   margin-top:5px;
@@ -45,7 +46,7 @@
   float:left;
   font-family:calibri;
   color:#333;
-  width:450px;
+  width:580px;
   margin:0;
   margin-left:20px;
   margin-top:5px;
@@ -99,6 +100,34 @@ border-color: transparent transparent transparent #eeeeee;
 }
 
 button.likeCommentButton{
+ border-radius: 0;
+    margin-left: 20px;
+    position: relative;
+    float: left;
+    margin-top:27px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+  
 }
 
 button.likeCommentButton.liked{
@@ -153,7 +182,7 @@ button.likeButton.liked{
 
 .btn-group {
     margin-top: 30px;
-    margin-left: 20px;
+    margin-left: 100px;
     margin-bottom:20px;
 }
 
@@ -178,11 +207,11 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body>
+<body style="background:url(http://www.rmweb.co.uk/community/uploads/monthly_03_2015/post-3717-0-28910200-1427235972.jpg);">
 
 <input type="hidden" id="refresh" value="no">
 
-   <nav class="navbar navbar-inverse">
+   <nav class="navbar navbar-inverse" style="margin-bottom:-22px;">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		           <a class="navbar-brand" href="#"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
@@ -203,7 +232,7 @@ $(document).ready(function(e) {
 							<button type="button" class="btn btn-success">Sign In</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
-						<c:otherwise>
+					<c:otherwise>
 						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
@@ -235,11 +264,15 @@ $(document).ready(function(e) {
                 <div class="song-title">&nbsp<c:out value="${song.title }"/> &nbsp</div>
             </li>
         </ul>
+<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:40px;color:#fff;background:rgba(0,0,0,0.6);height:25px;width:120px;font-size:24px;">Arabella</h4></br>
+<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:80px;color:#ccc;background:rgba(0,0,0,0.6);height:25px;width:160px;font-size:18px;">Arctic Monkeys</h4>
+<h4 style="margin-bottom:-100px;margin-left:520px;margin-top:40px;color:#fff;background:#909090;height:25px;width:130px;padding:3px 18px;border-radius:20px;font-size:17px;">#<c:out value="${song.genre}"/></h4>
 
-        <button type="button" class="btn btn-warning btn-circle btn-xl" onclick="wavesurfer.playPause()">
+        <button type="button" style="margin-top:35px;margin-left:13px;" class="btn btn-warning btn-circle btn-xl" onclick="wavesurfer.playPause()">
               <i class="fa fa-play" style="font-size: 38px; margin-right: -1rem"></i>
               </button>
-        <div id="waveform"></div>
+        <div id="waveform" style="margin-top:120px;">
+        </div> <img src="<c:url value="http://localhost:8080/scUploads/pics/imagination.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >
     </div>
     <br>
 
@@ -278,10 +311,17 @@ $(document).ready(function(e) {
 			            </ul>
 			             <div class="overlay"></div>
 			        </div>
+			        
+			        
 						</c:otherwise>
 					</c:choose>
 
-
+		<div>
+			<ul class="buttons-right pull-left" style="margin-left:600px;margin-top:-25px;font-size:15px;">
+                <li><i class="fa fa-play"></i> 55</li>
+                <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
+          </ul>
+     	</div>
         
  	<div class="main-popup">
 	  <div class="popup-header">
@@ -301,18 +341,14 @@ $(document).ready(function(e) {
 	    </form>
 	  </div><!--.popup-content-->
 	</div>
-            <div><ul class="buttons-right pull-left">
-                <li><i class="fa fa-play"></i> 55</li>
-                <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
-            </ul>
-        </div>
     </div>
     
     <div id="textbox" class="input-group">
         <textarea class="form-control custom-control" id = "comment" rows="1" placeholder="Write your comment..."></textarea>
-        <button id="submitCom" class="input-group-addon btn btn-default">Send</button>
+        <button id="submitCom" class="btn btn-default btn-xs btn-space" style="width:60px;height:30px;">Send</button>
     </div>
-    
+    <h5 style="margin-left:120px;font-size:16px;color:#707070;"><i class="fa fa-comment"></i>  <c:out value="${allComments.size()}"></c:out> Comments</h5>
+    <hr>
  <div id="global">
   <div class="messages">
 	  <c:choose>
@@ -324,7 +360,7 @@ $(document).ready(function(e) {
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${allComments}" var="entry">
-					<div class="message" id="comments">
+					<div class="message" style="margin-left:1px;"id="comments">
 					</div>
 					<div class="message" id="comments">
 						 <img src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" />" class="avatar">
@@ -333,10 +369,10 @@ $(document).ready(function(e) {
 						<c:if test="${not empty sessionScope.username}">
 						<c:choose>
 						<c:when test="${!entry.value}">
-							 <button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> LikeComment</button>
+							 <button class="btn likeCommentButton" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Like</button>
 						</c:when>
 						<c:otherwise>
-							<button class="btn likeCommentButton liked" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Unlike Comment</button>
+							<button class="btn likeCommentButton liked" id="likeCom" target="${entry.key.commentId }" rel="6"><i class="fa fa-heart" ></i> Unlike</button>
 						</c:otherwise>
 						 </c:choose>
 						 </c:if>		 
@@ -372,7 +408,8 @@ wavesurfer.init({
     barWidth: 1,
     waveColor: 'white',
     progressColor: 'orange',
-    cursorWidth: 0
+    cursorWidth: 0,
+    
 
 });
 
@@ -422,8 +459,7 @@ $(function(){
 		success: function(newComment){
 			var h = document.getElementById("comment");
 			document.getElementById('comments').innerHTML += `<div class="message" id="comments"><img src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />" class="avatar">
-				  <p><strong>${user.username}, <em>${timeStamp}</em></strong>`+h.value+`</p></div>`,
-				  $comments.append(timeStamp),
+				  <p><strong>${user.username} <em>${timeStamp}</em></strong>`+h.value+`</p></div>`,
 			cm.value="";
 		}
 		
@@ -449,6 +485,8 @@ $('button.likeButton').live('click', function(e){
     } else {
         $.post("like");
         $button.addClass('liked');
+        $(this).append($("<i class='fa fa-heart'></i>")).button();
+
         $button.innerHTML = `<i class="fa fa-heart"></i>`,
         $button.text('Unlike');
     }
@@ -465,7 +503,6 @@ $('button.likeCommentButton').live('click', function(e){
     
     $button = $(this);
    	var x = $(this).attr("target");
-   	
     if($button.hasClass('liked')){
     	alert("unlikevameCommenta"),
     	 $.post("removeLikeComment", 
@@ -473,8 +510,9 @@ $('button.likeCommentButton').live('click', function(e){
  					commentId: x,
  					
  				});
-        $button.removeClass('liked');  
-        $button.text('Like Comment');
+        $button.removeClass('liked');
+
+        $button.text('Like');
     } else {
     	alert("likevame"),
     	  $.post("likeComment", 
@@ -483,7 +521,9 @@ $('button.likeCommentButton').live('click', function(e){
     					
     				});
         $button.addClass('liked');
-        $button.text('Unlike Comment');
+        document.getElementById("likeCom").innerHTML+= `<i class="fa fa-heart"></i>`;
+          
+        $button.text('Unlike');
     }
 });
 

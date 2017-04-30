@@ -55,7 +55,7 @@ $(document).ready(function(e) {
 						<c:otherwise>
 						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						          <a href="#" class="dropdown-toggle" style="color:#707070;decoration:none;padding:10px 10px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						            <li><a href="#">Profile</a></li>
 						            <li><a href="#">Followers</a></li>

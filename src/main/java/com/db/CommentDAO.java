@@ -62,7 +62,7 @@ public class CommentDAO {
 			
 			String sql = "select c.comment_id,c.content,c.upload_time,c.user_id,c.song_id,"
 					+ "u.username from soundcloud.comments c join "
-					+ "soundcloud.users u using(user_id) where c.song_id=?;";
+					+ "soundcloud.users u using(user_id) where c.song_id=? order by c.upload_time desc;";
 			List<Comment> comments = new ArrayList<Comment>();
 			PreparedStatement ps = null;
 	       
