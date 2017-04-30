@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.Playlist;
 import com.model.Song;
@@ -131,8 +133,44 @@ public class PlaylistDAO {
 		return Collections.unmodifiableList(userPlaylists);
 	}
 	
+	
+	
+	//get username and playlist object
+	public Map<String,Playlist> getPlaylist(int playlist_id) throws SQLException{
+		String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u"
+				+ " using(user_id) where playlist_id = ?;";
+		
+		Map<String,Playlist> playlists = new HashMap<>();
+		PreparedStatement ps = null;
+		try{
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ps.setInt(1, playlist_id);
+			
+			ResultSet resultSet = ps.executeQuery();
+			
+			while(resultSet.next()){
 
-	// 
+				Playlist playlist = new Playlist(
+						resultSet.getInt("p.playlist_id"),
+						resultSet.getString("p.title"),
+						resultSet.getInt("p.user_Id"));
+
+				playlist.setDescription(resultSet.getString("p.description"));
+				playlists.put(resultSet.getString("u.username"), playlist);
+				
+			}
+		
+		}
+		
+		finally{
+			ps.close();
+		}
+		return Collections.unmodifiableMap(playlists);
+	}
+	
+	
+
+	// for? TODO
 	public int getPlaylistId(String name) throws SQLException {
 		String sql = "select playlist_id from soundcloud.playlists where title = ?;";
 		PreparedStatement ps = null;
