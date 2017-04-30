@@ -64,6 +64,14 @@ public class PlaylistController {
 		@PathVariable(value = "playlistId") int playlist_id,Model model,
 		HttpServletRequest request, HttpSession session) {
 		User user = (User)session.getAttribute("currentUser");
+		try {
+			//username -> playlist
+			Map<String,Playlist> infoPlaylist = PlaylistDAO.getInstance().getPlaylist(playlist_id);
+			model.addAttribute("infoPlaylist", infoPlaylist);
+		} catch (SQLException e1) {
+			System.out.println(e1.getMessage() + "cant get playlist info from playlist./playlist_{playlistId}");
+			return "error";
+		}
 		System.out.println(user);
 		try {
 			List<Song> songs = PlaylistDAO.getInstance().getAllSongsFromPlaylist(playlist_id);

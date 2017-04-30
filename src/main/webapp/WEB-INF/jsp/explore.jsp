@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +10,9 @@
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/styleGenres.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="<c:url value="/static/css/miniPlayerLikes.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/miniPlayerDate.css" />" rel="stylesheet" type="text/css">
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
  <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
@@ -28,7 +32,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:rgba(0,0,0,0.1);">
+<body style="background:url(http://www.rmweb.co.uk/community/uploads/monthly_03_2015/post-3717-0-28910200-1427235972.jpg);">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -72,7 +76,7 @@ $(document).ready(function(e) {
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
-		
+			
 
 	<ul class="nav2" style="background:rgba(0,0,0,0.6);">
 		<li><a onclick="#" href="#" style="background:rgba(0,0,0,0.4);">EXPLORE</a></li>
@@ -87,26 +91,31 @@ $(document).ready(function(e) {
 		</c:when>
 	<c:otherwise>
 		<div style="display:block">
+		<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Enjoy our most listened</h3>
+		<hr>
 	<div class="main">
 	  <ul>
 	  <c:forEach items="${sessionScope.songs}" var="song">
 	    <li class="track">
 	       <div class="cover">
-	        <img src="https://geo-media.beatport.com/image/10708239.jpg"  width=200px; height = 200px; alt="" />
+	          <span class="artist" style="font-size:15px;color:#707070;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
+	         <span class="titleSong" style="font-size:18px;margin-left:25px;"><c:out value="${song.title }"/></span>
+	    
+	        <img src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg"  width=200px; height = 200px; alt="" />
+	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
 	      </div>
-	      <div class="info">
-	        <span class="titleSong"><c:out value="${song.title }"/></span>Likes<c:out value="${song.likes }"/>
-	        <span class="artist">Avicii</span>
+	      <div class="info" style="margin-top:10px;">
+	       	<i class="fa fa-heart" id="inLikes"></i> <c:out value="${song.likes }"/>
 	      </div>
-	      <audio src="http://a805.phobos.apple.com/us/r1000/071/Music/3b/2d/ac/mzm.wtdviygy.aac.p.m4a"></audio>
-	    </li>
+	      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
+	    </li> 
 	     </c:forEach>
+	     <hr>
 	  </ul>
 	</div>
 </div>
 </c:otherwise>
 </c:choose>
-
 	<c:choose>
 	<c:when test="${!type.equals('date') or empty type}">
 		<div style="display:none"></div>
@@ -116,13 +125,13 @@ $(document).ready(function(e) {
 	   <div class="container-fluid">
 	        <div class="side-body">
 			   <div class="col-md-9">
-			     <h3> You searched for </h3>
-					<table class="table table-list-search">
+				<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Latest tunes</h3>
+					<table class="table table-list-search"  style="margin-top:30px;margin-left:60px;" >
 					<thead>
 						<tr>
-							<th><i>Songs</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>Open Song</i></th>
+							<th><i></i></th>
+							<th><i></i></th>
+							<th><i></i></th>
 						</tr>
 					</thead>
 					<c:if test="${empty songs}">
@@ -131,18 +140,22 @@ $(document).ready(function(e) {
 				<tbody>
 					<c:forEach items="${sessionScope.songs}" var="song">
 						<tr>
-						<div class="main">
+						<div class="main-d">
 						<td>
 						  <ul>
-						    <li class="track">
-						      <div class="cover">
+						    <li class="track-d">
+						      <div class="cover-d">
 						        <c:choose>
 									<c:when test ="${empty song.photo}">
-										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="80" height="80"></a>
+										 <span class="titleSong" style="font-size:15px;margin-left:25px;"><c:out value="${song.title }"/> - </span>				
+										 <span class="artist" style="font-size:15px;color:#707070;margin-left:5px;"><c:out value="${song.artist }"/></span>
 										<c:out value="${song.title}"/>
 									</c:when>
 									<c:otherwise>
-										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="100" height="100"></a>
+										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="80" height="80"></a>
+									<span class="titleSong" style="font-size:15px;margin-left:25px;"><c:out value="${song.title }"/> - </span>
+										 <span class="artist" style="font-size:15px;color:#707070;margin-left:5px;"><c:out value="${song.artist }"/></span>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -153,22 +166,37 @@ $(document).ready(function(e) {
 								<td>
 								<c:choose>
 									<c:when test ="${empty song.about}">
-										<h6>No description</h6>
+										<h5 style= "font-style: italic;"> No description</h5>
 									</c:when>
 									<c:otherwise>
-										<c:out value="${song.about}"/>
-										<a href="song_${song.title}"></a></br><h6>Uploaded <c:out value="${ song.uploadingTime}" /></h6>
+										<h5 style= "font-style: italic;margin-bottom:-10px;"><c:out value="${song.about}"/></h5>
+										<a href="song_${song.title}"></a></br>
+										<h5> Uploaded on
+										<fmt:parseDate value="${song.uploadingTime}" pattern="yyyy-MM-dd" 
+                          				var="parsedDate" type="date" />
+                          				<fmt:formatDate value="${parsedDate}" var="lastDate" 
+                           				type="date" pattern="dd.MM.yyyy" />
+                          				<h5 style="color:#707070;"><c:out value="${lastDate}"></c:out></h5>	
+										</h5>
 									</c:otherwise>
 								</c:choose>
 								</td>
 								<td>
-								<button type="button"
-										href="http://localhost:8080/SoundCloud/login">
-										<i class="fa fa-soundcloud"> Like</i>
-								</button>
+								<!-- TODO -->
+								<c:if test="${not empty sessionScope.username}">
+									<c:choose>
+									
+									  <c:when test="${!entry.value}">
+											<button class="btn likeButton" target="${song.title }" rel="6"><i class="fa fa-heart"></i> Like</button>
+										</c:when>
+										<c:otherwise>
+											<button class="btn likeButton liked" target="${song.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
 								</td>	
 							</tr>	
-							</c:forEach>
+						  </c:forEach>
 						</tbody>
 					</table>		
 				</div>
@@ -179,7 +207,7 @@ $(document).ready(function(e) {
 	       </c:otherwise>
 	       </c:choose>
 	 
-	<!-- TODO -->
+	<!-- TODO map! -->
 <c:set var="genres" scope="request" value="${genres}"/>
 	<c:if test="${!type.equals('likes') and !type.equals('date') or empty type}">
 	<div id="genres" style="display:block">
@@ -188,7 +216,8 @@ $(document).ready(function(e) {
 		    <div class="container">
 		      <div class="row">
 		        <article class="span12">
-		          <h3>Explore by Genres</h3>
+		          <h3><i class="fa fa-cloud" style="color:#707070;margin-left:-60px;"></i> Explore by Genres</h3>
+		          <hr>
 		        </article>
 		        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
@@ -205,7 +234,7 @@ $(document).ready(function(e) {
 		  </div>
 		</div>
 	</div>
-	</c:if>
+</c:if>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
      <script src="./js/index.js"></script>
@@ -214,9 +243,6 @@ $(document).ready(function(e) {
     
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="./javascript.js"></script>
-
-
-	
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
 </body>
