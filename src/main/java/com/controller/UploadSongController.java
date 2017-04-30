@@ -82,15 +82,17 @@ public class UploadSongController {
 								@RequestParam("genre") String genre,
 								@RequestParam("description") String description,
 								HttpSession session,Model model) throws IOException{
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		String username = (String) session.getAttribute("username");
 		System.out.println("vliza3");
+		System.out.println(user.getUserId());
 		File fileOnDisk = new File(FILE_LOCATION + title + ".mp3");
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisSong = multiPartFile.getOriginalFilename();
 		
 
 		try {
+			
 			SongDAO.getInstance().uploadSong(user.getUserId(), title, artist, FILE_LOCATION + title + ".mp3", "path_of_photo", description, genre);
 		} catch (SQLException e) {
 			System.out.println("Problem uploading song in DB");

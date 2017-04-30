@@ -63,6 +63,12 @@ public class SongController {
 		
 	}
 	
-	
-	
+	@ResponseBody
+	@RequestMapping(value="/deleteSong", method = RequestMethod.POST)
+	public void deleteSong(Model model,HttpSession session,
+			@RequestParam(value = "songId") int song_id) {
+		
+		
+	}
+		
 }

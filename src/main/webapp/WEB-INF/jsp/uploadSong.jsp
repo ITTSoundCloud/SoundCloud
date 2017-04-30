@@ -95,5 +95,6 @@ $(document).ready(function(e) {
       <input type="submit" class = "idiotButton" value="Upload now">
   </div>
 </form>
+
 </body>
 </html>
