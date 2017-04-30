@@ -27,7 +27,7 @@
                     <h1 style="margin-top:-260px;">Welcome to SoundCloud</h1>
                        <p>Please, enter your verification code.</p></br>
                      	<form action="verify" method="post">
-                                <input type="text" style="border-radius:16px;width:265px;height:30px;padding:0px 16px;" placeholder="Please enter code" name="code"/>
+                                <input type="text" style="border-radius:16px;width:265px;height:30px;padding:0px 16px;" placeholder="Please enter code" name="code" maxlength="10"/>
                                 <br>
                                 <br>
                                 <button style="border-radius:16px;width:300px;height:34px;color:#707070">Verify Email</button>

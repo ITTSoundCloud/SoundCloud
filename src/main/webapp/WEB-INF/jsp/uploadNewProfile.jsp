@@ -58,7 +58,7 @@ $(document).ready(function(e) {
 			      </ul>
 			      <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
+			          <input type="text" class="form-control" placeholder="Search" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -73,7 +73,7 @@ $(document).ready(function(e) {
 								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="#">Profile</a></li>
+						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
@@ -139,9 +139,7 @@ $(document).ready(function(e) {
 		<ul class="profile-links">
 			<li><i class="glyphicon glyphicon-envelope"></i> <a><i class=""></i><c:out value="${user.email}"/></a></li>
 			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
-
-			 <li><a href="updateCurrentProfile_${sessionScope.username}" id="updateCurrentProfile"> Update Profile </a></li>
-			
+		
 			<hr>
 			 <c:choose>     
 		  	    <c:when test="${empty user.bio}">

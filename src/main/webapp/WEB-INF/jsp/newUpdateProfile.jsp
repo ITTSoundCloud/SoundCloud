@@ -29,10 +29,6 @@ $(document).ready(function(e) {
 
 <input type="hidden" id="refresh" value="no">
 
-			<li>
-                <div class="username">&nbsp<c:out value="${username}"/> &nbsp</div>
-            </li>
-
  <nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,7 +40,7 @@ $(document).ready(function(e) {
 			      </ul>
 			       <form class="navbar-form navbar-left" action="/SoundCloud/search" method = "get">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text">
+			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
@@ -59,7 +55,7 @@ $(document).ready(function(e) {
 							<li class="dropdown">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="#">Profile</a></li>
+						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
@@ -76,7 +72,7 @@ $(document).ready(function(e) {
 <form method="POST" action="updateProfile">
   <div class="form-group">
     <label for="exampleInputEmail1">Full name</label>
-    <input type="text" value="${sessionScope.user.name}" class="form-control" id="name" name = "name" required >
+    <input type="text" value="${sessionScope.user.name}" class="form-control" id="name" name = "name" required maxlength="45" >
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Country</label>
@@ -88,7 +84,7 @@ $(document).ready(function(e) {
   </div>
   <div class="form-group">
     <label for="exampleTextarea">About me</label>
-    <textarea class="form-control"  id="about" rows="3" name="about" required>${sessionScope.user.bio}</textarea>
+    <textarea class="form-control"  id="about" rows="3" name="about" required maxlength="300">${sessionScope.user.bio}</textarea>
   </div>
   <input type="submit" class = "idiotButton" value="Update info"><br>
 </form>
@@ -97,10 +93,10 @@ $(document).ready(function(e) {
     <label for="exampleInputFile">Change Password</label><br><br>
   	<label for="exampleInputEmail1">Your current password</label>
   	<font id="errorMsg" size="1" color="red"></font>
-    <input type="password" class="form-control" id="currentPassword" name ="currentPassword" placeholder="Your current password" required onblur="myFunction1()">
+    <input type="password" class="form-control" id="currentPassword" name ="currentPassword" placeholder="Your current password" required maxlength="35" onblur="myFunction1()">
     <label for="exampleInputEmail1">Your new password</label>
     <font id="error" size="1" color="red"></font>
-    <input type="password" class="form-control" id="newPassword" name ="newPassword" placeholder="Your new password" required onblur="myFunction2()">
+    <input type="password" class="form-control" id="newPassword" name ="newPassword" placeholder="Your new password" required maxlength="35" onblur="myFunction2()">
     <input type="submit" class = "idiotButton" value="Change password">
   </div>
   </form>
