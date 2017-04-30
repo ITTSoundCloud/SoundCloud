@@ -1,6 +1,8 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,8 +26,7 @@ public class User {
 		this.likedSongs = new ArrayList<>();
 		
 	}
-	
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}

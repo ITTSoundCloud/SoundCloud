@@ -41,14 +41,10 @@ public class UploadSongController {
 
 	@RequestMapping(value="/songUpload", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session,Model model) {
-		System.out.println("vliza1");
-		User user = (User)session.getAttribute("currentUser");
 		List<String> genres;
 		try {
 			genres = SongDAO.getInstance().getGenres();
 			model.addAttribute("genres", genres);
-			System.out.println(genres);
-			System.out.println(genres.size());
 		} catch (SQLException e) {
 			System.out.println("cant get genres. /songUpload");
 			e.printStackTrace();

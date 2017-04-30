@@ -168,7 +168,7 @@ button.likeButton.liked{
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Wavesurfer</title>
+<title>Song</title>
 
 <script>
 $(document).ready(function(e) {

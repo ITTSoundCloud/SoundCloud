@@ -138,7 +138,10 @@ $(document).ready(function(e) {
     <div class="profile col-md-3 col-xs-12">
 		<ul class="profile-links">
 			<li><i class="glyphicon glyphicon-envelope"></i> <a><i class=""></i><c:out value="${user.email}"/></a></li>
-			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>	
+			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
+
+			 <li><a href="updateCurrentProfile_${sessionScope.username}" id="updateCurrentProfile"> Update Profile </a></li>
+			
 			<hr>
 			 <c:choose>     
 		  	    <c:when test="${empty user.bio}">
