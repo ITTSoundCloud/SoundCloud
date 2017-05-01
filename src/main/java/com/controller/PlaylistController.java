@@ -141,6 +141,11 @@ public class PlaylistController {
 			e.printStackTrace();
 			return "error";
 		}
+		try {
+			SongDAO.getInstance().getSimilar(visitedSongProfile.getSongId());
+		} catch (SQLException e) {
+			System.out.println("cant get similar to this song from dao./song_{title}");
+		}
 		
 		return "song";
 	}

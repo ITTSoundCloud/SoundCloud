@@ -118,27 +118,27 @@ $(document).ready(function(e) {
      <div class="profile-img"> 
   		<c:choose>
 			<c:when test ="${empty user.profilePic}">
-				<img class="img-thumbnail" src="<c:url value="/static/playlist/default.png" />"/>
+				<img class="" style="border:2px solid #fff;" src="<c:url value="/static/playlist/default.png" />"/>
 			</c:when>
 			<c:otherwise>
-				<img class="img-thumbnail" src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />"/>									
+				<img class="" style="border:2px solid #fff;" src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />"/>									
 			</c:otherwise>
 		</c:choose>
 		
     <c:if test="${sessionScope.username.equals(user.username)}">
     
 	    <form method="POST" enctype="multipart/form-data">
-	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg" required/>
-	        <input type="submit" value="change">
-
+	    
+	    	       	<button class="btn btn-sm btn-default" >Change Photo  <i class="fa fa-camera upload-button"></i>
+	    	    	<input style="margin-left:30px;" class="" type="file" name="imageFile" id="file" accept=".jpg" required/></button>
+	    
 	      </form>
      </c:if>
    </div>
   <div class="row content">
     <div class="profile col-md-3 col-xs-12">
 		<ul class="profile-links">
-			<li><i class="glyphicon glyphicon-envelope"></i> <a><i class=""></i><c:out value="${user.email}"/></a></li>
+			<li><i class="glyphicon glyphicon-envelope"></i> <h><i class=""></i><c:out value="${user.email}"/></h></li>
 			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
 		
 			<hr>
@@ -260,7 +260,11 @@ $('button.#delete').live('click', function(e){
     	 song_id:x,
     	
   	});
-    $("#track").remove();
+  	<!--TODO-->
+  	$("#track").slideLeftHide(500, function() {
+  		$(this).parent().fadeOut();
+  	    $("#track").remove();
+  	});
 });
 
 </script>

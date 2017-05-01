@@ -158,25 +158,25 @@ public class SongDAO {
 	}
 
 	
-//	public Map<String,String> getSongsByUser(int user_id) throws SQLException {
-//		
-//		Map<String,String> songs = new HashMap<String, String>();
-//		String sql = "SELECT title,artist from soundcloud.songs where user_id=?";
-//		
-//		PreparedStatement ps = null;
-//		
-//		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-//		ps.setInt(1, user_id);
-//		ResultSet resultSet = ps.executeQuery();
-//
-//		while (resultSet.next()) {
-//			
-//			songs.put(resultSet.getString("title"), resultSet.getString("artist"));
-//
-//		}
-//		
-//		return songs;
-//	}
+	public Map<String,String> getSongsByUser(int user_id) throws SQLException {
+		
+		Map<String,String> songs = new HashMap<String, String>();
+		String sql = "SELECT title,artist from soundcloud.songs where user_id=?";
+		
+		PreparedStatement ps = null;
+		
+		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps.setInt(1, user_id);
+		ResultSet resultSet = ps.executeQuery();
+
+		while (resultSet.next()) {
+			
+			songs.put(resultSet.getString("title"), resultSet.getString("artist"));
+
+		}
+		
+		return songs;
+	}
 	
 
 
@@ -301,6 +301,22 @@ public class SongDAO {
 			if (ps2 != null) ps2.close();
 			con.setAutoCommit(true);
 		}
+	}
+	
+	public Map<String,String> getSimilar(int song_id) throws SQLException{
+		String sql = "select s2.title,s2.artist from soundcloud.songs s1 join soundcloud.songs s2 using(song_id)"
+				+ " where s1.genre=s2.genre and s1.song_id=?;";
+		Map<String,String> similarGenre = new HashMap<>();
+				
+		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps.setInt(1, song_id);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()){
+			similarGenre.put(rs.getString("s2.title"), rs.getString("s2.artist"));
+		}
+		
+		return similarGenre;
 	}
 	
 	

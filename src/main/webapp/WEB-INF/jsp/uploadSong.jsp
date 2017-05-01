@@ -9,8 +9,9 @@
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
-
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 <script>
 $(document).ready(function(e) {
@@ -43,7 +44,7 @@ $(document).ready(function(e) {
 			        <li><a href="#">Upload</a></li>
 			        <c:choose>
 			        	<c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
+							<button type="button" class="btn btn-success">Go Back</button>
 							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>			
@@ -63,17 +64,18 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
-
+<h3 style="margin-left:50px;color:#505050;"><i class="fa fa-cloud"></i> Upload</h3>
+<hr>
 <form method="POST" enctype="multipart/form-data">
-  <div class="form-group">
+  <div class="form-group" style="margin-left:440px;width:36%;margin-top:30px;" >
     <label for="exampleInputEmail1">Song Tittle</label>
     <input type="text" class="form-control" id="InputTitle" name = "songTitle" placeholder="Enter Song Title" required maxlength="45">
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin-left:440px;width:36%;">
     <label for="exampleInputPassword1">Artist</label>
     <input type="text" class="form-control" id="Artist" name="artist" placeholder="Artist" required maxlength="45">
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin-left:440px;width:36%;">
     <label for="exampleSelect1">Genre</label>
     <select class="form-control" id="exampleSelect1" name="genre">
     <c:forEach items="${genres}" var="genre">
@@ -84,15 +86,15 @@ $(document).ready(function(e) {
 	</c:forEach>  --> 
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin-left:440px;width:36%;">
     <label for="exampleTextarea">Description</label>
     <textarea class="form-control" id="exampleTextarea" rows="3" name="description" maxlength="300"></textarea>
   </div>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-  
-      <input class="file-upload" type="file" id="file" name="songFile"  accept=".mp3" required/>
-      <input type="submit" class = "idiotButton" value="Upload now">
+  <div class="form-group" style="margin-left:440px;width:36%;">
+    <label for="exampleInputFile">Choose track</label></br>
+      <input class="file-upload" type="file" id="file" name="songFile" accept=".mp3" required/>
+      <label id="file-label" for="file">Browse</label>
+      <input type="submit"  class = "btn btn-warning" style="margin-left:270px;margin-top:-13px;" value="Upload now">
   </div>
 </form>
 
