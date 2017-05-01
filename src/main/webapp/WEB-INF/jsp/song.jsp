@@ -281,7 +281,7 @@ $(document).ready(function(e) {
 				</div> <img src="<c:url value="http://localhost:8080/scUploads/pics/borko123.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >
 			</c:when>
 			<c:otherwise>
-				</div> <img src="<c:url value="http://localhost:8080/scUploads/pics/borko1231.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >									
+				</div> <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >									
 			</c:otherwise>
 		</c:choose>
 		

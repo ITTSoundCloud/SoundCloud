@@ -132,8 +132,32 @@ public class SongDAO {
 	}
 	
 	
+	public List<Song> getSongByUser(int user_id) throws SQLException {
+		String sql = "SELECT song_id, title, artist, songphoto_path, user_id, genre" +
+				" FROM soundcloud.songs where user_id = ?;";
+		List<Song> songsByUser = new ArrayList<>();
+		PreparedStatement ps = null;
+
+		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps.setInt(1, user_id);
+		ResultSet resultSet = ps.executeQuery();
+
+		while (resultSet.next()) {
+
+			Song song = new Song(resultSet.getInt("song_id"),
+					resultSet.getString("title"),
+					resultSet.getString("artist"),
+					resultSet.getString("genre"),
+					resultSet.getInt("user_id"),
+					resultSet.getString("songphoto_path"));
+
+			songsByUser.add(song);
+
+		}
+		return songsByUser;
+	}
+
 	
-	//we only need the title and the artist
 	public Map<String,String> getSongsByUser(int user_id) throws SQLException {
 		
 		Map<String,String> songs = new HashMap<String, String>();
@@ -154,6 +178,17 @@ public class SongDAO {
 		return songs;
 	}
 	
+	//update photo path
+		public void editPhoto(int songId, String newPhotoPath) throws SQLException {
+
+	        PreparedStatement ps = null;
+	        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.songs SET songphoto_path = ? WHERE song_id =?");
+	        	
+	            ps.setString(1, newPhotoPath);
+	            ps.setInt(2, songId);
+	            ps.executeUpdate();
+	        
+	    }
 
 
 	public List<Song> searchForSong(String word) throws SQLException {
@@ -243,6 +278,8 @@ public class SongDAO {
 		PreparedStatement ps1 = null;
 		PreparedStatement ps2 = null;
 		PreparedStatement ps3 = null;
+		PreparedStatement ps4 = null;
+	
 		try {
 			con.setAutoCommit(false);
 			String sql1 = "DELETE FROM soundcloud.songs_likes WHERE song_id = ?";
@@ -255,15 +292,16 @@ public class SongDAO {
 			ps2.setInt(1, songId);
 			ps2.execute();
 			
+			
 			String sql3 = "DELETE FROM soundcloud.comments WHERE song_id = ?";
 			ps3 = con.prepareStatement(sql3);
 			ps3.setInt(1, songId);
 			ps3.execute();
 			
 			String sql4 = "DELETE FROM soundcloud.songs WHERE song_id = ?";
-			ps3 = con.prepareStatement(sql4);
-			ps3.setInt(1, songId);
-			ps3.execute();
+			ps4 = con.prepareStatement(sql4);
+			ps4.setInt(1, songId);
+			ps4.execute();
 			
 			con.commit();
 		} catch (SQLException e) {

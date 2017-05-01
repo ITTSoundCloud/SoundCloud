@@ -33,6 +33,7 @@
 .container {
     width: 1470px;
 }
+
 </style>
 
 <script>
@@ -153,27 +154,27 @@ $(document).ready(function(e) {
 			<li><table>
 				<thead><h5 style="font-size:16px;color:#fff;background: rgba(255, 85, 0, 0.8);padding:10px 10px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;Uploads by <c:out value="${user.username}"></c:out></h5></thead></br>
 				<tbody>
-				<c:forEach items="${songsUploaded}" var="entry">
+				<c:forEach items="${songsUploaded}" var="song">
 					<tr>
 						<div class="main">
 							<td>
 								<ul>
-										<form action="deleteSong" method="POST">
-								  <li class="track" style="margin-bottom:-10px;" id="tracka">
+										
+								  <li class="track" style="margin-bottom:-10px;" id="track">
 									      <div class="cover-c">	       
-												<a href="song_${entry.key}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="60" height="60"></a>					
-										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${entry.key}"/> - </span>
-										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${entry.value}"/></span>
-										  		<button><i class="fa fa-trash-o" style="margin-left:0px;"></i>delete</button>  
+												<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="60" height="60"></a>					
+										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.title}"/> - </span>
+										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.title}"/></span>
+										  		<button class="delete" id="delete" target="${song.songId}">delete</button>  
 												<button class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 												
 									     	</div>
 									     	      
-									      <audio src="http://localhost:8080/scUploads/songs/${entry.key}.mp3"></audio>
+									      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
 									     
 									      <hr>
 									    </li>
-									    </form>
+									    
 									    								    
 									  </ul>
 									  </td>	  
@@ -248,6 +249,22 @@ $(document).ready(function(e) {
 
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+$('button.#delete').live('click', function(e){
+
+    e.preventDefault();   
+    $button = $(this);
+    var x = $(this).attr("target");
+  	$.post("deleteSong",
+  	{
+    	 song_id:x,
+    	
+  	});
+    $("#track").remove();
+});
+
+</script>
+
 
 <script type="text/javascript">
 $('button.followButton').live('click', function(e){
@@ -269,6 +286,9 @@ $('button.followButton').live('click', function(e){
 
 
 </script>
+
+
+
 
 
 </body>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.db.LikeDAO;
 import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.model.Playlist;
@@ -66,8 +67,21 @@ public class SongController {
 	@ResponseBody
 	@RequestMapping(value="/deleteSong", method = RequestMethod.POST)
 	public void deleteSong(Model model,HttpSession session,
-			@RequestParam(value = "songId") int song_id) {
+			@RequestParam(value = "song_id") int song_id) {
 		
+		try {
+			System.out.println("Predi");
+			System.out.println(PlaylistDAO.getInstance().getAllSongsFromPlaylist(1));
+			System.out.println(SongDAO.getInstance().getAllSongs());
+			
+			System.out.println("triem pesen" + song_id);
+			SongDAO.deleteSong(song_id);
+			System.out.println("Sled ");
+			System.out.println(SongDAO.getInstance().getAllSongs());
+			System.out.println(PlaylistDAO.getInstance().getAllSongsFromPlaylist(1));
+		} catch (SQLException e) {
+			System.out.println("Cant be deleted" + e.getMessage() + "" + e.getSQLState());
+		}
 		
 	}
 		

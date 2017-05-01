@@ -106,8 +106,9 @@ public class PlaylistController {
 	@RequestMapping(value = "/song_{title}", method= RequestMethod.GET)
 	public String giveUser(Model model, HttpSession session, 
 			@PathVariable(value="title") String songTitle){
-
+		System.out.println("kashon kashon kashon");
 		User currentUser = (User) session.getAttribute("user");
+		session.setAttribute("songPhoto", "http://localhost:8080/scUploads/pics/" + songTitle + ".jpg");
 		try {
 			Song currentSong = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", currentSong);
@@ -173,16 +174,16 @@ public class PlaylistController {
 			@RequestParam(value = "playlist") String playlist,
 			@RequestParam(value = "description") String description,
 			HttpServletRequest request, HttpSession session){
-		//User user = (User)session.getAttribute("currentUser");
+
 		System.out.println("validatePlaylist");
 		System.out.println(playlist);
 		System.out.println(description);
-		//System.out.println(user.getUserId());
+
 		boolean isValidPlaylist = false;
 		try {
 			isValidPlaylist = PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return isValidPlaylist;
@@ -196,7 +197,7 @@ public class PlaylistController {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return false;
@@ -210,7 +211,7 @@ public class PlaylistController {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return false;
@@ -224,12 +225,10 @@ public class PlaylistController {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
-	
-	
+		
 }
