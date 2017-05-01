@@ -8,6 +8,9 @@
 <link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/loginPop.css" />" rel="stylesheet" type="text/css">
+<script src="<c:url value="/static/js/buttonPopup.js" />"  type ="text/javascript"></script>
+<script src="<c:url value="/static/js/buttonPopupReal.js" />"  type ="text/javascript"></script>
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/searchResults.css" />" rel="stylesheet" type="text/css">
@@ -23,80 +26,12 @@
 </head>
 <body>
 
-<div id="fb-root"></div>
 
 <script>
-
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    if (response.status === 'connected') {
-      testAPI();
-      console.log("<br>Connected to Facebook");
-      FB.api('/me', {
-			fields : 'first_name,last_name,email'
-		}, function(response) {		
-			$.post("loginFB", {
-				first_name : response.first_name,
-				last_name : response.last_name,
-				email : response.email,
-			});
-		});
-      
-    } else {
-    	
-    }
-  }
-
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '229011207576478',
-    cookie     : true,  
-                        
-    xfbml      : true,  
-    version    : 'v2.9' 
-  });
-
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-  
-  function checkLoginState() {
-		FB.getLoginStatus(function(response) {
-			statusChangeCallback(response);
-		});
-	}
-
-  (function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=229011207576478";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-  function checkLoginState() {
-		FB.getLoginStatus(function(response) {
-			statusChangeCallback(response);
-		});
-	}
-
-
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      
-    });
-  }
+$(document).ready(function(e) {
+    var $input = $('#refresh');
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+});
 </script>
 
 
@@ -116,18 +51,12 @@
 			          <input type="text" class="form-control" placeholder="Search" id="search-bar" name="search_text" maxlength="45">
 			        </div>
 			        <button type="submit" class="btn btn-warning">Search</button>
-			      </form>
+			      </form>			  	
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							<span class="fb-login-button" data-max-rows="1" data-size=medium data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
-							
-							<div id="status">
-							</div>		
-							<button type="button" class="btn btn-success">Sign In</button>
-						  <button type="submit" class="btn btn-warning">Sign Up</button>
-
-
+			        	<c:when test="${empty sessionScope.username}">	
+							<button type="button" id="buttonLogin" class="btn btn-success">Sign In</button>
+							  <button type="submit" id="buttonReg" class="btn btn-warning">Sign Up</button>
 						</c:when>
 						<c:otherwise>
 							<li class="dropdown">
@@ -148,6 +77,8 @@
 		</nav>
 
   	<header></header>
+  	<div class="overlay" style="margin-top:-26px;height:1000px;">
+        </div>
 
 	  <div class="row">
 	    <!-- Menu -->
@@ -180,7 +111,47 @@
 	<c:set var="searchedUsers" scope="request" value="${searchedUsers}"/>	
 	<c:set var="searchedPlaylists" scope="request" value="${searchedPlaylists}"/>
 	
-	
+<!--LOGIN POP-->
+
+<div class="main-popup">
+  <div class="popup-header">
+    <div id="popup-close-button"><a href="#"></a></div>
+    <ul> 
+	  <header><a href="#" id="sign-in">Sign In</a></header>
+      <header><a href="#" id="register">Register</a></header> 
+    </ul>
+  </div><!--.popup-header-->
+  <div class="popup-content" style="height:370px;margin-top:20px;">
+
+    <form action="/SoundCloud/login" class="sign-in" method="post" name="myLoginForm" id="myLoginForm" onsubmit = "return validateRequestLogin()">
+
+    <div id="errorMsg" size="1" color="red">
+    </div>
+      <label for="username">Username:</label>
+      <input type="text" id="username-login" name="username-login" style="height:40px;width:90%;margin-left:32px;" required maxlength="35">
+      <label for="password">Password:</label>
+      <input type="password" id="password-login" name="password-login" style="height:40px;width:90%;margin-left:32px;" required maxlength="35">
+      <input type="submit" style="width:89%;height:40px;background:rgba(255,82,0,0.7);margin-top:20px;color:#fff;font-size:17px;margin-left:30px;width:91%;" id="submit-login" value="Submit-login" onclick="validateLogin()">      
+    </form>
+	    <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
+	    <font id="error" size="1" color="red">
+	</font>
+      <label for="email-register" >Email: </label>
+      <input type="text" id="email" name="email" required maxlength="45" style="height:38px;width:90%;margin-left:32px;" onblur="myFunction2()">
+      <label for="username-register">Username:</label>
+      <input type="text" id="username" name="username" required maxlength="35" style="height:38px;width:90%;margin-left:32px;" onblur="myFunction1()">
+      <label for="password-register">Password:</label>
+      <input type="password" id="password" name="password" required maxlength="35" style="height:38px;width:90%;margin-left:32px;" onblur="myFunction3()">
+      <p class="check-mark">
+        <input type="checkbox" id="accept-terms" required>
+        <label for="accept-terms">I agree to the <a href="#">Terms</a></label>
+      </p>
+      <input class="register-input" type="submit" style="width:89%;height:40px;background:rgba(255,82,0,0.7);margin-top:20px;color:#fff;font-size:17px;margin-left:30px;width:91%;" id="lll" value="Create Account">
+    </form>
+  </div><!--.popup-content-->
+</div><!--.main-popup-->
+
+
 	    <!-- Main Content -->
 	    <div class="container-fluid">
 	        <div class="side-body">
@@ -238,8 +209,7 @@
 							</c:if>
 							</td>
 						</tr>
-						</c:forEach>
-						
+						</c:forEach>				
 						<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
 						<div class="main">
@@ -266,8 +236,7 @@
 						    </li>
 						  </ul>
 						  </td>	  
-						</div>
-						
+						</div>				
 							<td><c:choose>
 							<c:when test ="${empty entry.key.about}">
 								<h6 style="margin-top:55px;">No description</h6>
@@ -629,6 +598,172 @@ function myFunction3() {
 };
 	
 </script>
+
+
+<script type="text/javascript">
+	function validateRequest(){
+
+			var x = document.getElementById("username");
+		    var y = document.getElementById("email");
+		    var z = document.getElementById("password");
+		    
+		$.post("validateEverything", 
+				{ 
+					username: x.value,
+					email: y.value,
+					password: z.value
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('myForm').submit();
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+		<script type="text/javascript">
+	function validateRequestLogin(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('myLoginForm').submit();
+       			}
+       			else{
+       				document.getElementById('errorMsg').style.display = 'block';
+    				document.getElementById('errorMsg').innerHTML = "<h4 style="margin-left:50px;color:red;">Wrong data.</h4>"
+
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+	
+	
+	<script type="text/javascript">
+	function validateRequest(){
+
+			var x = document.getElementById("username");
+		    var y = document.getElementById("email");
+		    var z = document.getElementById("password");
+		    
+		$.post("validateEverything", 
+				{ 
+					username: x.value,
+					email: y.value,
+					password: z.value
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('myForm').submit();
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+		<script type="text/javascript">
+	function validateRequestLogin(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==true){
+       				document.getElementById('myLoginForm').submit();
+       			}
+       			else{
+       				document.getElementById('errorMsg').style.display = 'block';
+    				document.getElementById('errorMsg').innerHTML = "<h class='errorMsg' style="margin-left:40px;color:red;">Wrong data.</h>"
+
+       			}
+	    });
+		
+		return false;
+
+	}
+	</script>
+	
+<script type="text/javascript">
+	function validateLogin(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==false){
+       				var z = document.getElementById('errorMsg');
+       				if(z.style.display === 'none'){
+       					z.style.display = 'block';
+       				}
+       			}
+       			
+	    });
+		
+		return false;
+
+	}
+</script>
+	
+
+	
+<script type="text/javascript">
+	function validateLogin(){
+		
+			var x = document.getElementById("username-login");
+		    var y = document.getElementById("password-login");
+		    
+		$.post("validateAllLogin", 
+				{ 
+					username: x.value,
+					password: y.value
+					
+				}
+				, function(result){
+       			if(result==false){
+       				var z = document.getElementById('errorMsg');
+       				if(z.style.display === 'none'){
+       					z.style.display = 'block';
+       				}
+       			}
+       			
+	    });
+		
+		return false;
+
+	}
+</script>
+	
+	
+	
 
 </body>
 </html>

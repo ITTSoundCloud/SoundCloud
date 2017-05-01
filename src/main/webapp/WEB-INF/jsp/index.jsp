@@ -20,7 +20,7 @@
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	function validateRequest(){
 
 			var x = document.getElementById("username");
@@ -72,7 +72,7 @@
 	}
 	</script>
 	
-			<script type="text/javascript">
+<script type="text/javascript">
 	function validateLogin(){
 		
 			var x = document.getElementById("username-login");
@@ -97,7 +97,7 @@
 		return false;
 
 	}
-	</script>
+</script>
 	
 
 
@@ -194,7 +194,8 @@
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
       <div class="login">
-		<span class="fb-login-button" data-max-rows="1" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
+      <span class="fb-login-button" data-max-rows="1" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
+      
       <c:choose>
 	      <c:when test="${empty sessionScope.username}">
 		        <button class="btn-1" id="buttonLogin">Sign in</button>
@@ -212,7 +213,7 @@
     
     <section class="hero-container">  
       <div class="text-block">
-         <div class="main-popup" style="height:460px;">
+  <div class="main-popup" style="height:460px;">
   <div class="popup-header">
     <div id="popup-close-button"><a href="#"></a></div>
     <ul>
@@ -395,16 +396,6 @@ function myFunction2() {
     });
 }
 </script>
-
-<script>
-function myFunction() {
-    var x = document.getElementById('errorMsg');
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-     }
-}
-</script>
-
 
 </body>
 </html>

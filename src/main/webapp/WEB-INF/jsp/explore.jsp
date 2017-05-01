@@ -219,7 +219,8 @@ $(document).ready(function(e) {
 		          <h3><i class="fa fa-cloud" style="color:#707070;margin-left:-60px;"></i> Explore by Genres</h3>
 		          <hr>
 		        </article>
-		        <div class="clear"></div>				
+		        
+	        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
 		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" Width=430px; height = 430px; /></a></li>
 		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=330px; height = 220px; /></a></li>

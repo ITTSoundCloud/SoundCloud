@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -207,7 +209,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:url(http://www.rmweb.co.uk/community/uploads/monthly_03_2015/post-3717-0-28910200-1427235972.jpg);">
+<body style="background:rgba(20,20,20,0.1);">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -264,11 +266,11 @@ $(document).ready(function(e) {
                 <div class="song-title">&nbsp<c:out value="${song.title }"/> &nbsp</div>
             </li>
         </ul>
-<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:40px;color:#fff;background:rgba(0,0,0,0.6);height:25px;width:120px;font-size:24px;">Arabella</h4></br>
-<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:80px;color:#ccc;background:rgba(0,0,0,0.6);height:25px;width:160px;font-size:18px;">Arctic Monkeys</h4>
-<h4 style="margin-bottom:-100px;margin-left:520px;margin-top:40px;color:#fff;background:#909090;height:25px;width:130px;padding:3px 18px;border-radius:20px;font-size:17px;">#<c:out value="${song.genre}"/></h4>
+		<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:40px;color:#fff;background:rgba(0,0,0,0.6);height:25px;width:120px;font-size:24px;">Arabella</h4></br>
+		<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:80px;color:#ccc;background:rgba(0,0,0,0.6);height:25px;width:160px;font-size:18px;">Arctic Monkeys</h4>
+		<h4 style="margin-bottom:-100px;margin-left:520px;margin-top:40px;color:#fff;background:#909090;height:25px;width:130px;padding:3px 18px;border-radius:20px;font-size:17px;">#<c:out value="${song.genre}"/></h4>
 
-        <button type="button" style="margin-top:35px;margin-left:13px;" class="btn btn-warning btn-circle btn-xl" onclick="wavesurfer.playPause()">
+        <button id="increase" target="${song.songId }" type="button" style="margin-top:35px;margin-left:13px;" class="btn btn-warning btn-circle btn-xl" onclick="wavesurfer.playPause()">
               <i class="fa fa-play" style="font-size: 38px; margin-right: -1rem"></i>
               </button>
         <div id="waveform" style="margin-top:120px;">
@@ -313,32 +315,30 @@ $(document).ready(function(e) {
         <button type="button" class="btn btn-default btn-xs btn-space" style="padding:5px 14px;font-size:12px;"><i class="fa fa-share-square-o"></i> Share</button>
    
         <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							
-						</c:when>
-						<c:otherwise>
-						<div class="dropdown btn-space">
-			            	<button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" style="padding:5px 14px;font-size:12px;"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
+			<c:when test="${empty sessionScope.username}">
+			        	
+			</c:when>
+			<c:otherwise>
+					<div class="dropdown btn-space">
+			            <button class="btn btn-default dropdown-toggle btn-xs" target="${song.songId}" data-toggle="dropdown" style="padding:5px 14px;font-size:12px;"><i class="fa fa-plus-circle"></i> Add to playlist <span class="caret"></span></button>
 			            	<ul class="dropdown-menu">        
 			                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
-			                
-			                <c:forEach items="${currentUserPlaylists}" var="playlist">
-
-								<li><a class="playlist" target="${playlist.playlistId }"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>
-								
-							</c:forEach>
-			                   
-			            </ul>
+				                <c:forEach items="${currentUserPlaylists}" var="playlist">	
+									<li><a class="playlist" target="${playlist.playlistId }"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>									
+								</c:forEach>			                   
+			           		 </ul>
 			             <div class="overlay"></div>
 			        </div>
-			        
-			        
-						</c:otherwise>
-					</c:choose>
-
+			</c:otherwise>
+		</c:choose>
+		<h5 style="margin-right:300px;"> Uploaded 
+		<fmt:parseDate value="${song.uploadingTime}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+        <fmt:formatDate value="${parsedDate}" var="lastDate" type="date" pattern="dd.MM.yyyy" />
+        <h5 style="color:#707070;margin-right:150px;margin-top:-25px;"><c:out value="${lastDate}"></c:out></h5>	
+		</h5>
 		<div>
 			<ul class="buttons-right pull-left" style="margin-left:600px;margin-top:-25px;font-size:15px;">
-                <li><i class="fa fa-play"></i> 55</li>
+                <li><i class="fa fa-play"></i>${song.timesPlayed}</li>
                 <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
           </ul>
      	</div>
@@ -365,7 +365,9 @@ $(document).ready(function(e) {
     
     <div id="textbox" class="input-group">
         <textarea class="form-control custom-control" id = "comment" rows="1" placeholder="Write your comment..."></textarea>
-        <button id="submitCom" class="btn btn-default btn-xs btn-space" style="width:60px;height:30px;">Send</button>
+        <c:if test="${not empty sessionScope.username}"
+        	<button id="submitCom" class="btn btn-default btn-xs btn-space" style="width:60px;height:30px;">Send</button>
+        </c:if>
     </div>
     <h5 style="margin-left:120px;font-size:16px;color:#707070;"><i class="fa fa-comment"></i>  <c:out value="${allComments.size()}"></c:out> Comments</h5>
     <hr>
@@ -486,6 +488,22 @@ $(function(){
 	 });
 });
 	 
+});
+
+</script>
+
+
+
+<script type="text/javascript">
+$('button.#increase').live('click', function(e){	
+    e.preventDefault();   
+    $button = $(this);
+   
+    var x = $(this).attr("target");
+    	 $.post("timesPlayed",
+    		  {
+    		    	songId:x,
+    		  });
 });
 
 </script>

@@ -1,0 +1,279 @@
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin-top:-20px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.overlay.visible {
+  opacity: 4;
+  visibility: visible;
+}
+
+.main-popup {
+  position: fixed;
+  left: 0;
+  top: 30px;
+  margin: 0;
+  width: 100%;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 5px;
+  z-index: 15;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  /*overflow: hidden;*/
+}
+
+.main-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+@media (min-width: 400px) {
+  .main-popup {
+    width: 400px;
+    left: 50%;
+    margin: 0 0 0 -200px;
+  }
+}
+.popup-header {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 62px;
+  width: 100%;
+}
+
+.popup-header ul {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-header ul header {
+  text-align: center;
+  list-style: none;
+  width: 50%;
+  float: left;
+}
+
+.popup-header ul header a {
+  display: block;
+  padding: 20px 0;
+  margin: 0;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+#sign-in {
+  background-color: #ff6124;
+  color: #FFF;
+  border-radius: 5px 0 0 0;
+}
+
+#sign-in.active {
+  color: #ff6124;
+  background-color: transparent;
+}
+
+#register {
+  background-color: #ff6124;
+  color: #FFF;
+  border-radius: 0 5px 0 0;
+}
+
+#register.active {
+  color: #ff6124;
+  background-color: transparent;
+}
+
+.popup-content {
+  height: 400px;
+  overflow: hidden;
+  width: calc(100% - 27px);
+  margin-top: 0px;
+  background-color: white;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+}
+
+form.sign-in {
+  position: relative;
+  top: 0px;
+  left: 0;
+  font-size: 1em;
+  opacity: 1;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+form.sign-in.move-left {
+  opacity: 0;
+  -webkit-transform: translateX(-450px);
+          transform: translateX(-450px);
+}
+
+form label {
+  font-size: 0.9em;
+  color: #505050;
+  margin-left: 23px;
+}
+
+form.sign-in input {
+  border-radius: 25px;
+  width: 83%;
+  height: 23px;
+  padding-left: -10px;
+  margin: 5px 5% 20px 5%;
+  padding: 10px;
+  font-size: 0.9em;
+  background: #e7e7f6;
+  color: #0000000;
+  outline: none;
+  border: none;
+}
+
+input#submit {
+  background-color: #ff6124;
+  color: #fff;
+  height: 40px;
+  width: 87%;
+  margin-left: 7%;
+  margin-right: 5%;
+  margin-top: 25px;
+  margin-bottom: 3px;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  border-radius: 25px;
+  font-size: 0.8em;
+  border: none;
+}
+
+
+form.register {
+  position: relative;
+  top: -260px;
+  left: 0;
+  font-size: 1em;
+  opacity: 0;
+  -webkit-transform: translateX(450px);
+          transform: translateX(450px);
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+form.register.move-left {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+form.register input {
+  border-radius: 25px;
+  width: 83%;
+  height: 23px;
+  margin: 5px 15% 10px 5%;
+  padding: 10px;
+  font-size: 1em;
+  background: #e7e7f6;
+  outline: none;
+  border: none;
+}
+
+.register-input{	
+border-radius: 25px;
+    width: 83%;
+    height: 35px;
+    padding-left: -10px;
+    margin: 15px 10% 30px 9%;
+    padding: 1px;
+    font-size: 1.em;
+    background: #ff6124;
+    color: #fff;
+    outline: none;
+    border: none;
+}
+
+
+
+#popup-close-button a {
+  position: absolute;
+  right: 10px;
+  top: -30px;
+  width: 22px;
+  height: 22px;
+}
+
+#popup-close-button a::before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 3px;
+  height: 25px;
+  background-color: #fff;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+p.check-mark {
+  position: relative;
+  left: 50%;
+  width: 200px;
+  margin: 0 0 0 -100px;
+  padding: 0;
+  text-align: center;
+  color: #ceaee8;
+  font-size: .8em;
+}
+
+p.check-mark a {
+  color: #a48bb9;
+}
+
+p.check-mark input {
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  font-size: 2em;
+  color: #ceaee8;
+  outline: none;
+  border: none;
+}
+
+p.check-mark label {
+  margin-left: 5px;
+}
+
+
+#popup-close-button a::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 3px;
+  height: 25px;
+  background-color: #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
