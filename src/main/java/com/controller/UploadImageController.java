@@ -42,8 +42,7 @@ public class UploadImageController {
 	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/pics/";
 
 	@RequestMapping(value="/profile_{username}", method=RequestMethod.GET)
-	public String prepareForUpload(HttpSession session,Model model, @PathVariable(value="username") String username) { //TODO CHANGE
-		System.out.println("toq kontroller vikmae");
+	public String prepareForUpload(HttpSession session,Model model, @PathVariable(value="username") String username) { 
 		String profilePicToShow = RESOURSES_PATH + username + ".jpg";
 		session.setAttribute("profilePhoto", profilePicToShow);
 		User currentUser = (User) session.getAttribute("user");
@@ -82,6 +81,8 @@ public class UploadImageController {
 		return "uploadNewProfile";
 	}
 
+	
+	
 
 	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
@@ -90,10 +91,10 @@ public class UploadImageController {
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
+	
 	@RequestMapping(value="/profile_{username}", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("imageFile") MultipartFile multiPartFile,HttpSession session,Model model) throws IOException{
-		
-		
+				
 		String username = (String)session.getAttribute("username");
 		File fileOnDisk = new File(FILE_LOCATION + username + ".jpg");
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -105,8 +106,37 @@ public class UploadImageController {
 		}
 		session.setAttribute("profilePhoto", "http://localhost:8080/scUploads/pics/" + username + ".jpg");
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		System.out.println("*****************" + session.getAttribute("profilePhoto"));
 		return "uploadNewProfile";
+
+	}
+	
+	@RequestMapping(value="/song_{title}", method=RequestMethod.POST)
+	public String receiveUploadSong(
+			@RequestParam("imageFile") MultipartFile multiPartFile,
+			@PathVariable(value="title") String title,
+			HttpSession session,Model model) throws IOException{
+
+		Song currentSong;
+		try {
+			currentSong = SongDAO.getInstance().getSong(title);
+		} catch (SQLException e1) {
+			System.out.println("cant get song./song_{title}");
+			e1.printStackTrace();
+			return "error";
+		}
+		File fileOnDisk = new File(FILE_LOCATION + title + ".jpg");
+		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		getThisImage = multiPartFile.getOriginalFilename();
+		try {
+			SongDAO.getInstance().editPhoto(currentSong.getSongId(), FILE_LOCATION + title + ".jpg");		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return "error";
+		}
+		session.setAttribute("songPhoto", "http://localhost:8080/scUploads/pics/" + title + ".jpg");
+		model.addAttribute("filename", multiPartFile.getOriginalFilename());
+		
+		return "redirect:/song_{title}";
 
 	}
 

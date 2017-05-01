@@ -178,6 +178,17 @@ public class SongDAO {
 		return songs;
 	}
 	
+	//update photo path
+		public void editPhoto(int songId, String newPhotoPath) throws SQLException {
+
+	        PreparedStatement ps = null;
+	        	ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE soundcloud.songs SET songphoto_path = ? WHERE song_id =?");
+	        	
+	            ps.setString(1, newPhotoPath);
+	            ps.setInt(2, songId);
+	            ps.executeUpdate();
+	        
+	    }
 
 
 	public List<Song> searchForSong(String word) throws SQLException {

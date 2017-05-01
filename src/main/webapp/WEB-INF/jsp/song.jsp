@@ -274,9 +274,29 @@ $(document).ready(function(e) {
               <i class="fa fa-play" style="font-size: 38px; margin-right: -1rem"></i>
               </button>
         <div id="waveform" style="margin-top:120px;">
-        </div> <img src="<c:url value="http://localhost:8080/scUploads/pics/imagination.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >
+      <!--    </div> <img src="<c:url value="http://localhost:8080/scUploads/pics/imagination.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" > -->
     </div>
     <br>
+    <div class="song-img"> 
+  		<c:choose>
+			<c:when test ="${song.photo.equals('path_of_photo')}">
+				</div> <img src="<c:url value="http://localhost:8080/scUploads/pics/borko123.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >
+			</c:when>
+			<c:otherwise>
+				</div> <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >									
+			</c:otherwise>
+		</c:choose>
+		
+    <c:if test="${isContaining}">
+    
+	    <form method="POST" enctype="multipart/form-data">
+	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
+	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg" required/>
+	        <input type="submit" value="change">
+
+	      </form>
+     </c:if>
+   </div>
 
     <!--Comment Box -->
 <c:set var="song" scope="request" value="${song}"/>
