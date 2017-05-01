@@ -14,6 +14,7 @@
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -23,6 +24,10 @@ $(document).ready(function(e) {
     $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
 });
 </script>
+
+<style>
+h{
+font-size:12px;}</style>
 
 </head>
 <body>
@@ -68,36 +73,39 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
 		
-
+<h3 style="margin-left:50px;color:#505050;"><i class="fa fa-cloud"></i> Update profile</h3>
+<hr>
 <form method="POST" action="updateProfile">
-  <div class="form-group">
+  <div class="form-group" style="margin-left:130px;width:36%;margin-top:30px;z-index:999;position:relative;;">
+      <label for="exampleInputFile" style="margin-bottom:20px">Edit profile info</label><br><br>
+  
     <label for="exampleInputEmail1">Full name</label>
     <input type="text" value="${sessionScope.user.name}" class="form-control" id="name" name = "name" required maxlength="45" >
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin-left:130px;width:36%;margin-top:30px;z-index:999;position:relative;">
     <label for="exampleSelect1">Country</label>
-    <select class="form-control" id="country" name="country" >
+    <select class="form-control" value="Choose country" id="country" name="country" >
     <c:forEach items="${countries}" var="country">
     	<option> <c:out value="${country}"/></option>
 	</c:forEach>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin-left:130px;width:36%;margin-top:30px;">
     <label for="exampleTextarea">About me</label>
     <textarea class="form-control"  id="about" rows="3" name="about" required maxlength="300">${sessionScope.user.bio}</textarea>
   </div>
-  <input type="submit" class = "idiotButton" value="Update info"><br>
+  <input type="submit" class = "btn btn-warning" style="margin-left:130px;margin-top:5px;" value="Update info"><br>
 </form>
 <form action="changePassword" method="POST" name="changePassForm" id="changePassForm"  onsubmit="return validateRequest()">
-<div class="form-group">
-    <label for="exampleInputFile">Change Password</label><br><br>
-  	<label for="exampleInputEmail1">Your current password</label>
-  	<font id="errorMsg" size="1" color="red"></font>
-    <input type="password" class="form-control" id="currentPassword" name ="currentPassword" placeholder="Your current password" required maxlength="35" onblur="myFunction1()">
-    <label for="exampleInputEmail1">Your new password</label>
+<div class="form-group" style="margin-left:740px;width:36%;margin-top:-385px;">
+    <label for="exampleInputFile" style="margin-bottom:15px;">Change Password</label><br><br>
+  	<label for="exampleInputEmail1">Current password</label>
+  	<font id="errorMsg" size="2" color="red"></font>
+    <input type="password" style="margin-bottom:30px;" class="form-control" id="currentPassword" name ="currentPassword" placeholder="Your current password" required maxlength="35" onblur="myFunction1()">
+    <label for="exampleInputEmail1">New password</label>
     <font id="error" size="1" color="red"></font>
     <input type="password" class="form-control" id="newPassword" name ="newPassword" placeholder="Your new password" required maxlength="35" onblur="myFunction2()">
-    <input type="submit" class = "idiotButton" value="Change password">
+    <input type="submit"  class = "btn btn-warning" style="margin-left:0px;margin-top:22px;" value="Change password">
   </div>
   </form>
   
@@ -134,10 +142,10 @@ function myFunction1() {
 			}
 			, function(result){
 			if(!result){
-				document.getElementById('errorMsg').innerHTML = "<h4 class='error'>Password not match.</h4>"
+				document.getElementById('errorMsg').innerHTML = "<h class='error'>Passwords do not match</h4>"
 			}
 			else{
-				document.getElementById('errorMsg').innerHTML = "<h4 class='error'></h4>"	
+				document.getElementById('errorMsg').innerHTML = "<h class='error'></h>"	
 			}	
    		
     });
@@ -155,10 +163,10 @@ function myFunction2() {
 			}
 			, function(result){
 			if(!result){
-				document.getElementById('error').innerHTML = "<h4 class='error'>The password must contains upper letter, symbol and number</h4>"
+				document.getElementById('error').innerHTML = "<h class='error'>Password must contain symbol,upper letter and a number</h>"
 			}
 			else{
-				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"	
+				document.getElementById('error').innerHTML = "<h class='error'></h>"	
 			}	
    		
     });
