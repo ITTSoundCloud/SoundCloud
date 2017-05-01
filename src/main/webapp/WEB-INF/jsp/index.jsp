@@ -193,8 +193,9 @@
   <section class="container">
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
+        <span class="fb-login-button" style="margin-left:688px;margin-top:6px;" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
+      
       <div class="login">
-      <span class="fb-login-button" data-max-rows="1" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
       
       <c:choose>
 	      <c:when test="${empty sessionScope.username}">
@@ -202,7 +203,7 @@
 		         <button class="btn-2" id="buttonReg">Create account</button>
 	        </c:when>
 	        <c:otherwise>
-	             <button class="btn-1" style="color:#fff;margin-right:20px;margin-top:-5px;">Log out</button>
+	             <button class="btn-1" style="color:#fff;margin-right:190px;margin-top;">Log out</button>
 	        </c:otherwise>
         </c:choose>
 		<div class="overlay" style="margin-top:-26px;height:1000px;">
@@ -307,8 +308,18 @@
      </section>
   <section class="background">
     <div class="content-wrapper">
-      <p class="content-title"></p>
+    	<div class="banner">
+      <p class="content-title" style="margin-top:230px;"></p>
+              <img src="<c:url value="/static/createdBy/rozalia.jpg"/>"  style="margin-top:-200px;margin-left:450px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;" alt="" />
+              <h class=content-subtite"  style="font-size:16px;color:#606060;margin-top:-160px;margin-left:610px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;">Rozalia</h> 
+             <h class=content-subtite"  style="font-size:16px;color:#606060;margin-top:-135px;margin-left:610px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;">Marinova</h> 
+            
+      		  <img src="<c:url value="/static/createdBy/krum.jpg"/>" style="margin-top:-200px;margin-left:740px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;" "alt="" />
+      		  <h class=content-subtite"  style="font-size:16px;color:#606060;margin-top:-160px;margin-left:900px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;">Krum</h> 
+             <h class=content-subtite"  style="font-size:16px;color:#606060;margin-top:-135px;margin-left:900px;z-index:-99;position:absolute;border-radius:80px;height:150px;width:150px;">Krumov</h> 
+            
       <p class="content-subtitle"></p>
+      </div>
     </div>
   </section>
 </div>
