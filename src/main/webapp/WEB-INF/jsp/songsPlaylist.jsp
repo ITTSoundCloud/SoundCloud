@@ -127,7 +127,7 @@ $(document).ready(function(e) {
         </div>
              <img class="song-image" src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg
                             " alt="" style="margin-left:70px;" width="180" height="180">
-    </div>
+ 		   </div>
 		
            <h5 style="margin-left:340px;font-size:17px;margin-top:30px;color:#707070"><i class="fa fa-headphones"></i> ${songsInPlaylist.size()} Tracks</h5>
            <hr>
@@ -158,10 +158,11 @@ $(document).ready(function(e) {
         document.addEventListener('DOMContentLoaded', function () {
             wavesurfer.init({
                 container: '#waveform',
-                waveColor: '#707070',
-                progressColor: 'rgba(255,88,6,0.8)',
+                waveColor: '#505050',
+                progressColor: 'rgba(255,88,6,0.9)',
                 height: 120,
-                barWidth: 1
+                barWidth: 1,
+                cursorWidth: 0
             });
         });
 

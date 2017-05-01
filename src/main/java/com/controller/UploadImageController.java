@@ -27,6 +27,7 @@ import com.db.PlaylistDAO;
 import com.db.SongDAO;
 import com.db.UserDAO;
 import com.model.Playlist;
+import com.model.Song;
 import com.model.User;
 
 
@@ -71,7 +72,7 @@ public class UploadImageController {
 		}
 		
 		try {
-			Map<String,String> songsUploaded = SongDAO.getInstance().getSongsByUser(visitedUser.getUserId());
+			List<Song> songsUploaded = SongDAO.getInstance().getSongByUser(visitedUser.getUserId());
 			model.addAttribute("songsUploaded", songsUploaded);
 		} catch (SQLException e) {
 			System.out.println("cant get songs uploaded by user from dao./profile_{username}");
