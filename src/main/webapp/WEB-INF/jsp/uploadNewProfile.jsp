@@ -165,7 +165,9 @@ $(document).ready(function(e) {
 												<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="60" height="60"></a>					
 										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.title}"/> - </span>
 										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.title}"/></span>
+										        <c:if test="${!empty sessionScope.user and canDeleteSong}">
 										  		<button class="delete" id="delete" target="${song.songId}">delete</button>  
+										  		</c:if>
 												<button class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 												
 									     	</div>

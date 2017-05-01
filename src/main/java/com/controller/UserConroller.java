@@ -205,7 +205,6 @@ public class UserConroller {
 	public String fbRegister(Model viewModel,HttpSession session,@RequestParam String last_name,
 			@RequestParam String first_name,@RequestParam String email) {
 		
-		System.out.println("vlizash li we ?");
 		String username = first_name + " " + last_name;
 		
 		User fbUser = null;
@@ -219,12 +218,10 @@ public class UserConroller {
 		if(fbUser != null) {  
 			session.setAttribute("user", fbUser);
 			session.setAttribute("username", fbUser.getUsername());
-			System.out.println("kvo stava tuka sega");
 			return "login";
 		}
 		else {			
 			User newFbUser = new User(username, email, DEFAULT_FB_PASS);
-			System.out.println("stava li");
 			try {
 				UserDAO.getInstance().saveUser(newFbUser);
 				session.setAttribute("user", newFbUser);
@@ -272,7 +269,7 @@ public class UserConroller {
 	
 	}
 	
-	@RequestMapping(value="/updateCurrentProfile_{username}", method=RequestMethod.GET)
+	@RequestMapping(value="/updateCurrentProfile_{username}", method=RequestMethod.POST)
 	public String updateCurrentProfile(
 			@PathVariable(value="username") String username,
 			HttpSession session,Model model) {
@@ -374,62 +371,6 @@ public class UserConroller {
 	}
 	
 	
-	
-		@RequestMapping(value = "/profille_{username}", method= RequestMethod.GET)
-		public String giveUser(Model model, HttpSession session, 
-				@PathVariable(value="username") String username){
-			
-			if (session.getAttribute("user") == null) {
-				return "index";
-			}
-			String profilePicToShow = RESOURSES_PATH + username + ".jpg";
-			
-			model.addAttribute("profilePic", profilePicToShow);
-			session.setAttribute("profilePicOne", profilePicToShow);
-			System.out.println(username + "v profile_{username}");
-			
-
-			return "uploadNewProfile";
-		}
-		
-//		@RequestMapping(value="", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-//		public @ResponseBody JSONObject getAll() {
-//		    List<Song> songs = SongDAO.getInstance().getAllSongs();
-//		   
-//			JSONObject smeeshtiSe = new JSONObject();
-//			org.json.JSONArray smeesshtiSeObekti = new org.json.JSONArray();
-//			
-//		    for(Song s:songs){
-//		    	smeesshtiSeObekti.put(s);
-//		    }
-//		 
-//		    return smeeshtiSe;
-//		}
-		
-		
-		
-		
-		
-//
-//		@ResponseBody
-//		@RequestMapping(value="/getJson", method = RequestMethod.POST)
-//			public String GetData(){ 
-//			String jsonInString = null;
-//			List<Song> songs;
-//			try {
-//				songs = SongDAO.getInstance().getAllSongs();
-//			
-//			ObjectMapper mapper = new ObjectMapper();
-//			jsonInString = mapper.writeValueAsString(songs);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return jsonInString;
-//			
-//		}
-		
-		
 		@ResponseBody
 		@RequestMapping(value="/like", method = RequestMethod.POST)
 		public void likeSong(Model model,HttpSession session){

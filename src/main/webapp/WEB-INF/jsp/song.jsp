@@ -365,7 +365,7 @@ $(document).ready(function(e) {
     
     <div id="textbox" class="input-group">
         <textarea class="form-control custom-control" id = "comment" rows="1" placeholder="Write your comment..."></textarea>
-        <c:if test="${not empty sessionScope.username}"
+        <c:if test="${not empty sessionScope.username}">
         	<button id="submitCom" class="btn btn-default btn-xs btn-space" style="width:60px;height:30px;">Send</button>
         </c:if>
     </div>
@@ -435,7 +435,7 @@ wavesurfer.init({
 
 });
 
-wavesurfer.load('${sessionScope.songToPlay}');
+wavesurfer.load('${sessionScope.songToPlay}' );
 
 var slider = document.querySelector('#slider');
 
