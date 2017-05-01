@@ -260,6 +260,11 @@ public class SongDAO {
 			ps3.setInt(1, songId);
 			ps3.execute();
 			
+			String sql4 = "DELETE FROM soundcloud.songs WHERE song_id = ?";
+			ps3 = con.prepareStatement(sql4);
+			ps3.setInt(1, songId);
+			ps3.execute();
+			
 			con.commit();
 		} catch (SQLException e) {
 			con.rollback();

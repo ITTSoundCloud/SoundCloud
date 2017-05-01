@@ -106,13 +106,33 @@ public class PlaylistController {
 	@RequestMapping(value = "/song_{title}", method= RequestMethod.GET)
 	public String giveUser(Model model, HttpSession session, 
 			@PathVariable(value="title") String songTitle){
-		System.out.println(songTitle + "v song_{title}");
+
 		User currentUser = (User) session.getAttribute("user");
+		try {
+			Song currentSong = SongDAO.getInstance().getSong(songTitle);
+			model.addAttribute("song", currentSong);
+		} catch (SQLException e2) {			
+			e2.printStackTrace();
+			return "error";
+		}
 		System.out.println(currentUser);
 		String songToPlayUrl = RESOURSES_PATH + songTitle + ".mp3";
 		session.setAttribute("songToPlay", songToPlayUrl);
 		System.out.println("-------------------" + songToPlayUrl);
-		//model.addAttribute("songToPlay", songToPlayUrl);
+		
+		try {
+			Map<String, String> userSongs = SongDAO.getInstance().getSongsByUser(currentUser.getUserId());
+			if (userSongs.containsKey(songTitle)) {
+				model.addAttribute("isContaining", true);
+			}
+			else{
+				model.addAttribute("isContaining", false);
+			}
+		} catch (SQLException e1) {			
+			e1.printStackTrace();
+			return "error";
+		}
+		
 		Song visitedSongProfile;		
 		try {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
