@@ -37,7 +37,7 @@ public class PlaylistController {
 	private static final String RESOURSES_PATH = "http://localhost:8080/scUploads/songs/";
 	
 	@RequestMapping(value = "/addPlaylist", method = RequestMethod.POST)
-	public void addPlaylist(
+	public String addPlaylist(
 		@RequestParam(value = "playlist") String playlist,
 		@RequestParam(value = "description") String description,Model model,
 		HttpServletRequest request, HttpSession session) {
@@ -50,11 +50,11 @@ public class PlaylistController {
 			} catch (SQLException e) {
 				System.out.println("cant add song to playlist./addPlaylist");
 				e.printStackTrace();
-				//return "error";
+				return "error";
 			}
 		}
-		giveUser(model, session, songToAdd.getTitle());
-		
+
+		return "redirect:/song_" + songToAdd.getTitle();
          
 	}
 	
@@ -91,8 +91,6 @@ public class PlaylistController {
 	@RequestMapping(value="/addSongToPlaylist", method = RequestMethod.POST)
 	public void addSongToPlaylist(Model model,HttpSession session,
 			@RequestParam(value = "playlistId") int playlist_id) {
-		System.out.println("song added to playlist " +playlist_id);
-		User currentUser = (User) session.getAttribute("user");
 		Song songToAdd = (Song)session.getAttribute("songToAddInPlaylist");
 		try {
 			PlaylistDAO.getInstance().addSongToPlayList(playlist_id, songToAdd.getSongId());
@@ -106,7 +104,6 @@ public class PlaylistController {
 	@RequestMapping(value = "/song_{title}", method= RequestMethod.GET)
 	public String giveUser(Model model, HttpSession session, 
 			@PathVariable(value="title") String songTitle){
-		System.out.println("kashon kashon kashon");
 		User currentUser = (User) session.getAttribute("user");
 		session.setAttribute("songPhoto", "http://localhost:8080/scUploads/pics/" + songTitle + ".jpg");
 		try {
@@ -122,13 +119,19 @@ public class PlaylistController {
 		System.out.println("-------------------" + songToPlayUrl);
 		
 		try {
-			Map<String, String> userSongs = SongDAO.getInstance().getSongsByUser(currentUser.getUserId());
-			if (userSongs.containsKey(songTitle)) {
-				model.addAttribute("isContaining", true);
+			if (currentUser != null) {
+				Map<String, String> userSongs = SongDAO.getInstance().getSongsByUser(currentUser.getUserId());
+				if (userSongs.containsKey(songTitle)) {
+					model.addAttribute("isContaining", true);
+				}
+				else{
+					model.addAttribute("isContaining", false);
+				}
 			}
-			else{
+			else {
 				model.addAttribute("isContaining", false);
 			}
+			
 		} catch (SQLException e1) {			
 			e1.printStackTrace();
 			return "error";
@@ -139,14 +142,19 @@ public class PlaylistController {
 			visitedSongProfile = SongDAO.getInstance().getSong(songTitle);
 			model.addAttribute("song", visitedSongProfile);
 			session.setAttribute("songToAddInPlaylist", visitedSongProfile);
-			model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
+			if (currentUser != null) {
+				model.addAttribute("isLiked",isLiked(visitedSongProfile.getSongId(),currentUser.getUsername())); // check in database if follow
+			}
+			
 			
 			List<Comment> comments = CommentDAO.getInstance().getSongComments(visitedSongProfile.getSongId());
 			Map<Comment,Boolean> mapComments = new HashMap<>();
-			
-			for(Comment c : comments){
-				mapComments.put(c,PlaylistController.isLikedComment(currentUser.getUserId(), c.getCommentId()));
+			if (currentUser != null) {
+				for(Comment c : comments){
+					mapComments.put(c,PlaylistController.isLikedComment(currentUser.getUserId(), c.getCommentId()));
+				}
 			}
+			
 			
 			model.addAttribute("allComments", mapComments);
 		} catch (SQLException e) {
@@ -154,21 +162,25 @@ public class PlaylistController {
 			e.printStackTrace();
 			return "error";
 		}	
-		try {
-			List<Playlist> currentUserPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
-			model.addAttribute("currentUserPlaylists", currentUserPlaylists);
-		} catch (SQLException e) {
-			System.out.println("cant get user playlists./song_{title}");
-			e.printStackTrace();
-			return "error";
+		if (currentUser != null) {
+			try {
+				List<Playlist> currentUserPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
+				model.addAttribute("currentUserPlaylists", currentUserPlaylists);
+			} catch (SQLException e) {
+				System.out.println("cant get user playlists./song_{title}");
+				e.printStackTrace();
+				return "error";
+			}
 		}
+		
 		try {
-			
+
 			Map<String,String> similarSongs = SongDAO.getInstance().getSimilar(visitedSongProfile.getGenre(),visitedSongProfile.getSongId());
 			model.addAttribute("similarSongs", similarSongs);
 			System.out.println("podobni" + similarSongs);
 			} catch (SQLException e) {
 			System.out.println("cant get similar to this song from dao./song_{title}" + e.getMessage() + " " + e.getErrorCode());
+
 		}
 		
 		return "song";
@@ -182,14 +194,11 @@ public class PlaylistController {
 			@RequestParam(value = "playlist") String playlist,
 			@RequestParam(value = "description") String description,
 			HttpServletRequest request, HttpSession session){
-
-		System.out.println("validatePlaylist");
-		System.out.println(playlist);
-		System.out.println(description);
+			User currentUser = (User) session.getAttribute("user");
 
 		boolean isValidPlaylist = false;
 		try {
-			isValidPlaylist = PlaylistDAO.getInstance().playlistExists(playlist, description, 2);
+			isValidPlaylist = PlaylistDAO.getInstance().playlistExists(playlist, description, currentUser.getUserId());
 		} catch (SQLException e) {
 
 			e.printStackTrace();

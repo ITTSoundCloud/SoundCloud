@@ -63,7 +63,9 @@ $(document).ready(function(e) {
 								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button><a>Update Profile</a></button>
+						            </form>
 						            <li><a href="#">Followers</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>

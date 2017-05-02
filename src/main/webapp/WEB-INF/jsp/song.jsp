@@ -284,7 +284,7 @@ wavesurfer.init({
 
 });
 
-wavesurfer.load('${sessionScope.songToPlay}');
+wavesurfer.load('${sessionScope.songToPlay}' );
 
 var slider = document.querySelector('#slider');
 

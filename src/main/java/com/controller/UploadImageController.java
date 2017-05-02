@@ -46,20 +46,27 @@ public class UploadImageController {
 		String profilePicToShow = RESOURSES_PATH + username + ".jpg";
 		session.setAttribute("profilePhoto", profilePicToShow);
 		User currentUser = (User) session.getAttribute("user");
-		try {
-			List<Playlist> userPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
-			model.addAttribute("currentPlaylists", userPlaylists);
-		} catch (SQLException e) {
-			System.out.println("cant getUserPlaylists./upload");
-			e.printStackTrace();
-			return "error";
+		if (currentUser != null) {
+			try {
+				List<Playlist> userPlaylists = PlaylistDAO.getInstance().getUserPlaylists(currentUser.getUserId());
+				model.addAttribute("currentPlaylists", userPlaylists);
+			} catch (SQLException e) {
+				System.out.println("cant getUserPlaylists./upload");
+				e.printStackTrace();
+				return "error";
+			}
 		}
+		
 		User visitedUser;
 		try {
 			visitedUser = UserDAO.getInstance().getUser(username);
 			model.addAttribute("user", visitedUser);			
 			session.setAttribute("usernameToFollow", username);
-			model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			
+			if (currentUser != null) {
+				model.addAttribute("isFollowing", UserConroller.isFollowing(currentUser.getUserId(), visitedUser.getUserId())); // check in database if follow
+			}
+			
 			List<Playlist> visitedPlaylists = PlaylistDAO.getInstance().getUserPlaylists(visitedUser.getUserId());
 			List<String> followers = UserDAO.getInstance().getFollowers(visitedUser.getUserId());
 			model.addAttribute("followers",followers);
@@ -78,6 +85,13 @@ public class UploadImageController {
 			e.printStackTrace();
 			return "error";
 		}
+		if (currentUser.getUserId() == visitedUser.getUserId()) {
+			model.addAttribute("canDeleteSong", true);
+		}
+		else{
+			model.addAttribute("canDeleteSong", false);
+		}
+		
 		return "uploadNewProfile";
 	}
 
