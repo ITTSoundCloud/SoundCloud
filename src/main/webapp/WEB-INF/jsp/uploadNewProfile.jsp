@@ -64,21 +64,21 @@ $(document).ready(function(e) {
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+			        	 <c:when test="${empty sessionScope.username}">
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
-						<c:otherwise>			
+						<c:otherwise>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:0px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">My Profile</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="/SoundCloud/logout">Log out</a></li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>						            
 						          </ul>
-		       				 </li>  
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -135,10 +135,10 @@ $(document).ready(function(e) {
      </c:if>
    </div>
   <div class="row content">
-    <div class="profile col-md-3 col-xs-12">
-		<ul class="profile-links">
-			<li><i class="glyphicon glyphicon-envelope"></i> <h><i class=""></i><c:out value="${user.email}"/></h></li>
-			<li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
+    <div class="profile col-md-3 col-xs-12" style="border-right: solid 1px #ccc;width:340px;margin-right:30px;">
+		<ul class="profile-links" style="margin-left:40px;">
+			<li style="margin-left:40px;"><i class="glyphicon glyphicon-envelope"></i> <h style="font-size:13px;"><i class=""></i><c:out value="${user.email}"/></h></li></br>
+			<li style="margin-left:40px;"><a id="buttonLogin" style="font-size:17px;"><i class="fa fa-user"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
 		
 			<hr>
 			 <c:choose>     
@@ -150,9 +150,12 @@ $(document).ready(function(e) {
 		  		</c:otherwise>
   			</c:choose>
   			<hr>
-			<li><table>
-				<thead><h5 style="font-size:16px;color:#fff;background: rgba(255, 85, 0, 0.8);padding:10px 10px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;Uploads by <c:out value="${user.username}"></c:out></h5></thead></br>
+			<li style="background:rgba(0,0,0,0.1);"><table>
+				<thead><h5 style="font-size:16px;color:#fff;border-radius:5px;background: rgba(255, 85, 0, 0.8);background: rgba(144, 144, 144, 0.76);padding:10px 10px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;Uploads by <c:out value="${user.username}"></c:out></h5></thead></br>
 				<tbody>
+				<c:if test="${empty songsUploaded}">
+					<h style="margin-left:60px;margin-bottom:20px;">No uploaded tracks.</h>
+				</c:if>
 				<c:forEach items="${songsUploaded}" var="song">
 					<tr>
 						<div class="main">
@@ -211,7 +214,7 @@ $(document).ready(function(e) {
 	</div>
 	   
     </div></br>
-    <h3> Playlists</h3></br>
+    <h3><i class="fa fa-headphones"></i> Playlists</h3></br>
     <c:if test="${empty currentPlaylists }">
     	<h6>This user has no playlists yet.</h6>
     </c:if>

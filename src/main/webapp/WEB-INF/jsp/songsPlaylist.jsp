@@ -88,22 +88,22 @@ $(document).ready(function(e) {
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
-							<button type="button" class="btn btn-success">Sign In</button>
-							  <button type="submit" class="btn btn-warning">Create account</button>
+						 <c:when test="${empty sessionScope.username}">
+						 	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
-						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:20px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">My Profile</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="/SoundCloud/logout">Log out</a></li>
-						          </ul>
-		       				 </li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>    
+						          </ul>		       				 
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -111,13 +111,13 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
             
-	<h3 style="margin-left:120px;margin-bottom:-33px;">Playlist</h3>
-	<h3 style="margin-left:160px;margin-bottom:-33px;font-size:15px;color:#707070;">by borko123</h3>
+	<h3 style="margin-left:120px;margin-bottom:-33px;margin-top:50px;"><i class="fa fa-play"></i> <c:out value="${playlist.name}"></c:out>Playlist by</h3>
+	<h3 style="margin-left:180px;margin-bottom:-33px;font-size:16px;margin-top:40px;color:#707070;"><b>${playlist.username}borko123</b></h3>
            <div class="container" style="background:url(http://59.160.153.185/iyff/iyff2014/iyff/sites/default/files/banner-text-bg_1.png) no-repeat;margin-top:20px;width:1900px;height:190px;">
 
         <!-- Song Name & Song Title-->
       
-        <button type="button" class="btn btn-warning btn-circle btn-xl" id="playPause" >
+        	<button type="button" class="btn btn-warning btn-circle btn-xl" id="playPause" >
               <span><i class="fa fa-play" id="play" style="font-size: 25px; margin-right: -1rem"></i></span>
               <span><i class="fa fa-pause" id="pause" style="display: none" style="font-size: 25px; margin-right: -1rem"></i></span>
               
@@ -131,6 +131,10 @@ $(document).ready(function(e) {
 		
            <h5 style="margin-left:340px;font-size:17px;margin-top:30px;color:#707070"><i class="fa fa-headphones"></i> ${songsInPlaylist.size()} Tracks</h5>
            <hr>
+           <div class="description" style="width:250px;float:left;margin-left:130px;">
+            <h4>Desciption</h4>
+           	<h5>very good playlist love it very muchsajdskjdksja lfjsdlk fjsdkgjsd gfjg  jdsksjfdskfd kjdskf</h5>
+           </div>
            <div class="list-group" id="playlist">
                 <c:forEach items="${songsInPlaylist}" var="song">
 	                <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">

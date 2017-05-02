@@ -50,22 +50,22 @@ font-size:12px;}</style>
 			        <button type="submit" class="btn btn-warning">Search</button>
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">Upload</a></li>
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+			        	 <c:when test="${empty sessionScope.username}">
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
-						<c:otherwise>			
+						<c:otherwise>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:20px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">Check profile</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
-						          </ul>
-		       				 </li>  
+						          </ul> 
 						</c:otherwise>
 					</c:choose>
 			       </ul>

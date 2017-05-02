@@ -10,6 +10,8 @@
 <link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="<c:url value="/static/css/miniPlayerLikes.css" />" rel="stylesheet" type="text/css">
+
 <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
@@ -47,22 +49,21 @@ $(document).ready(function(e) {
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-					  	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
-							<button type="button" class="btn btn-success">Sign In</button>
-							  <button type="submit" class="btn btn-warning">Create account</button>
+			        	 <c:when test="${empty sessionScope.username}">
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
-						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" style="color:#707070;decoration:none;padding:10px 10px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:0px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">Check profile</a></li>
 						            <li role="separator" class="divider"></li>
-						            <li><a href="/SoundCloud/logout">Log out</a></li>
-						          </ul>
-		       				 </li>
+						            <li><a href="/SoundCloud/logout">Log out</a></li>				            
+						          </ul>       				 
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -76,64 +77,40 @@ $(document).ready(function(e) {
 	  <div class="side-body">
 			   <div class="col-md-9">
 			     <h3><c:out value="${genre}"/> </h3>
-				<table class="table table-list-search">
-					<thead>
-						<tr>
-							<th><i>Songs</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>Open Song</i></th>
-						</tr>
-					</thead>
+				
 					<c:if test="${empty songsGenre}">
 						<h5>No songs for this genre</h5>
 					</c:if>
-					<tbody>
-						<c:forEach items="${songsGenre}" var="song">
+			
 						<tr>
-						<div class="main">
-						<td>
-						  <ul>
-						    <li class="track">
-						      <div class="cover">
-						        <c:choose>
-									<c:when test ="${empty song.title}">
-											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-											<c:out value="${song.title}"/>
-									</c:when>
-									<c:otherwise>
-											<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-										</c:otherwise>
-									</c:choose>
-						      </div>
-						      <div class="info">
-						         <span class="titleSong"><c:out value="${song.title}"/></span>
-						        <span class="artist" style="font-size:11px;"><c:out value="${song.artist}"/></span>
-						      </div>
-						      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
-						    </li>
-						  </ul>
-						  </td>	  
-						</div>
+							<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Enjoy our most listened</h3>
+		<hr>
+	<div class="main">
+	  <ul>
+	  <c:forEach items="${sessionScope.songs}" var="song">
+	    <li class="track">
+	       <div class="cover">
+	          <span class="artist" style="font-size:15px;color:#707070;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
+	         <span class="titleSong" style="font-size:18px;margin-left:25px;"><c:out value="${song.title }"/></span>
+	    
+	        <img src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg"  width=200px; height = 200px; alt="" />
+	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
+	      </div>
+	      <div class="info" style="margin-top:10px;">
+	       	<i class="fa fa-heart" id="inLikes"></i> <c:out value="${song.likes }"/>
+	      </div>
+	      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
+	    </li> 
+	     </c:forEach>
+	     <hr>
+	  </ul>
+	</div>
+</div>
 						
-							<td><c:choose>
-							<c:when test ="${empty song.about}">
-								<h6 style="margin-top:55px;">No description</h6>
-							</c:when>
-							<c:otherwise>
-									<h6 style="margin-top:55px;"><c:out value="${song.about}"/></h6>
-									<a href="#"></a>
-								</c:otherwise>
-							</c:choose>
-							</td>
-							<td>
-							</td>
-						</tr>
-						</c:forEach>
-						</tbody>
-					</table>		
+								
 				  </div>
 				</div>
-	        </div>
+	       
   	
   	
   	</body>

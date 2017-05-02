@@ -23,6 +23,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Search</title>
 
+<style type="text/css">
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 15px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border:none;
+    
+  }
+  
+  ol, ul {
+    margin-top: 0;
+    margin-bottom: -15px;
+}
+
+
+.play {
+   
+    top: 113%;
+    left: 54%;
+  
+}
+
+
+.cover svg {
+    
+    top: 105%;  
+    left: 55%;
+  
+}
+</style>
+
 </head>
 <body>
 
@@ -54,21 +85,23 @@ $(document).ready(function(e) {
 			      </form>			  	
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">	
-							<button type="button" id="buttonLogin" class="btn btn-success">Sign In</button>
-							  <button type="submit" id="buttonReg" class="btn btn-warning">Sign Up</button>
+			        	 <c:when test="${empty sessionScope.username}">
+							<button type="button" class="btn btn-success">Sign In</button>
+							<button type="submit" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:20px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">My Profile</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
-						          </ul>
-		       				 </li>
+						            
+						          </ul> 
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -157,38 +190,38 @@ $(document).ready(function(e) {
 	        <div class="side-body">
 	        <div id="showFirst" style="display:block">
 	           <div class="col-md-9">
-	           <h3> You searched for </h3>
+	           <h3> You searched for ' <c:out value="${word}"/> '</h3>
+	       </br>
 				<table class="table table-list-search">
-					<thead>
-						<tr>
-							<th><i>Results</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>Profile</i></th>
-						</tr>
+					<thead style="color:#909090;">
+						<h5 style="color:rgba(0,0,0,0.5);">Found <c:out value="${searchedUsers.size()}"/> users, <c:out value="${searchedSongs.size()}"/> songs and <c:out value="${searchedPlaylists.size()}"/> playlists</h5>
 					</thead>
+					
 						 <c:if test="${empty searchedUsers and empty searchedSongs and empty searchedPlylists}">
-							<h1>No results</h1>
+							<h5>No results</h5>
 						</c:if>
-					<tbody>
+					<tbody style="border:none;">
 					<c:forEach items="${searchedUsers}" var="entry">
 						<tr>
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
-								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
-								<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" > </c:out></h6>
-						
+								<a href="profile_${entry.key.username }"><img class=""  style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="140" height="140"></a>
+									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>					
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="120" height="120"></a>
-									<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" > </c:out></h6>
-								</c:otherwise>
-							</c:choose>
 							
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:80px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="140" height="140"></a>
+									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>								
+							</c:otherwise>
+							</c:choose>
+							</br></br></br></br>
 							</td>
 							<td>
 							<c:choose>
 							<c:when test ="${empty entry.key.bio}">
-								<h6 style="margin-top:55px;">No description</h6>
+								<h6 style="margin-top:55px;"><i>This user has no description</i></h6>
 							</c:when>
 							<c:otherwise>
 									<a href="uploadNewProfile-${entry.key.username}"></a>																	
@@ -212,26 +245,32 @@ $(document).ready(function(e) {
 						</c:forEach>				
 						<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
-						<div class="main">
+						<div class="main" style="margin-top:10px;">
 						<td>
 						  <ul>
-						    <li class="track" id="tracka">
+						    <li class="track" id="tracka" style="margin:1rem 10rem 8rem 1rem;margin-left:-35px;">
 						      <div class="cover">
 						        <c:choose>
 									<c:when test ="${empty entry.key.title}">
-											<a href="song_${entry.key.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-											<c:out value="${entry.key.title}"/>
+									</br>	
+											<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a></br>
+									<h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.title}" /> ,</h5></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>					
+							
+											
 									</c:when>
 									<c:otherwise>
-											<a href="song_${entry.key.title }"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-										</c:otherwise>
+	
+											<a href="song_${entry.key.title }"><img class="" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
+											<div class="info" style="margin-left:140px;margin-top:-110px;width:100px">
+						        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
+						        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
+						      </div>
+																	</c:otherwise>
 									</c:choose>
 									 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 						      </div>
-						      <div class="info">
-						         <span class="titleSong"><c:out value="${entry.key.title}"/></span>
-						        <span class="artist" style="font-size:11px;"><c:out value="${entry.key.artist}"/></span>
-						      </div>
+						     
 						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
 						    </li>
 						  </ul>
@@ -239,7 +278,7 @@ $(document).ready(function(e) {
 						</div>				
 							<td><c:choose>
 							<c:when test ="${empty entry.key.about}">
-								<h6 style="margin-top:55px;">No description</h6>
+								<h6 style="margin-top:55px;"><i>No description</i></h6>
 							</c:when>
 							<c:otherwise>
 									<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
@@ -264,16 +303,18 @@ $(document).ready(function(e) {
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
 						<td>
-								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" alt="" width="120" height="120"></a>
-								<h6 style="font-size:15px;"><c:out value="${playlist.title}"/></h6>
-								<h6 style="color:#707070;"> playlist of <c:out value="${playlist.username}"/></h6>
+								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
+								<div class="oh" style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>
+								
+								<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
+						</div>
 							</td>
 							<td><c:choose>
 							<c:when test ="${empty playlist.description}">
-								<h6 style="margin-top:55px;" >No description</h6>
+								<h6 style="margin-top:55px;" ><i>No description</i></h6>
 							</c:when>
 							<c:otherwise>
-									<h6 style="margin-top:55px;"><c:out value="${playlist.description}"/></h6>
+									<h6 style="margin-top:55px;"><i><c:out value="${playlist.description}"/></i></h6>
 								</c:otherwise>
 							</c:choose>
 							</td>
@@ -288,71 +329,81 @@ $(document).ready(function(e) {
 			</div>
 		<div id = "showSecond"  style="display:none">
 			   <div class="col-md-9">
-			     <h3> You searched for </h3>
+			     <h3> You searched for ' ${word } '</h3></br>
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							<th><i>Songs</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>Open Song</i></th>
+							<h5 style="color:rgba(0,0,0,0.5);"><c:out value="${searchedSongs.size()}"/> songs</h5>
+
 						</tr>
 					</thead>
 					<c:if test="${empty searchedSongs}">
 						<h1 id="showSecond">No results</h1>
 					</c:if>
 				<tbody>
-					
-					<c:forEach items="${searchedSongs}" var="entry">
+				
+				
+				
+				
+				<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
-						<div class="main">
+						<div class="main" style="margin-top:10px;">
 						<td>
 						  <ul>
-						    <li class="track">
+						    <li class="track" id="tracka" style="margin:1rem 10rem 8rem 1rem;margin-left:-35px;">
 						      <div class="cover">
 						        <c:choose>
-									<c:when test ="${empty entry.key.photo}">
-											<a href="www.google.com"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-											<c:out value="${entry.key.title}"/>
+									<c:when test ="${empty entry.key.title}">
+									</br>	
+											<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a></br>
+									<h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.title}" /> ,</h5></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>					
+							
+											
 									</c:when>
 									<c:otherwise>
-											<a href="#"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="110" height="110"></a>
-										</c:otherwise>
+	
+								<a href="song_${entry.key.title }"><img class="" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
+								<div class="info" style="margin-left:140px;margin-top:-110px;width:100px">
+						        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
+						        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
+						      </div>
+																	</c:otherwise>
 									</c:choose>
+									 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 						      </div>
-						      <div class="info">
-						        <span class="titleSong"><c:out value="${entry.key.title}"/></span>
-						        <span class="artist" style="font-size:12px;"><c:out value="${entry.key.artist}"/></span>
-						      </div>
+						     
 						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
 						    </li>
 						  </ul>
 						  </td>	  
-						</div>
-							<td>
-								<c:choose>
-								<c:when test ="${empty entry.key.about}">
-									<h6 style="margin-top:55px;">No description</h6>
-								</c:when>
-								<c:otherwise>
-										<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
-										<a href="#"></a>
-									</c:otherwise>
-								</c:choose>
+						</div>				
+							<td><c:choose>
+							<c:when test ="${empty entry.key.about}">
+								<h6 style="margin-top:55px;"><i>No description</i></h6>
+							</c:when>
+							<c:otherwise>
+									<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
+									<a href="#"></a>
+								</c:otherwise>
+							</c:choose>
 							</td>
 							<td>
-							<c:if test="${not empty sessionScope.username}">	
+							<c:if test="${not empty sessionScope.username}">
 							<c:choose>
 								  <c:when test="${!entry.value}">
 										<button class="btn likeButton" target="${entry.key.title }" rel="6"><i class="fa fa-heart" ></i> Like</button>
 									</c:when>
 									<c:otherwise>
-									<button class="btn likeButton liked" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
-										</c:otherwise>
+										<button class="btn likeButton liked" target="${entry.key.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
+									</c:otherwise>
 								</c:choose>
-								</c:if>
+							</c:if>
 							</td>
 						</tr>
 						</c:forEach>
+	
+					
 						</tbody>
 					</table>		
 				</div>
@@ -362,9 +413,7 @@ $(document).ready(function(e) {
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							<th><i>Username</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>Open Profile</i></th>
+							
 						</tr>
 					</thead>
 						 <c:if test="${empty searchedUsers}">
@@ -375,21 +424,23 @@ $(document).ready(function(e) {
 						<tr>
 						<td><c:choose>
 							<c:when test ="${empty entry.key.profilePic}">
-								<a href="profile_${entry.key.username}"><img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />"alt="" width="120" height="120"></a>
-								<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" ></c:out></h6>
-						
+								<a href="profile_${entry.key.username }"><img class=""  style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="140" height="140"></a>
+									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>					
 							</c:when>
 							<c:otherwise>
-									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:60px;" src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" />" alt="" width="120" height="120"></a>
-									<h6><i class = "fa fa-user" style="margin-right:5px;color:#707070;"></i><c:out value="${entry.key.username}" ></c:out></h6>
-								</c:otherwise>
-							</c:choose>
 							
+									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:80px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="140" height="140"></a>
+									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>								
+							</c:otherwise>
+							</c:choose>
+							</br></br></br></br>
 							</td>
 							<td>
 							<c:choose>
 							<c:when test ="${empty entry.key.bio}">
-								<h6 style="margin-top:55px;">No description</h6>
+								<h6 style="margin-top:55px;"><i>This user has no description</i></h6>
 							</c:when>
 							<c:otherwise>
 									<a href="uploadNewProfile-${entry.key.username}"></a>																	
@@ -398,9 +449,6 @@ $(document).ready(function(e) {
 							</td>
 							<c:set var="listedUser" scope="session" value="${entry.key.username}"/>
 							<td>	
-							<c:if test="${empty user}">
-								<h1>No user.</h1>
-							</c:if>	
 							<c:if test="${not empty sessionScope.username and !sessionScope.username.equals(entry.key.username)}">
 			  					<c:choose>		
 							        <c:when test="${!entry.value}">
@@ -413,7 +461,7 @@ $(document).ready(function(e) {
 							</c:if>
 							</td>
 						</tr>
-						</c:forEach>
+						</c:forEach>			
 					</tbody>
 				</table>
 			</div>

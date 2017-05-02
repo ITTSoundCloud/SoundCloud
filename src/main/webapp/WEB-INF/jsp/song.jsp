@@ -37,7 +37,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:rgba(20,20,20,0.1);">
+<body style="background:#F8F8F8	">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -58,21 +58,23 @@ $(document).ready(function(e) {
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+			        	 <c:when test="${empty sessionScope.username}">
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
-					<c:otherwise>
-						<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
+						<c:otherwise>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
-						            <li><a href="http://localhost:8080/SoundCloud/updateCurrentProfile_${sessionScope.username}">Update Profile</a></li>
-						            <li><a href="#">Followers</a></li>
+						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
+						            <button class="update" style= "border:none;margin-left:20px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
+						            </form>
+						            <li><a href="#">My Profile</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
+						            
 						          </ul>
-		       				 </li>
+		       				 
 						</c:otherwise>
 					</c:choose>
 			       </ul>
@@ -372,7 +374,6 @@ $('button.likeButton').live('click', function(e){
     } else {
         $.post("like");
         $button.addClass('liked');
-        $(this).append($("<i class='fa fa-heart'></i>")).button();
 
         $button.innerHTML = `<i class="fa fa-heart"></i>`,
         $button.text('Unlike');
@@ -408,7 +409,6 @@ $('button.likeCommentButton').live('click', function(e){
     					
     				});
         $button.addClass('liked');
-        document.getElementById("likeCom").innerHTML+= `<i class="fa fa-heart"></i>`;
           
         $button.text('Unlike');
     }

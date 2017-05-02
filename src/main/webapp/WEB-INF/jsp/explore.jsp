@@ -22,6 +22,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Explore SoundCloud</title>
+<style>
+.magnifier h{
+display:none;
+}
+
+.magnifier:hover h{
+display:block;
+}
+
+.update{
+}
+
+.update:hover{
+background:rgba(0,0,0,0.4);
+decoration:none;
+}
+</style>
 
 <script>
 $(document).ready(function(e) {
@@ -55,18 +72,17 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			       <c:choose>
 			        <c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+							<button type="button" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
+							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
 							<li class="dropdown">
-								<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
+						         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.username}<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
-						            <button><a>Update Profile</a></button>
+						            <button class="update" style= "border:none;margin-left:20px;color:black;margin-top:6px;margin-bottom:10px;background:transparent;color:#0000000;">Update Profile</button>
 						            </form>
-						            <li><a href="#">Followers</a></li>
+						            <li><a href="#">Check profile</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						            
@@ -84,7 +100,7 @@ $(document).ready(function(e) {
 		<li><a onclick="#" href="#" style="background:rgba(0,0,0,0.4);">EXPLORE</a></li>
 		<c:choose>
 		<c:when test="${type.equals('likes')}">
-			<li><form action="sortLikes"  method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Likes</button></form></li>
+			<li><form action="sortLikes"  method="get"><button class="explore-btn" style="color:#ccc;background:#404040;">By Likes</button></form></li>
 		</c:when>
 		<c:otherwise>
 			<li><form action="sortLikes" method="get"><button class="explore-btn">By Likes</button></form></li>
@@ -92,7 +108,7 @@ $(document).ready(function(e) {
 		</c:choose>
 		<c:choose>
 		<c:when test="${type.equals('date')}">
-			<li><form action="sortDate" method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Upload</button></form></li>
+			<li><form action="sortDate" method="get"><button class="explore-btn" style="color:#ccc;background:#404040;">By Upload</button></form></li>
 		</c:when>
 		<c:otherwise>
 				<li><form action="sortDate" method="get"><button class="explore-btn">By Upload</button></form></li>
@@ -100,7 +116,7 @@ $(document).ready(function(e) {
 		</c:choose>
 		<c:choose>
 		<c:when test="${!type.equals('date') and !type.equals('likes')}">
-			<li><form action="sortGenres"  method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Genres</button></form></li>
+			<li><form action="sortGenres"  method="get"><button class="explore-btn" style="color:#ccc;background:#404040;">By Genres</button></form></li>
 		</c:when>
 		<c:otherwise>
 			<li><form action="sortGenres" method="get"><button class="explore-btn">By Genres</button></form></li>
@@ -113,7 +129,7 @@ $(document).ready(function(e) {
 		<div style="display:none"></div>
 		</c:when>
 	<c:otherwise>
-		<div style="display:block">
+	<div style="display:block">
 		<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Enjoy our most listened</h3>
 		<hr>
 	<div class="main">
@@ -245,12 +261,12 @@ $(document).ready(function(e) {
 		        
 	        <div class="clear"></div>				
 		        <ul class="portfolio clearfix">
-		          <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" Width=430px; height = 430px; /></a></li>
-		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=330px; height = 220px; /></a></li>
-		          <li class="box"><a href="genres_Chillout" class="magnifier"><img src="<c:url value="http://static.idolator.com/uploads/2014/10/Gorgon-City-Sirens-album-cover-artwork-600x426.jpg" />" Width=330px; height = 230px; /></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img alt=""  style="margin-top:-40px;" src="http://keeprockingit.com/wp-content/uploads/2015/06/taylor-swift.jpg" width=330px; height = 210px;></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img style="margin-top:-30px;" alt="" src="https://s-media-cache-ak0.pinimg.com/564x/0e/65/7e/0e657ef934f2260888ab3016f8c7f09f.jpg"  height=360px; width=330px;></a></li>
-		          <li class="box"><a href="#" class="magnifier"><img src="<c:url value="http://localhost:8080/scUploads/pics/vjaza.jpg" />" style="margin-top:-190px;" width=760px; height = 160px; />
+		         <li class="box"><a href="genres_POP" class="magnifier"><img src="<c:url value="/static/genres/POP.jpg" />" Width=430px; height = 430px; /> <h style="position:absolute;margin-left:50px;font-size:32px;margin-top:-370px;color:#fff;z-index:100;">POP</h></a></li>
+		          <li class="box"><a href="genres_R&B" class="magnifier"><img src="<c:url value="/static/genres/R&B.jpg" />" Width=330px; height = 220px; /><h style="position:absolute;margin-left:30px;font-size:27px;margin-top:-160px;color:#fff;z-index:100;">R&B</h></a></li>
+		          <li class="box"><a href="genres_Chillout" class="magnifier"><img src="<c:url value="/static/genres/chillout.jpg" />"  Width=330px; height = 230px; /><h style="position:absolute;margin-left:30px;font-size:25px;margin-top:-160px;color:#fff;z-index:100;">Chillout</h></a></li>
+		          <li class="box"><a href="genres_Country" class="magnifier"><img alt=""  style="margin-top:-40px;" src="<c:url value="/static/genres/country.jpg" />"  width=330px; height = 210px;><h style="position:absolute;margin-left:20px;font-size:25px;margin-top:-160px;color:#fff;z-index:100;">Country</h></a></li>
+		          <li class="box"><a href="genres_Alternative" class="magnifier"><img style="margin-top:-30px;" alt="" src="<c:url value="/static/genres/alternative.jpg" />"   height=360px; width=330px;><h style="position:absolute;margin-left:30px;font-size:26px;margin-top:-320px;color:#fff;z-index:100;">Alternative</h></a></li>
+		          <li class="box"><a href="genres_Jazz" class="magnifier"><img src="<c:url value="/static/genres/vjaza.jpg" />" style="margin-top:-190px;" width=760px; height = 160px; /><h style="position:absolute;margin-left:40px;font-size:31px;color:#fff;margin-top:-160px;z-index:100;">Jazz</h>
 		          </a></li>
 		         </ul>
 		      </div>

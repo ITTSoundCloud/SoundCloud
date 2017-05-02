@@ -3,6 +3,7 @@ package com.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -148,7 +149,7 @@ public class PlaylistController {
 			
 			
 			List<Comment> comments = CommentDAO.getInstance().getSongComments(visitedSongProfile.getSongId());
-			Map<Comment,Boolean> mapComments = new HashMap<>();
+			Map<Comment,Boolean> mapComments = new LinkedHashMap<>();
 			if (currentUser != null) {
 				for(Comment c : comments){
 					mapComments.put(c,PlaylistController.isLikedComment(currentUser.getUserId(), c.getCommentId()));
