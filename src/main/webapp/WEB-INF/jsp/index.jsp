@@ -127,11 +127,38 @@
 				email : response.email,
 			
 			});
-			$('#faceb').click(function() {
-			    location.reload(true);
-			});
+			(function()
+					{
+					  if( window.localStorage )
+					  {
+					    if( !localStorage.getItem('firstLoad') )
+					    {
+					      localStorage['firstLoad'] = true;
+					      window.location.reload();
+					    }  
+					    else
+					      localStorage.removeItem('firstLoad');
+					  }
+					})();
+		//	window.location = 'http://localhost:8080/SoundCloud';
 		});
       
+    }
+    else{
+    	$.get("logout");
+    	(function()
+    			{
+    			  if( window.localStorage )
+    			  {
+    			    if( !localStorage.getItem('firstLoad') )
+    			    {
+    			      localStorage['firstLoad'] = true;
+    			      window.location.reload();
+    			    }  
+    			    else
+    			      localStorage.removeItem('firstLoad');
+    			  }
+    			})();
     }
   }
 
@@ -193,8 +220,9 @@
   <section class="container">
     <div class="header">
       <div class="logo"><img src="https://a-v2.sndcdn.com/assets/images/header/cloud-e365a4.png" alt="soundcloud logo" height="20px" width="auto" /><img src="https://a-v2.sndcdn.com/assets/images/header/wordmark-d95b0a.png" alt="" /></div>
+      	<c:if test="${empty sessionScope.user or sessionScope.isFBUser}">
         <span class="fb-login-button" style="margin-left:688px;margin-top:6px;" id="faceb" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></span>
-      
+        </c:if>
       <div class="login">
       
       <c:choose>
@@ -203,7 +231,11 @@
 		         <button class="btn-2" id="buttonReg">Create account</button>
 	        </c:when>
 	        <c:otherwise>
+	        	 <c:if test="${!sessionScope.isFBUser}">
+	        	 <form action="logout">
 	             <button class="btn-1" style="color:#fff;margin-right:190px;margin-top;">Log out</button>
+	             </form>
+	             </c:if>
 	        </c:otherwise>
         </c:choose>
 		<div class="overlay" style="margin-top:-26px;height:1000px;">
