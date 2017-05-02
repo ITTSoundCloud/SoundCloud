@@ -86,8 +86,8 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	 <c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+							<button type="button" id="buttonLogin" class="btn btn-success">Sign In</button>
+							<button type="submit" id=buttonReg class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>

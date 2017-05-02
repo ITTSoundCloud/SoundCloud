@@ -85,12 +85,15 @@ public class UploadImageController {
 			e.printStackTrace();
 			return "error";
 		}
-		if (currentUser.getUserId() == visitedUser.getUserId()) {
-			model.addAttribute("canDeleteSong", true);
+		if (currentUser != null) {
+			if (currentUser.getUserId() == visitedUser.getUserId()) {
+				model.addAttribute("canDeleteSong", true);
+			}
+			else{
+				model.addAttribute("canDeleteSong", false);
+			}
 		}
-		else{
-			model.addAttribute("canDeleteSong", false);
-		}
+		
 		
 		return "uploadNewProfile";
 	}
