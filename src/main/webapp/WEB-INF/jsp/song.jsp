@@ -22,180 +22,8 @@
 <link href="<c:url value="/static/css/playlistCss.css" />" rel="stylesheet" type="text/css">
 <script src="<c:url value="/static/js/playlistPopup.js" />" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
-
-
-
-<style type="text/css">
-
-.avatar{
-  border-radius:100px;
-  width:70px;
-  height:70px;
-  float:left;
-}
-.message{
-  font-family:calibri;
-  position:relative;
-  clear:both;
-  width:790px;
-  margin-left:100px;
-}
-.message .avatar{
-  margin-top:5px;
-}
-.message p{
-  float:left;
-  font-family:calibri;
-  color:#333;
-  width:580px;
-  margin:0;
-  margin-left:20px;
-  margin-top:5px;
-  padding:10px;
-  background-color:#fafafa;
-  border:1px solid #eee;
-  border-radius:5px;
-  margin-bottom:10px;
-  word-spacing:3px;
-  line-height:22px;
-}
-.message p em.info{
-  display:block;
-  text-align:right;
-  margin-top:10px;
-  font-size:12px;
-  font-weight:bold;
-  color:#666px;
-}
-.message p strong{
-  display:block;
-  color:#428bca;
-  border-bottom:1px solid #ddd;
-  margin-bottom:10px;
-}
-.message p strong em{
-  font-weigh:normal;
-  color:#333;
-  font-size:10pt;
-}
-
-.inverse .avatar{float:left;}
-.inverse p{float:none;background-color:#eee;}
-.inverse .triangle{
-  display:block;
-  position:absolute;
-  left:600px;
-width: 0;
-height: 0;
-border-style: solid;
-border-width: 10px 0 10px 15px;
-border-color: transparent transparent transparent #eeeeee;
-}
-
-#global{
-  width:1140px;
-}
-.messages{float:left;}
-
-.btn{
-}
-
-button.likeCommentButton{
- border-radius: 0;
-    margin-left: 20px;
-    position: relative;
-    float: left;
-    margin-top:27px;
-    padding: 3px 7px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-    padding: px 12px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-  
-}
-
-button.likeCommentButton.liked{
-
-}
-
-button.likeButton{
-    border-radius: 0;
-    margin-left: -1px;
-    position: relative;
-    float: left;
-    margin-right: 5px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    display: inline-block;
-    padding: px 12px;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #ccc;
-  
-}
-
-button.likeButton:hover{
-    color: #000000;
-    background-color: rgba(0,0,0,0.1);
-    border-color: rgba(0,0,0,0.2);
-  
-}
-button.likeButton.liked{
-       
-  
-}
-
-.playlist{
-
-}
-
-.btn-group {
-    margin-top: 30px;
-    margin-left: 100px;
-    margin-bottom:20px;
-}
-
-
-.fb_iframe_widget span {
-    margin-top: -80px;
- }
-   	
-
-</style>
-
+<link href="<c:url value="/static/css/simlarGenre.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/static/css/song.css" />" rel="stylesheet" type="text/css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -259,11 +87,9 @@ $(document).ready(function(e) {
 
         <!-- Song Name & Song Title-->
         <ul class="song-info">
+          
             <li>
-                <div class="song-artist"><a href="#">&nbsp <c:out value="${song.artist }"/> &nbsp</a></div>
-            </li>
-            <li>
-                <div class="song-title">&nbsp<c:out value="${song.title }"/> &nbsp</div>
+                <div class="song-title">Track #<c:out value="${song.songId }"/> &nbsp</div>
             </li>
         </ul>
 		<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:40px;color:#fff;background:rgba(0,0,0,0.6);height:25px;width:120px;font-size:24px;">Arabella</h4></br>
@@ -280,22 +106,20 @@ $(document).ready(function(e) {
     <div class="song-img"> 
   		<c:choose>
 			<c:when test ="${song.photo.equals('path_of_photo')}">
-				</div> <img src="<c:url value="http://localhost:8080/scUploads/pics/borko123.jpg" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >
+				 <img src="<c:url value="http://localhost:8080/scUploads/pics/borko123.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
 			</c:when>
 			<c:otherwise>
-				</div> <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:80px;margin-top:-13px;" >									
+				 <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;;" >									
 			</c:otherwise>
 		</c:choose>
-		
-    <c:if test="${isContaining}">
-    
-	    <form method="POST" enctype="multipart/form-data">
-	    <button class="btn btn-sm btn-default">Change Picture<i class="fa fa-camera upload-button"></i>
-	        <input class="file-upload" type="file" name="imageFile" id="file" accept=".jpg" required/>
-	        <input type="submit" value="change">
-
+		<c:if test="${isContaining}">
+	       <form method="POST" enctype="multipart/form-data">
+	         	<button class="btn btn-sm btn-default" style="background:transparent;color:#fff;padding:1px;border:none;" >Change Photo  <i class="fa fa-camera upload-button"></i>
+	         	<label id="file-label" for="file" style="background:transparent;color:#fff;padding:8px 8px;margin-left:10px;">Browse</label>
+	    	   	<input style="margin-left:-50px;" class="" type="file" name="imageFile" id="file" accept=".jpg" value="choose" required/></button>
 	      </form>
-     </c:if>
+     	</c:if>
+	  </div>
    </div>
 
     <!--Comment Box -->
@@ -324,7 +148,7 @@ $(document).ready(function(e) {
 			            	<ul class="dropdown-menu">        
 			                <li><a id="buttonLogin"><i class="fa fa-plus-circle"></i> New Playlist</a></li>
 				                <c:forEach items="${currentUserPlaylists}" var="playlist">	
-									<li><a class="playlist" target="${playlist.playlistId }"><i class="fa fa-plus-circle"></i>${playlist.title}</a></li>									
+									<li> <a class="playlist" target="${playlist.playlistId }"> <i class="fa fa-plus-circle"></i> ${playlist.title}</a></li>									
 								</c:forEach>			                   
 			           		 </ul>
 			             <div class="overlay"></div>
@@ -338,7 +162,7 @@ $(document).ready(function(e) {
 		</h5>
 		<div>
 			<ul class="buttons-right pull-left" style="margin-left:600px;margin-top:-25px;font-size:15px;">
-                <li><i class="fa fa-play"></i>${song.timesPlayed}</li>
+                <li><i class="fa fa-play"></i> ${song.timesPlayed}</li>
                 <li><a href="#" ><i class="fa fa-heart"> </i> <c:out value="${song.likes }"/> </a></li>
           </ul>
      	</div>
@@ -365,7 +189,7 @@ $(document).ready(function(e) {
     
     <div id="textbox" class="input-group">
         <textarea class="form-control custom-control" id = "comment" rows="1" placeholder="Write your comment..."></textarea>
-        <c:if test="${not empty sessionScope.username}"
+        <c:if test="${not empty sessionScope.username}">
         	<button id="submitCom" class="btn btn-default btn-xs btn-space" style="width:60px;height:30px;">Send</button>
         </c:if>
     </div>
@@ -404,7 +228,32 @@ $(document).ready(function(e) {
 	</c:choose>
   </div>
 </div>
-	
+<div class="similar" style="background: rgba(144, 144, 144, 0.2);">
+<table>
+
+				<thead><h5 style="font-size: 16px; color: #fff;background: rgba(144, 144, 144, 0.76);border-radius: 5px;padding: 9px 9px;width: 260px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;More <c:out value="${song.genre}"></c:out> tracks</h5></thead></br>
+				<tbody>
+				<c:forEach items="${similarSongs}" var="song">
+					<tr>
+						<div class="main">
+							<td>
+										
+								  <li class="track" style="margin-bottom:-10px;" id="track">
+									      <div class="cover-c" style="margin-left:10px;">	       
+												<a href="song_${song.key}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="55" height="55">&nbsp;&nbsp;</a>					
+										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.key}"/> - </span>
+										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.value}"/></span>												
+									     	</div>	     	      
+									      <audio src="http://localhost:8080/scUploads/songs/${song.key}.mp3"></audio>
+									    </li>							  
+									  </td>	  
+									  
+									</div>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+	</div>
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 	
 <script type="text/javascript">
@@ -429,7 +278,7 @@ wavesurfer.init({
     container: '#waveform',
     barWidth: 1,
     waveColor: 'white',
-    progressColor: 'orange',
+    progressColor: 'rgba(255,108,6,0.9)',
     cursorWidth: 0,
     
 

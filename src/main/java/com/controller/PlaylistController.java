@@ -163,9 +163,12 @@ public class PlaylistController {
 			return "error";
 		}
 		try {
-			SongDAO.getInstance().getSimilar(visitedSongProfile.getSongId());
-		} catch (SQLException e) {
-			System.out.println("cant get similar to this song from dao./song_{title}");
+			
+			Map<String,String> similarSongs = SongDAO.getInstance().getSimilar(visitedSongProfile.getGenre(),visitedSongProfile.getSongId());
+			model.addAttribute("similarSongs", similarSongs);
+			System.out.println("podobni" + similarSongs);
+			} catch (SQLException e) {
+			System.out.println("cant get similar to this song from dao./song_{title}" + e.getMessage() + " " + e.getErrorCode());
 		}
 		
 		return "song";

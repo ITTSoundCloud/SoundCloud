@@ -1,0 +1,193 @@
+
+.avatar{
+  border-radius:100px;
+  width:70px;
+  height:70px;
+  float:left;
+}
+.message{
+  font-family:calibri;
+  position:relative;
+  clear:both;
+  width:790px;
+  margin-left:100px;
+}
+.message .avatar{
+  margin-top:5px;
+}
+.message p{
+  float:left;
+  font-family:calibri;
+  color:#333;
+  width:580px;
+  margin:0;
+  margin-left:20px;
+  margin-top:5px;
+  padding:10px;
+  background-color:#fafafa;
+  border:1px solid #eee;
+  border-radius:5px;
+  margin-bottom:10px;
+  word-spacing:3px;
+  line-height:22px;
+}
+.message p em.info{
+  display:block;
+  text-align:right;
+  margin-top:10px;
+  font-size:12px;
+  font-weight:bold;
+  color:#666px;
+}
+.message p strong{
+  display:block;
+  color:#428bca;
+  border-bottom:1px solid #ddd;
+  margin-bottom:10px;
+}
+.message p strong em{
+  font-weigh:normal;
+  color:#333;
+  font-size:10pt;
+}
+
+.inverse .avatar{float:left;}
+.inverse p{float:none;background-color:#eee;}
+.inverse .triangle{
+  display:block;
+  position:absolute;
+  left:600px;
+width: 0;
+height: 0;
+border-style: solid;
+border-width: 10px 0 10px 15px;
+border-color: transparent transparent transparent #eeeeee;
+}
+
+#global{
+  width:1140px;
+}
+.messages{float:left;}
+
+.btn{
+}
+
+button.likeCommentButton{
+ border-radius: 0;
+    margin-left: 20px;
+    position: relative;
+    float: left;
+    margin-top:27px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+  
+}
+
+button.likeCommentButton.liked{
+
+}
+
+li{
+display:block;}
+
+.similar{
+margin-left:940px;
+margin-top:-140px;
+width:260px;
+height:200px;
+}
+
+button.likeButton{
+    border-radius: 0;
+    margin-left: -1px;
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+  
+}
+
+button.likeButton:hover{
+    color: #000000;
+    background-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.2);
+  
+}
+button.likeButton.liked{
+       
+  
+}
+
+.playlist{
+
+}
+
+
+.song-img {
+  position: absolute;
+  margin-left:740px;
+}
+
+.song-img button {
+ 	display: none;
+    position: relative;
+    z-index: 1000;
+    margin-top: -44px;
+    width: 110px;
+}
+.song-img:hover button {
+  display: block;
+}
+
+.btn-group {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-bottom:20px;
+}
+
+
+.fb_iframe_widget span {
+    margin-top: -80px;
+ }
+   	

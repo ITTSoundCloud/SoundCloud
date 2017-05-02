@@ -211,7 +211,6 @@ font-size: 15.5px;
     padding: 0 26px;
     text-decoration: none;
     font-family: Montserrat, sans-serif;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     background:rgba(0,0,0,0.0);
     border:none;
     border-left: 1px solid #ccc;
@@ -219,7 +218,8 @@ font-size: 15.5px;
      
  .explore-btn:hover{
    background:rgba(0,0,0,0.3);
-   color:rgba(255,88,0,0.6);
+   color:#ff6124;
+   
  }
 
 p { color:#fff; padding:25px;}

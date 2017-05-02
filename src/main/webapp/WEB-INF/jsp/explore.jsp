@@ -80,9 +80,30 @@ $(document).ready(function(e) {
 
 	<ul class="nav2" style="background:rgba(0,0,0,0.6);">
 		<li><a onclick="#" href="#" style="background:rgba(0,0,0,0.4);">EXPLORE</a></li>
-		<li><form action="sortLikes" method="get"><button class="explore-btn">By Likes</button></form></li>
-		<li><form action="sortDate" method="get"><button class="explore-btn">By Upload</button></form></li>
-		<li><form action="sortGenres" method="get"><button class="explore-btn">By Genres</button></form></li>
+		<c:choose>
+		<c:when test="${type.equals('likes')}">
+			<li><form action="sortLikes"  method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Likes</button></form></li>
+		</c:when>
+		<c:otherwise>
+			<li><form action="sortLikes" method="get"><button class="explore-btn">By Likes</button></form></li>
+		</c:otherwise>
+		</c:choose>
+		<c:choose>
+		<c:when test="${type.equals('date')}">
+			<li><form action="sortDate" method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Upload</button></form></li>
+		</c:when>
+		<c:otherwise>
+				<li><form action="sortDate" method="get"><button class="explore-btn">By Upload</button></form></li>
+		</c:otherwise>
+		</c:choose>
+		<c:choose>
+		<c:when test="${!type.equals('date') and !type.equals('likes')}">
+			<li><form action="sortGenres"  method="get"><button class="explore-btn" style="color:#ff6124;background:#404040;">By Genres</button></form></li>
+		</c:when>
+		<c:otherwise>
+			<li><form action="sortGenres" method="get"><button class="explore-btn">By Genres</button></form></li>
+		</c:otherwise>
+		</c:choose>
 	</ul>
 	
 <c:choose >
@@ -135,7 +156,7 @@ $(document).ready(function(e) {
 						</tr>
 					</thead>
 					<c:if test="${empty songs}">
-						<h1>No uploaded songs.</h1>
+						<h5>No uploaded songs.</h5>
 					</c:if>
 				<tbody>
 					<c:forEach items="${sessionScope.songs}" var="song">
