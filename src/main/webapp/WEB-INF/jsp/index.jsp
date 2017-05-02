@@ -127,12 +127,38 @@
 				email : response.email,
 			
 			});
-
+			(function()
+					{
+					  if( window.localStorage )
+					  {
+					    if( !localStorage.getItem('firstLoad') )
+					    {
+					      localStorage['firstLoad'] = true;
+					      window.location.reload();
+					    }  
+					    else
+					      localStorage.removeItem('firstLoad');
+					  }
+					})();
+		//	window.location = 'http://localhost:8080/SoundCloud';
 		});
       
     }
     else{
     	$.get("logout");
+    	(function()
+    			{
+    			  if( window.localStorage )
+    			  {
+    			    if( !localStorage.getItem('firstLoad') )
+    			    {
+    			      localStorage['firstLoad'] = true;
+    			      window.location.reload();
+    			    }  
+    			    else
+    			      localStorage.removeItem('firstLoad');
+    			  }
+    			})();
     }
   }
 

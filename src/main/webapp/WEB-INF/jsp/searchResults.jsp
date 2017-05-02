@@ -98,10 +98,10 @@ $(document).ready(function(e) {
 	    <!-- Main Menu -->
 	    <div class="side-menu-container">
 	        <ul class="nav navbar-nav">
-	            <li><a onclick="myFunction()" href="#" style="color:#f50" id="first"><span class="fa fa-search"></span> Everything</a></li></br>
-	            <li><a onclick="myFunction1()" href="#" id="second"><span class="fa fa-music"></span> Tracks</a></li></br>
-	            <li><a onclick="myFunction2()" href="#" id="third"><span class="fa fa-user"></span> People</a></li>
-	            <li><a onclick="myFunction3()" href="#" id="forth"><span class="fa fa-signal"></span> Playlists</a></li>
+	            <li><a onclick="myFunctionChange()" href="#" style="color:#f50" id="first"><span class="fa fa-search"></span> Everything</a></li></br>
+	            <li><a onclick="myFunctionChange1()" href="#" id="second"><span class="fa fa-music"></span> Tracks</a></li></br>
+	            <li><a onclick="myFunctionChange2()" href="#" id="third"><span class="fa fa-user"></span> People</a></li>
+	            <li><a onclick="myFunctionChange3()" href="#" id="forth"><span class="fa fa-signal"></span> Playlists</a></li>
 	        </ul>
 	    </div><!-- /.navbar-collapse -->
 	</nav>
@@ -552,7 +552,7 @@ $('button.likeButton').live('click', function(e){
     
  <script type = "text/javascript">
 
-function myFunction() {
+function myFunctionChange() {
 				$('#showSecond').hide();
 				$('#showThird').hide();
 				$('#showFirst').show();
@@ -563,7 +563,7 @@ function myFunction() {
 				document.getElementById("forth").style="color:#777";
 };
 
-function myFunction1() {
+function myFunctionChange1() {
 				$('#showSecond').show();
 				$('#showThird').hide();
 				$('#showFirst').hide();
@@ -574,7 +574,7 @@ function myFunction1() {
 				document.getElementById("forth").style="color:#777";
 };
 
-function myFunction2() {
+function myFunctionChange2() {
 				$('#showSecond').hide();
 				$('#showThird').show();
 				$('#showFirst').hide();
@@ -586,7 +586,7 @@ function myFunction2() {
 };
 
 
-function myFunction3() {
+function myFunctionChange3() {
 				$('#showFirst').hide();
 				$('#showSecond').hide();
 				$('#showForth').show();

@@ -239,7 +239,7 @@ public class UserConroller {
 			session.setAttribute("user", fbUser);
 			session.setAttribute("username", fbUser.getUsername());
 			session.setAttribute("isFBUser", true);
-			return "login";
+			return "index";
 		}
 		else {			
 			User newFbUser = new User(username, email, DEFAULT_FB_PASS);
@@ -254,7 +254,7 @@ public class UserConroller {
 			}				 
 		}
 		
-		return "login";
+		return "index";
 	}
 	
 	 @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -265,7 +265,8 @@ public class UserConroller {
 	    }
 	
 	 @RequestMapping(value = "/index", method = RequestMethod.GET)
-	    public String index() {        
+	    public String index() { 
+		 System.out.println("vliza li v index?");
 	        return "newUpdateProfile";
 	    }
 	 	 
@@ -295,13 +296,9 @@ public class UserConroller {
 	public String updateCurrentProfile(
 			@PathVariable(value="username") String username,
 			HttpSession session,Model model) {
-		
-		System.out.println("--------------------------------------------------");
-		
-		
+	
 		List<String> countries = Arrays.asList(countriesToString().split(" "));
-		
-		System.out.println(countries + "******************************************************");
+
 		model.addAttribute("countries", countries);
 		model.addAttribute("username", username);
 
@@ -321,10 +318,7 @@ public class UserConroller {
 			@RequestParam(value = "country") String country,
 			@RequestParam(value = "about") String about,
 			HttpSession session,Model model) {
-		System.out.println("--------------------------------------------------");
-		//String[] countries = countriesToString().split(" ");
-		//System.out.println(countries + "******************************************************");
-		//model.addAttribute("countries", countries);
+
 		User currentUser = (User) session.getAttribute("user");
 		
 		try {
@@ -347,7 +341,6 @@ public class UserConroller {
 			@RequestParam(value = "currentPassword") String currentPassword,
 			@RequestParam(value = "newPassword") String newPassword,
 			HttpSession session,Model model) {
-		System.out.println("Change password***************");
 		User currentUser = (User) session.getAttribute("user");
 		if (currentPassword.equals(currentUser.getPassword()) && passValidator.validate(newPassword)) {
 			try {
