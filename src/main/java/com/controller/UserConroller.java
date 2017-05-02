@@ -193,9 +193,8 @@ public class UserConroller {
 				e.printStackTrace();
 				return "error";
 			}
+			session.setAttribute("isFBUser", false);
 
-			    // not ok because of singleton 
-			System.out.println("*****************" + session.getAttribute("user"));
             return "explore";                                                   
 
 
@@ -218,6 +217,7 @@ public class UserConroller {
 		if(fbUser != null) {  
 			session.setAttribute("user", fbUser);
 			session.setAttribute("username", fbUser.getUsername());
+			session.setAttribute("isFBUser", true);
 			return "login";
 		}
 		else {			
@@ -226,12 +226,13 @@ public class UserConroller {
 				UserDAO.getInstance().saveUser(newFbUser);
 				session.setAttribute("user", newFbUser);
 				session.setAttribute("username", newFbUser.getUsername());
+				session.setAttribute("isFBUser", true);
 			} catch (SQLException e) {
 				System.out.println("Problem adding user to DB");
 				e.printStackTrace();
-			}
-					 
+			}				 
 		}
+		
 		return "login";
 	}
 	

@@ -39,7 +39,7 @@ $(document).ready(function(e) {
  	<nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
-		           <a class="navbar-brand" href="#"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
+		           <a class="navbar-brand" href="http://localhost:8080/SoundCloud"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
@@ -66,7 +66,7 @@ $(document).ready(function(e) {
 						          <form action="updateCurrentProfile_${sessionScope.username}" method="POST">
 						            <button><a>Update Profile</a></button>
 						            </form>
-						            <li><a href="#">Followers</a></li>
+						            <li><a href="profile_${sessionScope.username}">My Account</a></li>
 						            <li role="separator" class="divider"></li>
 						            <li><a href="/SoundCloud/logout">Log out</a></li>
 						            
