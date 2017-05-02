@@ -72,6 +72,8 @@ public class UserConroller {
         	session.setAttribute("currentUser", user);
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             
+          
+
             	return "verify";
                                                                   
 	}
@@ -103,6 +105,25 @@ public class UserConroller {
 	public String home(HttpServletRequest request, HttpSession session,Model model) {
 		
 		if (session.getAttribute("user") == null) {
+			try {
+				List<Song> all = SongDAO.getInstance().getAllSongs();
+				Collections.sort(all,new UploadTimeComparator());
+				List<Song> mostPlayed = new ArrayList<>();
+				int counter = 0;
+				for(Song s : all){
+					if(counter<5){
+						mostPlayed.add(s);
+					}
+					else{
+						break;
+					}
+					counter++;
+				}
+				
+				model.addAttribute("mostPlayed", mostPlayed);
+			} catch (SQLException e) {
+				System.out.println("error getting songs from SongDAO for index.jsp");
+			}
 			return "index";
 		}
 		

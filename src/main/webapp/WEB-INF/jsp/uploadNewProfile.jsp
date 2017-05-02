@@ -23,8 +23,7 @@
  <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
-
-
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
 <title>Insert title here</title>
 
@@ -262,11 +261,8 @@ $('button.#delete').live('click', function(e){
     	 song_id:x,
     	
   	});
-  	<!--TODO-->
-  	$("#track").slideLeftHide(500, function() {
   		$(this).parent().fadeOut();
-  	    $("#track").remove();
-  	});
+  	    $("#track").parent().fadeOut();
 });
 
 </script>

@@ -25,7 +25,7 @@ $(document).ready(function(e) {
 
 <input type="hidden" id="refresh" value="no">
 
- <nav class="navbar navbar-inverse">
+ 	<nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		           <a class="navbar-brand" href="#"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
@@ -78,12 +78,9 @@ $(document).ready(function(e) {
   <div class="form-group" style="margin-left:440px;width:36%;">
     <label for="exampleSelect1">Genre</label>
     <select class="form-control" id="exampleSelect1" name="genre">
-    <c:forEach items="${genres}" var="genre">
-    	<option> <c:out value="${genre}"/></option>
-	</c:forEach>
- <!--   <c:forEach var="genre" begin="${genres.size() }" end="0">
-   	  <c:out value="${genre}"/>
-	</c:forEach>  --> 
+	    <c:forEach items="${genres}" var="genre">
+	    	<option> <c:out value="${genre}"/></option>
+		</c:forEach> 
     </select>
   </div>
   <div class="form-group" style="margin-left:440px;width:36%;">
