@@ -8,18 +8,33 @@
   text-align: center;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .track {
   position: relative;
+  animation: 300ms appear 0ms ease-in forwards;
+  
   width: 190px;
   display: inline-block;
   background: #fff, 0.8;
   margin: 0 2rem 3rem 2rem;
   padding: .2rem;
   border-radius: 4px;
+  transition-delay: 0ms;
+  cursor: pointer;
   margin-left:28px;
   margin-bottom:-10px;
   margin-top:70px;
 }
+
+
+
 
 .fa-heart#inLikes{
 	margin-left:90px;

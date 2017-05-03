@@ -113,6 +113,7 @@
 <script>
 
   function statusChangeCallback(response) {
+	  var isFBUser = '${sessionScope.isFBUser}';
     console.log('statusChangeCallback');
     console.log(response);
     if (response.status === 'connected') {
@@ -145,6 +146,7 @@
       
     }
     else{
+    	if(isFBUser){
     	$.get("logout");
     	(function()
     			{
@@ -159,6 +161,7 @@
     			      localStorage.removeItem('firstLoad');
     			  }
     			})();
+    	}
     }
   }
 
@@ -226,7 +229,7 @@
       <div class="login">
       
       <c:choose>
-	      <c:when test="${empty sessionScope.username}">
+	      <c:when test="${empty sessionScope.user}">
 		        <button class="btn-1" id="buttonLogin">Sign in</button>
 		         <button class="btn-2" id="buttonReg">Create account</button>
 	        </c:when>
@@ -367,7 +370,7 @@ function myLoginFunction1() {
 			}
 			, function(result){
 			if(!result){
-				document.getElementById('error').innerHTML = "<h4 class='error'>Ok.</h4>"
+				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"
 			}
 			else{
 				document.getElementById('error').innerHTML = "<h4 class='error'>There is no such username</h4>"
@@ -392,7 +395,7 @@ function myFunction1() {
 				document.getElementById('error').innerHTML = "<h4 class='error'>Already taken username.</h4>"
 			}
 			else{
-				document.getElementById('error').innerHTML = "<h4 class='error'>Ok.</h4>"
+				document.getElementById('error').innerHTML = "<h4 class='error'></h4>"
 			
 			}
     });

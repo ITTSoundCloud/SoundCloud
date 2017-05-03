@@ -8,8 +8,22 @@
   text-align: center;
 }
 
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .track-d {
   position: relative;
+  animation: 300ms appear 0ms ease-in forwards;
+  transition-delay: 0ms;
+  cursor: pointer;
+  display: inline-block;
   width: 360px;
   margin-bottom:-30px;
   display: inline-block;
