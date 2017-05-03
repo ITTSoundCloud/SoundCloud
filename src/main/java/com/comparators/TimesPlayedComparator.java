@@ -9,7 +9,7 @@ public class TimesPlayedComparator implements Comparator<Song>{
 	@Override
 	public int compare(Song arg0, Song arg1) {
 		
-		return arg1.getTimesPlayed()-arg0.getTimesPlayed();
+		return arg0.getTimesPlayed()-arg1.getTimesPlayed();
 	}
 
 

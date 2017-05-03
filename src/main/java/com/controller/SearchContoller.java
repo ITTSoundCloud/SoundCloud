@@ -116,9 +116,32 @@ public class SearchContoller {
 	
 	@RequestMapping("/welcome")
 	public String welcome(Model model){
-			
-		return WELCOME_VIEW;
 		
+		
+		try {
+			List<Song> all = SongDAO.getInstance().getAllSongs();
+			Collections.sort(all,new UploadTimeComparator());
+			List<Song> mostPlayed = new ArrayList<>();
+			int counter = 0;
+			for(Song s : all){
+				if(counter<5){
+					mostPlayed.add(s);
+				}
+				else{
+					break;
+				}
+				counter++;
+			}
+			
+			model.addAttribute("mostPlayed", mostPlayed);
+		} catch (SQLException e) {
+			System.out.println("error getting songs from SongDAO for index.jsp");
+		}
+		return "index";
 	}
+			
+	
+		
+	
 	
 }

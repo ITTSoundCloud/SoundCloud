@@ -5,13 +5,14 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<link href="<c:url value="/static/css/indexCss.css" />" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/static/css/indexCss.css" />" rel="stylesheet" type="text/css">	
 	 <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
     <script src="<c:url value="/static/js/parallax1.js" />"  type ="text/javascript"></script>
   	<script src="<c:url value="/static/js/parallax2.js" />"  type ="text/javascript"></script>
   	<script src="<c:url value="/static/js/buttonPopup.js" />" type ="text/javascript"></script>
 	<script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="<c:url value="/static/js/parallaxReal.js" />"  type ="text/javascript"></script>
      <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -291,7 +292,7 @@
         <p></p>
       </div>
       <div class="call-to-action">
-        <button class="btn-2">Explore</button>
+        <button class="btn-2" onclick="location.href='http://localhost:8080/SoundCloud/home';">Explore</button>
       </div>
       </section>
     </div>
@@ -309,23 +310,25 @@
       <div class="main">
   <ul>
   <c:forEach items="${mostPlayed}" var="song">
-    <li class="track">
+    <li class="track" style="margin-left:2px;margin-top:-20px;">
       <div class="cover">
  		 <c:choose>
 			<c:when test="${not empty song.photo}">
-				 <img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="30" height="30">
+				 <a href="/SoundCloud/song_${song.title}"><img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="180" height="180"></a>
 			</c:when>
 			<c:otherwise>
-				   <img src="<c:url value="/static/playlist/music.jpg"/>"  width=180px; height = 180px; alt="" />	        
+				   <a href="/SoundCloud/song_${song.title}"><img src="<c:url value="/static/playlist/music.jpg"/>"  width=180px; height = 180px; alt="" /></a>   
 			</c:otherwise>
 		</c:choose>           
-		 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>     
+		 <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>     
       </div>
-      <div class="info">
+      <div class="info" style="margin-bottom:-20px;">
         <span class="titleSong"><c:out value="${song.title}"></c:out></span>
         <span class="artist"><c:out value="${song.artist}"></c:out></span>
+        <h6 style="margin-left:140px;margin-top:-30px;font-size:18px;color:#707070;"> <i class="fa fa-play"> </i> <c:out value="${song.timesPlayed}"/> </h6>
+        
       </div>
-      <audio src="https://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
+      <audio src="<c:url value="http://localhost:8080/scUploads/songs/${song.title}.mp3"/>"></audio>
     </li>
     </c:forEach>
   </ul>
