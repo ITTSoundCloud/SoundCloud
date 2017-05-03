@@ -294,8 +294,7 @@
         <p></p>
       </div>
       <div class="call-to-action">
-        <button class="btn-2">Try it free for 30-days</button>
-        <button class="btn-1">Learn more</button>
+        <button class="btn-2">Explore</button>
       </div>
       </section>
     </div>

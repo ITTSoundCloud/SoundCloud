@@ -52,7 +52,7 @@ font-size:12px;}</style>
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	 <c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Go Back to Sign In</button>
+							<button type="button" class="btn btn-success" onclick="location.href='http://localhost:8080/SoundCloud';">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>

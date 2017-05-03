@@ -88,12 +88,10 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	 <c:when test="${empty sessionScope.username}">
-							<button type="button" id="buttonLogin" class="btn btn-success">Sign In</button>
-<<<<<<< HEAD
-							<button type="submit" id=buttonReg class="btn btn-warning">Create account</button>
-=======
-							<button type="submit" id="buttonReg" class="btn btn-warning">Create account</button>
->>>>>>> db33132d7deac720c1aba1e5d49e221addb1ce50
+
+
+							<button type="button" class="btn btn-success" onclick="location.href='http://localhost:8080/SoundCloud';">Go back to Sign In</button>
+
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
@@ -197,7 +195,7 @@ $(document).ready(function(e) {
 	        <div id="showFirst" style="display:block">
 	           <div class="col-md-9">
 	           <h3> You searched for ' <c:out value="${word}"/> '</h3>
-	       </br>
+	      	 </br>
 				<table class="table table-list-search">
 					<thead style="color:#909090;">
 						<h5 style="color:rgba(0,0,0,0.5);">Found <c:out value="${searchedUsers.size()}"/> users, <c:out value="${searchedSongs.size()}"/> songs and <c:out value="${searchedPlaylists.size()}"/> playlists</h5>
@@ -304,7 +302,7 @@ $(document).ready(function(e) {
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
 						<td>
-						<a href="profile_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
+						<a href="playlist_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
 						<div style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>		
 								<h5 style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
 						</div>
@@ -469,7 +467,7 @@ $(document).ready(function(e) {
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
 						<td>
-						<a href="profile_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
+						<a href="playlist_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
 						<div style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>		
 								<h5 style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
 						</div>

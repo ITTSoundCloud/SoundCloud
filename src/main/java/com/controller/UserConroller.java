@@ -69,7 +69,8 @@ public class UserConroller {
         	user = new User(username, email, password);
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
-        	session.setAttribute("currentUser", user);
+        	session.setAttribute("user", user);
+        	session.setAttribute("username", user.getUsername());
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             
           
@@ -86,7 +87,7 @@ public class UserConroller {
 		System.out.println((String) session.getAttribute("verification"));
 		if (code.equals(session.getAttribute("verification").toString())) {
 			UserDAO userDAO = UserDAO.getInstance();
-			User userToAdd = (User) session.getAttribute("currentUser");
+			User userToAdd = (User) session.getAttribute("user");
 			try {
 				userDAO.saveUser(userToAdd);
 			
