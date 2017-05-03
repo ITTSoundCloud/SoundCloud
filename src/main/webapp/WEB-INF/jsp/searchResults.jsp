@@ -261,7 +261,7 @@ $(document).ready(function(e) {
 										<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>										
 									</c:when>
 									<c:otherwise>
-									  <a href="song_${entry.key.title }"><img class="" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${entry.key.title}.jpg"/>" alt="" width="120" height="120"></a>
+									  <a href="song_${entry.key.title }"><img class="" src="<c:url value="http://localhost:8080/scUploads/pics/${entry.key.title}.jpg"/>" alt="" width="120" height="120"></a>
 									  <div class="info" style="margin-left:140px;margin-top:-110px;width:140px">
 								        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
 								        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
