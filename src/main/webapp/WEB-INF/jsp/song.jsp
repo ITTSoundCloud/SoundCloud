@@ -24,6 +24,8 @@
 <script src="<c:url value="/static/js/buttonPopupReal.js" />" type ="text/javascript"></script>
 <link href="<c:url value="/static/css/simlarGenre.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/song.css" />" rel="stylesheet" type="text/css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -202,7 +204,7 @@ $(document).ready(function(e) {
 	  <c:choose>
 		  <c:when test="${empty allComments }">
 		  <div class="message" id="comments">
-				<p>No comments.</p>
+			
 			</div>
 			  
 		</c:when>
@@ -392,7 +394,6 @@ $('button.likeCommentButton').live('click', function(e){
     $button = $(this);
    	var x = $(this).attr("target");
     if($button.hasClass('liked')){
-    	alert("unlikevameCommenta"),
     	 $.post("removeLikeComment", 
  				{ 
  					commentId: x,
@@ -402,14 +403,12 @@ $('button.likeCommentButton').live('click', function(e){
 
         $button.text('Like');
     } else {
-    	alert("likevame"),
     	  $.post("likeComment", 
     				{ 
     					commentId: x,
     					
     				});
-        $button.addClass('liked');
-          
+        $button.addClass('liked');          
         $button.text('Unlike');
     }
 });

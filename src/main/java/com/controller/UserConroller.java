@@ -229,7 +229,7 @@ public class UserConroller {
 	public String fbRegister(Model viewModel,HttpSession session,@RequestParam String last_name,
 			@RequestParam String first_name,@RequestParam String email) {
 		System.out.println("vliva li vyv fb?");
-		String username = first_name + " " + last_name;
+		String username = first_name + " " +last_name;
 		
 		User fbUser = null;
 		try {

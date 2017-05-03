@@ -45,6 +45,7 @@ public class UploadImageController {
 	public String prepareForUpload(HttpSession session,Model model, @PathVariable(value="username") String username) { 
 		String profilePicToShow = RESOURSES_PATH + username + ".jpg";
 		session.setAttribute("profilePhoto", profilePicToShow);
+		
 		User currentUser = (User) session.getAttribute("user");
 		if (currentUser != null) {
 			try {

@@ -5,85 +5,22 @@
 <html>
 <head>
 
-<link href="<c:url value="/static/css/side-menu.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/style.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/static/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+
+<link href="<c:url value="/static/css/css3.css" />" rel="stylesheet" type="text/css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react-with-addons.min.js" type = "text/javascript"></script>
+
+
+<script src="<c:url value="/static/js/error2.js" />"  type ="text/javascript"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
 
 </head>
 <body>
-	  <nav class="navbar navbar-inverse">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		           <a class="navbar-brand" href="#"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <ul class="nav navbar-nav">
-			      	<li><a href="#"> Explore </a></li>
-			      </ul>
-			      <form class="navbar-form navbar-left">
-			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
-			        </div>
-			        <button type="submit" class="btn btn-warning">Search</button>
-			      </form>
-			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">Upload</a></li>
-			        <c:choose>
-			        	<c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
-						</c:when>
-						<c:otherwise>
-							<button type="submit" class="btn btn-warning">Logged in</button>
-							<!-- TODO -->
-						
-						</c:otherwise>
-					</c:choose>
-			       </ul>
-			    </div><!-- /.navbar-collapse -->
-			  </div><!-- /.container-fluid -->
-		</nav>
-		
-  	<header></header>
-  
-	  <div class="row">
-	    <!-- Menu -->
-	    <div class="side-menu">
-	    
-	    <nav class="navbar navbar-default" role="navigation">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	        <div class="brand-wrapper">
-	            <div class="brand-name-wrapper">
-	                <a class="navbar-brand" href="#">
-	                    SoundCloud
-	                </a>
-	            </div>
-	        </div>
-	    </div></br>
-	    <!-- Main Menu -->
-	    <div class="side-menu-container">
-	        <ul class="nav navbar-nav">
-	            <li><a onclick="myFunction()" id = "demo" href="#"><span class="glyphicon glyphicon-search"></span> Everything</a></li></br>  
-	            <li><a href="#"><span class="glyphicon glyphicon-music"></span> Tracks</a></li></br>
-	            <li><a href="#"><span class="glyphicon glyphicon-user"></span> People</a></li>
-	        </ul>
-	    </div><!-- /.navbar-collapse -->
-	</nav> 
-	    </div>
-	    <!-- Main Content -->
-	    <div class="container-fluid">
-	        <div class="side-body">
-	           <h1> Main Content here </h1>
-	           <pre> Songs? </pre>    
-	        </div>
-	    </div>
-	</div>
-
+	 
+	   <div>
+	   </div>
   <!-- change paths later -->
   
   	<script src="./js/side-menu.js"></script>
@@ -92,11 +29,82 @@
     <script src="./js/jquery.js"></script>
     <script src="./js/bootstrap.js"></script>
     
-    <script>
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Hello World
-    ";
-}
+    <script type="text/javascript">
+    
+    /** @jsx React.DOM */
+ // no JSX without changing the script tag type :(
+
+ /*! react-infinite-scroll - v 0.1.3 - guillaumervls 2014-04-07 */
+ !function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;
+ if(!h&&i)return i(g,!0);if(f)return f(g,!0);throw new Error("Cannot find module '"+g+"'")}var j=c[g]={exports:{}};
+ b[g][0].call(j.exports,function(a){var c=b[g][1][a];return e(c?c:a)},j,j.exports,a,b,c,d)}return c[g].exports}
+ for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}
+ ({1:[function(a,b){function c(a){return a?a.offsetTop+c(a.offsetParent):0}b.exports=function(a)
+	 {if(a.addons&&a.addons.InfiniteScroll)return a.addons.InfiniteScroll;a.addons=a.addons||{};
+	 var b=a.addons.InfiniteScroll=a.createClass({
+		 getDefaultProps:function(){return{pageStart:0,hasMore:!1,loadMore:function(){},
+			 threshold:250,loader:b._defaultLoader}},componentDidMount:function()
+			 {this.pageLoaded=this.props.pageStart,this.attachScrollListener()},componentDidUpdate:function()
+			 {this.attachScrollListener()},render:function(){var b=this.props;return a.DOM.div
+			 (null,b.children,b.hasMore&&b.loader)},scrollListener:function()
+			 {var a=this.getDOMNode(),b=void 0!==window.pageYOffset?window.pageYOffset:
+				 (document.documentElement||document.body.parentNode||document.body).
+				 scrollTop;c(a)+a.offsetHeight-b-window.innerHeight<Number(this.props.threshold)
+				 &&(this.detachScrollListener(),this.props.loadMore(this.pageLoaded+=1))},
+				 attachScrollListener:function(){this.props.hasMore&&
+					 (window.addEventListener("scroll",this.scrollListener)
+							 ,window.addEventListener("resize",this.scrollListener),this.scrollListener())},
+							 detachScrollListener:function(){window.removeEventListener("scroll",this.scrollListener),window.removeEventListener("resize",this.scrollListener)},componentWillUnmount:function(){this.detachScrollListener()}});return b.setDefaultLoader=function(a){b._defaultLoader=a},b}},{}],2:[function(a){var b=a("./react-infinite-scroll");"function"==typeof define&&define.amd?define(["react"],function(a){return b(a)}):(window.React.addons=window.React.addons||{},window.React.addons.InfiniteScroll=b(window.React))},{"./react-infinite-scroll":1}]},{},[2]);
+		 }
+	 }
+
+ function createDiv(page) {
+   return React.DOM.div({
+     className: 'item',
+     style: {
+       backgroundColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+     }
+   }, page + 1)
+ }
+
+ var Wrapper = React.createClass({
+   
+   getInitialState: function() {
+     return {
+       hasMore: true,
+       items: [createDiv(0)]
+     };
+   },
+   loadMore: function(page) {
+     console.log('load');
+     setTimeout(function() {
+       this.setState({
+         items: this.state.items.concat([createDiv(page)]),
+         hasMore: (page < 10)
+       });
+     }.bind(this), 100);
+   },
+   render: function() {
+     console.log('render');
+     var InfiniteScroll = React.addons.InfiniteScroll;
+     return React.DOM.div({
+       className: "scroll-holder"
+     },
+     InfiniteScroll({
+       pageStart: 0,
+       loadMore: this.loadMore,
+       hasMore: this.state.hasMore,
+       loader: React.DOM.div({
+         className: "loader"
+       }, " - ")
+     },
+     this.state.items))
+   }
+ });
+
+ React.renderComponent(Wrapper(), document.body);
+     
+
 </script>
 
 	

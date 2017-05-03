@@ -102,56 +102,56 @@ $(document).ready(function(e) {
 					</c:choose>
 				</c:if>
 <!--<input  type="submit" class= "follow-btn" value="Follow">  -->
-<div class="container">
-  <div class="cover row">
-	   	<h1><c:out value="${user.username }"/></h1>
-	    <c:choose>
-		    <c:when test="${empty user.country}">
-		    	<h4> No conutry </h4>
-		    </c:when>
-		    <c:otherwise>
-				<h4><c:out value="${user.country}"/></h4>
-			</c:otherwise>
-		</c:choose>
-    </div>
-     <div class="profile-img"> 
-  		<c:choose>
-			<c:when test ="${empty user.profilePic}">
-				<img class="" style="border:2px solid #fff;" src="<c:url value="/static/playlist/default.png" />"/>
-			</c:when>
-			<c:otherwise>
-				<img class="" style="border:2px solid #fff;" src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />"/>									
-			</c:otherwise>
-		</c:choose>
+				<div class="container">
+				  <div class="cover row">
+					   	<h2><c:out value="${user.username }"/>, </h2>
+					    <c:choose>
+						    <c:when test="${empty user.country}">
+						    	<h4> No country </h4>
+						    </c:when>
+						    <c:otherwise>
+								<h4><c:out value="${user.country}"/></h4>
+							</c:otherwise>
+						</c:choose>
+				    </div>
+			     <div class="profile-img" style="margin-left:20px;"> 
+			  		<c:choose>
+						<c:when test ="${empty user.profilePic}">
+							<img class="" style="border:2px solid #fff;" src="<c:url value="/static/playlist/default.png" />"/>
+						</c:when>
+						<c:otherwise>
+							<img class="" style="border:2px solid #fff;" src="<c:url value="http://localhost:8080/scUploads/pics/${user.username }.jpg" />"/>									
+						</c:otherwise>
+					</c:choose>
 		
-    <c:if test="${sessionScope.username.equals(user.username)}">
-    
-	    <form method="POST" enctype="multipart/form-data">
+	    <c:if test="${sessionScope.username.equals(user.username)}">
 	    
-	    	       	<button class="btn btn-sm btn-default" >Change Photo  <i class="fa fa-camera upload-button"></i>
-	    	    	<input style="margin-left:30px;" class="" type="file" name="imageFile" id="file" accept=".jpg" required/></button>
-	    
-	      </form>
-     </c:if>
-   </div>
-  <div class="row content">
-    <div class="profile col-md-3 col-xs-12" style="border-right: solid 1px #ccc;width:340px;margin-right:30px;">
-		<ul class="profile-links" style="margin-left:40px;">
-			<li style="margin-left:40px;"><i class="glyphicon glyphicon-envelope"></i> <h style="font-size:13px;"><i class=""></i><c:out value="${user.email}"/></h></li></br>
-			<li style="margin-left:40px;"><a id="buttonLogin" style="font-size:17px;"><i class="fa fa-user"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
-		
+		    <form method="POST" enctype="multipart/form-data">   	
+		    	<button class="btn btn-sm btn-default" style="background:transparent;margin-left:-70px;color:#fff;padding:1px;border:none;" >Change Photo  <i class="fa fa-camera upload-button"></i>
+	         	<label id="file-label" for="file" style="background:transparent;color:#fff;padding:8px 8px;margin-left:10px;">Browse</label>
+	    	   	<input style="margin-left:-50px;" class="" type="file" name="imageFile" id="file" accept=".jpg" value="choose" required/></button>
+		    
+		      </form>
+	     </c:if>
+	   </div>
+	  <div class="row content">
+	    <div class="profile col-md-3 col-xs-12" style="border-right: solid 1px #ccc;width:340px;margin-right:30px;">
+			<ul class="profile-links" style="margin-left:40px;">
+				<li style="margin-left:40px;"><i class="glyphicon glyphicon-envelope"></i> <h style="font-size:13px;"><i class=""></i><c:out value="${user.email}"/></h></li></br>
+				<li style="margin-left:40px;"><a id="buttonLogin" style="font-size:17px;"><i class="fa fa-user"></i> Followers <c:out value="${followers.size()}"></c:out></a></li>
+			
 			<hr>
 			 <c:choose>     
 		  	    <c:when test="${empty user.bio}">
-		  	    	<p> This user has no description. </p>
+		  	    	<p style="margin-left:30px;"> This user has no description. </p>
 		  	    </c:when>
 		  	    <c:otherwise>
 		  			<p><c:out value="${user.bio}"/></p>
 		  		</c:otherwise>
   			</c:choose>
   			<hr>
-			<li style="background:rgba(0,0,0,0.1);"><table>
-				<thead><h5 style="font-size:16px;color:#fff;border-radius:5px;background: rgba(255, 85, 0, 0.8);background: rgba(144, 144, 144, 0.76);padding:10px 10px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;Uploads by <c:out value="${user.username}"></c:out></h5></thead></br>
+			<li><table>
+				<thead><h5 style="font-size:16px;color:#fff;border-radius:5px;background: rgba(144, 144, 144, 0.76);padding:10px 10px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-headphones"></i>  &nbsp;Uploads by <c:out value="${user.username}"></c:out></h5></thead></br>
 				<tbody>
 				<c:if test="${empty songsUploaded}">
 					<h style="margin-left:60px;margin-bottom:20px;">No uploaded tracks.</h>
@@ -164,17 +164,15 @@ $(document).ready(function(e) {
 										
 								  <li class="track" style="margin-bottom:-10px;" id="track">
 									      <div class="cover-c">	       
-												<a href="song_${song.title}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="60" height="60"></a>					
+												<a href="song_${song.title}"><img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="60" height="60"></a>					
 										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.title}"/> - </span>
 										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.title}"/></span>
 										        <c:if test="${!empty sessionScope.user and canDeleteSong}">
 										  		<button class="delete" id="delete" target="${song.songId}">delete</button>  
 										  		</c:if>
-												<button class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
-												
-									     	</div>
+												<button class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>													     	</div>
 									     	      
-									      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
+									     	 <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
 									     
 									      <hr>
 									    </li>
@@ -204,7 +202,14 @@ $(document).ready(function(e) {
 			<tbody>
 				<c:forEach items="${followers}" var = "follower">
 				<tr><td>
-					<img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="50" height="50">&nbsp; 
+				<c:choose>
+				<c:when test="${empty follower.profilePic}">
+					<img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="50" height="50">&nbsp; 	
+					</c:when>
+					<c:otherwise>
+						<img style="border-radius:60px;" src="<c:url value="http://localhost:8080/scUploads/pics/${follower.username}.jpg" />" alt="" width="50" height="50">&nbsp; 
+					</c:otherwise>
+					</c:choose>
 					&nbsp;<c:out value=" ${follower}"/>
 				</td></tr>
 				</c:forEach>
@@ -214,11 +219,11 @@ $(document).ready(function(e) {
 	</div>
 	   
     </div></br>
-    <h3><i class="fa fa-headphones"></i> Playlists</h3></br>
+    <h3 style="color:rgba(255, 85, 0, 0.8)"><i class="fa fa-headphones"></i> Playlists</h3></br>
     <c:if test="${empty currentPlaylists }">
     	<h6>This user has no playlists yet.</h6>
     </c:if>
-    <div class="feed col-md-9 col-xs-12">
+    <div class="feed col-md-9 col-xs-12" style="margin-left:400px;margin-top:-580px;">
     <c:forEach items="${currentPlaylists}" var="playlist">
 	      <div class="media feed-item">
 	        <div class="media-left">

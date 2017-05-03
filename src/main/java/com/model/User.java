@@ -17,7 +17,7 @@ public class User {
 	private String name;
 	private String country;
 	private String bio;
-	private String profilePic;
+	private String profilePic = null;
 	private ArrayList<Integer> likedSongs;
 	
 	public User(String username, String email, String password) {
