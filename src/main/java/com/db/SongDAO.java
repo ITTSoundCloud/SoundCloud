@@ -59,6 +59,7 @@ public class SongDAO {
 			song.setAbout(resultSet.getString("s.description"));
 			song.setUploadingTime(resultSet.getTimestamp("s.upload_time").toLocalDateTime());
 			song.setLikes(resultSet.getInt("count(sl.song_id)"));
+			song.setTimesPlayed(resultSet.getInt("s.timesPlayed"));
 			
 			System.out.println(song.getSongId());
 			songs.add(song);
@@ -96,6 +97,7 @@ public class SongDAO {
 			song.setAbout(resultSet.getString("s.description"));
 			song.setUploadingTime(resultSet.getTimestamp("s.upload_time").toLocalDateTime());
 			song.setLikes(resultSet.getInt("count(sl.song_id)"));
+			song.setTimesPlayed(resultSet.getInt("s.timesPlayed"));
 
 		}
 		return song;

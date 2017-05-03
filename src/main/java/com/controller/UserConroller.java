@@ -155,7 +155,6 @@ public class UserConroller {
 	
 	
 	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
@@ -269,6 +268,7 @@ public class UserConroller {
 	        return "index";
 	    }
 	
+
 	 @RequestMapping(value = "/index", method = RequestMethod.GET)
 	    public String index(HttpSession session) { 
 		 System.out.println("vliza li v index?");
@@ -276,6 +276,7 @@ public class UserConroller {
 		 
 	        return "index";
 	    }
+
 	 	 
 	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
 	public String sortByDate(Model model, HttpSession session){

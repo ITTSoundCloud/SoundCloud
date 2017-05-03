@@ -96,6 +96,7 @@ $(document).ready(function(e) {
                 <div class="song-title">Track #<c:out value="${song.songId }"/> &nbsp</div>
             </li>
         </ul>
+
 		<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:40px;color:#fff;background:rgba(0,0,0,0.6);height:25px;width:120px;font-size:24px;">${song.title}</h4></br>
 		<h4 style="margin-bottom:-100px;margin-left:100px;margin-top:80px;color:#ccc;background:rgba(0,0,0,0.6);height:25px;width:160px;font-size:18px;">${song.artist}</h4>
 		<h4 style="margin-bottom:-100px;margin-left:520px;margin-top:40px;color:#fff;background:#909090;height:25px;width:130px;padding:3px 18px;border-radius:20px;font-size:17px;">#<c:out value="${song.genre}"/></h4>
@@ -110,7 +111,11 @@ $(document).ready(function(e) {
     <div class="song-img"> 
   		<c:choose>
 			<c:when test ="${song.photo.equals('path_of_photo')}">
+<<<<<<< HEAD
 				 <img src="<c:url value="http://localhost:8080/scUploads/music.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
+=======
+				 <img src="<c:url value="/static/playlist/music.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
+>>>>>>> 2097a86415eb1018e41d5db68b063c0c32f063f0
 			</c:when>
 			<c:otherwise>
 				 <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;;" >									
