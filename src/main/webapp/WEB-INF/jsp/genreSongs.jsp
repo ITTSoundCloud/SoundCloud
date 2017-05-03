@@ -30,7 +30,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:url(http://localhost:8080/scUploads/genres/${genre}.jpg);background-size:1400px 950px;">
+<body style="background:url(http://localhost:8080/scUploads/${genre}.jpg);background-size:1400px 950px;">
 <input type="hidden" id="refresh" value="no">
 	  <nav class="navbar navbar-inverse" >
 		  <div class="container-fluid">
@@ -95,7 +95,7 @@ $(document).ready(function(e) {
 	         <span class="titleSong" style="font-size:18px;margin-left:25px;color:#ccc"><c:out value="${song.title }"/></span>
 	    	<c:choose>
 	    	<c:when test="${not empty song.photo}">
-	    		 <img src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>"  width=200px; height = 200px; alt="" />
+	    		 <img src="<c:url value="http://localhost:8080/scUploads/pics/${song.title}.jpg"/>"  width=200px; height = 200px; alt="" />
 	    	</c:when>
 	        <c:otherwise>
 	        	  <img src="<c:url value="/static/playlist/music.jpg"/>"  width=200px; height = 200px; alt="" />	        

@@ -110,7 +110,7 @@ $(document).ready(function(e) {
     <div class="song-img"> 
   		<c:choose>
 			<c:when test ="${song.photo.equals('path_of_photo')}">
-				 <img src="<c:url value="http://localhost:8080/scUploads/pics/borko123.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
+				 <img src="<c:url value="http://localhost:8080/scUploads/music.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
 			</c:when>
 			<c:otherwise>
 				 <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;;" >									
@@ -242,9 +242,9 @@ $(document).ready(function(e) {
 						<div class="main">
 							<td>
 										
-								  <li class="track" style="margin-bottom:-10px;" id="track">
+								  <li class="track" style="margin-bottom:20px;" id="track">
 									      <div class="cover-c" style="margin-left:10px;">	       
-												<a href="song_${song.key}"><img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="55" height="55">&nbsp;&nbsp;</a>					
+												<a href="song_${song.key}"><img class="song-image" src="http://localhost:8080/scUploads/pics/${song.key }.jpg" alt="" width="55" height="55">&nbsp;&nbsp;</a>					
 										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.key}"/> - </span>
 										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.value}"/></span>												
 									     	</div>	     	      
