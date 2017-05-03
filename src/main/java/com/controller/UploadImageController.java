@@ -73,7 +73,6 @@ public class UploadImageController {
 			model.addAttribute("followers",followers);
 			model.addAttribute("currentPlaylists", visitedPlaylists);
 		} catch (SQLException e) {
-			System.out.println("cant get user from dao./profile_{username}");
 			e.printStackTrace();
 			return "error";
 		}
@@ -124,7 +123,7 @@ public class UploadImageController {
 		}
 		session.setAttribute("profilePhoto", "http://localhost:8080/scUploads/pics/" + username + ".jpg");
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		return "uploadNewProfile";
+		return "redirect:/profile_{username}";
 
 	}
 	

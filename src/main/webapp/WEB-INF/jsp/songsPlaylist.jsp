@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,7 +91,7 @@ $(document).ready(function(e) {
 			        <c:choose>
 						 <c:when test="${empty sessionScope.username}">
 						 	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
-							<button type="button" class="btn btn-success" onclick="location.href='http://localhost:8080/SoundCloud';">Go Back to Sign In</button>
+							<button type="button" class="btn btn-success" onclick="location.href='http://localhost:8080/SoundCloud/welcome';">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
@@ -110,9 +111,9 @@ $(document).ready(function(e) {
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 		</nav>
-            
-			<h3 style="margin-left:120px;margin-bottom:-33px;margin-top:50px;"><i class="fa fa-play"></i> <c:out value="${playlist.title}"></c:out>Playlist by</h3>
-			<h3 style="margin-left:180px;margin-bottom:-33px;font-size:16px;margin-top:40px;color:#707070;"><b>${playlist.username}borko123</b></h3>
+            <c:set scope="session" value="${sessionScope.infoPlaylist}" var="entry"/>
+			<h3 style="margin-left:120px;margin-bottom:-33px;margin-top:50px;"><i class="fa fa-play"></i>Playlist</h3>
+			<h3 style="margin-left:180px;margin-bottom:-33px;font-size:16px;margin-top:40px;color:#707070;"><b>${sessionScope.infoPlaylist.value.title}</b></h3>
            <div class="container" style="background:url(http://59.160.153.185/iyff/iyff2014/iyff/sites/default/files/banner-text-bg_1.png) no-repeat;margin-top:20px;width:1900px;height:190px;">
 
         <!-- Song Name & Song Title-->
@@ -134,8 +135,8 @@ $(document).ready(function(e) {
            <div class="description" style="width:240px;float:left;margin-left:130px;">
             <h4 style="margin-top:20px;">Desciption</h4>
             <c:choose>
-	            <c:when test="${not empty playlist.description}">
-	          	 	<h5><c:out value="${playlist.description}" /></h5>
+	            <c:when test="${not empty entry.value.description}">
+	          	 	<h5><c:out value="${entry.value.description}" /></h5>
 	           	</c:when>
 	           	<c:otherwise>
 	           	  <h5>No description.</h5>      	

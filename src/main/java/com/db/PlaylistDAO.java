@@ -138,7 +138,7 @@ public class PlaylistDAO {
 	//get username and playlist object
 	public Map<String,Playlist> getPlaylist(int playlist_id) throws SQLException{
 		String sql = "SELECT p.playlist_id, p.title, p.user_id,u.username,p.description FROM soundcloud.playlists p join soundcloud.users u"
-				+ " using(user_id) where playlist_id = ?;";
+				+ " using(user_id) where p.playlist_id = ?;";
 		
 		Map<String,Playlist> playlists = new HashMap<>();
 		PreparedStatement ps = null;

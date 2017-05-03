@@ -68,7 +68,9 @@ public class PlaylistController {
 		try {
 			//username -> playlist
 			Map<String,Playlist> infoPlaylist = PlaylistDAO.getInstance().getPlaylist(playlist_id);
-			model.addAttribute("infoPlaylist", infoPlaylist);
+			session.setAttribute("infoPlaylist", infoPlaylist);
+			session.setAttribute("infoPlaylistOwner", infoPlaylist.get(""));
+			session.setAttribute("playlistOwner", "rozi");
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage() + "cant get playlist info from playlist./playlist_{playlistId}");
 			return "error";
@@ -95,7 +97,6 @@ public class PlaylistController {
 		Song songToAdd = (Song)session.getAttribute("songToAddInPlaylist");
 		try {
 			PlaylistDAO.getInstance().addSongToPlayList(playlist_id, songToAdd.getSongId());
-			System.out.println("added");
 		} catch (SQLException e) {
 			System.out.println("Error in DB adding the song to playlist");
 		}

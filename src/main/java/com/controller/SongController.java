@@ -47,9 +47,7 @@ public class SongController {
 		
 		return "genreSongs";
 	}
-	
-	
-	
+		
 	@ResponseBody
 	@RequestMapping(value="/timesPlayed", method = RequestMethod.POST)
 	public void timesPlayed(Model model,HttpSession session,
@@ -70,15 +68,11 @@ public class SongController {
 			@RequestParam(value = "song_id") int song_id) {
 		
 		try {
-			System.out.println("Predi");
+
 			System.out.println(PlaylistDAO.getInstance().getAllSongsFromPlaylist(1));
-			System.out.println(SongDAO.getInstance().getAllSongs());
-			
-			System.out.println("triem pesen" + song_id);
+			System.out.println(SongDAO.getInstance().getAllSongs());		
 			SongDAO.deleteSong(song_id);
-			System.out.println("Sled ");
-			System.out.println(SongDAO.getInstance().getAllSongs());
-			System.out.println(PlaylistDAO.getInstance().getAllSongsFromPlaylist(1));
+
 		} catch (SQLException e) {
 			System.out.println("Cant be deleted" + e.getMessage() + "" + e.getSQLState());
 		}

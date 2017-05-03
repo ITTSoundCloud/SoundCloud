@@ -66,15 +66,13 @@ public class UserConroller {
 		HttpServletRequest request, Model model, HttpSession session) {
 			
 		User user = null;
-        	user = new User(username, email, password);
+        	user = new User(username.trim(), email.trim(), password.trim());
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
         	session.setAttribute("user", user);
         	session.setAttribute("username", user.getUsername());
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             
-          
-
             	return "verify";
                                                                   
 	}
@@ -94,7 +92,6 @@ public class UserConroller {
 			userDAO.addUserToCash(userToAdd);
 			return "explore";
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -125,7 +122,7 @@ public class UserConroller {
 			} catch (SQLException e) {
 				System.out.println("error getting songs from SongDAO for index.jsp");
 			}
-			return "index";
+			return "explore";
 		}
 		
 	 	List<String> genres;
@@ -148,8 +145,7 @@ public class UserConroller {
 			e.printStackTrace();
 			return "error";
 		}
-		
-		
+				
 		return "explore";    
 	}
 	
@@ -159,7 +155,6 @@ public class UserConroller {
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
-		System.out.println("kvo stava we maika mu deeba");
 		if (session.getAttribute("user") == null) {					
 		User user;
 		try {
@@ -167,7 +162,6 @@ public class UserConroller {
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
 			session.setAttribute("isFBUser", false);
-			System.out.println("is fb user " + session.getAttribute("isFBUser"));
 			
 		} catch (SQLException e) {
 			System.out.println("cant get user form dao. /login");
@@ -175,19 +169,7 @@ public class UserConroller {
 			return "error";
 		}
 			
-		}
-		/*if (session.getAttribute("user") == null) {
-			return "index";
-		}*/
-//		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
-//		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
-//		 	
-//		 	for(User u : allUsers){
-//		 		System.out.println(u);
-//		 	}
-//		 	model.addAttribute("allUsers", allUsers);
-//		 	model.addAttribute("allSongs", allSongs);
-//		 	
+		}	 	
 		 	List<String> genres;
 			try {
 				genres = SongDAO.getInstance().getGenres();
@@ -222,15 +204,12 @@ public class UserConroller {
 
             return "explore";                                                   
 
-
 	}
 	
 	@RequestMapping(value="/loginFB", method=RequestMethod.POST)
 	public String fbRegister(Model viewModel,HttpSession session,@RequestParam String last_name,
 			@RequestParam String first_name,@RequestParam String email) {
-		System.out.println("vliva li vyv fb?");
-		String username = first_name + " " +last_name;
-		
+		String username = first_name + " " +last_name;	
 		User fbUser = null;
 		try {
 			fbUser = (User)UserDAO.getInstance().getUser(username);
@@ -267,16 +246,6 @@ public class UserConroller {
 	        session.invalidate();
 	        return "index";
 	    }
-	
-
-	 @RequestMapping(value = "/index", method = RequestMethod.GET)
-	    public String index(HttpSession session) { 
-		 System.out.println("vliza li v index?");
-		 System.out.println(session.getAttribute("user"));
-		 
-	        return "index";
-	    }
-
 	 	 
 	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
 	public String sortByDate(Model model, HttpSession session){
@@ -287,7 +256,6 @@ public class UserConroller {
 			songsByDate = SongDAO.getInstance().getAllSongs();
 		Collections.sort(songsByDate, new UploadTimeComparator());
 		session.setAttribute("songs", songsByDate);
-		System.out.println("EHOOOOOOOOOOOOOOOOOOOOOOO");
 		for(Song s : songsByDate){
 			System.out.println(s.getSongId());
 		}
@@ -399,37 +367,30 @@ public class UserConroller {
 		public void likeSong(Model model,HttpSession session){
 			
 			User currentUser = (User) session.getAttribute("user");
-			System.out.println("kvo stava tuka ima li laikove??");
 			Song visitedSongProfile = (Song) session.getAttribute("songToAddInPlaylist");
 			model.addAttribute("song", visitedSongProfile);			
 				try {
-					System.out.println("Ima laikove");
 					LikeDAO.getInstance().likeSong(currentUser.getUserId(), visitedSongProfile.getSongId());
 				} catch (SQLException e) {
 					System.out.println(e.getMessage() + " problem with song like. / like");
 					
 				}
 		}
-		
-		
-		
+				
 		@ResponseBody
 		@RequestMapping(value="/removeLike", method = RequestMethod.POST)
 		public void removeLikeSong(Model model,HttpSession session){
 			User currentUser = (User) session.getAttribute("user");
-			System.out.println("kvo stava tuka ima li laikove??");
 			Song visitedSongProfile = (Song) session.getAttribute("songToAddInPlaylist");
 			model.addAttribute("song", visitedSongProfile);
 			
 				try {
-					System.out.println("Nema laikove");
 					LikeDAO.getInstance().removeLikeSong(currentUser.getUserId(), visitedSongProfile.getSongId());
 				} catch (SQLException e) {
 					System.out.println(e.getMessage() + " problem with song like.");
 				}
 		}
-		
-		
+				
 		@ResponseBody
 		@RequestMapping(value="/likeSearch", method = RequestMethod.POST)
 		public void likeSongSearch(Model model,HttpSession session,
@@ -446,8 +407,7 @@ public class UserConroller {
 			}
 				
 		}
-		
-		
+			
 		@ResponseBody
 		@RequestMapping(value="/unlikeSearch", method = RequestMethod.POST)
 		public void unlikeSongSearch(Model model,HttpSession session,
@@ -458,7 +418,6 @@ public class UserConroller {
 			try {
 				song = SongDAO.getInstance().getSong(title);
 				LikeDAO.getInstance().removeLikeSong(currentUser.getUserId(), song.getSongId());
-				System.out.println("The song " + song + " was unliked successfully from search page.");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -475,9 +434,7 @@ public class UserConroller {
 			Song visitedSong = (Song) session.getAttribute("songToAddInPlaylist");
 			try {
 				CommentDAO.getInstance().addComment(comment, currentUser.getUserId(), visitedSong.getSongId());
-				System.out.println("tuk sme");
 			} catch (SQLException e) {
-				System.out.println("mina");
 				e.printStackTrace();
 			}	
 		}
@@ -508,7 +465,6 @@ public class UserConroller {
 		
 			User currentUser = (User) session.getAttribute("user");
 			try {
-				System.out.println("UnLaiknahme commenta");
 				CommentDAO.getInstance().removeLikeComment(currentUser.getUserId(), comment_id);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -533,9 +489,7 @@ public class UserConroller {
 			}
 
 		}
-		
-		
-		
+			
 		@ResponseBody
 		@RequestMapping(value="/followSearch", method = RequestMethod.POST)
 		public void followUserSearch(Model model,HttpSession session,
@@ -552,9 +506,7 @@ public class UserConroller {
 			}
 				
 		}
-		
-		
-				
+						
 		@ResponseBody
 		@RequestMapping(value="/unFollow", method = RequestMethod.POST)
 		public void unFollowUser(Model model,HttpSession session){//another unfollow method may be necessary

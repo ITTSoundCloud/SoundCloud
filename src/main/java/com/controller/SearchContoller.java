@@ -44,16 +44,16 @@ public class SearchContoller {
 		
 		User currentUser = (User) session.getAttribute("user");
 		ArrayList<Playlist> playlists = new ArrayList<>();
+		model.addAttribute("word", search_text);
 		
 		try {
-			List<User> users = UserDAO.getInstance().searchForUser(search_text);
+			List<User> users = UserDAO.getInstance().searchForUser(search_text.trim());
 
 			if (currentUser != null) {
 				Map<User,Boolean> mapUsers = new HashMap<>();
 				for(User u : users){
 					mapUsers.put(u,UserConroller.isFollowing(currentUser.getUserId(), u.getUserId()));
 					model.addAttribute("searchedUsers", mapUsers);
-					System.out.println(mapUsers);
 				}		
 			}
 			else{
@@ -72,7 +72,7 @@ public class SearchContoller {
 			return "error";
 		}
 		try {
-			List<Song> songs = SongDAO.getInstance().searchForSong(search_text);
+			List<Song> songs = SongDAO.getInstance().searchForSong(search_text.trim());
 			
 			if (currentUser != null) {
 				Map<Song,Boolean> mapSongs = new HashMap<>();
@@ -97,9 +97,9 @@ public class SearchContoller {
 		}
 
 		try {
-			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+			playlists.addAll(PlaylistDAO.getInstance().searchForPLaylist(search_text.trim()));
 			System.out.println("Playlists?");
-			System.out.println(PlaylistDAO.getInstance().searchForPLaylist(search_text));
+			System.out.println(PlaylistDAO.getInstance().searchForPLaylist(search_text.trim()));
 			model.addAttribute("searchedPlaylists",playlists);
 		} catch (SQLException e) {
 			System.out.println("cant searchForPlaylist./search");
@@ -112,12 +112,10 @@ public class SearchContoller {
 		
 	}
 	
-	
-	
-	@RequestMapping("/welcome")
+		
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String welcome(Model model){
-		
-		
+				
 		try {
 			List<Song> all = SongDAO.getInstance().getAllSongs();
 			Collections.sort(all,new UploadTimeComparator());
@@ -139,9 +137,5 @@ public class SearchContoller {
 		}
 		return "index";
 	}
-			
-	
-		
-	
-	
+				
 }

@@ -111,11 +111,9 @@ $(document).ready(function(e) {
     <div class="song-img"> 
   		<c:choose>
 			<c:when test ="${song.photo.equals('path_of_photo')}">
-<<<<<<< HEAD
+
 				 <img src="<c:url value="http://localhost:8080/scUploads/music.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
-=======
-				 <img src="<c:url value="/static/playlist/music.jpg" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;" >
->>>>>>> 2097a86415eb1018e41d5db68b063c0c32f063f0
+
 			</c:when>
 			<c:otherwise>
 				 <img src="<c:url value="${songPhoto}" />" style="width:240px;height:240px;margin-left:0px;margin-top:50px;;" >									

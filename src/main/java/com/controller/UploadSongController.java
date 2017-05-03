@@ -34,8 +34,7 @@ import com.model.User;
 @MultipartConfig
 public class UploadSongController {
 	
-	private String getThisSong;
-	
+	private String getThisSong;	
 
 	private static final String FILE_LOCATION = "E:"+File.separator+"scUploads"+File.separator + "songs" + File.separator;
 
@@ -53,7 +52,6 @@ public class UploadSongController {
 
 		return "uploadSong";
 	}
-
 
 	@RequestMapping(value="/audio/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
@@ -84,8 +82,6 @@ public class UploadSongController {
 								HttpSession session,Model model) throws IOException{
 		User user = (User)session.getAttribute("user");
 		String username = (String) session.getAttribute("username");
-		System.out.println("vliza3");
-		System.out.println(user.getUserId());
 		File fileOnDisk = new File(FILE_LOCATION + title + ".mp3");
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		getThisSong = multiPartFile.getOriginalFilename();
