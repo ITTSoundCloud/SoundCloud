@@ -45,6 +45,7 @@ public class UploadImageController {
 	public String prepareForUpload(HttpSession session,Model model, @PathVariable(value="username") String username) { 
 		String profilePicToShow = RESOURSES_PATH + username + ".jpg";
 		session.setAttribute("profilePhoto", profilePicToShow);
+		
 		User currentUser = (User) session.getAttribute("user");
 		if (currentUser != null) {
 			try {
@@ -85,12 +86,15 @@ public class UploadImageController {
 			e.printStackTrace();
 			return "error";
 		}
-		if (currentUser.getUserId() == visitedUser.getUserId()) {
-			model.addAttribute("canDeleteSong", true);
+		if (currentUser != null) {
+			if (currentUser.getUserId() == visitedUser.getUserId()) {
+				model.addAttribute("canDeleteSong", true);
+			}
+			else{
+				model.addAttribute("canDeleteSong", false);
+			}
 		}
-		else{
-			model.addAttribute("canDeleteSong", false);
-		}
+		
 		
 		return "uploadNewProfile";
 	}

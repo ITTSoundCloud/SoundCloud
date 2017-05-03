@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 
 import com.model.Song;
 import com.model.User;
@@ -19,7 +21,7 @@ import com.model.User;
 public class UserDAO {
 	
 	private static UserDAO instance;
-	private static Set<User> allUsers;
+	private static Set<User> allUsers = new HashSet<>();
 	
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
@@ -36,9 +38,12 @@ public class UserDAO {
 					+ "VALUES(?,?,?)";
 			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
 			
+			String pw_hash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			System.out.println(pw_hash + "--------===============---------------------");
+			
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getUsername());
-			statement.setString(3, user.getPassword());
+			statement.setString(3, pw_hash);
 
 			int rowsAffected = statement.executeUpdate();
 			if (rowsAffected > 0) {
@@ -51,9 +56,7 @@ public class UserDAO {
 	
 	// get all users
     public Set<User> getAllUsers() throws SQLException {
-    	
-			
-		
+	
         Set<User> users = new HashSet<User>();
         Statement st = null;
         
@@ -85,21 +88,28 @@ public class UserDAO {
 	public boolean isValidLogin(String username, String password){
 		PreparedStatement ps = null;
 		String sql = "SELECT username, password "
-				+ "FROM soundcloud.users WHERE username = ? AND password = ?;";
+				+ "FROM soundcloud.users WHERE username = ?;";
 		try {
 
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		
 			ps.setString(1, username);
-			ps.setString(2, password);
 			
 			ResultSet rs = ps.executeQuery();
-			
+
 			if (!(rs.next())) {
 				System.out.println("Wrong credentials.");
 				return false;
 			}
-
+			else{							
+				String pass = rs.getString("password");
+				boolean isMatchedPass = BCrypt.checkpw(password, pass);
+				System.out.println(isMatchedPass);
+				if (!isMatchedPass) {
+					return false;
+				}
+			}
+			
 		} catch (SQLException e) {
 			System.out.println("User cannot be logged in.");
 		}
@@ -337,9 +347,30 @@ public class UserDAO {
 		}
 	    
 	 
-	 public void addUserToCash(User user){
-		 allUsers.add(user);
+	 public void addUserToCash(User user) throws SQLException{
+		 	Set<User> users = new HashSet<User>();
+	        Statement st = null;
+	        
+	        if (allUsers.isEmpty()) {
+
+	            st = DBManager.getInstance().getConnection().createStatement();
+
+	            ResultSet resultSet = st.executeQuery("SELECT user_id, username, password, email, name, country, description, profilephoto_path FROM soundcloud.users;");
+		            while (resultSet.next()) {
+		                User currentUser = new User(resultSet.getString("username"),
+		                    resultSet.getString("email"), resultSet.getString("password"));
+		                
+		                currentUser.setUserId(resultSet.getInt("user_id"));
+		                currentUser.setProfilePic(resultSet.getString("profilephoto_path"));
+		                currentUser.setCountry(resultSet.getString("country"));
+		                currentUser.setName(resultSet.getString("name"));
+		                currentUser.setBio(resultSet.getString("description"));
+		                users.add(currentUser);
+		            }
+		            
+	            allUsers.add(user);
+	        }
+
+
 	 }
-
-
 }

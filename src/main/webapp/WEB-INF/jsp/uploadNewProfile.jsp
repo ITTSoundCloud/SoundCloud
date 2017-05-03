@@ -43,7 +43,7 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body style="background:#fff;">
+<body style="background:url(http://localhost:8080/scUploads/${genre}.jpg)">
 
 <input type="hidden" id="refresh" value="no">
 
@@ -164,7 +164,7 @@ $(document).ready(function(e) {
 										
 								  <li class="track" style="margin-bottom:-10px;" id="track">
 									      <div class="cover-c">	       
-												<a href="song_${song.title}"><img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="60" height="60"></a>					
+												<a href="song_${song.title}"><img class="song-image" src="<c:url value="http://localhost:8080/scUploads/pics/${song.title}.jpg"/>" alt="" width="60" height="60"></a>					
 										         <span class="titleSong"  style="font-size:13px;"> <c:out value="${song.title}"/> - </span>
 										        <span class="artist" style="font-size:12px;color:#707070;"> <c:out value="${song.title}"/></span>
 										        <c:if test="${!empty sessionScope.user and canDeleteSong}">
@@ -202,14 +202,9 @@ $(document).ready(function(e) {
 			<tbody>
 				<c:forEach items="${followers}" var = "follower">
 				<tr><td>
-				<c:choose>
-				<c:when test="${empty follower.profilePic}">
-					<img style="border-radius:60px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="50" height="50">&nbsp; 	
-					</c:when>
-					<c:otherwise>
-						<img style="border-radius:60px;" src="<c:url value="http://localhost:8080/scUploads/pics/${follower.username}.jpg" />" alt="" width="50" height="50">&nbsp; 
-					</c:otherwise>
-					</c:choose>
+				
+						<img style="border-radius:60px;" src="<c:url value="http://localhost:8080/scUploads/pics/${follower}.jpg" />" alt="" width="50" height="50">&nbsp; 
+				
 					&nbsp;<c:out value=" ${follower}"/>
 				</td></tr>
 				</c:forEach>

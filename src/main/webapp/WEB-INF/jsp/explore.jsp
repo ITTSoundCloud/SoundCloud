@@ -56,7 +56,7 @@ $(document).ready(function(e) {
  	<nav class="navbar navbar-inverse">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
-		           <a class="navbar-brand" href="http://localhost:8080/SoundCloud"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
+		           <a class="navbar-brand" href="http://localhost:8080/SoundCloud/index"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
@@ -71,7 +71,7 @@ $(document).ready(function(e) {
 			      </form>
 			      <ul class="nav navbar-nav navbar-right">
 			       <c:choose>
-			        <c:when test="${empty sessionScope.username}">
+			        <c:when test="${empty sessionScope.user}">
 							<button type="button" onclick="location.href='http://localhost:8080/SoundCloud';" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>

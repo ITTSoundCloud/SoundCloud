@@ -69,7 +69,8 @@ public class UserConroller {
         	user = new User(username, email, password);
         	String code = CodeGenerator.createCode();
         	session.setAttribute("verification", code);
-        	session.setAttribute("currentUser", user);
+        	session.setAttribute("user", user);
+        	session.setAttribute("username", user.getUsername());
             EmailSender.sendSimpleEmail(email, "Verification code for SoundCloud", "Your verification code for Soundcloud is " + code);
             
           
@@ -86,12 +87,12 @@ public class UserConroller {
 		System.out.println((String) session.getAttribute("verification"));
 		if (code.equals(session.getAttribute("verification").toString())) {
 			UserDAO userDAO = UserDAO.getInstance();
-			User userToAdd = (User) session.getAttribute("currentUser");
+			User userToAdd = (User) session.getAttribute("user");
 			try {
 				userDAO.saveUser(userToAdd);
 			
 			userDAO.addUserToCash(userToAdd);
-			return "search1";
+			return "explore";
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -158,13 +159,16 @@ public class UserConroller {
 	public String welcome(
 			@RequestParam(value = "username-login") String username,
 		HttpServletRequest request, Model model, HttpSession session) {
-		
+		System.out.println("kvo stava we maika mu deeba");
 		if (session.getAttribute("user") == null) {					
 		User user;
 		try {
 			user = UserDAO.getInstance().getUser(username);
 			session.setAttribute("user", user);
 			session.setAttribute("username", user.getUsername());
+			session.setAttribute("isFBUser", false);
+			System.out.println("is fb user " + session.getAttribute("isFBUser"));
+			
 		} catch (SQLException e) {
 			System.out.println("cant get user form dao. /login");
 			e.printStackTrace();
@@ -172,9 +176,9 @@ public class UserConroller {
 		}
 			
 		}
-		if (session.getAttribute("user") == null) {
+		/*if (session.getAttribute("user") == null) {
 			return "index";
-		}
+		}*/
 //		 	Set<User> allUsers = UserDAO.getInstance().getAllUsers();
 //		 	List<Song> allSongs = SongDAO.getInstance().getAllSongs();
 //		 	
@@ -214,6 +218,7 @@ public class UserConroller {
 				return "error";
 			}
 			session.setAttribute("isFBUser", false);
+			System.out.println("is fb user " + session.getAttribute("isFBUser"));
 
             return "explore";                                                   
 
@@ -223,8 +228,8 @@ public class UserConroller {
 	@RequestMapping(value="/loginFB", method=RequestMethod.POST)
 	public String fbRegister(Model viewModel,HttpSession session,@RequestParam String last_name,
 			@RequestParam String first_name,@RequestParam String email) {
-		
-		String username = first_name + " " + last_name;
+		System.out.println("vliva li vyv fb?");
+		String username = first_name + " " +last_name;
 		
 		User fbUser = null;
 		try {
@@ -263,6 +268,15 @@ public class UserConroller {
 	        return "index";
 	    }
 	
+
+	 @RequestMapping(value = "/index", method = RequestMethod.GET)
+	    public String index(HttpSession session) { 
+		 System.out.println("vliza li v index?");
+		 System.out.println(session.getAttribute("user"));
+		 
+	        return "index";
+	    }
+
 	 	 
 	@RequestMapping(value = "/sortDate", method= RequestMethod.GET)
 	public String sortByDate(Model model, HttpSession session){
