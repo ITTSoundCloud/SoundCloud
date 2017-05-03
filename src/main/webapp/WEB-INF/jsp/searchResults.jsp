@@ -19,6 +19,8 @@
 <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>  
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Search</title>
@@ -86,8 +88,8 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	 <c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Sign In</button>
-							<button type="submit" class="btn btn-warning">Create account</button>
+							<button type="button" id="buttonLogin" class="btn btn-success">Sign In</button>
+							<button type="submit" id="buttonReg" class="btn btn-warning">Create account</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
@@ -209,8 +211,7 @@ $(document).ready(function(e) {
 									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
 									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>					
 							</c:when>
-							<c:otherwise>
-							
+							<c:otherwise>		
 									<a href="profile_${entry.key.username }"><img class=""  style="border-radius:80px;" src="http://localhost:8080/scUploads/pics/${entry.key.username }.jpg" alt="" width="140" height="140"></a>
 									<b><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.username}" /> ,</h5></b></br></br>
 									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.username}" /></h5>								
@@ -251,27 +252,23 @@ $(document).ready(function(e) {
 						    <li class="track" id="tracka" style="margin:1rem 10rem 8rem 1rem;margin-left:-35px;">
 						      <div class="cover">
 						        <c:choose>
-									<c:when test ="${empty entry.key.title}">
-									</br>	
-											<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a></br>
-									<h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.title}" /> ,</h5></br></br>
-									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>					
-							
-											
+									<c:when test ="${empty entry.key.photo}">
+										</br>	
+										<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/music.jpg" />" alt="" width="120" height="120"></a></br>
+										<h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.title}" /> ,</h5></br></br>
+										<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>										
 									</c:when>
 									<c:otherwise>
-	
-											<a href="song_${entry.key.title }"><img class="" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
-											<div class="info" style="margin-left:140px;margin-top:-110px;width:100px">
-						        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
-						        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
-						      </div>
-																	</c:otherwise>
-									</c:choose>
-									 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
-						      </div>
-						     
-						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
+									  <a href="song_${entry.key.title }"><img class="" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${entry.key.title}.jpg"/>" alt="" width="120" height="120"></a>
+									  <div class="info" style="margin-left:140px;margin-top:-110px;width:140px">
+								        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
+								        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
+						     		  </div>
+									</c:otherwise>
+								</c:choose>
+								<button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
+						      </div>   
+						     <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
 						    </li>
 						  </ul>
 						  </td>	  
@@ -303,10 +300,9 @@ $(document).ready(function(e) {
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
 						<td>
-								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
-								<div class="oh" style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>
-								
-								<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
+						<a href="profile_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
+						<div style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>		
+								<h5 style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
 						</div>
 							</td>
 							<td><c:choose>
@@ -319,7 +315,6 @@ $(document).ready(function(e) {
 							</c:choose>
 							</td>
 							<td>
-							
 							</td>
 						</tr>
 						</c:forEach>
@@ -334,17 +329,12 @@ $(document).ready(function(e) {
 					<thead>
 						<tr>
 							<h5 style="color:rgba(0,0,0,0.5);"><c:out value="${searchedSongs.size()}"/> songs</h5>
-
 						</tr>
 					</thead>
 					<c:if test="${empty searchedSongs}">
-						<h1 id="showSecond">No results</h1>
+						<h5 id="showSecond">No songs found.</h5>
 					</c:if>
 				<tbody>
-				
-				
-				
-				
 				<c:forEach items="${searchedSongs}" var="entry">
 						<tr>
 						<div class="main" style="margin-top:10px;">
@@ -352,25 +342,22 @@ $(document).ready(function(e) {
 						  <ul>
 						    <li class="track" id="tracka" style="margin:1rem 10rem 8rem 1rem;margin-left:-35px;">
 						      <div class="cover">
-						        <c:choose>
-									<c:when test ="${empty entry.key.title}">
+						       <c:choose>
+								<c:when test ="${empty entry.key.photo}">
 									</br>	
-											<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a></br>
+									<a href="song_${entry.key.title }"><img class="song-image" style="border-radius:80px;" src="<c:url value="/static/playlist/music.jpg" />" alt="" width="120" height="120"></a></br>
 									<h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-user" style="margin-right:5px;color:#909090;"></i><c:out value="${entry.key.title}" /> ,</h5></br></br>
-									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>					
-							
-											
-									</c:when>
-									<c:otherwise>
-	
-								<a href="song_${entry.key.title }"><img class="" src="<c:url value="/static/playlist/default.png" />" alt="" width="120" height="120"></a>
-								<div class="info" style="margin-left:140px;margin-top:-110px;width:100px">
+									<h5  style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;"><c:out value="${entry.key.title}" /></h5>									
+							</c:when>
+							<c:otherwise>
+								<a href="song_${entry.key.title }"><img class="" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${entry.key.title}.jpg"/>" alt="" width="120" height="120"></a>
+								<div class="info" style="margin-left:140px;margin-top:-110px;width:140px">
 						        <span class="titleSong" style=";color:#606060;font-size:15px;font-weight: bold;"><i class= "fa fa-headphones"> </i> <c:out value="${entry.key.title}"/> , </span>
 						        <span class="artist" style="font-size:13px;color:#909090;margin-left:20px;"><c:out value="${entry.key.artist}"/></span>
 						      </div>
-																	</c:otherwise>
-									</c:choose>
-									 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
+							</c:otherwise>
+						</c:choose>
+							  <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>
 						      </div>
 						     
 						      <audio src="http://localhost:8080/scUploads/songs/${entry.key.title}.mp3"></audio>
@@ -383,7 +370,7 @@ $(document).ready(function(e) {
 								<h6 style="margin-top:55px;"><i>No description</i></h6>
 							</c:when>
 							<c:otherwise>
-									<h6 style="margin-top:55px;"><c:out value="${entry.key.about}"/></h6>
+									<h6 style="margin-top:55px;"><i><c:out value="${entry.key.about}"/></i></h6>
 									<a href="#"></a>
 								</c:otherwise>
 							</c:choose>
@@ -401,23 +388,21 @@ $(document).ready(function(e) {
 							</c:if>
 							</td>
 						</tr>
-						</c:forEach>
-	
-					
+						</c:forEach>			
 						</tbody>
 					</table>		
 				</div>
-			</div>
-			
+			</div>			
 			<div class="col-md-9" id="showThird"  style="display:none">
+				<h3> You searched for ' ${word } '</h3></br>
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							
+							<h5 style="color:rgba(0,0,0,0.5);"><c:out value="${searchedUsers.size()}"/> users</h5>
 						</tr>
 					</thead>
 						 <c:if test="${empty searchedUsers}">
-							<h1>No results</h1>
+							<h5>No users found.</h5>
 						</c:if>
 					<tbody>
 					<c:forEach items="${searchedUsers}" var="entry">
@@ -466,37 +451,35 @@ $(document).ready(function(e) {
 				</table>
 			</div>
 			<div id="showForth"  style="display:none">
-			<div class="col-md-9">
+			<h3> You searched for ' ${word } '</h3></br>
 				<table class="table table-list-search">
 					<thead>
 						<tr>
-							<th><i>Playlist</i></th>
-							<th><i>Some info here</i></th>
-							<th><i>...</i></th>
+							<h5 style="color:rgba(0,0,0,0.5);"><c:out value="${searchedPlaylists.size()}"/> plsylists</h5>
 						</tr>
 					</thead>
 						 <c:if test="${empty searchedPlaylists}">
-							<h1>No results</h1>
+							<h5>No playlists found.</h5>
 						</c:if>
 					<tbody>
 						<c:forEach items="${searchedPlaylists}" var="playlist">
 						<tr>
 						<td>
-								<a href="profile_${playlist.username}"><img class="" src="<c:url value="/static/playlist/photo.png" />" alt="" width="120" height="120"></a>
-								<h6 style="font-size:15px;"><c:out value="${playlist.title}"/></h6>
-								<h6 style="color:#707070;"> playlist of <c:out value="${playlist.username}"/></h6>
+						<a href="profile_${playlist.playlistId}"><img class="" src="<c:url value="/static/playlist/photo.png" />" style="margin:1rem 2rem 7rem 1rem;" alt="" width="140" height="140"></a>
+						<div style="margin-top:-90px;"><h5  style="margin-left: 160px;margin-top: -120px;color:#606060;font-size:15px;font-weight: bold;"><i class = "fa fa-play" style="margin-right:5px;color:#909090;"></i><c:out value="${playlist.title}" /> ,</h5></b></br></br>		
+								<h5 style="margin-left: 178px;margin-top: -45px;color:#909090;font-size:13px;">Playlist of <c:out value="${playlist.username}" /></h5>								
+						</div>
 							</td>
 							<td><c:choose>
 							<c:when test ="${empty playlist.description}">
-								<h6 style="margin-top:55px;" >No description</h6>
+								<h6 style="margin-top:55px;" ><i>No description</i></h6>
 							</c:when>
 							<c:otherwise>
-									<h6 style="margin-top:55px;"><c:out value="${playlist.description}"/></h6>
+									<h6 style="margin-top:55px;"><i><c:out value="${playlist.description}"/></i></h6>
 								</c:otherwise>
 							</c:choose>
 							</td>
 							<td>
-							
 							</td>
 						</tr>
 						</c:forEach>
@@ -558,7 +541,6 @@ $('button.play').live('click', function(e){
     e.preventDefault();   
     $button = $(this);
     var x = $(this).attr("target");
-    alert(x),
     	 $.post("timesPlayed",
     		  {
     		    	songId:x,

@@ -11,7 +11,6 @@
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/static/css/style1.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/static/css/css1.css" />" rel="stylesheet" type="text/css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js" type ="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.timeline.min.js" type ="text/javascript"></script>
 <script src="<c:url value="/static/js/wavesurfer.min.js" />"  type ="text/javascript"></script>
@@ -21,6 +20,8 @@
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.2.0.js" type = "text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 
 <style type="text/css">
 .list-group-item {
@@ -111,8 +112,8 @@ $(document).ready(function(e) {
 			  </div><!-- /.container-fluid -->
 		</nav>
             
-	<h3 style="margin-left:120px;margin-bottom:-33px;margin-top:50px;"><i class="fa fa-play"></i> <c:out value="${playlist.name}"></c:out>Playlist by</h3>
-	<h3 style="margin-left:180px;margin-bottom:-33px;font-size:16px;margin-top:40px;color:#707070;"><b>${playlist.username}borko123</b></h3>
+			<h3 style="margin-left:120px;margin-bottom:-33px;margin-top:50px;"><i class="fa fa-play"></i> <c:out value="${playlist.title}"></c:out>Playlist by</h3>
+			<h3 style="margin-left:180px;margin-bottom:-33px;font-size:16px;margin-top:40px;color:#707070;"><b>${playlist.username}borko123</b></h3>
            <div class="container" style="background:url(http://59.160.153.185/iyff/iyff2014/iyff/sites/default/files/banner-text-bg_1.png) no-repeat;margin-top:20px;width:1900px;height:190px;">
 
         <!-- Song Name & Song Title-->
@@ -129,19 +130,36 @@ $(document).ready(function(e) {
                             " alt="" style="margin-left:70px;" width="180" height="180">
  		   </div>
 		
-           <h5 style="margin-left:340px;font-size:17px;margin-top:30px;color:#707070"><i class="fa fa-headphones"></i> ${songsInPlaylist.size()} Tracks</h5>
+           <h5 style="margin-left:370px;font-size:17px;margin-top:30px;color:#707070"><i class="fa fa-headphones"></i> ${songsInPlaylist.size()} Tracks</h5>
            <hr>
-           <div class="description" style="width:250px;float:left;margin-left:130px;">
-            <h4>Desciption</h4>
-           	<h5>very good playlist love it very muchsajdskjdksja lfjsdlk fjsdkgjsd gfjg  jdsksjfdskfd kjdskf</h5>
+           <div class="description" style="width:240px;float:left;margin-left:130px;">
+            <h4 style="margin-top:20px;">Desciption</h4>
+            <c:choose>
+	            <c:when test="${not empty playlist.description}">
+	          	 	<h5><c:out value="${playlist.description}" /></h5>
+	           	</c:when>
+	           	<c:otherwise>
+	           	  <h5>No description.</h5>      	
+	           	</c:otherwise>
+           	</c:choose>
            </div>
-           <div class="list-group" id="playlist">
+           <div class="list-group" id="playlist" style="margin-left:60px;">
+          
+          	 <c:if test="${songsInPlaylist.size()>0}">
                 <c:forEach items="${songsInPlaylist}" var="song">
-	                <a href="http://localhost:8080/scUploads/songs/Arabella.mp3" class="list-group-item">
-	                       <img class="song-image" src="http://www.taxileeds.co.uk/wp-content/uploads/2012/09/orange-fade.gif" alt="" width="30" height="30">
-	                       <span class="badge">0:21</span>
+	                <a href="http://localhost:8080/scUploads/songs/${song.title}.mp3" class="list-group-item">
+				        <c:choose>
+				    	<c:when test="${not empty song.photo}">
+				            <img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="30" height="30">
+				    	</c:when>
+				        <c:otherwise>
+				        	   <img src="<c:url value="/static/playlist/music.jpg"/>"  width=200px; height = 200px; alt="" />	        
+				        </c:otherwise>
+				        </c:choose>        
+	                   <c:out value="${song.title}"></c:out> - <c:out value="${song.artist}"></c:out>
 	                 </a>
                  </c:forEach>
+              </c:if>
        	  </div>
 
 

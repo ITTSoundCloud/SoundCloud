@@ -266,10 +266,7 @@
       <input type="text" id="username-login" name="username-login" required maxlength="35">
       <label for="password">Password:</label>
       <input type="password" id="password-login" name="password-login" required maxlength="35">
-      <p class="check-mark">
-        <input type="checkbox" id="remember-me">
-        <label for="remember-me">Remember me</label>
-      </p>
+    
       <input type="submit" style="width:89%;height:40px;background:rgba(255,82,0,0.7);margin-top:15px;color:#fff;font-size:17px;" id="submit-login" value="Submit-login" onclick="validateLogin()">      
     </form>
     <form action="/SoundCloud/register" class="register" method="post" name="myForm" id="myForm"  onsubmit="return validateRequest()">
@@ -309,31 +306,29 @@
     <input type="text" id="search-bar" name="search_text" placeholder="Search for your favourite music now!" maxlength="45">
     <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
   </form>
-
       <h5>Hear what’s trending for free in the SoundCloud community</h5>
       <div class="main">
   <ul>
+  <c:forEach items="${mostPlayed}" var="song">
     <li class="track">
       <div class="cover">
-        <img src="https://geo-media.beatport.com/image/8105032.jpg" alt="" />
+ 		 <c:choose>
+			<c:when test="${not empty song.photo}">
+				 <img class="song-image" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="30" height="30">
+			</c:when>
+			<c:otherwise>
+				   <img src="<c:url value="/static/playlist/music.jpg"/>"  width=180px; height = 180px; alt="" />	        
+			</c:otherwise>
+		</c:choose>           
+		 <button target="${entry.key.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>     
       </div>
       <div class="info">
-        <span class="titleSong">Wake Me Up</span>
-        <span class="artist">Avicii</span>
+        <span class="titleSong"><c:out value="${song.title}"></c:out></span>
+        <span class="artist"><c:out value="${song.artist}"></c:out></span>
       </div>
-      <audio src="https://geo-samples.beatport.com/lofi/4702236.LOFI.mp3"></audio>
+      <audio src="https://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
     </li>
-    <li class="track">
-       <div class="cover">
-        <img src="https://geo-media.beatport.com/image/10708239.jpg" alt="" />
-      </div>
-      <div class="info">
-        <span class="titleSong">Levels</span>
-        <span class="artist">Avicii</span>
-      </div>
-      <audio src="http://a805.phobos.apple.com/us/r1000/071/Music/3b/2d/ac/mzm.wtdviygy.aac.p.m4a"></audio>
-      
-    </li>
+    </c:forEach>
   </ul>
 </div>
     </div>

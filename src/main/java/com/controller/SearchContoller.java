@@ -33,7 +33,7 @@ import com.model.User;
 @Controller
 public class SearchContoller {
 	
-	private static final String WELCOME_VIEW = "verify";
+	private static final String WELCOME_VIEW = "search";
 	
 	
 

@@ -11,11 +11,11 @@
 <link href="<c:url value="/static/css/miniPlayer.css" />" rel="stylesheet" type="text/css">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/static/css/miniPlayerLikes.css" />" rel="stylesheet" type="text/css">
-
 <script src="<c:url value="/static/js/player1.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/player2.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/playerReal.js" />"  type ="text/javascript"></script>
 <script src="<c:url value="/static/js/bootstrap.js" />"  type ="text/javascript"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
   
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,9 +30,9 @@ $(document).ready(function(e) {
 </script>
 
 </head>
-<body>
+<body style="background:url(http://localhost:8080/scUploads/genres/${genre}.jpg);background-size:1400px 950px;">
 <input type="hidden" id="refresh" value="no">
-	  <nav class="navbar navbar-inverse">
+	  <nav class="navbar navbar-inverse" >
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		           <a class="navbar-brand" href="#"><img src="https://www.wired.com/wp-content/uploads/2016/02/Soundcloud-icon-2-1200x630.jpg" width=100px height=52px /></a>
@@ -50,7 +50,7 @@ $(document).ready(function(e) {
 			      <ul class="nav navbar-nav navbar-right">
 			        <c:choose>
 			        	 <c:when test="${empty sessionScope.username}">
-							<button type="button" class="btn btn-success">Go Back to Sign In</button>
+							<button type="button" href="http://localhost:8080/SoundCloud" class="btn btn-success">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
@@ -73,37 +73,45 @@ $(document).ready(function(e) {
 
   	<header></header>
   	
-  	<div class="container-fluid">
+  	<div class="container-fluid" style="vertical-align:middle;">
 	  <div class="side-body">
 			   <div class="col-md-9">
-			     <h3><c:out value="${genre}"/> </h3>
-				
+
+	<tr>
+	<h3 style="font-size:26px;color:#fff;margin-left:60px;margin-bottom:-10px;"><i class="fa fa-cloud" style="color:#fff"></i> <c:out value="${genre}"/></h3>
+	<hr>
+				   
 					<c:if test="${empty songsGenre}">
-						<h5>No songs for this genre</h5>
+						<h5>No songs for this genre.</h5>
 					</c:if>
 			
-						<tr>
-							<h3 style="font-size:26px;color:rgba(0,0,0,0.8);margin-left:60px;margin-bottom:-30px;"><i class="fa fa-cloud" style="color:#707070"></i> Enjoy our most listened</h3>
-		<hr>
 	<div class="main">
+	<c:if test="${not empty songsGenre}">	
 	  <ul>
-	  <c:forEach items="${sessionScope.songs}" var="song">
+	  <c:forEach items="${songsGenre}" var="song">
 	    <li class="track">
 	       <div class="cover">
-	          <span class="artist" style="font-size:15px;color:#707070;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
-	         <span class="titleSong" style="font-size:18px;margin-left:25px;"><c:out value="${song.title }"/></span>
-	    
-	        <img src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg"  width=200px; height = 200px; alt="" />
+	          <span class="artist" style="font-size:15px;color:#fff;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
+	         <span class="titleSong" style="font-size:18px;margin-left:25px;color:#ccc"><c:out value="${song.title }"/></span>
+	    	<c:choose>
+	    	<c:when test="${not empty song.photo}">
+	    		 <img src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>"  width=200px; height = 200px; alt="" />
+	    	</c:when>
+	        <c:otherwise>
+	        	  <img src="<c:url value="/static/playlist/music.jpg"/>"  width=200px; height = 200px; alt="" />	        
+	        </c:otherwise>
+	        </c:choose>
 	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
 	      </div>
 	      <div class="info" style="margin-top:10px;">
-	       	<i class="fa fa-heart" id="inLikes"></i> <c:out value="${song.likes }"/>
+	       	<i class="fa fa-heart" style="color:#ccc;" id="inLikes"></i> <c:out value="${song.likes }"/>
 	      </div>
 	      <audio src="http://localhost:8080/scUploads/songs/${song.title}.mp3"></audio>
 	    </li> 
 	     </c:forEach>
 	     <hr>
 	  </ul>
+	  </c:if>
 	</div>
 </div>
 						

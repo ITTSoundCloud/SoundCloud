@@ -139,9 +139,16 @@ $(document).ready(function(e) {
 	       <div class="cover">
 	          <span class="artist" style="font-size:15px;color:#707070;margin-left:25px;"><c:out value="${song.artist }"/></span></br>
 	         <span class="titleSong" style="font-size:18px;margin-left:25px;"><c:out value="${song.title }"/></span>
-	    
-	        <img src="https://images.genius.com/1264a0304746875bdcbb1cfcdd5712cd.360x360x1.jpg"  width=200px; height = 200px; alt="" />
-	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"><path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
+	    	<c:choose>
+	      	 <c:when test="${not empty song.photo}">
+	    		 <img src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>"  width=200px; height = 200px; alt="" />
+	    	</c:when>
+	        <c:otherwise>
+	        	   <img src="<c:url value="/static/playlist/music.jpg"/>"  width=200px; height = 200px; alt="" />	        
+	        </c:otherwise>
+	        </c:choose>
+	        <button target="${song.songId}" class="play" id="button6"></button><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+	        <path id="circle" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M50,2.9L50,2.9C76,2.9,97.1,24,97.1,50v0C97.1,76,76,97.1,50,97.1h0C24,97.1,2.9,76,2.9,50v0C2.9,24,24,2.9,50,2.9z" stroke-dasharray="295.9578552246094" stroke-dashoffset="295.94758849933095"></path></svg>        
 	      </div>
 	      <div class="info" style="margin-top:10px;">
 	       	<i class="fa fa-heart" id="inLikes"></i> <c:out value="${song.likes }"/>
@@ -176,7 +183,7 @@ $(document).ready(function(e) {
 					<c:if test="${empty songs}">
 						<h5>No uploaded songs.</h5>
 					</c:if>
-				<tbody>
+					<tbody>
 					<c:forEach items="${sessionScope.songs}" var="song">
 						<tr>
 						<div class="main-d">
@@ -186,13 +193,13 @@ $(document).ready(function(e) {
 						      <div class="cover-d">
 						        <c:choose>
 									<c:when test ="${empty song.photo}">
-										<a href="www.google.com"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="80" height="80"></a>
+										<a href="www.google.com"><img class="" src="<c:url value="/static/playlist/music.jpg"/>"  alt="" width="80" height="80"></a>
 										 <span class="titleSong" style="font-size:15px;margin-left:25px;"><c:out value="${song.title }"/> - </span>				
 										 <span class="artist" style="font-size:15px;color:#707070;margin-left:5px;"><c:out value="${song.artist }"/></span>
 										<c:out value="${song.title}"/>
 									</c:when>
 									<c:otherwise>
-										<a href="song_${song.title}"><img class="" src="http://a10.gaanacdn.com/images/artists/21/140721/crop_175x175_140721.jpg" alt="" width="80" height="80"></a>
+										<a href="song_${song.title}"><img class="" src="<c:url value="http://localhost:8080/scUploads/songsphotos/${song.title}.jpg"/>" alt="" width="80" height="80"></a>
 									<span class="titleSong" style="font-size:15px;margin-left:25px;"><c:out value="${song.title }"/> - </span>
 										 <span class="artist" style="font-size:15px;color:#707070;margin-left:5px;"><c:out value="${song.artist }"/></span>
 									</c:otherwise>
@@ -221,18 +228,7 @@ $(document).ready(function(e) {
 								</c:choose>
 								</td>
 								<td>
-								<!-- TODO -->
-								<c:if test="${not empty sessionScope.username}">
-									<c:choose>
-									
-									  <c:when test="${!entry.value}">
-											<button class="btn likeButton" target="${song.title }" rel="6"><i class="fa fa-heart"></i> Like</button>
-										</c:when>
-										<c:otherwise>
-											<button class="btn likeButton liked" target="${song.title }" rel="6"><i class="fa fa-heart"></i> Unlike</button>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
+			
 								</td>	
 							</tr>	
 						  </c:forEach>
@@ -244,9 +240,8 @@ $(document).ready(function(e) {
 			</div>
 			
 	       </c:otherwise>
-	       </c:choose>
+	   </c:choose>
 	 
-	<!-- TODO map! -->
 <c:set var="genres" scope="request" value="${genres}"/>
 	<c:if test="${!type.equals('likes') and !type.equals('date') or empty type}">
 	<div id="genres" style="display:block">
