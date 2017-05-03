@@ -91,7 +91,7 @@ $(document).ready(function(e) {
 			        <c:choose>
 						 <c:when test="${empty sessionScope.username}">
 						 	<span class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></span>						
-							<button type="button" class="btn btn-success">Go Back to Sign In</button>
+							<button type="button" class="btn btn-success" onclick="location.href='http://localhost:8080/SoundCloud';">Go Back to Sign In</button>
 						</c:when>
 						<c:otherwise>
 							<li><a href="http://localhost:8080/SoundCloud/songUpload">Upload</a></li>
